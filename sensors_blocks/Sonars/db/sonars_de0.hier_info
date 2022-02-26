@@ -1,0 +1,438 @@
+|sonar_FSM
+clk => clk.IN1
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+Trigger => Selector3.IN1
+Trigger => Selector2.IN1
+Trigger => Selector1.IN2
+Trigger => Selector0.IN2
+Echo => nextstate.DATAA
+Echo => nextstate.DATAA
+distance[0] << sonar:Sonar01.port2
+distance[1] << sonar:Sonar01.port2
+distance[2] << sonar:Sonar01.port2
+distance[3] << sonar:Sonar01.port2
+distance[4] << sonar:Sonar01.port2
+distance[5] << sonar:Sonar01.port2
+distance[6] << sonar:Sonar01.port2
+distance[7] << sonar:Sonar01.port2
+distance[8] << sonar:Sonar01.port2
+distance[9] << sonar:Sonar01.port2
+distance[10] << sonar:Sonar01.port2
+distance[11] << sonar:Sonar01.port2
+distance[12] << sonar:Sonar01.port2
+distance[13] << sonar:Sonar01.port2
+Flags[0] << Flags[0].DB_MAX_OUTPUT_PORT_TYPE
+Flags[1] << Flags.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01
+clk => DistanceCompteurRegister[0].CLK
+clk => DistanceCompteurRegister[1].CLK
+clk => DistanceCompteurRegister[2].CLK
+clk => DistanceCompteurRegister[3].CLK
+clk => DistanceCompteurRegister[4].CLK
+clk => DistanceCompteurRegister[5].CLK
+clk => DistanceCompteurRegister[6].CLK
+clk => DistanceCompteurRegister[7].CLK
+clk => DistanceCompteurRegister[8].CLK
+clk => DistanceCompteurRegister[9].CLK
+clk => DistanceCompteurRegister[10].CLK
+clk => DistanceCompteurRegister[11].CLK
+clk => DistanceCompteurRegister[12].CLK
+clk => DistanceCompteurRegister[13].CLK
+clk => DividerCompteurRegister[0].CLK
+clk => DividerCompteurRegister[1].CLK
+clk => DividerCompteurRegister[2].CLK
+clk => DividerCompteurRegister[3].CLK
+clk => DividerCompteurRegister[4].CLK
+reset => reset.IN1
+distance[0] <= myLatch:ML10.out_value
+distance[1] <= myLatch:ML10.out_value
+distance[2] <= myLatch:ML10.out_value
+distance[3] <= myLatch:ML10.out_value
+distance[4] <= myLatch:ML10.out_value
+distance[5] <= myLatch:ML10.out_value
+distance[6] <= myLatch:ML10.out_value
+distance[7] <= myLatch:ML10.out_value
+distance[8] <= myLatch:ML10.out_value
+distance[9] <= myLatch:ML10.out_value
+distance[10] <= myLatch:ML10.out_value
+distance[11] <= myLatch:ML10.out_value
+distance[12] <= myLatch:ML10.out_value
+distance[13] <= myLatch:ML10.out_value
+overflow <= full_adder14:FA140.c_out
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50
+a[0] => a[0].IN1
+a[1] => a[1].IN1
+a[2] => a[2].IN1
+a[3] => a[3].IN1
+a[4] => a[4].IN1
+b[0] => b[0].IN1
+b[1] => b[1].IN1
+b[2] => b[2].IN1
+b[3] => b[3].IN1
+b[4] => b[4].IN1
+c_in => c_in.IN1
+sum[0] <= full_adder_1_bit:FA0.sum
+sum[1] <= full_adder_1_bit:FA1.sum
+sum[2] <= full_adder_1_bit:FA2.sum
+sum[3] <= full_adder_1_bit:FA3.sum
+sum[4] <= full_adder_1_bit:FA4.sum
+c_out <= full_adder_1_bit:FA4.c_out
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50|full_adder_1_bit:FA0
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50|full_adder_1_bit:FA1
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50|full_adder_1_bit:FA2
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50|full_adder_1_bit:FA3
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder5:FA50|full_adder_1_bit:FA4
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140
+a[0] => a[0].IN1
+a[1] => a[1].IN1
+a[2] => a[2].IN1
+a[3] => a[3].IN1
+a[4] => a[4].IN1
+a[5] => a[5].IN1
+a[6] => a[6].IN1
+a[7] => a[7].IN1
+a[8] => a[8].IN1
+a[9] => a[9].IN1
+a[10] => a[10].IN1
+a[11] => a[11].IN1
+a[12] => a[12].IN1
+a[13] => a[13].IN1
+b[0] => b[0].IN1
+b[1] => b[1].IN1
+b[2] => b[2].IN1
+b[3] => b[3].IN1
+b[4] => b[4].IN1
+b[5] => b[5].IN1
+b[6] => b[6].IN1
+b[7] => b[7].IN1
+b[8] => b[8].IN1
+b[9] => b[9].IN1
+b[10] => b[10].IN1
+b[11] => b[11].IN1
+b[12] => b[12].IN1
+b[13] => b[13].IN1
+sum[0] <= full_adder8:FA80.sum
+sum[1] <= full_adder8:FA80.sum
+sum[2] <= full_adder8:FA80.sum
+sum[3] <= full_adder8:FA80.sum
+sum[4] <= full_adder8:FA80.sum
+sum[5] <= full_adder8:FA80.sum
+sum[6] <= full_adder8:FA80.sum
+sum[7] <= full_adder8:FA80.sum
+sum[8] <= full_adder5:FA50.sum
+sum[9] <= full_adder5:FA50.sum
+sum[10] <= full_adder5:FA50.sum
+sum[11] <= full_adder5:FA50.sum
+sum[12] <= full_adder5:FA50.sum
+sum[13] <= full_adder_1_bit:FA0.sum
+c_in => c_in.IN1
+c_out <= full_adder_1_bit:FA0.c_out
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80
+a[0] => a[0].IN1
+a[1] => a[1].IN1
+a[2] => a[2].IN1
+a[3] => a[3].IN1
+a[4] => a[4].IN1
+a[5] => a[5].IN1
+a[6] => a[6].IN1
+a[7] => a[7].IN1
+b[0] => b[0].IN1
+b[1] => b[1].IN1
+b[2] => b[2].IN1
+b[3] => b[3].IN1
+b[4] => b[4].IN1
+b[5] => b[5].IN1
+b[6] => b[6].IN1
+b[7] => b[7].IN1
+c_in => c_in.IN1
+sum[0] <= full_adder_1_bit:FA0.sum
+sum[1] <= full_adder_1_bit:FA1.sum
+sum[2] <= full_adder_1_bit:FA2.sum
+sum[3] <= full_adder_1_bit:FA3.sum
+sum[4] <= full_adder_1_bit:FA4.sum
+sum[5] <= full_adder_1_bit:FA5.sum
+sum[6] <= full_adder_1_bit:FA6.sum
+sum[7] <= full_adder_1_bit:FA7.sum
+c_out <= full_adder_1_bit:FA7.c_out
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA0
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA1
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA2
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA3
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA4
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA5
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA6
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder8:FA80|full_adder_1_bit:FA7
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50
+a[0] => a[0].IN1
+a[1] => a[1].IN1
+a[2] => a[2].IN1
+a[3] => a[3].IN1
+a[4] => a[4].IN1
+b[0] => b[0].IN1
+b[1] => b[1].IN1
+b[2] => b[2].IN1
+b[3] => b[3].IN1
+b[4] => b[4].IN1
+c_in => c_in.IN1
+sum[0] <= full_adder_1_bit:FA0.sum
+sum[1] <= full_adder_1_bit:FA1.sum
+sum[2] <= full_adder_1_bit:FA2.sum
+sum[3] <= full_adder_1_bit:FA3.sum
+sum[4] <= full_adder_1_bit:FA4.sum
+c_out <= full_adder_1_bit:FA4.c_out
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50|full_adder_1_bit:FA0
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50|full_adder_1_bit:FA1
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50|full_adder_1_bit:FA2
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50|full_adder_1_bit:FA3
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder5:FA50|full_adder_1_bit:FA4
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|full_adder14:FA140|full_adder_1_bit:FA0
+a => sum.IN0
+a => c_out.IN0
+b => sum.IN1
+b => c_out.IN1
+c_in => sum.IN1
+c_in => c_out.IN1
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|sonar_FSM|sonar:Sonar01|myLatch:ML10
+in_value[0] => out_value[0]~reg0.DATAIN
+in_value[1] => out_value[1]~reg0.DATAIN
+in_value[2] => out_value[2]~reg0.DATAIN
+in_value[3] => out_value[3]~reg0.DATAIN
+in_value[4] => out_value[4]~reg0.DATAIN
+in_value[5] => out_value[5]~reg0.DATAIN
+in_value[6] => out_value[6]~reg0.DATAIN
+in_value[7] => out_value[7]~reg0.DATAIN
+in_value[8] => out_value[8]~reg0.DATAIN
+in_value[9] => out_value[9]~reg0.DATAIN
+in_value[10] => out_value[10]~reg0.DATAIN
+in_value[11] => out_value[11]~reg0.DATAIN
+in_value[12] => out_value[12]~reg0.DATAIN
+in_value[13] => out_value[13]~reg0.DATAIN
+tic => out_value[0]~reg0.CLK
+tic => out_value[1]~reg0.CLK
+tic => out_value[2]~reg0.CLK
+tic => out_value[3]~reg0.CLK
+tic => out_value[4]~reg0.CLK
+tic => out_value[5]~reg0.CLK
+tic => out_value[6]~reg0.CLK
+tic => out_value[7]~reg0.CLK
+tic => out_value[8]~reg0.CLK
+tic => out_value[9]~reg0.CLK
+tic => out_value[10]~reg0.CLK
+tic => out_value[11]~reg0.CLK
+tic => out_value[12]~reg0.CLK
+tic => out_value[13]~reg0.CLK
+out_value[0] <= out_value[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[1] <= out_value[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[2] <= out_value[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[3] <= out_value[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[4] <= out_value[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[5] <= out_value[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[6] <= out_value[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[7] <= out_value[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[8] <= out_value[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[9] <= out_value[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[10] <= out_value[10]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[11] <= out_value[11]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[12] <= out_value[12]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_value[13] <= out_value[13]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

@@ -1,0 +1,44 @@
+//==============================
+// Diego Lannoye Homework 3
+//===============================
+
+module Sonar (
+input  logic clk,
+input  logic reset,
+input  logic set,
+output logic [13:0] distance);
+
+logic [4:0] DividerCompteur;
+logic  		DividerCompteurPulse;
+
+logic [4:0]  DividerCompteurRegister;
+logic [13:0] DistanceCompteurRegister;
+
+logic c5_out;
+logic c14_out;
+
+logic DividerCompteurReset;
+
+//compteur 5 bits
+full_adder5 FA50 (.a(DividerCompteurRegister[4:0]) , .b(4'b1),  .c_in(1'b0),  .c_out(c5_out), .sum(DividerCompteur[4:0]));
+
+//compteur 14 bits
+full_adder8 FA140 (.a(DistanceCompteurRegister[13:0]) , .b(13'b1),  .c_in(1'b0),  .c_out(c14_out), .sum(distance[13:0]));
+
+
+	
+	
+always_ff @ (posedge DividerCompteurPulse )	
+	if (reset) DistanceCompteurRegister <= 14'b0;
+	else DistanceCompteurRegister <= distance;
+	
+	
+ 
+// comb /!\ ici l ordre compte assignement blocan & utilisation de = 
+always_comb 
+	if (DividerCompteurRegister == 5'd29)  DividerCompteurPulse = 1'b1;
+	if (DividerCompteurPulse) DividerCompteurPulse  = 1'b0;
+	DividerCompteurReset = reset || DividerCompteurPulse;
+
+endmodule 
+ 

@@ -1,0 +1,2189 @@
+// Copyright (C) 2018  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
+
+// DATE "02/23/2022 23:04:18"
+
+// 
+// Device: Altera EP4CE22F17C6 Package FBGA256
+// 
+
+// 
+// This Verilog file should be used for ModelSim-Altera (SystemVerilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module sonar_FSM (
+	clk,
+	reset,
+	Trigger,
+	Echo,
+	distance,
+	Flags);
+input 	clk;
+input 	reset;
+input 	Trigger;
+input 	Echo;
+output 	[13:0] distance;
+output 	[1:0] Flags;
+
+// Design Ports Information
+// distance[0]	=>  Location: PIN_L7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[1]	=>  Location: PIN_T5,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[2]	=>  Location: PIN_N8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[3]	=>  Location: PIN_T6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[4]	=>  Location: PIN_L8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[5]	=>  Location: PIN_N5,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[6]	=>  Location: PIN_R5,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[7]	=>  Location: PIN_T10,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[8]	=>  Location: PIN_P8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[9]	=>  Location: PIN_N9,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[10]	=>  Location: PIN_P6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[11]	=>  Location: PIN_T7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[12]	=>  Location: PIN_M8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// distance[13]	=>  Location: PIN_N6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// Flags[0]	=>  Location: PIN_M6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// Flags[1]	=>  Location: PIN_R6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// reset	=>  Location: PIN_R7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// Trigger	=>  Location: PIN_R4,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// clk	=>  Location: PIN_E1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// Echo	=>  Location: PIN_M7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+// synopsys translate_off
+initial $sdf_annotate("sonars_de0_min_1200mv_0c_v_fast.sdo");
+// synopsys translate_on
+
+wire \distance[0]~output_o ;
+wire \distance[1]~output_o ;
+wire \distance[2]~output_o ;
+wire \distance[3]~output_o ;
+wire \distance[4]~output_o ;
+wire \distance[5]~output_o ;
+wire \distance[6]~output_o ;
+wire \distance[7]~output_o ;
+wire \distance[8]~output_o ;
+wire \distance[9]~output_o ;
+wire \distance[10]~output_o ;
+wire \distance[11]~output_o ;
+wire \distance[12]~output_o ;
+wire \distance[13]~output_o ;
+wire \Flags[0]~output_o ;
+wire \Flags[1]~output_o ;
+wire \clk~input_o ;
+wire \clk~inputclkctrl_outclk ;
+wire \reset~input_o ;
+wire \Echo~input_o ;
+wire \Sonar01|DistanceCompteurRegister[13]~1_combout ;
+wire \Sonar01|DividerCompteurRegister~4_combout ;
+wire \Sonar01|FA50|FA2|c_out~0_combout ;
+wire \Sonar01|DividerCompteurRegister~2_combout ;
+wire \Sonar01|DividerCompteurRegister~0_combout ;
+wire \Sonar01|DividerCompteurRegister~3_combout ;
+wire \Sonar01|DividerCompteurRegister~1_combout ;
+wire \Sonar01|Equal0~0_combout ;
+wire \Sonar01|DistanceCompteurRegister~0_combout ;
+wire \Sonar01|DistanceCompteurRegister~2_combout ;
+wire \Sonar01|FA140|FA80|FA2|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~3_combout ;
+wire \Sonar01|FA140|FA80|FA3|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~4_combout ;
+wire \Sonar01|FA140|FA80|FA3|c_out~0_combout ;
+wire \Sonar01|DistanceCompteurRegister~5_combout ;
+wire \Sonar01|FA140|FA80|FA5|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~6_combout ;
+wire \Sonar01|FA140|FA80|FA6|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~7_combout ;
+wire \Sonar01|FA140|FA80|FA6|c_out~0_combout ;
+wire \Sonar01|DistanceCompteurRegister~8_combout ;
+wire \Sonar01|FA140|FA50|FA0|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~9_combout ;
+wire \Sonar01|FA140|FA50|FA1|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~10_combout ;
+wire \Sonar01|FA140|FA50|FA1|c_out~0_combout ;
+wire \Sonar01|FA140|FA50|FA1|c_out~1_combout ;
+wire \Sonar01|DistanceCompteurRegister~11_combout ;
+wire \Sonar01|FA140|FA50|FA3|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~12_combout ;
+wire \Sonar01|FA140|FA50|FA4|sum~combout ;
+wire \Sonar01|DistanceCompteurRegister~13_combout ;
+wire \Sonar01|FA140|FA50|FA4|c_out~0_combout ;
+wire \Sonar01|DistanceCompteurRegister~14_combout ;
+wire \Selector0~0_combout ;
+wire \Trigger~input_o ;
+wire \state~14_combout ;
+wire \state.S3~q ;
+wire \state~12_combout ;
+wire \state~13_combout ;
+wire \state.S1~q ;
+wire \state.S1~clkctrl_outclk ;
+wire \Sonar01|ML10|out_value[0]~0_combout ;
+wire \Sonar01|FA140|FA80|FA1|sum~combout ;
+wire \Sonar01|ML10|out_value[2]~feeder_combout ;
+wire \Sonar01|FA140|FA80|FA4|sum~combout ;
+wire \Sonar01|ML10|out_value[5]~feeder_combout ;
+wire \Sonar01|ML10|out_value[6]~feeder_combout ;
+wire \Sonar01|FA140|FA80|FA7|sum~combout ;
+wire \Sonar01|ML10|out_value[8]~feeder_combout ;
+wire \Sonar01|ML10|out_value[9]~feeder_combout ;
+wire \Sonar01|FA140|FA50|FA2|sum~combout ;
+wire \Sonar01|ML10|out_value[11]~feeder_combout ;
+wire \Sonar01|ML10|out_value[12]~feeder_combout ;
+wire \Sonar01|FA140|FA0|sum~combout ;
+wire \state~8_combout ;
+wire \state~9_combout ;
+wire \state.S2~q ;
+wire \state~10_combout ;
+wire \state~11_combout ;
+wire \state.S0~q ;
+wire \Flags~0_combout ;
+wire [4:0] \Sonar01|DividerCompteurRegister ;
+wire [13:0] \Sonar01|ML10|out_value ;
+wire [13:0] \Sonar01|DistanceCompteurRegister ;
+
+
+hard_block auto_generated_inst(
+	.devpor(devpor),
+	.devclrn(devclrn),
+	.devoe(devoe));
+
+// Location: IOOBUF_X16_Y0_N23
+cycloneive_io_obuf \distance[0]~output (
+	.i(\Sonar01|ML10|out_value [0]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[0]~output .bus_hold = "false";
+defparam \distance[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y0_N16
+cycloneive_io_obuf \distance[1]~output (
+	.i(\Sonar01|ML10|out_value [1]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[1]~output .bus_hold = "false";
+defparam \distance[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X20_Y0_N2
+cycloneive_io_obuf \distance[2]~output (
+	.i(\Sonar01|ML10|out_value [2]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[2]~output .bus_hold = "false";
+defparam \distance[2]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y0_N2
+cycloneive_io_obuf \distance[3]~output (
+	.i(\Sonar01|ML10|out_value [3]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[3]~output .bus_hold = "false";
+defparam \distance[3]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X18_Y0_N9
+cycloneive_io_obuf \distance[4]~output (
+	.i(\Sonar01|ML10|out_value [4]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[4]~output .bus_hold = "false";
+defparam \distance[4]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X5_Y0_N9
+cycloneive_io_obuf \distance[5]~output (
+	.i(\Sonar01|ML10|out_value [5]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[5]~output .bus_hold = "false";
+defparam \distance[5]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y0_N23
+cycloneive_io_obuf \distance[6]~output (
+	.i(\Sonar01|ML10|out_value [6]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[6]~output .bus_hold = "false";
+defparam \distance[6]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X34_Y0_N16
+cycloneive_io_obuf \distance[7]~output (
+	.i(\Sonar01|ML10|out_value [7]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[7]~output .bus_hold = "false";
+defparam \distance[7]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X25_Y0_N16
+cycloneive_io_obuf \distance[8]~output (
+	.i(\Sonar01|ML10|out_value [8]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[8]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[8]~output .bus_hold = "false";
+defparam \distance[8]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X29_Y0_N2
+cycloneive_io_obuf \distance[9]~output (
+	.i(\Sonar01|ML10|out_value [9]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[9]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[9]~output .bus_hold = "false";
+defparam \distance[9]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X11_Y0_N23
+cycloneive_io_obuf \distance[10]~output (
+	.i(\Sonar01|ML10|out_value [10]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[10]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[10]~output .bus_hold = "false";
+defparam \distance[10]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X18_Y0_N23
+cycloneive_io_obuf \distance[11]~output (
+	.i(\Sonar01|ML10|out_value [11]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[11]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[11]~output .bus_hold = "false";
+defparam \distance[11]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X20_Y0_N9
+cycloneive_io_obuf \distance[12]~output (
+	.i(\Sonar01|ML10|out_value [12]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[12]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[12]~output .bus_hold = "false";
+defparam \distance[12]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X5_Y0_N2
+cycloneive_io_obuf \distance[13]~output (
+	.i(\Sonar01|ML10|out_value [13]),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\distance[13]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \distance[13]~output .bus_hold = "false";
+defparam \distance[13]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X7_Y0_N9
+cycloneive_io_obuf \Flags[0]~output (
+	.i(\state.S2~q ),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\Flags[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \Flags[0]~output .bus_hold = "false";
+defparam \Flags[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y0_N9
+cycloneive_io_obuf \Flags[1]~output (
+	.i(\Flags~0_combout ),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\Flags[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \Flags[1]~output .bus_hold = "false";
+defparam \Flags[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y16_N8
+cycloneive_io_ibuf \clk~input (
+	.i(clk),
+	.ibar(gnd),
+	.o(\clk~input_o ));
+// synopsys translate_off
+defparam \clk~input .bus_hold = "false";
+defparam \clk~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: CLKCTRL_G2
+cycloneive_clkctrl \clk~inputclkctrl (
+	.ena(vcc),
+	.inclk({vcc,vcc,vcc,\clk~input_o }),
+	.clkselect(2'b00),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.outclk(\clk~inputclkctrl_outclk ));
+// synopsys translate_off
+defparam \clk~inputclkctrl .clock_type = "global clock";
+defparam \clk~inputclkctrl .ena_register_mode = "none";
+// synopsys translate_on
+
+// Location: IOIBUF_X16_Y0_N15
+cycloneive_io_ibuf \reset~input (
+	.i(reset),
+	.ibar(gnd),
+	.o(\reset~input_o ));
+// synopsys translate_off
+defparam \reset~input .bus_hold = "false";
+defparam \reset~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X11_Y0_N15
+cycloneive_io_ibuf \Echo~input (
+	.i(Echo),
+	.ibar(gnd),
+	.o(\Echo~input_o ));
+// synopsys translate_off
+defparam \Echo~input .bus_hold = "false";
+defparam \Echo~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N24
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister[13]~1 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister[13]~1_combout  = ((\Sonar01|DividerCompteurRegister [4] & \Sonar01|Equal0~0_combout )) # (!\state.S1~q )
+
+	.dataa(gnd),
+	.datab(\state.S1~q ),
+	.datac(\Sonar01|DividerCompteurRegister [4]),
+	.datad(\Sonar01|Equal0~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[13]~1 .lut_mask = 16'hF333;
+defparam \Sonar01|DistanceCompteurRegister[13]~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N8
+cycloneive_lcell_comb \Sonar01|DividerCompteurRegister~4 (
+// Equation(s):
+// \Sonar01|DividerCompteurRegister~4_combout  = (!\Sonar01|DistanceCompteurRegister[13]~1_combout  & (\Sonar01|DividerCompteurRegister [0] $ (\Sonar01|DividerCompteurRegister [1])))
+
+	.dataa(gnd),
+	.datab(\Sonar01|DividerCompteurRegister [0]),
+	.datac(\Sonar01|DividerCompteurRegister [1]),
+	.datad(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DividerCompteurRegister~4_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister~4 .lut_mask = 16'h003C;
+defparam \Sonar01|DividerCompteurRegister~4 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N9
+dffeas \Sonar01|DividerCompteurRegister[1] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DividerCompteurRegister~4_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DividerCompteurRegister [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister[1] .is_wysiwyg = "true";
+defparam \Sonar01|DividerCompteurRegister[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N0
+cycloneive_lcell_comb \Sonar01|FA50|FA2|c_out~0 (
+// Equation(s):
+// \Sonar01|FA50|FA2|c_out~0_combout  = (\Sonar01|DividerCompteurRegister [1] & (\Sonar01|DividerCompteurRegister [2] & \Sonar01|DividerCompteurRegister [0]))
+
+	.dataa(gnd),
+	.datab(\Sonar01|DividerCompteurRegister [1]),
+	.datac(\Sonar01|DividerCompteurRegister [2]),
+	.datad(\Sonar01|DividerCompteurRegister [0]),
+	.cin(gnd),
+	.combout(\Sonar01|FA50|FA2|c_out~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA50|FA2|c_out~0 .lut_mask = 16'hC000;
+defparam \Sonar01|FA50|FA2|c_out~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N2
+cycloneive_lcell_comb \Sonar01|DividerCompteurRegister~2 (
+// Equation(s):
+// \Sonar01|DividerCompteurRegister~2_combout  = (!\Sonar01|DistanceCompteurRegister[13]~1_combout  & (\Sonar01|FA50|FA2|c_out~0_combout  $ (\Sonar01|DividerCompteurRegister [3])))
+
+	.dataa(gnd),
+	.datab(\Sonar01|FA50|FA2|c_out~0_combout ),
+	.datac(\Sonar01|DividerCompteurRegister [3]),
+	.datad(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DividerCompteurRegister~2_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister~2 .lut_mask = 16'h003C;
+defparam \Sonar01|DividerCompteurRegister~2 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N3
+dffeas \Sonar01|DividerCompteurRegister[3] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DividerCompteurRegister~2_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DividerCompteurRegister [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister[3] .is_wysiwyg = "true";
+defparam \Sonar01|DividerCompteurRegister[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N22
+cycloneive_lcell_comb \Sonar01|DividerCompteurRegister~0 (
+// Equation(s):
+// \Sonar01|DividerCompteurRegister~0_combout  = (!\Sonar01|DistanceCompteurRegister[13]~1_combout  & (\Sonar01|DividerCompteurRegister [4] $ (((\Sonar01|DividerCompteurRegister [3] & \Sonar01|FA50|FA2|c_out~0_combout )))))
+
+	.dataa(\Sonar01|DividerCompteurRegister [3]),
+	.datab(\Sonar01|FA50|FA2|c_out~0_combout ),
+	.datac(\Sonar01|DividerCompteurRegister [4]),
+	.datad(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DividerCompteurRegister~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister~0 .lut_mask = 16'h0078;
+defparam \Sonar01|DividerCompteurRegister~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N23
+dffeas \Sonar01|DividerCompteurRegister[4] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DividerCompteurRegister~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DividerCompteurRegister [4]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister[4] .is_wysiwyg = "true";
+defparam \Sonar01|DividerCompteurRegister[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N28
+cycloneive_lcell_comb \Sonar01|DividerCompteurRegister~3 (
+// Equation(s):
+// \Sonar01|DividerCompteurRegister~3_combout  = (!\Sonar01|DividerCompteurRegister [0] & (\state.S1~q  & ((!\Sonar01|Equal0~0_combout ) # (!\Sonar01|DividerCompteurRegister [4]))))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(\Sonar01|Equal0~0_combout ),
+	.datac(\Sonar01|DividerCompteurRegister [0]),
+	.datad(\state.S1~q ),
+	.cin(gnd),
+	.combout(\Sonar01|DividerCompteurRegister~3_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister~3 .lut_mask = 16'h0700;
+defparam \Sonar01|DividerCompteurRegister~3 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N29
+dffeas \Sonar01|DividerCompteurRegister[0] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DividerCompteurRegister~3_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DividerCompteurRegister [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister[0] .is_wysiwyg = "true";
+defparam \Sonar01|DividerCompteurRegister[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N30
+cycloneive_lcell_comb \Sonar01|DividerCompteurRegister~1 (
+// Equation(s):
+// \Sonar01|DividerCompteurRegister~1_combout  = (!\Sonar01|DistanceCompteurRegister[13]~1_combout  & (\Sonar01|DividerCompteurRegister [2] $ (((\Sonar01|DividerCompteurRegister [0] & \Sonar01|DividerCompteurRegister [1])))))
+
+	.dataa(\Sonar01|DividerCompteurRegister [0]),
+	.datab(\Sonar01|DividerCompteurRegister [1]),
+	.datac(\Sonar01|DividerCompteurRegister [2]),
+	.datad(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DividerCompteurRegister~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister~1 .lut_mask = 16'h0078;
+defparam \Sonar01|DividerCompteurRegister~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N31
+dffeas \Sonar01|DividerCompteurRegister[2] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DividerCompteurRegister~1_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DividerCompteurRegister [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DividerCompteurRegister[2] .is_wysiwyg = "true";
+defparam \Sonar01|DividerCompteurRegister[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N10
+cycloneive_lcell_comb \Sonar01|Equal0~0 (
+// Equation(s):
+// \Sonar01|Equal0~0_combout  = (\Sonar01|DividerCompteurRegister [2] & (\Sonar01|DividerCompteurRegister [3] & (!\Sonar01|DividerCompteurRegister [1] & !\Sonar01|DividerCompteurRegister [0])))
+
+	.dataa(\Sonar01|DividerCompteurRegister [2]),
+	.datab(\Sonar01|DividerCompteurRegister [3]),
+	.datac(\Sonar01|DividerCompteurRegister [1]),
+	.datad(\Sonar01|DividerCompteurRegister [0]),
+	.cin(gnd),
+	.combout(\Sonar01|Equal0~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|Equal0~0 .lut_mask = 16'h0008;
+defparam \Sonar01|Equal0~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N4
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~0 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~0_combout  = (\Sonar01|Equal0~0_combout  & (!\Sonar01|DistanceCompteurRegister [0] & \Sonar01|DividerCompteurRegister [4]))
+
+	.dataa(\Sonar01|Equal0~0_combout ),
+	.datab(gnd),
+	.datac(\Sonar01|DistanceCompteurRegister [0]),
+	.datad(\Sonar01|DividerCompteurRegister [4]),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~0 .lut_mask = 16'h0A00;
+defparam \Sonar01|DistanceCompteurRegister~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N5
+dffeas \Sonar01|DistanceCompteurRegister[0] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[0] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N26
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~2 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~2_combout  = (\Sonar01|Equal0~0_combout  & (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|DistanceCompteurRegister [0] $ (\Sonar01|DistanceCompteurRegister [1]))))
+
+	.dataa(\Sonar01|Equal0~0_combout ),
+	.datab(\Sonar01|DistanceCompteurRegister [0]),
+	.datac(\Sonar01|DistanceCompteurRegister [1]),
+	.datad(\Sonar01|DividerCompteurRegister [4]),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~2_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~2 .lut_mask = 16'h2800;
+defparam \Sonar01|DistanceCompteurRegister~2 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N27
+dffeas \Sonar01|DistanceCompteurRegister[1] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~2_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[1] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N10
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA2|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA2|sum~combout  = \Sonar01|DistanceCompteurRegister [2] $ (((\Sonar01|DistanceCompteurRegister [1] & \Sonar01|DistanceCompteurRegister [0])))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [1]),
+	.datab(gnd),
+	.datac(\Sonar01|DistanceCompteurRegister [0]),
+	.datad(\Sonar01|DistanceCompteurRegister [2]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA2|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA2|sum .lut_mask = 16'h5FA0;
+defparam \Sonar01|FA140|FA80|FA2|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N24
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~3 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~3_combout  = (\Sonar01|FA140|FA80|FA2|sum~combout  & (\Sonar01|Equal0~0_combout  & \Sonar01|DividerCompteurRegister [4]))
+
+	.dataa(\Sonar01|FA140|FA80|FA2|sum~combout ),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|DividerCompteurRegister [4]),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~3_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~3 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~3 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N25
+dffeas \Sonar01|DistanceCompteurRegister[2] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~3_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[2] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N22
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA3|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA3|sum~combout  = \Sonar01|DistanceCompteurRegister [3] $ (((\Sonar01|DistanceCompteurRegister [1] & (\Sonar01|DistanceCompteurRegister [0] & \Sonar01|DistanceCompteurRegister [2]))))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [1]),
+	.datab(\Sonar01|DistanceCompteurRegister [3]),
+	.datac(\Sonar01|DistanceCompteurRegister [0]),
+	.datad(\Sonar01|DistanceCompteurRegister [2]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA3|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA3|sum .lut_mask = 16'h6CCC;
+defparam \Sonar01|FA140|FA80|FA3|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N0
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~4 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~4_combout  = (\Sonar01|FA140|FA80|FA3|sum~combout  & (\Sonar01|Equal0~0_combout  & \Sonar01|DividerCompteurRegister [4]))
+
+	.dataa(\Sonar01|FA140|FA80|FA3|sum~combout ),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|DividerCompteurRegister [4]),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~4_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~4 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~4 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N1
+dffeas \Sonar01|DistanceCompteurRegister[3] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~4_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[3] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N12
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA3|c_out~0 (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA3|c_out~0_combout  = (\Sonar01|DistanceCompteurRegister [1] & (\Sonar01|DistanceCompteurRegister [3] & (\Sonar01|DistanceCompteurRegister [0] & \Sonar01|DistanceCompteurRegister [2])))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [1]),
+	.datab(\Sonar01|DistanceCompteurRegister [3]),
+	.datac(\Sonar01|DistanceCompteurRegister [0]),
+	.datad(\Sonar01|DistanceCompteurRegister [2]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA3|c_out~0 .lut_mask = 16'h8000;
+defparam \Sonar01|FA140|FA80|FA3|c_out~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N14
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~5 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~5_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & (\Sonar01|DistanceCompteurRegister [4] $ (\Sonar01|FA140|FA80|FA3|c_out~0_combout ))))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(\Sonar01|Equal0~0_combout ),
+	.datac(\Sonar01|DistanceCompteurRegister [4]),
+	.datad(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~5_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~5 .lut_mask = 16'h0880;
+defparam \Sonar01|DistanceCompteurRegister~5 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N15
+dffeas \Sonar01|DistanceCompteurRegister[4] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~5_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [4]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[4] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N16
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA5|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA5|sum~combout  = \Sonar01|DistanceCompteurRegister [5] $ (((\Sonar01|DistanceCompteurRegister [4] & \Sonar01|FA140|FA80|FA3|c_out~0_combout )))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [4]),
+	.datab(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.datac(gnd),
+	.datad(\Sonar01|DistanceCompteurRegister [5]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA5|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA5|sum .lut_mask = 16'h7788;
+defparam \Sonar01|FA140|FA80|FA5|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N16
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~6 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~6_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA80|FA5|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA80|FA5|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~6_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~6 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~6 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N17
+dffeas \Sonar01|DistanceCompteurRegister[5] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~6_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [5]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[5] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[5] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N18
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA6|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA6|sum~combout  = \Sonar01|DistanceCompteurRegister [6] $ (((\Sonar01|FA140|FA80|FA3|c_out~0_combout  & (\Sonar01|DistanceCompteurRegister [4] & \Sonar01|DistanceCompteurRegister [5]))))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [6]),
+	.datab(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.datac(\Sonar01|DistanceCompteurRegister [4]),
+	.datad(\Sonar01|DistanceCompteurRegister [5]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA6|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA6|sum .lut_mask = 16'h6AAA;
+defparam \Sonar01|FA140|FA80|FA6|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N22
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~7 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~7_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA80|FA6|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA80|FA6|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~7_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~7 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~7 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N23
+dffeas \Sonar01|DistanceCompteurRegister[6] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~7_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [6]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[6] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[6] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N6
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA6|c_out~0 (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA6|c_out~0_combout  = (\Sonar01|DistanceCompteurRegister [4] & (\Sonar01|DistanceCompteurRegister [6] & (\Sonar01|DistanceCompteurRegister [5] & \Sonar01|FA140|FA80|FA3|c_out~0_combout )))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [4]),
+	.datab(\Sonar01|DistanceCompteurRegister [6]),
+	.datac(\Sonar01|DistanceCompteurRegister [5]),
+	.datad(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA6|c_out~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA6|c_out~0 .lut_mask = 16'h8000;
+defparam \Sonar01|FA140|FA80|FA6|c_out~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N12
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~8 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~8_combout  = (\Sonar01|Equal0~0_combout  & (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|DistanceCompteurRegister [7] $ (\Sonar01|FA140|FA80|FA6|c_out~0_combout ))))
+
+	.dataa(\Sonar01|Equal0~0_combout ),
+	.datab(\Sonar01|DividerCompteurRegister [4]),
+	.datac(\Sonar01|DistanceCompteurRegister [7]),
+	.datad(\Sonar01|FA140|FA80|FA6|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~8_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~8 .lut_mask = 16'h0880;
+defparam \Sonar01|DistanceCompteurRegister~8 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X19_Y3_N13
+dffeas \Sonar01|DistanceCompteurRegister[7] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~8_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [7]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[7] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[7] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N28
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA0|sum (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA0|sum~combout  = \Sonar01|DistanceCompteurRegister [8] $ (((\Sonar01|DistanceCompteurRegister [7] & \Sonar01|FA140|FA80|FA6|c_out~0_combout )))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [7]),
+	.datab(gnd),
+	.datac(\Sonar01|DistanceCompteurRegister [8]),
+	.datad(\Sonar01|FA140|FA80|FA6|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA0|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA0|sum .lut_mask = 16'h5AF0;
+defparam \Sonar01|FA140|FA50|FA0|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N8
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~9 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~9_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA50|FA0|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA50|FA0|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~9_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~9 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~9 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N9
+dffeas \Sonar01|DistanceCompteurRegister[8] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~9_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [8]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[8] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[8] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N18
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA1|sum (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA1|sum~combout  = \Sonar01|DistanceCompteurRegister [9] $ (((\Sonar01|DistanceCompteurRegister [7] & (\Sonar01|DistanceCompteurRegister [8] & \Sonar01|FA140|FA80|FA6|c_out~0_combout ))))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [7]),
+	.datab(\Sonar01|DistanceCompteurRegister [9]),
+	.datac(\Sonar01|DistanceCompteurRegister [8]),
+	.datad(\Sonar01|FA140|FA80|FA6|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA1|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA1|sum .lut_mask = 16'h6CCC;
+defparam \Sonar01|FA140|FA50|FA1|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N6
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~10 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~10_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA50|FA1|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA50|FA1|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~10_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~10 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~10 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N7
+dffeas \Sonar01|DistanceCompteurRegister[9] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~10_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [9]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[9] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[9] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N26
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA1|c_out~0 (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA1|c_out~0_combout  = (\Sonar01|DistanceCompteurRegister [9] & (\Sonar01|DistanceCompteurRegister [4] & (\Sonar01|DistanceCompteurRegister [6] & \Sonar01|DistanceCompteurRegister [5])))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [9]),
+	.datab(\Sonar01|DistanceCompteurRegister [4]),
+	.datac(\Sonar01|DistanceCompteurRegister [6]),
+	.datad(\Sonar01|DistanceCompteurRegister [5]),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA1|c_out~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA1|c_out~0 .lut_mask = 16'h8000;
+defparam \Sonar01|FA140|FA50|FA1|c_out~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N20
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA1|c_out~1 (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA1|c_out~1_combout  = (\Sonar01|DistanceCompteurRegister [8] & (\Sonar01|DistanceCompteurRegister [7] & (\Sonar01|FA140|FA50|FA1|c_out~0_combout  & \Sonar01|FA140|FA80|FA3|c_out~0_combout )))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [8]),
+	.datab(\Sonar01|DistanceCompteurRegister [7]),
+	.datac(\Sonar01|FA140|FA50|FA1|c_out~0_combout ),
+	.datad(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA1|c_out~1 .lut_mask = 16'h8000;
+defparam \Sonar01|FA140|FA50|FA1|c_out~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N4
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~11 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~11_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & (\Sonar01|DistanceCompteurRegister [10] $ (\Sonar01|FA140|FA50|FA1|c_out~1_combout ))))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(\Sonar01|Equal0~0_combout ),
+	.datac(\Sonar01|DistanceCompteurRegister [10]),
+	.datad(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~11_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~11 .lut_mask = 16'h0880;
+defparam \Sonar01|DistanceCompteurRegister~11 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N5
+dffeas \Sonar01|DistanceCompteurRegister[10] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~11_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [10]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[10] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[10] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N0
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA3|sum (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA3|sum~combout  = \Sonar01|DistanceCompteurRegister [11] $ (((\Sonar01|DistanceCompteurRegister [10] & \Sonar01|FA140|FA50|FA1|c_out~1_combout )))
+
+	.dataa(gnd),
+	.datab(\Sonar01|DistanceCompteurRegister [10]),
+	.datac(\Sonar01|DistanceCompteurRegister [11]),
+	.datad(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA3|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA3|sum .lut_mask = 16'h3CF0;
+defparam \Sonar01|FA140|FA50|FA3|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N30
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~12 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~12_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA50|FA3|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA50|FA3|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~12_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~12 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~12 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N31
+dffeas \Sonar01|DistanceCompteurRegister[11] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~12_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [11]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[11] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[11] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N24
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA4|sum (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA4|sum~combout  = \Sonar01|DistanceCompteurRegister [12] $ (((\Sonar01|DistanceCompteurRegister [11] & (\Sonar01|DistanceCompteurRegister [10] & \Sonar01|FA140|FA50|FA1|c_out~1_combout ))))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [11]),
+	.datab(\Sonar01|DistanceCompteurRegister [12]),
+	.datac(\Sonar01|DistanceCompteurRegister [10]),
+	.datad(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA4|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA4|sum .lut_mask = 16'h6CCC;
+defparam \Sonar01|FA140|FA50|FA4|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N18
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~13 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~13_combout  = (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|Equal0~0_combout  & \Sonar01|FA140|FA50|FA4|sum~combout ))
+
+	.dataa(\Sonar01|DividerCompteurRegister [4]),
+	.datab(gnd),
+	.datac(\Sonar01|Equal0~0_combout ),
+	.datad(\Sonar01|FA140|FA50|FA4|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~13_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~13 .lut_mask = 16'hA000;
+defparam \Sonar01|DistanceCompteurRegister~13 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N19
+dffeas \Sonar01|DistanceCompteurRegister[12] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~13_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [12]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[12] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[12] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N2
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA4|c_out~0 (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA4|c_out~0_combout  = (\Sonar01|DistanceCompteurRegister [11] & (\Sonar01|DistanceCompteurRegister [12] & (\Sonar01|DistanceCompteurRegister [10] & \Sonar01|FA140|FA50|FA1|c_out~1_combout )))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [11]),
+	.datab(\Sonar01|DistanceCompteurRegister [12]),
+	.datac(\Sonar01|DistanceCompteurRegister [10]),
+	.datad(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA4|c_out~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA4|c_out~0 .lut_mask = 16'h8000;
+defparam \Sonar01|FA140|FA50|FA4|c_out~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N20
+cycloneive_lcell_comb \Sonar01|DistanceCompteurRegister~14 (
+// Equation(s):
+// \Sonar01|DistanceCompteurRegister~14_combout  = (\Sonar01|Equal0~0_combout  & (\Sonar01|DividerCompteurRegister [4] & (\Sonar01|DistanceCompteurRegister [13] $ (\Sonar01|FA140|FA50|FA4|c_out~0_combout ))))
+
+	.dataa(\Sonar01|Equal0~0_combout ),
+	.datab(\Sonar01|DividerCompteurRegister [4]),
+	.datac(\Sonar01|DistanceCompteurRegister [13]),
+	.datad(\Sonar01|FA140|FA50|FA4|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|DistanceCompteurRegister~14_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister~14 .lut_mask = 16'h0880;
+defparam \Sonar01|DistanceCompteurRegister~14 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N21
+dffeas \Sonar01|DistanceCompteurRegister[13] (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\Sonar01|DistanceCompteurRegister~14_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(\Sonar01|DistanceCompteurRegister[13]~1_combout ),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|DistanceCompteurRegister [13]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|DistanceCompteurRegister[13] .is_wysiwyg = "true";
+defparam \Sonar01|DistanceCompteurRegister[13] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N16
+cycloneive_lcell_comb \Selector0~0 (
+// Equation(s):
+// \Selector0~0_combout  = (\state.S1~q  & ((!\Sonar01|FA140|FA50|FA4|c_out~0_combout ) # (!\Sonar01|DistanceCompteurRegister [13])))
+
+	.dataa(\Sonar01|DistanceCompteurRegister [13]),
+	.datab(gnd),
+	.datac(\Sonar01|FA140|FA50|FA4|c_out~0_combout ),
+	.datad(\state.S1~q ),
+	.cin(gnd),
+	.combout(\Selector0~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Selector0~0 .lut_mask = 16'h5F00;
+defparam \Selector0~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: IOIBUF_X5_Y0_N22
+cycloneive_io_ibuf \Trigger~input (
+	.i(Trigger),
+	.ibar(gnd),
+	.o(\Trigger~input_o ));
+// synopsys translate_off
+defparam \Trigger~input .bus_hold = "false";
+defparam \Trigger~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N6
+cycloneive_lcell_comb \state~14 (
+// Equation(s):
+// \state~14_combout  = (!\reset~input_o  & (\Trigger~input_o  & !\state.S1~q ))
+
+	.dataa(\reset~input_o ),
+	.datab(\Trigger~input_o ),
+	.datac(gnd),
+	.datad(\state.S1~q ),
+	.cin(gnd),
+	.combout(\state~14_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~14 .lut_mask = 16'h0044;
+defparam \state~14 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N21
+dffeas \state.S3 (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(gnd),
+	.asdata(\state~14_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\state.S3~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \state.S3 .is_wysiwyg = "true";
+defparam \state.S3 .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N20
+cycloneive_lcell_comb \state~12 (
+// Equation(s):
+// \state~12_combout  = (!\reset~input_o  & (!\Trigger~input_o  & \state.S3~q ))
+
+	.dataa(\reset~input_o ),
+	.datab(\Trigger~input_o ),
+	.datac(\state.S3~q ),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\state~12_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~12 .lut_mask = 16'h1010;
+defparam \state~12 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N14
+cycloneive_lcell_comb \state~13 (
+// Equation(s):
+// \state~13_combout  = (\state~12_combout ) # ((!\reset~input_o  & (!\Echo~input_o  & \Selector0~0_combout )))
+
+	.dataa(\reset~input_o ),
+	.datab(\Echo~input_o ),
+	.datac(\Selector0~0_combout ),
+	.datad(\state~12_combout ),
+	.cin(gnd),
+	.combout(\state~13_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~13 .lut_mask = 16'hFF10;
+defparam \state~13 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N15
+dffeas \state.S1 (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\state~13_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\state.S1~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \state.S1 .is_wysiwyg = "true";
+defparam \state.S1 .power_up = "low";
+// synopsys translate_on
+
+// Location: CLKCTRL_G15
+cycloneive_clkctrl \state.S1~clkctrl (
+	.ena(vcc),
+	.inclk({vcc,vcc,vcc,\state.S1~q }),
+	.clkselect(2'b00),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.outclk(\state.S1~clkctrl_outclk ));
+// synopsys translate_off
+defparam \state.S1~clkctrl .clock_type = "global clock";
+defparam \state.S1~clkctrl .ena_register_mode = "none";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N8
+cycloneive_lcell_comb \Sonar01|ML10|out_value[0]~0 (
+// Equation(s):
+// \Sonar01|ML10|out_value[0]~0_combout  = !\Sonar01|DistanceCompteurRegister [0]
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(\Sonar01|DistanceCompteurRegister [0]),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[0]~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[0]~0 .lut_mask = 16'h0F0F;
+defparam \Sonar01|ML10|out_value[0]~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N9
+dffeas \Sonar01|ML10|out_value[0] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[0]~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[0] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N14
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA1|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA1|sum~combout  = \Sonar01|DistanceCompteurRegister [1] $ (\Sonar01|DistanceCompteurRegister [0])
+
+	.dataa(\Sonar01|DistanceCompteurRegister [1]),
+	.datab(\Sonar01|DistanceCompteurRegister [0]),
+	.datac(gnd),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA1|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA1|sum .lut_mask = 16'h6666;
+defparam \Sonar01|FA140|FA80|FA1|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N15
+dffeas \Sonar01|ML10|out_value[1] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|FA140|FA80|FA1|sum~combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[1] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X21_Y3_N24
+cycloneive_lcell_comb \Sonar01|ML10|out_value[2]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[2]~feeder_combout  = \Sonar01|FA140|FA80|FA2|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA80|FA2|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[2]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[2]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[2]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X21_Y3_N25
+dffeas \Sonar01|ML10|out_value[2] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[2]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[2] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N17
+dffeas \Sonar01|ML10|out_value[3] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\Sonar01|FA140|FA80|FA3|sum~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[3] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N24
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA4|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA4|sum~combout  = \Sonar01|DistanceCompteurRegister [4] $ (\Sonar01|FA140|FA80|FA3|c_out~0_combout )
+
+	.dataa(\Sonar01|DistanceCompteurRegister [4]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA80|FA3|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA4|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA4|sum .lut_mask = 16'h55AA;
+defparam \Sonar01|FA140|FA80|FA4|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X19_Y3_N25
+dffeas \Sonar01|ML10|out_value[4] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|FA140|FA80|FA4|sum~combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [4]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[4] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N2
+cycloneive_lcell_comb \Sonar01|ML10|out_value[5]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[5]~feeder_combout  = \Sonar01|FA140|FA80|FA5|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA80|FA5|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[5]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[5]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[5]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N3
+dffeas \Sonar01|ML10|out_value[5] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[5]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [5]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[5] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[5] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N28
+cycloneive_lcell_comb \Sonar01|ML10|out_value[6]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[6]~feeder_combout  = \Sonar01|FA140|FA80|FA6|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA80|FA6|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[6]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[6]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[6]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N29
+dffeas \Sonar01|ML10|out_value[6] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[6]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [6]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[6] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[6] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N2
+cycloneive_lcell_comb \Sonar01|FA140|FA80|FA7|sum (
+// Equation(s):
+// \Sonar01|FA140|FA80|FA7|sum~combout  = \Sonar01|DistanceCompteurRegister [7] $ (\Sonar01|FA140|FA80|FA6|c_out~0_combout )
+
+	.dataa(\Sonar01|DistanceCompteurRegister [7]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA80|FA6|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA80|FA7|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA80|FA7|sum .lut_mask = 16'h55AA;
+defparam \Sonar01|FA140|FA80|FA7|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X19_Y3_N3
+dffeas \Sonar01|ML10|out_value[7] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|FA140|FA80|FA7|sum~combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [7]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[7] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[7] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N20
+cycloneive_lcell_comb \Sonar01|ML10|out_value[8]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[8]~feeder_combout  = \Sonar01|FA140|FA50|FA0|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA0|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[8]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[8]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[8]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X19_Y3_N21
+dffeas \Sonar01|ML10|out_value[8] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[8]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [8]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[8] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[8] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X19_Y3_N10
+cycloneive_lcell_comb \Sonar01|ML10|out_value[9]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[9]~feeder_combout  = \Sonar01|FA140|FA50|FA1|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA1|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[9]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[9]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[9]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X19_Y3_N11
+dffeas \Sonar01|ML10|out_value[9] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[9]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [9]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[9] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[9] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N28
+cycloneive_lcell_comb \Sonar01|FA140|FA50|FA2|sum (
+// Equation(s):
+// \Sonar01|FA140|FA50|FA2|sum~combout  = \Sonar01|DistanceCompteurRegister [10] $ (\Sonar01|FA140|FA50|FA1|c_out~1_combout )
+
+	.dataa(gnd),
+	.datab(\Sonar01|DistanceCompteurRegister [10]),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA1|c_out~1_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA50|FA2|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA50|FA2|sum .lut_mask = 16'h33CC;
+defparam \Sonar01|FA140|FA50|FA2|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N29
+dffeas \Sonar01|ML10|out_value[10] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|FA140|FA50|FA2|sum~combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [10]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[10] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[10] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N10
+cycloneive_lcell_comb \Sonar01|ML10|out_value[11]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[11]~feeder_combout  = \Sonar01|FA140|FA50|FA3|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA3|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[11]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[11]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[11]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N11
+dffeas \Sonar01|ML10|out_value[11] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[11]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [11]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[11] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[11] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X18_Y3_N12
+cycloneive_lcell_comb \Sonar01|ML10|out_value[12]~feeder (
+// Equation(s):
+// \Sonar01|ML10|out_value[12]~feeder_combout  = \Sonar01|FA140|FA50|FA4|sum~combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA4|sum~combout ),
+	.cin(gnd),
+	.combout(\Sonar01|ML10|out_value[12]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[12]~feeder .lut_mask = 16'hFF00;
+defparam \Sonar01|ML10|out_value[12]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X18_Y3_N13
+dffeas \Sonar01|ML10|out_value[12] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|ML10|out_value[12]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [12]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[12] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[12] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N6
+cycloneive_lcell_comb \Sonar01|FA140|FA0|sum (
+// Equation(s):
+// \Sonar01|FA140|FA0|sum~combout  = \Sonar01|DistanceCompteurRegister [13] $ (\Sonar01|FA140|FA50|FA4|c_out~0_combout )
+
+	.dataa(gnd),
+	.datab(\Sonar01|DistanceCompteurRegister [13]),
+	.datac(gnd),
+	.datad(\Sonar01|FA140|FA50|FA4|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\Sonar01|FA140|FA0|sum~combout ),
+	.cout());
+// synopsys translate_off
+defparam \Sonar01|FA140|FA0|sum .lut_mask = 16'h33CC;
+defparam \Sonar01|FA140|FA0|sum .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X17_Y3_N7
+dffeas \Sonar01|ML10|out_value[13] (
+	.clk(!\state.S1~clkctrl_outclk ),
+	.d(\Sonar01|FA140|FA0|sum~combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\Sonar01|ML10|out_value [13]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \Sonar01|ML10|out_value[13] .is_wysiwyg = "true";
+defparam \Sonar01|ML10|out_value[13] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X17_Y3_N30
+cycloneive_lcell_comb \state~8 (
+// Equation(s):
+// \state~8_combout  = (\state.S1~q  & (\Sonar01|DistanceCompteurRegister [13] & (!\reset~input_o  & \Sonar01|FA140|FA50|FA4|c_out~0_combout )))
+
+	.dataa(\state.S1~q ),
+	.datab(\Sonar01|DistanceCompteurRegister [13]),
+	.datac(\reset~input_o ),
+	.datad(\Sonar01|FA140|FA50|FA4|c_out~0_combout ),
+	.cin(gnd),
+	.combout(\state~8_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~8 .lut_mask = 16'h0800;
+defparam \state~8 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N18
+cycloneive_lcell_comb \state~9 (
+// Equation(s):
+// \state~9_combout  = (\state~8_combout ) # ((!\reset~input_o  & (!\Trigger~input_o  & \state.S2~q )))
+
+	.dataa(\reset~input_o ),
+	.datab(\Trigger~input_o ),
+	.datac(\state.S2~q ),
+	.datad(\state~8_combout ),
+	.cin(gnd),
+	.combout(\state~9_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~9 .lut_mask = 16'hFF10;
+defparam \state~9 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N19
+dffeas \state.S2 (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\state~9_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\state.S2~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \state.S2 .is_wysiwyg = "true";
+defparam \state.S2 .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N4
+cycloneive_lcell_comb \state~10 (
+// Equation(s):
+// \state~10_combout  = (\reset~input_o ) # ((!\Trigger~input_o  & !\state.S0~q ))
+
+	.dataa(\reset~input_o ),
+	.datab(gnd),
+	.datac(\Trigger~input_o ),
+	.datad(\state.S0~q ),
+	.cin(gnd),
+	.combout(\state~10_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~10 .lut_mask = 16'hAAAF;
+defparam \state~10 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N12
+cycloneive_lcell_comb \state~11 (
+// Equation(s):
+// \state~11_combout  = (!\state~10_combout  & ((!\Echo~input_o ) # (!\Selector0~0_combout )))
+
+	.dataa(\Selector0~0_combout ),
+	.datab(\state~10_combout ),
+	.datac(\Echo~input_o ),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\state~11_combout ),
+	.cout());
+// synopsys translate_off
+defparam \state~11 .lut_mask = 16'h1313;
+defparam \state~11 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X16_Y3_N13
+dffeas \state.S0 (
+	.clk(\clk~inputclkctrl_outclk ),
+	.d(\state~11_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\state.S0~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \state.S0 .is_wysiwyg = "true";
+defparam \state.S0 .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X16_Y3_N26
+cycloneive_lcell_comb \Flags~0 (
+// Equation(s):
+// \Flags~0_combout  = (\state.S2~q ) # (!\state.S0~q )
+
+	.dataa(\state.S0~q ),
+	.datab(gnd),
+	.datac(\state.S2~q ),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\Flags~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \Flags~0 .lut_mask = 16'hF5F5;
+defparam \Flags~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+assign distance[0] = \distance[0]~output_o ;
+
+assign distance[1] = \distance[1]~output_o ;
+
+assign distance[2] = \distance[2]~output_o ;
+
+assign distance[3] = \distance[3]~output_o ;
+
+assign distance[4] = \distance[4]~output_o ;
+
+assign distance[5] = \distance[5]~output_o ;
+
+assign distance[6] = \distance[6]~output_o ;
+
+assign distance[7] = \distance[7]~output_o ;
+
+assign distance[8] = \distance[8]~output_o ;
+
+assign distance[9] = \distance[9]~output_o ;
+
+assign distance[10] = \distance[10]~output_o ;
+
+assign distance[11] = \distance[11]~output_o ;
+
+assign distance[12] = \distance[12]~output_o ;
+
+assign distance[13] = \distance[13]~output_o ;
+
+assign Flags[0] = \Flags[0]~output_o ;
+
+assign Flags[1] = \Flags[1]~output_o ;
+
+endmodule
+
+module hard_block (
+
+	devpor,
+	devclrn,
+	devoe);
+
+// Design Ports Information
+// ~ALTERA_ASDO_DATA1~	=>  Location: PIN_C1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_FLASH_nCE_nCSO~	=>  Location: PIN_D2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DCLK~	=>  Location: PIN_H1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DATA0~	=>  Location: PIN_H2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_nCEO~	=>  Location: PIN_F16,	 I/O Standard: 2.5 V,	 Current Strength: 8mA
+
+input 	devpor;
+input 	devclrn;
+input 	devoe;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+wire \~ALTERA_ASDO_DATA1~~padout ;
+wire \~ALTERA_FLASH_nCE_nCSO~~padout ;
+wire \~ALTERA_DATA0~~padout ;
+wire \~ALTERA_ASDO_DATA1~~ibuf_o ;
+wire \~ALTERA_FLASH_nCE_nCSO~~ibuf_o ;
+wire \~ALTERA_DATA0~~ibuf_o ;
+
+
+endmodule
