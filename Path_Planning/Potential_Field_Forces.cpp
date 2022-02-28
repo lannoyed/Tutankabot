@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <cmath>
 
 // Author : Nicolas Isenguerre, Diego Lannoye.
 // Mechatronics Project - LELME2002. 2021-2022.
@@ -79,7 +80,7 @@ class Potential_Field
 
     // Calculation of the total repulsive force at the current position. Takes into account every known obstacles.
     tuple <double, double> repulsiveForce(){
-        return;
+        return make_tuple<double, double>(0.0, 0.0);
     }
     // The idea : calculate the repulsive for of each an every single known obstacle. 6 borders and known samples. 
 
@@ -125,21 +126,93 @@ class Obstacle : public Potential_Field
 };
 
 
-class Border : public Obstacle
+class SimpleBorder : public Obstacle
 {
+    // Simple border permet le gestion de bordure horizontales ou verticales
+
     public :
 
     // Attributes : those inhehirted from 'Obstacles'.
+    //            : borderType (0 -> vertical, 1 -> horizontal)
+    int borderType;
+    double position;
 
     // Default constructor.
-    Border()
+    SimpleBorder()
     {
         cout << "Default constructor of class 'Border'" << endl;
     }
 
-    // L'idée : set des droites. Faire une liste de droites ? Comment "encoder" une droite en c++ ? Comment la stocker ?
-    // Pour la détection : mon idée : comme on approxime notre robot par un cercle d'un certain rayon (bonne première approx), calculer la distance immédiate du centre
-    // du robot jusqu'aux bords et si la distance est < rayon du robot, alors, on est dans la zone d'influence du bord.
+    // Real constructor
+    SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition )
+    {
+        coeff = k_rep;
+        rho0 = distanceOfInfluence;
+        borderType = border_type;
+        position = xoryposition;
+
+    }
+
+    // give the euclidean distance (square) between the line and the center of the robot
+    double computeDistance (tuple <double, double> robotPosition)
+    {
+        if (borderType == 0){
+            return pow(get<0>(robotPosition) - position,2);
+        }
+        else if (borderType == 1){
+            return  pow(get<1>(robotPosition) - position, 2);
+        }
+        else {
+            throw "invalide Border type";
+        }
+    }
+};
+
+class OblicBorder : public Obstacle {
+    public :
+
+    // Attributes : those inhehirted from 'Obstacles'.
+    //            : borderType (0 -> vertical, 1 -> horizontal)
+    int borderType;
+    // y = mx + p
+    double m;
+    double p;
+
+    // Default constructor.
+    OblicBorder()
+    {
+        cout << "Default constructor of class 'Border'" << endl;
+    }
+
+    // Real constructor
+    OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset)
+    {
+        coeff = k_rep;
+        rho0 = distanceOfInfluence;
+        borderType = border_type;
+        m = pente;
+        p = offset;
+    }
+
+    // give a approximation the euclidean distance (square) between the line and the center of the robot
+    // l idee est que la distance euclidenne sera toujours superieure à la plus petite distance selon les x ou selon les y
+    double computeDistance (tuple <double, double> robotPosition)
+    {
+        double yup; double xup; double distance1; double distance2;
+
+        yup = m * get<0>(robotPosition) + p;
+        xup = (get<1>(robotPosition) - p) / m;
+
+        distance1 = pow(get<0>(robotPosition) - xup,2);
+        distance2 = pow(get<1>(robotPosition) - yup,2);
+
+        if (distance1 < distance2){
+            return distance1;
+        }
+        else {
+            return distance2;
+        }
+    }
 
 };
 
