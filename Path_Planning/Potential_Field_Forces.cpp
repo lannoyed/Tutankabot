@@ -123,6 +123,14 @@ class Obstacle : public Potential_Field
         return obstacle_list;
     }
 
+    void setWeight (double newWeight) {
+        coeff = newWeight;
+    }
+
+    void setInfluence (double  newInfluence){
+        rho0 = newInfluence;
+    }
+
 };
 
 
