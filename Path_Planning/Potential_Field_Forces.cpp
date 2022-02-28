@@ -6,6 +6,14 @@
 #include <list>
 #include <string>
 
+// Author : Nicolas Isenguerre, Diego Lannoye.
+// Mechatronics Project - LELME2002. 2021-2022.
+// For the reference in coordinate system : see the 'RepresentationCarte.png' file.
+
+// ========================
+// == INCLUDES & DEFINES ==
+// ========================
+
 using namespace std; // Might pose a problem later in the work on tuples.
 
 typedef vector< tuple<double,double> > tuple_coord_list; // List of coordinates as tuples.
@@ -15,16 +23,18 @@ typedef vector< tuple<double,double> > tuple_coord_list; // List of coordinates 
 // Borders will be represented as being rectangles.
 #define rho_0_border 0.1; // Distance of influence of border set to 10 [cm]. Every border has the same distance of influence.
 #define rho_0_circle 0.15; // Distance of influence of obstacle in map : the samples on the floor have a diameter of 15 [cm], so we say r_influence = 15 [cm].
-// Every obstacle in the map has the same distance of influence.
-
-// -> Potential problem with opponent robot, as it is bigger than the samples on the floor.
+// Every obstacle in the map has the same distance of influence, as a first generalisation.
 
 
 
-// For the reference in coordinate system : see the 'RepresentationCarte.png' file.
 
 
-// Instantiation of class Potential Field : mother class of Attractive and Repulsive forces.
+// ================
+// == CLASS PART ==
+// ================
+
+
+// Instantiation of class Potential Field : mother class of Obstacle.
 class Potential_Field
 {
     // Access specifier: Public class accessible everywhere.
@@ -32,75 +42,161 @@ class Potential_Field
 
     // Data Members : the attribute of the class.
     tuple_coord_list obstacle_list;         // Position of obstacles on the board (not counting in borders).
-    tuple <double, double> position_vector; // Current position of the robot.
+    tuple <double, double> current_position; // Current position of the robot.
     tuple <double, double> goal_position;   // Current goal position.
-    double coefficient;
+
+    // Default constructor.
+    Potential_Field()
+    {
+        cout << "The default constructor of 'Potential_Field' has been called." << endl; // endl = end_line => '\n' in Python.
+        // cout means "character output" and wcout means "wide character output". std::cout format. Quick way of saying "print".
+    }
+
+    // Parameterized constructor.
+    Potential_Field(tuple <double, double> position, tuple <double, double> goal)
+    {
+        current_position = position;
+        goal_position = goal;
+    }
+
+    // Update function to get a new position.
+    void setPosition(tuple <double, double> position){
+        current_position = position;
+    }
+    
+    // Self explanatory function.
+    void setGoalPosition(tuple <double, double> current_goal){
+        goal_position = current_goal; 
+    }
+
+    // Calculation of the attractive force at the present point towards the goal. This gives back a vector.
+    tuple <double, double> forceApplied(double value){
+        double co_X = -value * ( get<0>(current_position) - get<0>(goal_position) );
+        double co_Y = -value * ( get<1>(current_position) - get<1>(goal_position) );
+        tuple <double, double> directionOfForce = make_tuple(co_X, co_Y);
+        return directionOfForce; 
+    }
+
+    // Calculation of the total repulsive force at the current position. Takes into account every known obstacles.
+    tuple <double, double> repulsiveForce(){
+        return;
+    }
+    // The idea : calculate the repulsive for of each an every single known obstacle. 6 borders and known samples. 
+
+
+    // Implémentation primitive : on définit chaque obstacle comme un point : sur map : un seul point et on fait un cercle centré en ce point (voir class Sample)
+
+    // À implémenter dans les classes obstacles :
+    // IDÉE : si distance entre les deux centres <= 30 [cm] : ça craint !
+    // Les bords : if distance(centre-droite du bord) <= 15 [cm] : ça craint !  
+
+};
+
+
+// Class of an obstacle. Mother class of Border, Robot, Samples
+class Obstacle : public Potential_Field
+{
+    public : 
+
+    // Attributes : common to every obstacles : the repulsive coefficient and the distance of influence.
+    double coeff;
+    double rho0;
+
+    Obstacle()
+    {
+        cout << "Default constructor of class 'Obstacle'" << endl;
+    }
+
+    // Class constructor. Parameterized constructor : the position of the center is not specified, as a border is represented as a line. Use "setPosition" for other obstacles.
+    Obstacle(double k_rep, double distanceOfInfluence)
+    {
+        coeff = k_rep;
+        rho0 = distanceOfInfluence;
+    }
 
     // Adding new obstacles to the list of obstacles. This will allow us to put the number of known obstacles on the map at first and then update it with, typically, 
     // the position of the opponent !
     // Assumption : new obstacles will only be a moving robot or a fallen sample that the other robot may have mooved. 
     tuple_coord_list addObstacleCoord(tuple <double, double> newObstacleCoord){
-        obstacle_list.push_back(newObstacleCoord);
+        obstacle_list.push_back(newObstacleCoord); // obstacle_list is an attribute of the 'Potential_Field' class.
         return obstacle_list;
     }
 
-    void setObstacleInfluenceZone(){
+};
 
+
+class Border : public Obstacle
+{
+    public :
+
+    // Attributes : those inhehirted from 'Obstacles'.
+
+    // Default constructor.
+    Border()
+    {
+        cout << "Default constructor of class 'Border'" << endl;
     }
 
-    void setBorderInfluenceZone(){
-
-    }
-
-    // Question tuteur : comment faire ? En gros, je visualise ceci : on a un cercle et dès qu'on détecte qu'on est dedans, on sait qu'on doit subir le potential field.
-    // Problème : comment faire comprendre qu'on est dedans ? Retourner une liste de points qui approximent ce cercle ? Y'a un truc tout fait pour ça ? J'ai du mal à
-    // imaginer comment je pourrais me dire "ok, là j'suis dans le cercle oula aled".
-    // Et par rapport aux bords : par bloc : ok mais comment ? Et pour ça, ça semble plus simple de retourner le fait qu'on est dans une "zone interdite", et encore (bords penchés).
-
-
-    // AJOUTER LA FONCTION OBSTACLE et cercle et rectangulaire
-    // Implémentation primitive : on définit chaque obstacle comme un point : sur map : un seul point et on fait un cercle centré en ce point
-    // Pour le bord : traitement spécial car on connait le bord à l'avance : faire par "blocs" comme ça on pourra enlever des portions pour les définir comme goal et tout.
-    // SET RECTANGLES ET CERCLES (obstacles bords et internes)
+    // L'idée : set des droites. Faire une liste de droites ? Comment "encoder" une droite en c++ ? Comment la stocker ?
+    // Pour la détection : mon idée : comme on approxime notre robot par un cercle d'un certain rayon (bonne première approx), calculer la distance immédiate du centre
+    // du robot jusqu'aux bords et si la distance est < rayon du robot, alors, on est dans la zone d'influence du bord.
 
 };
 
-class Attractive_Force : public Potential_Field
+class Opponent : public Obstacle
 {
+
     public:
 
-    // Constructor of class.
-    Attractive_Force() // Test : soit faire la fonction directement ici avec l'argument à passer à l'instantiation ou alors on utilise dans la fonction main la fonction set.
-    // Probablement plus propre de faire un set de l'objet de base avec des data et puis on utilise les fonctions de set pour update si nécessaire.
+    // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
+    tuple <double, double> position;
+
+    Opponent(tuple <double, double> center, double k_rep, double distanceOfInfluence)
     {
-        cout << "Default Constructor of class Attractive_Force" << endl; // endl = end_line => '\n' in Python.
-        // cout means "character output" and wcout means "wide character output". std::cout format. Quick way of saying "print".
+        position = center;
+        coeff = k_rep;
+        rho0 = distanceOfInfluence;
     }
 
-    void setCoefficient(double value) {
-        coefficient = value;
-    }
-    void setPosition(tuple <double, double> position){
-        position_vector = position;
-    }
-    void setGoalPosition(tuple <double, double> current_goal){
-        goal_position = current_goal; 
-    }
+    // To be implemented : bool isInZone() => if distance de centre robot à point détecté <= 30 [cm] (ou une distance qu'on aura fixé), alors BAD.
 
-    // Calculation of the total attractive force at the present point. We can specify a coefficient, but the positions must have been set prior to the call.
-    double forceApplied(double value){
-        setCoefficient(value);
-        double k_att = coefficient;
-        return -k_att * sqrt(   pow(get<0>(position_vector) - get<0>(goal_position), 2) + 
-                                pow(get<1>(position_vector) - get<1>(goal_position), 2) ); 
-    }
 
+    // Harder part : to be implemented.
+    // The information we get is coming from the sensors. They will give us an estimation of the distance towards the obstacle.
+    // By having an idea of the smallest distance to the opponent and the angle at which it is, we can estimate the position of the opponent.
+    void setPosition(tuple <double, double> obstaclePosition){
+    
+    }
 };
 
-// ADD REPULSIVE_FORCE BUT FIRST : SEE NEXT COMMENT
+class Sample : public Obstacle
+{
+    public :
 
-// DEMANDER SI CA NE SERAIT PAS MIEUX DE TOUT FAIRE DANS UNE SEULE CLASSE, PARCE QU'EN VRAI J'AI L'IMPRESSION QUE JE ME CASSE LES COUILLES POUR RIEN. 
+    // Attributes : those inherited from 'Obstacle' and the position of its center (known).
+    tuple <double, double> position;
 
+    Sample(tuple <double, double> center, double k_rep, double distanceOfInfluence)
+    {
+        position = center;
+        coeff = k_rep;
+        rho0 = distanceOfInfluence;
+    }
+
+    // To be implemented : bool isInZone() => if distance de centre robot à centre known obstacle <= 30 [cm] (ou une distance qu'on aura fixé), alors BAD.
+
+    // Position of the center of an obstacle. If the determination of the center is impossible, we say that the point = the closest point detected.
+    void setPosition(tuple <double, double> obstaclePosition){
+        position = obstaclePosition; 
+    }
+};
+
+
+
+
+// ===============
+// == TEST PART ==
+// ===============
 
 string tupleToString(tuple <double, double> entry){
     string output_s;
@@ -114,14 +210,16 @@ int main(int arg, char* argv[]){
     tuple <double, double> position_1 = make_tuple(1.5, 1.5);
     tuple <double, double> goal_1 = make_tuple(1.0, 1.5);
 
-    Attractive_Force testObject;
+    Potential_Field testObject;
     testObject.setPosition(position_1);
     testObject.setGoalPosition(goal_1);
 
+    // To be modified if we want to test.
+    /*
     double result_forceApp = testObject.forceApplied(valeurqcq);
 
     cout << "Test if everything works fine" << endl;
     cout << "Position: " << tupleToString(testObject.position_vector) << endl; // << here only works with strings !
     cout << "Goal: " << tupleToString(testObject.goal_position) << endl;
-    cout << "Force: " << to_string(result_forceApp) << endl;
+    cout << "Force: " << to_string(result_forceApp) << endl;*/ 
 }
