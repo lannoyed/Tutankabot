@@ -316,10 +316,10 @@ int main(int arg, char* argv[]){
     SimpleBorder Border1 = SimpleBorder(2, 0.5 , 0, -1 );
 
     for (int i = 0; i < 6; i++) {
-        robotPosition = make_tuple<double,double>(-xposition/5.0,2);
+        robotPosition = make_tuple<double,double>(-i/5.0,2);
         distanceToBorder = Border1.computeDistance (robotPosition);
         cout << "distance to border 1 = " << distanceToBorder << "\t for position : " << tupleToString(robotPosition) << "\n";
-        repulsiveForceFromBorder = Border1.computeRepulsiveForce(robotPosition, distanceToBorder);
+        repulsiveForceFromBorder = Border1.computeRepulsiveForce(distanceToBorder);
         cout << "repulsive force from border 1 = " << repulsiveForceFromBorder << "\t for position : " << tupleToString(robotPosition) << "\n";
     }
     SimpleBorder Border2 = SimpleBorder(2, 0.5 , 1, -1 );
