@@ -241,12 +241,19 @@ class Opponent : public Obstacle
 
     // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
     tuple <double, double> position;
+    double hitBoxRadius;
+
 
     Opponent(tuple <double, double> center, double k_rep, double distanceOfInfluence)
     {
         position = center;
         coeff = k_rep;
         rho0 = distanceOfInfluence;
+    }
+
+    double computeDistance (tuple <double, double> robotPosition){
+        double distanceToCenter = pow(get<0>(robotPosition) - get<0>(position), 2) + pow(get<1>(robotPosition) - get<1>(position), 2);
+        return distanceToCenter - hitBoxRadius;
     }
 
     // To be implemented : bool isInZone() => if distance de centre robot à point détecté <= 30 [cm] (ou une distance qu'on aura fixé), alors BAD.
@@ -265,12 +272,19 @@ class Sample : public Obstacle
 
     // Attributes : those inherited from 'Obstacle' and the position of its center (known).
     tuple <double, double> position;
+    double hitBoxRadius;
 
-    Sample(tuple <double, double> center, double k_rep, double distanceOfInfluence)
+    Sample(tuple <double, double> center, double k_rep, double distanceOfInfluence, double hibox)
     {
         position = center;
         coeff = k_rep;
         rho0 = distanceOfInfluence;
+        hitBoxRadius = hibox;
+    }
+
+    double computeDistance (tuple <double, double> robotPosition){
+        double distanceToCenter = pow(get<0>(robotPosition) - get<0>(position), 2) + pow(get<1>(robotPosition) - get<1>(position), 2);
+        return distanceToCenter - hitBoxRadius;
     }
 
     // To be implemented : bool isInZone() => if distance de centre robot à centre known obstacle <= 30 [cm] (ou une distance qu'on aura fixé), alors BAD.
