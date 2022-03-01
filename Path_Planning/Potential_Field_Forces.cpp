@@ -100,6 +100,7 @@ class Obstacle : public Potential_Field
     public : 
 
     // Attributes : common to every obstacles : the repulsive coefficient and the distance of influence.
+    // Other possibility (hitbox zone)
     double coeff;
     double rho0;
 
@@ -117,7 +118,8 @@ class Obstacle : public Potential_Field
 
     // Adding new obstacles to the list of obstacles. This will allow us to put the number of known obstacles on the map at first and then update it with, typically, 
     // the position of the opponent !
-    // Assumption : new obstacles will only be a moving robot or a fallen sample that the other robot may have mooved. 
+    // Assumption : new obstacles will only be a moving robot or a fallen sample that the other robot may have mooved.
+    // à voir si on garde ça comme cela  (DIEGO)
     tuple_coord_list addObstacleCoord(tuple <double, double> newObstacleCoord){
         obstacle_list.push_back(newObstacleCoord); // obstacle_list is an attribute of the 'Potential_Field' class.
         return obstacle_list;
@@ -131,6 +133,17 @@ class Obstacle : public Potential_Field
         rho0 = newInfluence;
     }
 
+    double computeRepulsiveForce(tuple <double, double> robotPosition, double distance){
+        if (distance == 0.0){
+            cout << "Hoho on est sur l'obstacle #oups";
+            return 1000000000;
+        } else if (distance <= rho0) {
+            return coeff/distance;
+        }
+        else {
+            return 0.0;
+        }
+    }
 };
 
 
@@ -158,7 +171,6 @@ class SimpleBorder : public Obstacle
         rho0 = distanceOfInfluence;
         borderType = border_type;
         position = xoryposition;
-
     }
 
     // give the euclidean distance (square) between the line and the center of the robot
@@ -221,12 +233,10 @@ class OblicBorder : public Obstacle {
             return distance2;
         }
     }
-
 };
 
 class Opponent : public Obstacle
 {
-
     public:
 
     // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
@@ -241,12 +251,11 @@ class Opponent : public Obstacle
 
     // To be implemented : bool isInZone() => if distance de centre robot à point détecté <= 30 [cm] (ou une distance qu'on aura fixé), alors BAD.
 
-
     // Harder part : to be implemented.
     // The information we get is coming from the sensors. They will give us an estimation of the distance towards the obstacle.
     // By having an idea of the smallest distance to the opponent and the angle at which it is, we can estimate the position of the opponent.
     void setPosition(tuple <double, double> obstaclePosition){
-    
+
     }
 };
 
@@ -294,6 +303,25 @@ int main(int arg, char* argv[]){
     Potential_Field testObject;
     testObject.setPosition(position_1);
     testObject.setGoalPosition(goal_1);
+
+    // Test Part (Diego)
+    double distanceToBorder;
+    double repulsiveForceFromBorder;
+    SimpleBorder Border1 = SimpleBorder(2, 0.5 , 0, -1 );
+    for (int i = 0; i < 6; i++) {
+        double xposition = i;
+        tuple<double,double> robotPosition = make_tuple<double,double>(-xposition/5,2);
+        distanceToBorder = Border1.computeDistance (robotPosition);
+        cout << "distance to border 1 = " << distanceToBorder << "\t for position : " << xposition << "\n";
+        repulsiveForceFromBorder = Border1.computeRepulsiveForce(robotPosition, distanceToBorder);
+        cout << "repulsive force from border 1 = " << repulsiveForceFromBorder << "\t for position : " << xposition << "\n";
+    }
+    SimpleBorder Border2 = SimpleBorder(2, 0.5 , 1, -1 );
+    for (int i = 0; i < 6; i++) {
+        double xposition = i;
+        distanceToBorder = Border2.computeDistance (make_tuple<double,double>(0, -xposition/5));
+        cout << "distance to border 2 = " << distanceToBorder << "\t for position : " << xposition << "\n";
+    }
 
     // To be modified if we want to test.
     /*
