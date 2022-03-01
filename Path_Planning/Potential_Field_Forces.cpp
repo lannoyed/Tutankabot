@@ -42,6 +42,8 @@ class Potential_Field
     public:
 
     // Data Members : the attribute of the class.
+
+    //pas coord list mais obstacles list
     tuple_coord_list obstacle_list;         // Position of obstacles on the board (not counting in borders).
     tuple <double, double> current_position; // Current position of the robot.
     tuple <double, double> goal_position;   // Current goal position.
@@ -78,10 +80,7 @@ class Potential_Field
         return directionOfForce; 
     }
 
-    // Calculation of the total repulsive force at the current position. Takes into account every known obstacles.
-    tuple <double, double> repulsiveForce(){
-        return make_tuple<double, double>(0.0, 0.0);
-    }
+
     // The idea : calculate the repulsive for of each an every single known obstacle. 6 borders and known samples. 
 
 
@@ -89,7 +88,9 @@ class Potential_Field
 
     // À implémenter dans les classes obstacles :
     // IDÉE : si distance entre les deux centres <= 30 [cm] : ça craint !
-    // Les bords : if distance(centre-droite du bord) <= 15 [cm] : ça craint !  
+    // Les bords : if distance(centre-droite du bord) <= 15 [cm] : ça craint !
+
+
 
 };
 
@@ -116,15 +117,6 @@ class Obstacle : public Potential_Field
         rho0 = distanceOfInfluence;
     }
 
-    // Adding new obstacles to the list of obstacles. This will allow us to put the number of known obstacles on the map at first and then update it with, typically, 
-    // the position of the opponent !
-    // Assumption : new obstacles will only be a moving robot or a fallen sample that the other robot may have mooved.
-    // à voir si on garde ça comme cela  (DIEGO)
-    tuple_coord_list addObstacleCoord(tuple <double, double> newObstacleCoord){
-        obstacle_list.push_back(newObstacleCoord); // obstacle_list is an attribute of the 'Potential_Field' class.
-        return obstacle_list;
-    }
-
     void setWeight (double newWeight) {
         coeff = newWeight;
     }
@@ -133,7 +125,7 @@ class Obstacle : public Potential_Field
         rho0 = newInfluence;
     }
 
-    double computeRepulsiveForce(tuple <double, double> robotPosition, double distance){
+    double computeRepulsiveForce(double distance){
         if (distance == 0.0){
             cout << "Hoho on est sur l'obstacle #oups";
             return 1000000000;
@@ -183,7 +175,7 @@ class SimpleBorder : public Obstacle
             return  pow(get<1>(robotPosition) - position, 2);
         }
         else {
-            throw "invalide Border type";
+            throw "invalid Border type";
         }
     }
 };
@@ -191,8 +183,6 @@ class SimpleBorder : public Obstacle
 class OblicBorder : public Obstacle {
     public :
 
-    // Attributes : those inhehirted from 'Obstacles'.
-    //            : borderType (0 -> vertical, 1 -> horizontal)
     int borderType;
     // y = mx + p
     double m;
@@ -251,6 +241,7 @@ class Opponent : public Obstacle
         rho0 = distanceOfInfluence;
     }
 
+    // gérer si le résultat est négatif
     double computeDistance (tuple <double, double> robotPosition){
         double distanceToCenter = pow(get<0>(robotPosition) - get<0>(position), 2) + pow(get<1>(robotPosition) - get<1>(position), 2);
         return distanceToCenter - hitBoxRadius;
@@ -325,8 +316,7 @@ int main(int arg, char* argv[]){
     SimpleBorder Border1 = SimpleBorder(2, 0.5 , 0, -1 );
 
     for (int i = 0; i < 6; i++) {
-        double xposition = i;
-        robotPosition = make_tuple<double,double>(-xposition/5,2);
+        robotPosition = make_tuple<double,double>(-xposition/5.0,2);
         distanceToBorder = Border1.computeDistance (robotPosition);
         cout << "distance to border 1 = " << distanceToBorder << "\t for position : " << tupleToString(robotPosition) << "\n";
         repulsiveForceFromBorder = Border1.computeRepulsiveForce(robotPosition, distanceToBorder);
