@@ -18,6 +18,7 @@
 #include <list>
 #include <string>
 #include <cmath>
+#include <queue>
 
 
 
@@ -145,6 +146,11 @@ public:
     std::vector<Opponent>       opponentList;       // List of opponent obstacle type.
     std::vector<Sample>         sampleList;         // List of sample obstacle type.
     std::tuple <double, double> currentSpeedVector; // Vref , omega_ref
+    std::queue<double>          list_for_speed_filtering;
+    double                      filter_output_Vref;
+    double                      filter_output_Wref;
+
+
 
     Potential_Field();
     Potential_Field(std::tuple <double, double> position, Goal goal);
@@ -160,7 +166,10 @@ public:
 
     std::tuple <double, double> totalRepulsiveForce();
 
-    std::tuple <double, double> getSpeedVector(double dt);
+    std::tuple <double, double> getSpeedVector(double dt, double vMax, double omegaMax);
+    std::tuple <double, double> speedFilter(std::tuple <double, double> speedVector);
+
+
 };
 
 
