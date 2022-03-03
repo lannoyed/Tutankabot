@@ -44,6 +44,10 @@ using namespace std; //
 // == CLASS PART ==
 // ================
 
+// ================
+// == CLASS PART ==
+// ================
+
 // Potential_Field Class Function
 
 // Default constructor.
@@ -93,7 +97,7 @@ std::tuple <double, double> Potential_Field::attractiveForce(){
 std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax){
     std::tuple <double, double> myAttractiveForce = attractiveForce();
     std::tuple <double, double> myRepulsiveForce = totalRepulsiveForce();
-    std::tuple <double, double> nextSpeedVector = make_tuple(std::get<0>(myAttractiveForce) + std::get<0>(myRepulsiveForce),std::get<1>(myAttractiveForce) + std::get<1>(myRepulsiveForce));
+    std::tuple <double, double> nextSpeedVector = std::make_tuple(std::get<0>(myAttractiveForce) + std::get<0>(myRepulsiveForce),std::get<1>(myAttractiveForce) + std::get<1>(myRepulsiveForce));
     double vRefNext = sqrt(pow(std::get<0>(nextSpeedVector),2) + pow(std::get<1>(nextSpeedVector), 2) );
     double vRef     = sqrt(pow(std::get<0>(currentSpeedVector),2) + pow(std::get<1>(currentSpeedVector), 2) );
     double cosTheta = (std::get<0>(nextSpeedVector) * std::get<0>(currentSpeedVector) + std::get<1>(nextSpeedVector) * std::get<1>(currentSpeedVector) ) / (vRefNext * vRef);
@@ -111,12 +115,12 @@ std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vM
     if (omega >= omegaMax ) {
         double dTheta = (omegaMax-omega)*dt;
         omega = omegaMax;
-        nextSpeedVector = make_tuple(std::get<0>(nextSpeedVector)* cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector)* sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta) );
+        nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector)* cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector)* sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta) );
 
     }
     double vMaxReal = vMax - 0.18 * std::abs(omega);
     if (vRefNext > vMaxReal){
-        nextSpeedVector = make_tuple(std::get<0>(nextSpeedVector)* vMaxReal/vRefNext, std::get<1>(nextSpeedVector)* vMaxReal/vRefNext);
+        nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector)* vMaxReal/vRefNext, std::get<1>(nextSpeedVector)* vMaxReal/vRefNext);
         vRefNext = vMaxReal;
     }
     //cout << "cosTheta" << cosTheta << "\n";
@@ -182,8 +186,8 @@ std::tuple <double, double> Potential_Field::totalRepulsiveForce()
         double rho0_obstacle = obstacle.rho0;
         std::tuple<double, double> position = obstacle.position;
         if (distanceToObstacle <=  pow(rho0_obstacle + radius_robot, 2)) {
-        std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<0>(current_position) - std::get<0> (position)) / realDistance );
-        std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<1>(current_position) - std::get<1> (position)) / realDistance );
+            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<0>(current_position) - std::get<0> (position)) / realDistance );
+            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<1>(current_position) - std::get<1> (position)) / realDistance );
         }
     }
 
@@ -196,8 +200,8 @@ std::tuple <double, double> Potential_Field::totalRepulsiveForce()
 
 
 std::tuple <double, double> Potential_Field::speedFilter(std::tuple <double, double> speedVector){
-    double V = get<0>(speedVector)/10;
-    double W = get<1>(speedVector)/10;
+    double V = std::get<0>(speedVector)/10.0;
+    double W = std::get<1>(speedVector)/10.0;
     list_for_speed_filtering.push(V);
     list_for_speed_filtering.push(W);
     filter_output_Vref += V - list_for_speed_filtering.front();
@@ -355,7 +359,6 @@ double Sample::computeDistance (std::tuple <double, double> robotPosition){
 void Sample::setPositionSample(std::tuple <double, double> obstaclePosition){
     position = obstaclePosition;
 }
-
 
 
 
