@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-path ='Tutankabot\Path_Planning\cmake-build-debug'
-data = np.loadtxt(path + '\data.txt')
+
+data = np.loadtxt('data.txt')
 
 def limit_vref_omega(omega2):
     omega1 = 14;
@@ -59,9 +59,12 @@ for i in range (n):
 plt.scatter(x,y, marker = '.')
 plt.scatter(50,200)
 plt.scatter(-100,50)
+plt.title('Displacement of the robot in the map')
+plt.xlabel('[cm]')
+plt.ylabel('[cm]')
 plotSample((-60,100))
-plotSample((0,120))
-plotSample((0,80))
+#plotSample((0,120))
+#plotSample((0,80))
 plotSample((0,145))
 plt.show()
 
@@ -72,8 +75,11 @@ plt.plot(repulsive_y, label = 'repulsive_y')
 plt.legend()
 plt.show()
 
-plt.plot(direct_speed*10, label = 'V ref')
-plt.plot(omega_speed, label = 'omega ref')
+plt.title('Speed adaptation of the robot')
+plt.plot(direct_speed*10, label = 'V_ref ([m/s])')
+plt.plot(omega_speed, label = 'omega_ref ([rad/s])')
+plt.xlabel('Number of iterations')
+plt.ylabel('Amplitude')
 plt.legend()
 plt.show()
 
