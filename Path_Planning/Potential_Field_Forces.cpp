@@ -107,8 +107,10 @@ std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vM
     if (cosTheta >= 1.0){
         omega =0.0;
     } else if (cosTheta == 0.0 ){
-        omega = -PI/dt;
-    }else {
+        omega = -PI/2/dt;
+    } else if (cosTheta <= -1.0){
+        omega =  -PI/dt;
+    } else {
         omega = acos(cosTheta) / dt;
     }
 
@@ -116,8 +118,12 @@ std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vM
         double dTheta = (omegaMax-omega)*dt;
         omega = omegaMax;
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector)* cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector)* sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta) );
-
+    } else if (omega <= - omegaMax){
+        double dTheta = (omegaMax-omega)*dt;
+        omega = -omegaMax;
+        nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector)* cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector)* sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta) );
     }
+
     double vMaxReal = vMax - 0.18 * std::abs(omega);
     if (vRefNext > vMaxReal){
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector)* vMaxReal/vRefNext, std::get<1>(nextSpeedVector)* vMaxReal/vRefNext);
@@ -416,7 +422,7 @@ string tupleToString(std::tuple <double, double> entry){
 
 
 std::tuple<double,double> next_position(std::tuple<double,double> position, std::tuple<double,double> speed){
-    double dt = 0.01;
+    double dt = 0.1;
     double next_x = 100 * std::get<0>(speed) * dt + std::get<0>(position);
     double next_y = 100 * std::get<1>(speed) * dt + std::get<1>(position);
     return std::make_tuple(next_x, next_y);
@@ -436,8 +442,8 @@ int main(int arg, char* argv[]){
 
 
     // création des obstacles
-    double hitbox = 15;
-    double distanceOfInfluence = 30;
+    double hitbox = 10;
+    double distanceOfInfluence = 100;
     std::tuple <double, double> center = std::make_tuple<double, double>(0.0, 145);
     double k_rep = 10;
 
@@ -505,7 +511,7 @@ int main(int arg, char* argv[]){
     }
 
     int i =0;
-    while (i < 1000 && (pow(std::get<0>(myPotential_Field.current_goal.position) - std::get<0>(myPotential_Field.current_position),2) > 0.01 || pow(std::get<1>(myPotential_Field.current_goal.position) - std::get<1>(myPotential_Field.current_position),2) > 00.1) ) {
+    while (i < 1000 && (pow(std::get<0>(myPotential_Field.current_goal.position) - std::get<0>(myPotential_Field.current_position),2) > 8 || pow(std::get<1>(myPotential_Field.current_goal.position) - std::get<1>(myPotential_Field.current_position),2) > 8) ) {
         myfile << tupleToString(myPotential_Field.current_position) << " ";
         std::tuple<double,double> precedentSpeedVector = myPotential_Field.currentSpeedVector;
         std::tuple <double, double> myRepulsiveForce = myPotential_Field.totalRepulsiveForce();
