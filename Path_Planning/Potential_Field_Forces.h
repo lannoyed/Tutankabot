@@ -20,13 +20,6 @@
 #include <cmath>
 #include <queue>
 
-
-
-
-
-
-
-
 // The obstacles in the map will be represented as circles, just like the robot.
 // Borders will be represented as being rectangles.
 #define rho_0_border 0.1   // Distance of influence of border set to 10 [cm]. Every border has the same distance of influence.
@@ -36,6 +29,10 @@
 // Every obstacle in the map has the same distance of influence, as a first generalisation.
 
 
+
+// ====================================================================================================================================================================================================================
+// Obstacle Declaration
+// ====================================================================================================================================================================================================================
 
 class Obstacle
 {
@@ -51,16 +48,19 @@ public :
     Obstacle(double k_rep, double distanceOfInfluence, std::string typeName);
     void setWeight (double newWeight);
     void setInfluence (double  newInfluence);
-
-
 };
 
+
+// ====================================================================================================================================================================================================================
+// SimpleBorder Declaration
+// ====================================================================================================================================================================================================================
 
 // Simple border permet le gestion de bordure horizontales ou verticales
 class SimpleBorder : public Obstacle
 {
 
 public :
+
     // Attributes : those inhehirted from 'Obstacles'.
     //            : borderType (0 -> vertical, 1 -> horizontal)
     int             borderType;
@@ -70,12 +70,16 @@ public :
     SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition);
 
     double          computeDistance(std::tuple<double, double> robotPosition);
-
 };
 
 
+// ====================================================================================================================================================================================================================
+// OblicBorder Declaration
+// ====================================================================================================================================================================================================================
+
 class OblicBorder : public Obstacle
 {
+
 public :
 
     int             borderType;
@@ -85,14 +89,20 @@ public :
     OblicBorder();
     OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset);
 
-    double          computeDistance(std::tuple<double, double> robotPosition);
+    double                      computeDistance(std::tuple<double, double> robotPosition);
+    std::tuple <double, double> closestPoint(std::tuple <double, double> robotPosition);
 };
 
+
+// ====================================================================================================================================================================================================================
+// Opponent Declaration
+// ====================================================================================================================================================================================================================
 
 class Opponent : public Obstacle
 {
 
 public:
+
     // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
     std::tuple<double, double> position;
     double hitBoxRadius;
@@ -106,10 +116,15 @@ public:
 };
 
 
+// ====================================================================================================================================================================================================================
+// Sample Declaration
+// ====================================================================================================================================================================================================================
+
 class Sample : public Obstacle
 {
 
 public :
+
     // Attributes : those inherited from 'Obstacle' and the position of its center (known).
     std::tuple <double, double>  position;
     double                  hitBoxRadius;
@@ -121,19 +136,27 @@ public :
 };
 
 
-// Plus forcément très utile.
-
-// typedef std::vector< Obstacle > obstacle_list; // List of coordinates as tuples.
-// Vector : basically works as a list. vector.push_back : add element at the end.
+// ====================================================================================================================================================================================================================
+// Goal Declaration
+// ====================================================================================================================================================================================================================
 
 class Goal
 {
-public:
+
+    public:
+
     std::tuple <double, double> position;
     double Weight;
+    
     Goal();
     Goal(std::tuple <double, double> goal_position, double goalWeight);
+    std::tuple <double, double> attForce(std::tuple <double, double> position_robot);
 };
+
+
+// ====================================================================================================================================================================================================================
+// Potential_Field Declaration
+// ====================================================================================================================================================================================================================
 
 class Potential_Field
 {
@@ -157,7 +180,7 @@ public:
     void setPosition(std::tuple <double, double> position);
     void setGoal(std::tuple <double, double> position, double weight);
     void setSpeedVerctor(std::tuple <double, double> initialSpeedVector);
-    std::tuple <double, double> attractiveForce();
+    std::tuple <double, double> attractiveForce(std::tuple <double, double> position);
 
     void addSimpleBorder(SimpleBorder);
     void addOblicBorder(OblicBorder);
@@ -166,10 +189,8 @@ public:
 
     std::tuple <double, double> totalRepulsiveForce();
 
-    std::tuple <double, double> getSpeedVector(double dt, double vMax, double omegaMax);
+    std::tuple <double, double> getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position);
     std::tuple <double, double> speedFilter(std::tuple <double, double> speedVector);
-
-
+    
 };
-
 

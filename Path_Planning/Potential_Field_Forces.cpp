@@ -4,21 +4,7 @@
  */
 
 #include <fstream>
-using namespace std; //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+using namespace std; 
 
 
 
@@ -29,6 +15,7 @@ using namespace std; //
 // For the reference in coordinate system : see the 'RepresentationCarte.png' file.
 
 
+
 /*          LISTE DES PROBLEMES
  *  où sont init les listes des différents obstacles ?
  *  mise en place de fonctions globales pour simplifier l'exécution dans la main
@@ -37,18 +24,14 @@ using namespace std; //
 
 
 
-
-
-
 // ================
 // == CLASS PART ==
 // ================
 
-// ================
-// == CLASS PART ==
-// ================
 
-// Potential_Field Class Function
+// ====================================================================================================================================================================================================================
+// Potential_Field Class
+// ====================================================================================================================================================================================================================
 
 // Default constructor.
 Potential_Field::Potential_Field()
@@ -71,7 +54,6 @@ Potential_Field::Potential_Field(std::tuple <double, double> position, Goal goal
     list_for_speed_filtering.push(0.0);list_for_speed_filtering.push(0.0);list_for_speed_filtering.push(0.0);list_for_speed_filtering.push(0.0);list_for_speed_filtering.push(0.0);
 }
 
-
 // Update function to get a new position.
 void Potential_Field::setPosition(std::tuple <double, double> position){
     current_position = position;
@@ -87,15 +69,12 @@ void Potential_Field::setSpeedVerctor(std::tuple <double, double> initialSpeedVe
 }
 
 // Calculation of the attractive force at the present point towards the goal. This gives back a vector.
-std::tuple <double, double> Potential_Field::attractiveForce(){
-    double co_X = -current_goal.Weight * ( std::get<0>(current_position) - std::get<0>(current_goal.position) );
-    double co_Y = -current_goal.Weight * ( std::get<1>(current_position) - std::get<1>(current_goal.position) );
-    std::tuple <double, double> force = std::make_tuple(co_X, co_Y);
-    return force;
+std::tuple <double, double> Potential_Field::attractiveForce(std::tuple <double, double> position){
+    return current_goal.attForce(position);
 }
 
-std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax){
-    std::tuple <double, double> myAttractiveForce = attractiveForce();
+std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position){
+    std::tuple <double, double> myAttractiveForce = attractiveForce(position);
     std::tuple <double, double> myRepulsiveForce = totalRepulsiveForce();
     std::tuple <double, double> nextSpeedVector = std::make_tuple(std::get<0>(myAttractiveForce) + std::get<0>(myRepulsiveForce),std::get<1>(myAttractiveForce) + std::get<1>(myRepulsiveForce));
     double vRefNext = sqrt(pow(std::get<0>(nextSpeedVector),2) + pow(std::get<1>(nextSpeedVector), 2) );
@@ -155,55 +134,86 @@ void Potential_Field::addSample(Sample object)
     sampleList.push_back(object);
 }
 
-
 std::tuple <double, double> Potential_Field::totalRepulsiveForce()
 {
     std::tuple <double, double> totalRepForce = std::make_tuple(0,0);
 
     // Iterate over every single type of obstacle.
 
+    // HUGE TAKE CARE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // q_obstacle, dans la formule, c'est la distance entre le robot et la zone d'influence, en fait. Il faut considérer la zone d'influence et pas le centre de l'obstacle.
+    // En fait, jsp, demander.
+
     // SIMPLE BORDER.
     for(auto & obstacle : simpleBorderList)
     {
-        // Square of the euclidean distance + real euclidean distance.
+        // La realDistance = distance entre le centre du robot et la droite en elle-même.
         double realDistance = obstacle.computeDistance(current_position);
-        double distanceToObstacle = pow(realDistance, 2);
+        double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
         double rho0_obstacle = obstacle.rho0;
+        double distanceToObstacleInfluenceZone = realDistance - rho0_obstacle;
         double position = obstacle.position;
         int type = obstacle.borderType;
 
-        if ( (type == 0) && (distanceToObstacle <=  pow(rho0_obstacle + radius_robot, 2)) )
+        // 
+        if ( (type == 0) && (realDistance <=  rho0_obstacle + radius_robot) )
         {
-            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<0>(current_position) - position) / realDistance );
-            std::get<1>(totalRepForce) += 0.0;
-        } else ( (type == 1) && (distanceToObstacle <=  pow(rho0_obstacle + radius_robot, 2)) );
+            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<0>(current_position) - position) / realDistance );
+        } else ( (type == 1) && (realDistance <=  rho0_obstacle + radius_robot) );
         {
-            std::get<0>(totalRepForce) += 0.0;
-            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<1>(current_position) - position) / realDistance );
-        };
+            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<1>(current_position) - position) / realDistance );
+        }
     }
 
-    for(auto & obstacle : sampleList){
+    for(auto & obstacle : sampleList)
+    {
         // Square of the euclidean distance + real euclidean distance.
         double realDistance = obstacle.computeDistance(current_position);
-        double distanceToObstacle = pow(realDistance, 2);
+        double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
         double rho0_obstacle = obstacle.rho0;
         std::tuple<double, double> position = obstacle.position;
-        if (distanceToObstacle <=  pow(rho0_obstacle + radius_robot, 2)) {
-            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<0>(current_position) - std::get<0> (position)) / realDistance );
-            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceToObstacle ) * ( ( std::get<1>(current_position) - std::get<1> (position)) / realDistance );
+        if (realDistance <=  rho0_obstacle + radius_robot) 
+        {
+            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<0>(current_position) - std::get<0> (position)) / realDistance );
+            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<1>(current_position) - std::get<1> (position)) / realDistance );
+        }
+    }
+
+    for(auto & obstacle : opponentList)
+    {
+        // Square of the euclidean distance + real euclidean distance.
+        double realDistance = obstacle.computeDistance(current_position);
+        double distanceSquared = pow(realDistance, 2);
+        double krepObstacle = obstacle.coeff;
+        double rho0_obstacle = obstacle.rho0;
+        std::tuple<double, double> position = obstacle.position;
+        if (realDistance <=  rho0_obstacle + radius_robot) 
+        {
+            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<0>(current_position) - std::get<0> (position)) / realDistance );
+            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<1>(current_position) - std::get<1> (position)) / realDistance );
+        }
+    }
+
+    for(auto & obstacle : oblicBorderList)
+    {
+        double realDistance = obstacle.computeDistance(current_position);
+        double distanceSquared = pow(realDistance, 2);
+        double krepObstacle = obstacle.coeff;
+        double rho0_obstacle = obstacle.rho0;
+        std::tuple<double, double> closestPoint = obstacle.closestPoint(current_position);
+
+        if (realDistance <=  rho0_obstacle + radius_robot) 
+        {
+            std::get<0>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<0>(current_position) - std::get<0> (closestPoint)) / realDistance );
+            std::get<1>(totalRepForce) += krepObstacle * ( ( 1 / realDistance) - ( 1 - rho0_obstacle) ) * ( 1 / distanceSquared ) * ( ( std::get<1>(current_position) - std::get<1> (closestPoint)) / realDistance );
         }
     }
 
 
-    // To continue
-
-
     return totalRepForce;
 }
-
 
 std::tuple <double, double> Potential_Field::speedFilter(std::tuple <double, double> speedVector){
     double V = std::get<0>(speedVector)/10.0;
@@ -217,6 +227,12 @@ std::tuple <double, double> Potential_Field::speedFilter(std::tuple <double, dou
     return std::make_tuple(filter_output_Vref, filter_output_Wref);
 }
 
+
+
+// ====================================================================================================================================================================================================================
+// Goal Class
+// ====================================================================================================================================================================================================================
+
 Goal::Goal()
 {
     std::cout << "Default constructor of class 'Goal'" << std::endl;
@@ -227,6 +243,20 @@ Goal::Goal(std::tuple<double, double> goal_position, double goalWeight)
     position = goal_position;
     Weight = goalWeight;
 }
+
+std::tuple <double, double> Goal::attForce(std::tuple <double, double> position_robot)
+{
+    double co_X = -Weight * ( std::get<0>(position_robot) - std::get<0>(position) );
+    double co_Y = -Weight * ( std::get<1>(position_robot) - std::get<1>(position) );
+    std::tuple <double, double> forceAtt = std::make_tuple(co_X, co_Y);
+    return forceAtt;
+}
+
+
+
+// ====================================================================================================================================================================================================================
+// Obstacle Class
+// ====================================================================================================================================================================================================================
 
 Obstacle::Obstacle()
 {
@@ -249,6 +279,11 @@ void Obstacle::setInfluence (double  newInfluence){
     rho0 = newInfluence;
 }
 
+
+
+// ====================================================================================================================================================================================================================
+// SimpleBorder Class
+// ====================================================================================================================================================================================================================
 
 // Default constructor.
 SimpleBorder::SimpleBorder()
@@ -282,6 +317,10 @@ double SimpleBorder::computeDistance (std::tuple <double, double> robotPosition)
 
 
 
+// ====================================================================================================================================================================================================================
+// OblicBorder Class
+// ====================================================================================================================================================================================================================
+
 // Default constructor.
 OblicBorder::OblicBorder()
 {
@@ -303,7 +342,16 @@ OblicBorder::OblicBorder(double k_rep, double distanceOfInfluence, int border_ty
 // The idea is that the euclidean distance will always be longer than the smallest distance to the x or the y.
 double OblicBorder::computeDistance (std::tuple <double, double> robotPosition)
 {
-    double yup; double xup; double distance1; double distance2;
+    double y2; double x2; double pente_inverse; double b;
+
+    pente_inverse = 1 / m ;
+    b = std::get<1>(robotPosition) + pente_inverse * std::get<0>(robotPosition);
+    x2 = (b - p) / (m + pente_inverse);
+    y2 = b - pente_inverse * x2;
+
+    return sqrt(pow(std::get<0>(robotPosition) - x2, 2) + pow(std::get<1>(robotPosition) - y2, 2));
+
+    /*double yup; double xup; double distance1; double distance2;
 
     yup = m * std::get<0>(robotPosition) + p;
     xup = (std::get<1>(robotPosition) - p) / m;
@@ -316,9 +364,27 @@ double OblicBorder::computeDistance (std::tuple <double, double> robotPosition)
     }
     else {
         return distance2;
-    }
+    }*/
 }
 
+std::tuple <double, double> OblicBorder::closestPoint(std::tuple <double, double> robotPosition)
+{
+    double y2; double x2; double pente_inverse; double b;
+
+    pente_inverse = 1 / m ;
+    b = std::get<1>(robotPosition) + pente_inverse * std::get<0>(robotPosition);
+    x2 = (b - p) / (m + pente_inverse);
+    y2 = b - pente_inverse * x2;
+
+    std::tuple <double, double> outputTupple = std::make_tuple(x2,y2);
+    return outputTupple;
+}
+
+
+
+// ====================================================================================================================================================================================================================
+// Opponent Class
+// ====================================================================================================================================================================================================================
 
 // Parameterized constructor.
 Opponent::Opponent(std::tuple <double, double> center, double k_rep, double distanceOfInfluence)
@@ -345,6 +411,10 @@ void Opponent::setPositionOpponent(std::tuple <double, double> obstaclePosition)
 }
 
 
+
+// ====================================================================================================================================================================================================================
+// Sample Class
+// ====================================================================================================================================================================================================================
 
 // Parameterized constructor.
 Sample::Sample(std::tuple <double, double> center, double k_rep, double distanceOfInfluence, double hibox)
@@ -407,8 +477,9 @@ void Sample::setPositionSample(std::tuple <double, double> obstaclePosition){
 
 
 
-// à ne pas copier en 2532
-//À faire passer dans un autre ficheir -> main_ctrl_gr4
+// À ne pas copier en 2002
+// À faire passer dans un autre fichier -> main_ctrl_gr4
+
 // ===============
 // == TEST PART ==
 // ===============
@@ -515,10 +586,10 @@ int main(int arg, char* argv[]){
         myfile << tupleToString(myPotential_Field.current_position) << " ";
         std::tuple<double,double> precedentSpeedVector = myPotential_Field.currentSpeedVector;
         std::tuple <double, double> myRepulsiveForce = myPotential_Field.totalRepulsiveForce();
-        std::tuple <double, double> attractionForce = myPotential_Field.attractiveForce();
+        std::tuple <double, double> attractionForce = myPotential_Field.attractiveForce(myPotential_Field.current_position);
         myfile << tupleToString(myRepulsiveForce) << " ";
         myfile << tupleToString(attractionForce) << " ";
-        std::tuple <double, double> mySpeed = myPotential_Field.getSpeedVector(dt, 0.84, 4.666);
+        std::tuple <double, double> mySpeed = myPotential_Field.getSpeedVector(dt, 0.84, 4.666, myPotential_Field.current_position);
         std::tuple <double, double> mySpeedFiltered = myPotential_Field.speedFilter(mySpeed);
         myfile << tupleToString(mySpeed) << "\n";
         myPotential_Field.current_position =  next_position(myPotential_Field.current_position, myPotential_Field.currentSpeedVector);
