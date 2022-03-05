@@ -1,0 +1,537 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/simulation/modelsim
+vadder
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1639346895
+!i10b 1
+!s100 m0@=QMUW2Fh6g=D_L9:241
+I_CQUA46KcQaNFg[>gGMMj0
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+Z4 !s105 MyARM_Pipelined_sv_unit
+S1
+R0
+Z5 w1639321605
+Z6 8C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyARM_Pipelined.sv
+Z7 FC:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyARM_Pipelined.sv
+L0 372
+Z8 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z9 !s108 1639346895.000000
+Z10 !s107 C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyARM_Pipelined.sv|
+Z11 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020|C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyARM_Pipelined.sv|
+!i113 1
+Z12 o-sv -work work
+Z13 !s92 -sv -work work +incdir+C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020
+Z14 tCvgOpt 0
+valu
+R1
+R2
+!i10b 1
+!s100 OmOlfYARPlN0TIgb;FJi:1
+Ik:kG]YBOAD3Gf[W7ZoV2H3
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 342
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+varm
+R1
+R2
+!i10b 1
+!s100 BLj_zk:?7gFXXgO2_cT=31
+IbdLXej`hVP>QI3[X5EX:C3
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 1
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vconditional
+R1
+R2
+!i10b 1
+!s100 dZjI`EWYDlaAFT`EfB2=X1
+I:Z05]iCP6D3RVJ?EghL:b2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 151
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vcontroller
+R1
+R2
+!i10b 1
+!s100 BPaL^i>2F^LKcn<z[2o0;3
+IhRdS<LR67_g[VL4gYf9Gn2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 55
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vdatapath
+R1
+R2
+!i10b 1
+!s100 NYIO46Q9E8nQ8dNWEYO@g2
+I87JC;OLkP9`flBeZWa0io1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 188
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vdmem
+R1
+R2
+!i10b 1
+!s100 PK4W[M9BU7B4@YzWNJfZ=2
+INNYzL8FKMnLBT_=1U3@aY2
+R3
+Z15 !s105 MyDE0_Nano_sv_unit
+S1
+R0
+Z16 w1639346052
+Z17 8C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyDE0_Nano.sv
+Z18 FC:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyDE0_Nano.sv
+L0 142
+R8
+r1
+!s85 0
+31
+R9
+Z19 !s107 C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyDE0_Nano.sv|
+Z20 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020|C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyDE0_Nano.sv|
+!i113 1
+R12
+R13
+R14
+veqcmp
+R1
+R2
+!i10b 1
+!s100 EKkahh`AC4ele5ZUiEoSV2
+IM^zMiael@87hz?=]9jG[[0
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 440
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vextend
+R1
+R2
+!i10b 1
+!s100 <C1AG=T;`S6Nzhk?IARjR0
+I<3nHk9f5lJTc4K041ddjn1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 328
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vflopenr
+R1
+R2
+!i10b 1
+!s100 _@V7?=8;0n6IiWV9JdG:X3
+I;_1DSTkV>2Cbn^LDA<::60
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 378
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vflopenrc
+R1
+R2
+!i10b 1
+!s100 Sj;<>[PZ8e[oZ[fi9YmFi0
+I<fRjP647^i7SRc04MlK1]2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 400
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vflopr
+R1
+R2
+!i10b 1
+!s100 L<kRI9ML6L1=_7Qia?P;]2
+IMS2HgY^zjLSBXBaz4mId50
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 389
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vfloprc
+R1
+R2
+!i10b 1
+!s100 hnYj9>b@G?7j9NikOXQgM2
+IdaCb=CzWfm@;KD4G9NT3i1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 413
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vhazard
+R1
+R2
+!i10b 1
+!s100 A8O4R54AloX]]<ajm[CRW0
+I<8E=<j;CMje9Xk:aGeHEA1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 259
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vimem
+R1
+R2
+!i10b 1
+!s100 ziJa5EVIKg_1h8C^`84I[3
+I_GjJ]1E]YSNFST0[kQXLH2
+R3
+R15
+S1
+R0
+R16
+R17
+R18
+L0 154
+R8
+r1
+!s85 0
+31
+R9
+R19
+R20
+!i113 1
+R12
+R13
+R14
+vmux2
+R1
+R2
+!i10b 1
+!s100 DfcFlV5biGYR6K@2UVLIZ3
+IP98;]oC]Qn@`haN7_E0fK1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 426
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vmux3
+R1
+R2
+!i10b 1
+!s100 =C6inAkgz6V7bUIRN0CHC1
+IQmEUogeZbRmJZ90nH`]WB2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 433
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vMyDE0_Nano
+R1
+R2
+!i10b 1
+!s100 nk`fiGF3c4<W@6;d@M=NX1
+I;IDVGiDNU<Y3<?[[RQELW3
+R3
+R15
+S1
+R0
+R16
+R17
+R18
+L0 6
+R8
+r1
+!s85 0
+31
+R9
+R19
+R20
+!i113 1
+R12
+R13
+R14
+n@my@d@e0_@nano
+vMyTestbench
+R1
+!s110 1639346896
+!i10b 1
+!s100 EbB22HkohS8L<^c2kb`dU3
+ILj60_MlGR6A=JLE@]f@BQ1
+R3
+!s105 MyTestbench_sv_unit
+S1
+R0
+w1639303438
+8C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyTestbench.sv
+FC:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyTestbench.sv
+L0 3
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyTestbench.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020|C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MyTestbench.sv|
+!i113 1
+R12
+R13
+R14
+n@my@testbench
+vregfile
+R1
+R2
+!i10b 1
+!s100 672K3mcZW2L5ej;GLbjzE3
+IIC<fcj;Yl1iibNj3mgB3m2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 306
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vspi_slave
+R1
+R2
+!i10b 1
+!s100 LD07[>W@GY2ZRJDYAG=mD2
+IA1bJ3cVhGBT=BT:jag_`21
+R3
+!s105 MySPI_sv_unit
+S1
+R0
+w1638703627
+8C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MySPI.sv
+FC:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MySPI.sv
+L0 6
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MySPI.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020|C:/Users/Insomniaque/Desktop/UCL/Epl/M1-Q1/LELEC2531/homeworks/homework8/Quartus-Pipelined_2020/Quartus-Pipelined_2020/MySPI.sv|
+!i113 1
+R12
+R13
+R14

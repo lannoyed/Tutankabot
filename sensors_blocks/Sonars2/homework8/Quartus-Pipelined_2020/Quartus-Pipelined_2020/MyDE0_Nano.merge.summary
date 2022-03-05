@@ -1,0 +1,14 @@
+Partition Merge Status : Successful - Thu Aug 18 23:29:50 2016
+Quartus II 64-Bit Version : 15.0.0 Build 145 04/22/2015 SJ Full Version
+Revision Name : MyDE0_Nano
+Top-level Entity Name : MyDE0_Nano
+Family : Cyclone IV E
+Total logic elements : 5,867 / 22,320 ( 26 % )
+    Total combinational functions : 3,110 / 22,320 ( 14 % )
+    Dedicated logic registers : 3,128 / 22,320 ( 14 % )
+Total registers : 3128
+Total pins : 154 / 154 ( 100 % )
+Total virtual pins : 0
+Total memory bits : 20,480 / 608,256 ( 3 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )
