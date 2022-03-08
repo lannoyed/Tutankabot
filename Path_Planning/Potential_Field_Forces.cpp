@@ -4,7 +4,7 @@
  */
 
 #include <fstream>
-using namespace std; 
+
 
 
 
@@ -484,9 +484,9 @@ void Sample::setPositionSample(std::tuple <double, double> obstaclePosition){
 // == TEST PART ==
 // ===============
 
-string tupleToString(std::tuple <double, double> entry){
-    string output_s;
-    output_s = to_string(get<0>(entry)) + " " + to_string(get<1>(entry));
+std::string tupleToString(std::tuple <double, double> entry){
+    std::string output_s;
+    output_s = std::to_string(std::get<0>(entry)) + " " + std::to_string(std::get<1>(entry));
     return output_s;
 }
 
@@ -575,10 +575,10 @@ int main(int arg, char* argv[]){
      */
     double dt = 0.1;
 
-    ofstream myfile;
-    myfile.open("data.txt", ios::out);
+    std::ofstream myfile;
+    myfile.open("data.txt", std::ios::out);
     if (!myfile){
-        cout << "not open";
+        std::cout << "not open";
     }
 
     int i =0;
