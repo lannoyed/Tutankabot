@@ -157,10 +157,9 @@ class Goal
     std::tuple <double, double> position;
 
     double weight{};
-    double hitbox;
 
     Goal();
-    Goal(const std::tuple <double, double>& goal_position, double goalWeight,  double hitboxGoa);
+    Goal(const std::tuple <double, double>& goal_position, double goalWeight);
     std::tuple <double, double> attForce(std::tuple <double, double> position_robot); // Goal list est dans le problème général, pas comme arg ici.
     
     double computeDistance(std::tuple <double, double> position_robot);
@@ -222,7 +221,7 @@ public:
     bool GoalTest(double precision);
 
     // Goal gestion
-    void addGoal(std::tuple <double, double> newGoalPosition, double goalWeight, double hitboxGoal);
+    void addGoal(std::tuple <double, double> newGoalPosition, double goalWeight);
     void removeGoal();
     void nextGoal();
     bool areWeDone();

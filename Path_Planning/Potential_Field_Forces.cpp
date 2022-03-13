@@ -270,18 +270,18 @@ std::tuple <double, double> Potential_Field::speedFilter(std::tuple <double, dou
 
 // Add a goal at the end of the list.
 // À l'initialisation, défini que le premier goal = le premier de la liste.
-void Potential_Field::addGoal(std::tuple <double, double> newGoalPosition, double goalWeight, double hitboxGoal)
+void Potential_Field::addGoal(std::tuple <double, double> newGoalPosition, double goalWeight)
 {
     if(numberOfGoals == 0)
     {
         numberOfGoals += 1;
-        listOfGoal.push_back(Goal(newGoalPosition, goalWeight, hitboxGoal));
+        listOfGoal.push_back(Goal(newGoalPosition, goalWeight));
         currentGoal = listOfGoal.at(0);
     }
     else
     {
         numberOfGoals += 1;
-        listOfGoal.push_back(Goal(newGoalPosition, goalWeight, hitboxGoal));
+        listOfGoal.push_back(Goal(newGoalPosition, goalWeight));
     }
     
 }
@@ -328,12 +328,11 @@ Goal::Goal()
 }
 
 
-Goal::Goal(const std::tuple<double, double>& goal_position, double goalWeight, double hitboxGoal)
+Goal::Goal(const std::tuple<double, double>& goal_position, double goalWeight)
 
 {
     position = goal_position;   // Position du goal.
     weight = goalWeight;        // Poids du goal. Default weight : 0.0.
-    hitbox = hitboxGoal;        // Permet de donner une distance de hit du goal.
 }
 
 std::tuple <double, double> Goal::attForce(std::tuple <double, double> position_robot)
@@ -757,10 +756,12 @@ int main(int arg, char* argv[]){
 
 
     // creation potential field :
-    std::tuple<double, double> goal_position     =  std::make_tuple<double, double>(50, 200);
-    Goal goal = Goal(goal_position, 1.0, 0.15);
+    std::tuple<double, double> goal_position  =  std::make_tuple<double, double>(50, 200);
     std::tuple<double, double> position =  std::make_tuple<double, double>(-100,50);
     Potential_Field myPotential_Field = Potential_Field(position);
+
+    myPotential_Field.addGoal(goal_position,1.0);
+
     std::tuple<double, double> initialSpeedVector =  std::make_tuple<double, double>(1.0,0.0);
     myPotential_Field.setSpeedVerctor(initialSpeedVector);
 
