@@ -1,5 +1,5 @@
 //
-// Created by Insomniaque on 01-03-22.
+// Created by Nicolas ISENGUERRE and Diego LANNOYE
 //
 
 /*!
@@ -66,7 +66,7 @@ public :
 
     int         borderType{};
     double      position{};
-    double      hitBox; // Permet de prendre en compte les bouts d'obstacles qui sont avancés sur le terrain.
+    double      hitBox{}; // Permet de prendre en compte les bouts d'obstacles qui sont avancés sur le terrain.
 
 
     SimpleBorder();
@@ -90,7 +90,7 @@ public :
     int             borderType{};
     double          m{};
     double          p{};
-    double          hitBox;
+    double          hitBox{};
 
 
     ObliqueBorder();
@@ -228,9 +228,9 @@ public:
 
 
     // Goal gestion
-    void addGoal(std::tuple <double, double> newGoalPosition, double goalWeight);
+    void addGoal(const std::tuple <double, double>& newGoalPosition, double goalWeight);
     void removeGoal();
-    void nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightObliqueBorder, std::vector<double> weightSample);
+    void nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightObliqueBorder, const std::vector<double>& weightSample);
 
 };
 

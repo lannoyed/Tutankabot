@@ -127,7 +127,7 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
             std::get<0>(totalRepForce) +=
                     krepObstacle * ((1 / realDistance) - (1 - rho0_obstacle)) * (1 / distanceSquared) *
                     ((std::get<0>(current_position) - position) / realDistance);
-        } else ((type == 1) && (realDistance <= rho0_obstacle));
+        } else if ((type == 1) && (realDistance <= rho0_obstacle))
         {
             std::get<1>(totalRepForce) +=
                     krepObstacle * ((1 / realDistance) - (1 - rho0_obstacle)) * (1 / distanceSquared) *
@@ -289,14 +289,14 @@ std::tuple<double, double> Potential_Field::speedFilter(std::tuple<double, doubl
 
 // Add a goal at the end of the list.
 // À l'initialisation, défini que le premier goal = le premier de la liste.
-void Potential_Field::addGoal(std::tuple<double, double> newGoalPosition, double goalWeight) {
+void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition, double goalWeight) {
     if (numberOfGoals == 0) {
         numberOfGoals += 1;
-        listOfGoal.push_back(Goal(newGoalPosition, goalWeight));
+        listOfGoal.emplace_back(newGoalPosition, goalWeight);
         currentGoal = listOfGoal.at(0);
     } else {
         numberOfGoals += 1;
-        listOfGoal.push_back(Goal(newGoalPosition, goalWeight));
+        listOfGoal.emplace_back(newGoalPosition, goalWeight);
     }
 
 }
@@ -308,8 +308,8 @@ void Potential_Field::removeGoal() {
 }
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
-void Potential_Field::nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightObliqueBorder,
-                               std::vector<double> weightSample) {
+void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightObliqueBorder,
+                               const std::vector<double>& weightSample) {
     if (currentGoal.goalReached(current_position)) {
         removeGoal();
         currentGoal = listOfGoal.at(0);
@@ -336,7 +336,7 @@ void Potential_Field::nextGoal(std::vector<double> weightSimpleBorder, std::vect
 
 // Calculation of the attractive force at the present point towards the goal. This gives back a vector.
 std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, double> position) {
-    return currentGoal.attForce(position);
+    return currentGoal.attForce(std::move(position));
 }
 
 
@@ -371,7 +371,7 @@ double Goal::computeDistance(std::tuple<double, double> robotPosition) {
 
 
 bool Goal::goalReached(std::tuple<double, double> position_robot) {
-    double distanceToGoal = computeDistance(position_robot);
+    double distanceToGoal = computeDistance(std::move(position_robot));
     return (distanceToGoal <= 0.0);
 }
 
