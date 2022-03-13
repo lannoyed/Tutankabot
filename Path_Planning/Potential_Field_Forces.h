@@ -198,6 +198,9 @@ public:
     void addSample(Sample);
 
     std::tuple <double, double> totalRepulsiveForce();
+    void removeSimpleBorder(int borderNumber);
+    void removeOblicBorder(int borderNumber);
+    void removeSample();
 
     std::tuple <double, double> getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position);
     std::tuple <double, double> speedFilter(std::tuple <double, double> speedVector);
@@ -206,7 +209,7 @@ public:
     // Goal gestion
     void addGoal(std::tuple <double, double> newGoalPosition, double goalWeight, double hitboxGoal);
     void removeGoal();
-    void nextGoal();
+    void nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, std::vector<double> weightSample);
     bool areWeDone();
     std::tuple <double, double> attractiveForce(std::tuple <double, double> position);
 

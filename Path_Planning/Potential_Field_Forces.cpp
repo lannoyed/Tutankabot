@@ -172,6 +172,30 @@ std::tuple <double, double> Potential_Field::totalRepulsiveForce()
     return totalRepForce;
 }
 
+// Convention : il y a 4 simpleBorder. Ils sont définis dans cet ordre :
+// 0: bord gauche ; 1: bord supérieur ; 2: bord droit ; 3: bord bas.
+// On annule son effet, tout bonnement. On pourra le remettre après.
+void Potential_Field::removeSimpleBorder(int borderNumber)
+{
+    simpleBorderList.at(borderNumber).setWeight(0.0);
+}
+
+// Convention : il y a 2 oblicBorder. Ils sont définis dans cet ordre :
+// 0: bord en bas àgauche ; 1: bord en bas à droite.
+// On annule son effet, tout bonnement. On pourra le remettre après.
+void Potential_Field::removeOblicBorder(int borderNumber)
+{
+    oblicBorderList.at(borderNumber).setWeight(0.0);
+}
+
+// Convention : on va encoder les sample dans l'ordre dans lequel on compte les exploiter comme Goal.
+// Donc : dès qu'on veut aller vers un sample, on retire celui-ci de la liste.
+// Et comme c'est le même ordre, il suffit de 
+void Potential_Field::removeSample()
+{
+    sampleList.erase(sampleList.begin());
+}
+
 
 // Cette fonction va servir à limiter la vitesse et à physiquement avoir un modèle cohérent.
 std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position){
@@ -251,7 +275,8 @@ void Potential_Field::addGoal(std::tuple <double, double> newGoalPosition, doubl
     
 }
 
-// Remove the first goal added.
+// Remove the first goal added. We don't specify the new weight -> they are all 0.
+// Which means that he is not attracted by anything.
 void Potential_Field::removeGoal()
 {
     numberOfGoals = numberOfGoals - 1;
@@ -259,12 +284,30 @@ void Potential_Field::removeGoal()
 }
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
-void Potential_Field::nextGoal()
+void Potential_Field::nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, std::vector<double> weightSample)
 {
     if (currentGoal.goalReached(current_position))
     {
         removeGoal();
         currentGoal = listOfGoal.at(0);
+        int i = 0;
+        for(auto & poids : weightSimpleBorder) // weightSimpleBorder de même longueur que simpleBorderList.
+        {
+            simpleBorderList.at(i).setWeight(poids);
+            i += 1;
+        }
+        i = 0;
+        for(auto & poids : weightOblicBorder)
+        {
+            oblicBorderList.at(i).setWeight(poids);
+            i += 1;
+        }
+        i = 0;
+        for(auto & poids : weightSample)
+        {
+            sampleList.at(i).setWeight(poids);
+            i += 1;
+        }
     }
     else
     {
