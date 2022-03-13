@@ -223,7 +223,7 @@ public:
     // Goal gestion
     void addGoal(std::tuple <double, double> newGoalPosition, double goalWeight);
     void removeGoal();
-    void nextGoal();
+    void nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, std::vector<double> weightSample);
     bool areWeDone();
 
 

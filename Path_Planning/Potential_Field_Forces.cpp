@@ -195,7 +195,7 @@ void Potential_Field::removeOblicBorder(int borderNumber)
 
 // Convention : on va encoder les sample dans l'ordre dans lequel on compte les exploiter comme Goal.
 // Donc : dès qu'on veut aller vers un sample, on retire celui-ci de la liste.
-// Et comme c'est le même ordre, il suffit de 
+// Et comme c'est le même ordre, il suffit de retirer le premier à chaque fois !
 void Potential_Field::removeSample()
 {
     sampleList.erase(sampleList.begin());
@@ -294,13 +294,33 @@ void Potential_Field::removeGoal()
 }
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
-void Potential_Field::nextGoal()
+void Potential_Field::nextGoal(std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, std::vector<double> weightSample)
 {
     if (currentGoal.goalReached(current_position))
     {
         removeGoal();
         currentGoal = listOfGoal.at(0);
+        int i = 0;
+        // On réattribue les poids de chaque obstacle. Attention que pour Sample, ça va être un vecteur qui change de taille.
+        for(auto & poids : weightSimpleBorder) // weightSimpleBorder de même longueur que simpleBorderList.
+        {
+            simpleBorderList.at(i).setWeight(poids);
+            i += 1;
+        }
+        i = 0;
+        for(auto & poids : weightOblicBorder)
+        {
+            oblicBorderList.at(i).setWeight(poids);
+            i += 1;
+        }
+        i = 0;
+        for(auto & poids : weightSample)
+        {
+            sampleList.at(i).setWeight(poids);
+            i += 1;
+        }
     }
+
 }
 
 // Did all the goals got visited ?
