@@ -210,6 +210,9 @@ public:
     void addSample(const Sample&);
 
     std::tuple <double, double> totalRepulsiveForce();
+    void removeSimpleBorder(int borderNumber);
+    void removeOblicBorder(int borderNumber);
+    void removeSample();
     // getPosition doit être modifier pour intégrer le projet
     std::tuple <double, double> getPosition() const;
 

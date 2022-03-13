@@ -177,6 +177,30 @@ std::tuple <double, double> Potential_Field::totalRepulsiveForce()
     return totalRepForce;
 }
 
+// Convention : il y a 4 simpleBorder. Ils sont définis dans cet ordre :
+// 0: bord gauche ; 1: bord supérieur ; 2: bord droit ; 3: bord bas.
+// On annule son effet, tout bonnement. On pourra le remettre après.
+void Potential_Field::removeSimpleBorder(int borderNumber)
+{
+    simpleBorderList.at(borderNumber).setWeight(0.0);
+}
+
+// Convention : il y a 2 oblicBorder. Ils sont définis dans cet ordre :
+// 0: bord en bas àgauche ; 1: bord en bas à droite.
+// On annule son effet, tout bonnement. On pourra le remettre après.
+void Potential_Field::removeOblicBorder(int borderNumber)
+{
+    oblicBorderList.at(borderNumber).setWeight(0.0);
+}
+
+// Convention : on va encoder les sample dans l'ordre dans lequel on compte les exploiter comme Goal.
+// Donc : dès qu'on veut aller vers un sample, on retire celui-ci de la liste.
+// Et comme c'est le même ordre, il suffit de 
+void Potential_Field::removeSample()
+{
+    sampleList.erase(sampleList.begin());
+}
+
 
 // Cette fonction va servir à limiter la vitesse et à physiquement avoir un modèle cohérent.
 std::tuple <double, double> Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position){
