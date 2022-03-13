@@ -40,8 +40,8 @@ class Obstacle
 public :
 
     // Attributes : common to every obstacles : the repulsive coefficient and the distance of influence.
-    double coeff;
-    double rho0;
+    double coeff{};
+    double rho0{};
     std::string type;
 
     Obstacle();
@@ -63,13 +63,13 @@ public :
 
     // Attributes : those inhehirted from 'Obstacles'.
     //            : borderType (0 -> vertical, 1 -> horizontal)
-    int             borderType;
-    double          position;
+    int             borderType{};
+    double          position{};
 
     SimpleBorder();
     SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition);
 
-    double          computeDistance(std::tuple<double, double> robotPosition);
+    double          computeDistance(std::tuple<double, double> robotPosition) const;
 };
 
 
@@ -82,15 +82,15 @@ class OblicBorder : public Obstacle
 
 public :
 
-    int             borderType;
-    double          m;
-    double          p;
+    int             borderType{};
+    double          m{};
+    double          p{};
 
     OblicBorder();
     OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset);
 
-    double                      computeDistance(std::tuple<double, double> robotPosition);
-    std::tuple <double, double> closestPoint(std::tuple <double, double> robotPosition);
+    double                      computeDistance(std::tuple<double, double> robotPosition) const;
+    std::tuple <double, double> closestPoint(std::tuple <double, double> robotPosition) const;
 };
 
 
@@ -105,14 +105,14 @@ public:
 
     // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
     std::tuple<double, double> position;
-    double hitBoxRadius;
+    double hitBoxRadius{};
 
-    Opponent(std::tuple<double, double> center, double k_rep, double distanceOfInfluence);
+    Opponent(const std::tuple<double, double>& center, double k_rep, double distanceOfInfluence);
 
 
     double computeDistance(std::tuple<double, double> robotPosition);
 
-    void setPositionOpponent(std::tuple<double, double> obstaclePosition);
+    void setPositionOpponent(const std::tuple<double, double>& obstaclePosition);
 };
 
 
@@ -128,11 +128,11 @@ public :
     // Attributes : those inherited from 'Obstacle' and the position of its center (known).
     std::tuple <double, double>  position;
     double                  hitBoxRadius;
-    Sample                  (std::tuple <double, double> center, double k_rep, double distanceOfInfluence, double hibox);
+    Sample                  (const std::tuple <double, double>& center, double k_rep, double distanceOfInfluence, double hibox);
     double computeDistance  (std::tuple <double, double> robotPosition);
 
     // Position of the center of an obstacle. If the determination of the center is impossible, we say that the point = the closest point detected.
-    void setPositionSample  (std::tuple <double, double> obstaclePosition);
+    void setPositionSample  (const std::tuple <double, double>& obstaclePosition);
 };
 
 
@@ -146,11 +146,13 @@ class Goal
     public:
 
     std::tuple <double, double> position;
-    double Weight;
+    double Weight{};
     
     Goal();
-    Goal(std::tuple <double, double> goal_position, double goalWeight);
+    Goal(const std::tuple <double, double>& goal_position, double goalWeight);
     std::tuple <double, double> attForce(std::tuple <double, double> position_robot);
+
+    double computeDistance  (std::tuple <double, double> robotPosition);
 };
 
 
@@ -170,27 +172,38 @@ public:
     std::vector<Sample>         sampleList;         // List of sample obstacle type.
     std::tuple <double, double> currentSpeedVector; // Vref , omega_ref
     std::queue<double>          list_for_speed_filtering;
-    double                      filter_output_Vref;
-    double                      filter_output_Wref;
-
+    double                      filter_output_Vref{};
+    double                      filter_output_Wref{};
 
 
     Potential_Field();
-    Potential_Field(std::tuple <double, double> position, Goal goal);
-    void setPosition(std::tuple <double, double> position);
-    void setGoal(std::tuple <double, double> position, double weight);
-    void setSpeedVerctor(std::tuple <double, double> initialSpeedVector);
+    Potential_Field(const std::tuple <double, double>& position, Goal goal);
+    void setPosition(const std::tuple <double, double>& position);
+    void setGoal(const std::tuple <double, double>& position, double weight);
+    void setSpeedVerctor(const std::tuple <double, double>& initialSpeedVector);
     std::tuple <double, double> attractiveForce(std::tuple <double, double> position);
 
-    void addSimpleBorder(SimpleBorder);
-    void addOblicBorder(OblicBorder);
-    void addOpponent(Opponent);
-    void addSample(Sample);
+    void addSimpleBorder(const SimpleBorder&);
+    void addOblicBorder(const OblicBorder&);
+    void addOpponent(const Opponent&);
+    void addSample(const Sample&);
 
     std::tuple <double, double> totalRepulsiveForce();
+    // getPosition doit être modifier pour intégrer le projet
+    std::tuple <double, double> getPosition() const;
 
     std::tuple <double, double> getSpeedVector(double dt, double vMax, double omegaMax, std::tuple <double, double> position);
     std::tuple <double, double> speedFilter(std::tuple <double, double> speedVector);
-    
+
+    bool GoalTest(double precision);
+
+
 };
 
+
+// Global functions
+Potential_Field initPotentialField();
+
+std::tuple<double,double> iterPotentialFieldWithLogFile(Potential_Field myPotential_Field, double dt, std::ofstream & myfile);
+std::tuple<double,double> iterPotentialField(Potential_Field myPotential_Field, double dt);
+std::string tupleToString(std::tuple <double, double> entry);
