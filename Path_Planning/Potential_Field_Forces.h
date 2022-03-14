@@ -46,8 +46,28 @@ public :
 
     Obstacle();
     Obstacle(double k_rep, double distanceOfInfluence, std::string typeName);
+    
     void setWeight (double newWeight);
     void setInfluence (double newInfluence);
+};
+
+// ====================================================================================================================================================================================================================
+// Rectangle Declaration
+// ====================================================================================================================================================================================================================
+
+
+class Rectangle : public Obstacle
+{
+    public:
+
+    double hitBox;
+    std::vector< std::tuple<double, double> > coordonnees; // Vecteur qui va contenir les points du rectangle.
+    // On modélise un rectangle par ses 4 sommets (au minimum) et on peut rajouter des poids en fonction de la précision qu'on souhaite obtenir.
+
+    Rectangle();
+    Rectangle(double k_rep, double distanceOfInfluence, double hitBoxObstacle, std::vector< std::tuple<double, double> > listOfCoords);
+
+    std::tuple< double, std::tuple<double,double> > computeDistance(std::tuple<double, double> robotPosition) const;
 };
 
 
@@ -72,16 +92,16 @@ public :
     SimpleBorder();
     SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition, double hitBoxObstacle);
 
-    double          computeDistance(std::tuple<double, double> robotPosition) const;
+    double computeDistance(std::tuple<double, double> robotPosition) const;
 
 };
 
 
 // ====================================================================================================================================================================================================================
-// ObliqueBorder Declaration
+// OblicBorder Declaration
 // ====================================================================================================================================================================================================================
 
-class ObliqueBorder : public Obstacle
+class OblicBorder : public Obstacle
 {
 
 public :
@@ -93,8 +113,8 @@ public :
     double          hitBox{};
 
 
-    ObliqueBorder();
-    ObliqueBorder(double k_rep, double distanceOfInfluence, int border_type, double slope, double offset, double hitBoxObstacle);
+    OblicBorder();
+    OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double slope, double offset, double hitBoxObstacle);
 
     double                      computeDistance(std::tuple<double, double> robotPosition) const;
     std::tuple <double, double> closestPoint(std::tuple <double, double> robotPosition) const;
@@ -181,9 +201,10 @@ public:
     std::tuple <double, double> current_position;           // Current position of the robot.
 
     std::vector<SimpleBorder>   simpleBorderList;           // List of simple border obstacle type.
-    std::vector<ObliqueBorder>    obliqueBorderList;        // List of oblique border obstacle type.
+    std::vector<OblicBorder>    oblicBorderList;            // List of oblic border obstacle type.
     std::vector<Opponent>       opponentList;               // List of opponent obstacle type.
     std::vector<Sample>         sampleList;                 // List of sample obstacle type.
+    std::vector<Rectangle>      rectangleList;              // List of rectangle obstacle type.
     std::tuple <double, double> currentSpeedVector;         // Vref , omega_ref
     std::queue<double>          list_for_speed_filtering;
 
@@ -204,12 +225,13 @@ public:
     void setSpeedVector(const std::tuple <double, double>& initialSpeedVector);
 
     // update of obstacle's list
-    void addSimpleBorder(const SimpleBorder&);
-    void addObliqueBorder(const ObliqueBorder &object);
-    void addOpponent(const Opponent&);
-    void addSample(const Sample&);
+    void addSimpleBorder(const SimpleBorder &object);
+    void addOblicBorder(const OblicBorder &object);
+    void addOpponent(const Opponent &object);
+    void addSample(const Sample &object);
+    void addRectangle(const Rectangle &object);
     void removeSimpleBorder(int borderNumber);
-    void removeObliqueBorder(int borderNumber);
+    void removeOblicBorder(int borderNumber);
     void removeSample();
 
     // search of value functions
@@ -230,7 +252,7 @@ public:
     // Goal gestion
     void addGoal(const std::tuple <double, double>& newGoalPosition, double goalWeight);
     void removeGoal();
-    void nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightObliqueBorder, const std::vector<double>& weightSample);
+    void nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, const std::vector<double>& weightSample, double newWeight, double precision);
 
 };
 

@@ -95,8 +95,8 @@ void Potential_Field::addSimpleBorder(const SimpleBorder &object) {
     simpleBorderList.push_back(object);
 }
 
-void Potential_Field::addObliqueBorder(const ObliqueBorder &object) {
-    obliqueBorderList.push_back(object);
+void Potential_Field::addOblicBorder(const OblicBorder &object) {
+    oblicBorderList.push_back(object);
 }
 
 void Potential_Field::addOpponent(const Opponent &object) {
@@ -105,6 +105,10 @@ void Potential_Field::addOpponent(const Opponent &object) {
 
 void Potential_Field::addSample(const Sample &object) {
     sampleList.push_back(object);
+}
+
+void Potential_Field::addRectangle(const Rectangle &object) {
+    rectangleList.push_back(object);
 }
 
 
@@ -171,8 +175,8 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
         }
     }
 
-    // OBLIQUE BORDERS.
-    for (auto &obstacle : obliqueBorderList) {
+    // OBLIC BORDERS.
+    for (auto &obstacle : oblicBorderList) {
         double realDistance = obstacle.computeDistance(current_position);
         double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
@@ -189,21 +193,41 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
         }
     }
 
+    // RECTANGLES.
+    for (auto &obstacle : rectangleList) {
+        // La realDistance = distance entre le centre du robot et le point le plus proche sur le rectangle.
+        double realDistance = std::get<0>(obstacle.computeDistance(current_position));
+        std::tuple<double,double> closestPoint = std::get<1>(obstacle.computeDistance(current_position));
+        double distanceSquared = pow(realDistance, 2);
+        double krepObstacle = obstacle.coeff;
+        double rho0_obstacle = obstacle.rho0;
+        double position = 0.0;
+
+        if (realDistance <= rho0_obstacle) {
+            std::get<0>(totalRepForce) +=
+                    krepObstacle * ((1 / realDistance) - (1 - rho0_obstacle)) * (1 / distanceSquared) *
+                    ((std::get<0>(current_position) - std::get<0>(closestPoint)) / realDistance);
+            std::get<1>(totalRepForce) +=
+                    krepObstacle * ((1 / realDistance) - (1 - rho0_obstacle)) * (1 / distanceSquared) *
+                    ((std::get<1>(current_position) - std::get<1>(closestPoint)) / realDistance);
+        }
+    }
+
     return totalRepForce;
 }
 
-// Convention : il y a 4 simpleBorder. Ils sont définis dans cet ordre :
-// 0: bord gauche ; 1: bord supérieur ; 2: bord droit ; 3: bord bas.
+// Convention : il y a 4 simpleBorder. Il faut bien faire attention aux conventions de coordonnées. Ils sont définis dans cet ordre :
+// 0: bord bas ; 1: bord gauche ; 2: bord haut ; 3: bord droit.
 // On annule son effet, tout bonnement. On pourra le remettre après.
 void Potential_Field::removeSimpleBorder(int borderNumber) {
     simpleBorderList.at(borderNumber).setWeight(0.0);
 }
 
-// Convention : il y a 2 obliqueBorder. Ils sont définis dans cet ordre :
-// 0: bord en bas à gauche ; 1: bord en bas à droite.
+// Convention : il y a 2 oblicBorder. Ils sont définis dans cet ordre :
+// 0: bord en bas à droite ; 1: bord en haut à droite.
 // On annule son effet, tout bonnement. On pourra le remettre après.
-void Potential_Field::removeObliqueBorder(int borderNumber) {
-    obliqueBorderList.at(borderNumber).setWeight(0.0);
+void Potential_Field::removeOblicBorder(int borderNumber) {
+    oblicBorderList.at(borderNumber).setWeight(0.0);
 }
 
 // Convention : on va encoder les sample dans l'ordre dans lequel on compte les exploiter comme Goal.
@@ -308,11 +332,11 @@ void Potential_Field::removeGoal() {
 }
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
-void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightObliqueBorder,
-                               const std::vector<double>& weightSample) {
-    if (currentGoal.goalReached(current_position)) {
+void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, const std::vector<double>& weightSample, double newWeight, double precision) {
+    if (GoalTest(precision)) {
         removeGoal();
         currentGoal = listOfGoal.at(0);
+        currentGoal.setWeight(newWeight);
         int i = 0;
         // On réattribue les poids de chaque obstacle. Attention que pour Sample, ça va être un vecteur qui change de taille.
         for (auto &poids : weightSimpleBorder) // weightSimpleBorder de même longueur que simpleBorderList.
@@ -321,8 +345,8 @@ void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, co
             i += 1;
         }
         i = 0;
-        for (auto &poids : weightObliqueBorder) {
-            obliqueBorderList.at(i).setWeight(poids);
+        for (auto &poids : weightOblicBorder) {
+            oblicBorderList.at(i).setWeight(poids);
             i += 1;
         }
         i = 0;
@@ -381,8 +405,6 @@ void Goal::setWeight(double value) {
 }
 
 
-// Set new goal : si on a atteint le goal (bool de return), on set un nouveau goal en passant au goal suivant. Faire une liste d'objets goals !
-
 
 
 // ====================================================================================================================================================================================================================
@@ -409,6 +431,52 @@ void Obstacle::setInfluence(double newInfluence) {
 }
 
 
+// ====================================================================================================================================================================================================================
+// Rectangle Class
+// ====================================================================================================================================================================================================================
+
+Rectangle::Rectangle() 
+{
+    std::cout << "Default constructor of class 'Rectangle'" << std::endl;
+}
+
+Rectangle::Rectangle(double k_rep, double distanceOfInfluence, double hitBoxObstacle, std::vector< std::tuple<double, double> > listOfCoords)
+{
+    coeff = k_rep;
+    rho0 = distanceOfInfluence;
+    hitBox = hitBoxObstacle;
+    coordonnees = listOfCoords;
+    type = "Rectangle";
+}
+
+std::tuple< double,std::tuple<double,double> > Rectangle::computeDistance(std::tuple<double, double> robotPosition) const
+{
+    double distanceToReturn = 50000.0; // Nombre inutilement grand.
+    std::tuple<double,double> currentCoord = std::make_tuple(0.0,0.0);
+
+    for(auto &coord : coordonnees)
+    {   // /!\ Risque d'oscillations vu que le potential field est en mode "bulles" ?
+        currentCoord = coord;
+        double distanceToTest = sqrt(pow(std::get<0>(robotPosition) - std::get<0>(coord), 2) +
+                pow(std::get<1>(robotPosition) - std::get<1>(coord), 2)) - hitBox - radius_robot;
+        
+        if(distanceToTest <= 0.0)
+        {
+            return std::make_tuple(0.0,currentCoord);
+        }
+        else 
+        {
+            if(distanceToTest <= distanceToReturn)
+            {
+                distanceToReturn = distanceToTest;
+            }
+        }
+        
+    }
+    return std::make_tuple(distanceToReturn,currentCoord);
+}
+
+
 
 // ====================================================================================================================================================================================================================
 // SimpleBorder Class
@@ -420,8 +488,7 @@ SimpleBorder::SimpleBorder() {
 }
 
 // Parameterized constructor.
-SimpleBorder::SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition,
-                           double hitBoxObstacle) {
+SimpleBorder::SimpleBorder(double k_rep, double distanceOfInfluence, int border_type, double xoryposition, double hitBoxObstacle) {
     coeff = k_rep;
     rho0 = distanceOfInfluence;
     borderType = border_type;
@@ -441,8 +508,7 @@ double SimpleBorder::computeDistance(std::tuple<double, double> robotPosition) c
         }
         return distanceFinale;
     } else if (borderType == 1) {
-        double distanceFinale = abs(std::get<1>(robotPosition) - position) - hitBox -
-                                radius_robot; // Attention : hitBox et radius_robot hors de la valeur absolue.
+        double distanceFinale = abs(std::get<1>(robotPosition) - position) - hitBox - radius_robot; // Attention : hitBox et radius_robot hors de la valeur absolue.
         if (distanceFinale <= 0.0) {
             return 0.0;
         }
@@ -455,29 +521,28 @@ double SimpleBorder::computeDistance(std::tuple<double, double> robotPosition) c
 
 
 // ====================================================================================================================================================================================================================
-// ObliqueBorder Class
+// OblicBorder Class
 // ====================================================================================================================================================================================================================
 
 // Default constructor.
-ObliqueBorder::ObliqueBorder() {
+OblicBorder::OblicBorder() {
     std::cout << "Default constructor of class 'Border'" << std::endl;
 }
 
 // Parameterized constructor.
-ObliqueBorder::ObliqueBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset,
-                         double hitBoxObstacle) {
+OblicBorder::OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset, double hitBoxObstacle) {
     coeff = k_rep;
     rho0 = distanceOfInfluence;
     borderType = border_type;
     m = pente;
     p = offset;
     hitBox = hitBoxObstacle;
-    type = "ObliqueBorder";
+    type = "OblicBorder";
 }
 
 // Give an approximation of the euclidean distance (squared) between the line and the center of the robot.
 // The idea is that the euclidean distance will always be longer than the smallest distance to the x or the y.
-double ObliqueBorder::computeDistance(std::tuple<double, double> robotPosition) const {
+double OblicBorder::computeDistance(std::tuple<double, double> robotPosition) const {
     double y2;
     double x2;
     double pente_inverse;
@@ -515,7 +580,7 @@ double ObliqueBorder::computeDistance(std::tuple<double, double> robotPosition) 
 
 
 // Attention : ça retourne le point le plus proche sur la droite qui modélise l'obstacle, pas au niveau de la hitBox !
-std::tuple<double, double> ObliqueBorder::closestPoint(std::tuple<double, double> robotPosition) const {
+std::tuple<double, double> OblicBorder::closestPoint(std::tuple<double, double> robotPosition) const {
     double y2;
     double x2;
     double pente_inverse;
@@ -790,7 +855,7 @@ int main(int arg, char *argv[]) {
 
 
     std::vector<SimpleBorder> simpleBorderList;   // List of simple border obstacle type.
-    std::vector<ObliqueBorder> obliqueBorderList;    // List of oblique border obstacle type.
+    std::vector<OblicBorder> oblicBorderList;    // List of oblic border obstacle type.
     std::vector<Opponent> opponentList;       // List of opponent obstacle type.
     std::vector<Sample> sampleList;         // List of sample obstacle type.
 
