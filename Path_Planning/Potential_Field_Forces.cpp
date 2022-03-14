@@ -90,6 +90,10 @@ void Potential_Field::setSpeedVector(const std::tuple<double, double> &initialSp
     currentSpeedVector = initialSpeedVector;
 }
 
+void Potential_Field::setSpeedVector(const double theta) {
+    currentSpeedVector = std::make_tuple(cos(theta), sin(theta));
+}
+
 // We put at the end of the list the new object.
 void Potential_Field::addSimpleBorder(const SimpleBorder &object) {
     simpleBorderList.push_back(object);
@@ -248,27 +252,22 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
 
     // Limiteur de vitesse : on ne peut pas aller à max vitesse tout droit et angulaire.
     if (omega >= omegaMax) {
-        double dTheta = (omegaMax - omega) * dt;
+        //double dTheta = (omegaMax - omega) * dt;
         omega = omegaMax;
-        nextSpeedVector = std::make_tuple(
-                std::get<0>(nextSpeedVector) * cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),
-                std::get<0>(nextSpeedVector) * sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta));
+        // nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector) * sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta));
     } else if (omega <= -omegaMax) {
-        double dTheta = (omegaMax - omega) * dt;
+        //double dTheta = (omegaMax - omega) * dt;
         omega = -omegaMax;
-        nextSpeedVector = std::make_tuple(
-                std::get<0>(nextSpeedVector) * cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),
-                std::get<0>(nextSpeedVector) * sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta));
+        //nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector) * sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta));
     }
 
     double vMaxReal = vMax - 0.18 * std::abs(omega);
     if (vRefNext > vMaxReal) {
-        nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
-                                          std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
+        // nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext, std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
         vRefNext = vMaxReal;
     }
     //cout << "cosTheta" << cosTheta << "\n";
-    setSpeedVector(nextSpeedVector); // update de speedVector
+    //setSpeedVector(nextSpeedVector); // update de speedVector
     return std::make_tuple(vRefNext, omega);
 }
 
@@ -822,10 +821,10 @@ int main(int arg, char *argv[]) {
             pow(std::get<1>(myPotential_Field.currentGoal.position) - std::get<1>(myPotential_Field.current_position),
                 2) > 8)) {
 
-
+        std::tuple<double,double> precedentSpeedVector = myPotential_Field.currentSpeedVector;
         std::tuple<double, double> mySpeed = iterPotentialFieldWithLogFile(myPotential_Field, dt, myFile);
         std::tuple<std::tuple<double, double>, std::tuple<double, double>> result = next_position(myPotential_Field,
-                                                                                                  myPotential_Field.currentSpeedVector,
+                                                                                                  precedentSpeedVector,
                                                                                                   mySpeed, dt /
                                                                                                            number_of_sub_steps);
         myPotential_Field.current_position = std::get<0>(result);

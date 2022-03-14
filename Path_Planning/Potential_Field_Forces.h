@@ -207,6 +207,7 @@ public:
     // communication with external structures  to update in the real project
     void setPosition(const std::tuple <double, double>& position);
     void setSpeedVector(const std::tuple <double, double>& initialSpeedVector);
+    void setSpeedVector(double theta) ;
 
     // update of obstacle's list
     void addSimpleBorder(const SimpleBorder&);
