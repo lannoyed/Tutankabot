@@ -106,15 +106,12 @@ class OblicBorder : public Obstacle
 
 public :
 
-
-    int             borderType{};
     double          m{};
     double          p{};
     double          hitBox{};
 
-
     OblicBorder();
-    OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double slope, double offset, double hitBoxObstacle);
+    OblicBorder(double k_rep, double distanceOfInfluence, double slope, double offset, double hitBoxObstacle);
 
     double                      computeDistance(std::tuple<double, double> robotPosition) const;
     std::tuple <double, double> closestPoint(std::tuple <double, double> robotPosition) const;
@@ -132,11 +129,11 @@ public:
 
     // Attributes : those inherited from 'Obstacle' and the position of the detected border (estimation of distance from the robot).
     std::tuple<double, double> position;
-    Opponent(const std::tuple<double, double>& center, double k_rep, double distanceOfInfluence,  double hitBoxRadius);
     double hitBox{};
 
-    double computeDistance(std::tuple<double, double> robotPosition);
+    Opponent(const std::tuple<double, double>& center, double k_rep, double distanceOfInfluence,  double hitBoxRadius);
 
+    double computeDistance(std::tuple<double, double> robotPosition);
 
     void setPositionOpponent(const std::tuple<double, double>& obstaclePosition);
 

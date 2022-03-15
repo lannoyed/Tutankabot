@@ -530,10 +530,9 @@ OblicBorder::OblicBorder() {
 }
 
 // Parameterized constructor.
-OblicBorder::OblicBorder(double k_rep, double distanceOfInfluence, int border_type, double pente, double offset, double hitBoxObstacle) {
+OblicBorder::OblicBorder(double k_rep, double distanceOfInfluence, double pente, double offset, double hitBoxObstacle) {
     coeff = k_rep;
     rho0 = distanceOfInfluence;
-    borderType = border_type;
     m = pente;
     p = offset;
     hitBox = hitBoxObstacle;
@@ -675,19 +674,134 @@ std::string tupleToString(std::tuple<double, double> entry) {
     return output_s;
 }
 
-Potential_Field initPotentialField() {
-    // création de la map
+Potential_Field initPotentialField() 
+{
 
-    // recuperation de la position après X secondes
+// Initialisation : on commence par déclarer les obstacles connus de la carte :
+// D'abord les bords dans l'ordre défini (simple puis oblic) puis les rectangles.
+// On définit ensuite la liste de goals (la liste donne l'ordre des samples qu'on veut aller trouver).  
 
-    // récuperation du goal / des goals
+// Ensuite, on chope la position de notre robot et son orientation dans l'espace.
 
-    // récuperation de l'orientation du robot
-    return Potential_Field();
+    Potential_Field myPotentialField = Potential_Field();
+
+    
+    /*
+    // Simple borders.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, 0.0, 0.05)); // Bord horizontal bas.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, 0.0, 0.05)); // Bord vertical gauche.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, 3.0, 0.05)); // Bord horizontal haut.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, 2.0, 0.05)); // Bord vertical droit.
+
+    // Oblic borders.
+    myPotentialField.addOblicBorder(OblicBorder(2.0, 0.15, 1.0, -1.49, 0.05)); // Bord oblique en bas à droite.
+    myPotentialField.addOblicBorder(OblicBorder(2.0, 0.15, -1.0, 4.49, 0.05)); // Bord oblique en haut à droite.
+
+    // Rectangles.
+    std::vector< std::tuple<double, double> > rectangleBasDroite { std::make_tuple(1.175, 0.0),
+        std::make_tuple(1.175, 0.102), std::make_tuple(1.325, 0.102), std::make_tuple(1.325, 0.0) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, rectangleBasDroite));
+
+    std::vector< std::tuple<double, double> > galerieExpoBas { std::make_tuple(0.0, 0.45),
+        std::make_tuple(0.1, 0.45), std::make_tuple(0.1, 0.6675), std::make_tuple(0.1, 0.8525),
+        std::make_tuple(0.1, 1.0375), std::make_tuple(0.1, 1.17), std::make_tuple(0.0, 1.17) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, galerieExpoBas));
+
+    std::vector< std::tuple<double, double> > galerieExpoHaut { std::make_tuple(0.0, 1.83),
+        std::make_tuple(0.1, 1.83), std::make_tuple(0.1, 2.055), std::make_tuple(0.1, 2.24),
+        std::make_tuple(0.1, 2.245), std::make_tuple(0.1, 2.55), std::make_tuple(0.0, 2.55) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, galerieExpoHaut));
+
+    std::vector< std::tuple<double, double> > sproutchAuDessusGalerieExpoBas { std::make_tuple(0.0, 1.275),
+        std::make_tuple(0.102, 1.275), std::make_tuple(0.102, 1.425), std::make_tuple(0.0, 1.425) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, sproutchAuDessusGalerieExpoBas));
+
+    std::vector< std::tuple<double, double> > sproutchEnDessousGalerieExpoHaut { std::make_tuple(0.0, 1.575),
+        std::make_tuple(0.102, 1.575), std::make_tuple(0.102, 1.725), std::make_tuple(0.0, 1.725) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, sproutchEnDessousGalerieExpoHaut));
+
+    std::vector< std::tuple<double, double> > laTigeAGauche { std::make_tuple(0.0, 1.4975),
+        std::make_tuple(0.102, 1.4975), std::make_tuple(0.3, 1.4975), std::make_tuple(0.3, 1.525),
+        std::make_tuple(0.102, 1.525), std::make_tuple(0.0, 1.525) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, laTigeAGauche));
+
+    std::vector< std::tuple<double, double> > rectangleHautDroite { std::make_tuple(1.175, 3.0),
+        std::make_tuple(1.175, 2.898), std::make_tuple(1.325, 2.898), std::make_tuple(1.325, 3.0) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, rectangleHautDroite));
+
+    std::vector< std::tuple<double, double> > carreDeFouille { std::make_tuple(2.0, 0.575),
+        std::make_tuple(1.98, 0.575), std::make_tuple(1.98, 0.6675), std::make_tuple(1.98, 0.8525),
+        std::make_tuple(1.98, 1.0375), std::make_tuple(1.98, 1.2225), std::make_tuple(1.98, 1.4075),
+        std::make_tuple(1.98, 1.5925), std::make_tuple(1.98, 1.775), std::make_tuple(1.98, 1.9625), 
+        std::make_tuple(1.98, 2.1475), std::make_tuple(1.98, 2.3325), std::make_tuple(1.98, 2.425),
+        std::make_tuple(2.0, 2.425) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, carreDeFouille));*/
+
+
+    // Simple borders.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, -1.5, 0.05)); // Bord horizontal bas.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, -1.0, 0.05)); // Bord vertical gauche.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, 1.5, 0.05));  // Bord horizontal haut.
+    myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, 1.0, 0.05));  // Bord vertical droit.
+
+    // Oblic borders.
+    myPotentialField.addOblicBorder(OblicBorder(2.0, 0.15, 1.0, -2.07484, 0.06)); // Bord oblique en bas à droite.
+    myPotentialField.addOblicBorder(OblicBorder(2.0, 0.15, -1.0, 2.07484, 0.06)); // Bord oblique en haut à droite.
+
+    // Rectangles.
+    std::vector< std::tuple<double, double> > rectangleBasDroite { std::make_tuple(0.175,-1.5),
+        std::make_tuple(0.325,-1.5), std::make_tuple(0.325,-1.398), std::make_tuple(0.175, -1.398) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, rectangleBasDroite));
+
+    std::vector< std::tuple<double, double> > rectangleHautDroite { std::make_tuple(0.175, 1.398),
+        std::make_tuple(0.325, 1.398), std::make_tuple(0.325, 1.5), std::make_tuple(0.175, 1.5) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, rectangleHautDroite));
+
+    std::vector< std::tuple<double, double> > galerieExpoHaut { std::make_tuple(-1.0, 0.33),
+        std::make_tuple(-0.915, 0.33), std::make_tuple(-0.915, 0.57), std::make_tuple(-0.915, 0.81),
+        std::make_tuple(-0.915, 1.05), std::make_tuple(-1.0, 1.05) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, galerieExpoHaut));
+
+    std::vector< std::tuple<double, double> > galerieExpoBas { std::make_tuple(-1.0, -0.33),
+        std::make_tuple(-0.915, -0.33), std::make_tuple(-0.915, -0.57), std::make_tuple(-0.915, -0.81),
+        std::make_tuple(-0.915, -1.05), std::make_tuple(-1.0, -1.05) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, galerieExpoBas));
+
+    std::vector< std::tuple<double, double> > sproutchAuDessusGalerieExpoBas { std::make_tuple(-1.0, -0.225),
+        std::make_tuple(-0.898, -0.225), std::make_tuple(-0.898, -0.075), std::make_tuple(-1.0, -0.075) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, sproutchAuDessusGalerieExpoBas));
+
+    std::vector< std::tuple<double, double> > sproutchEnDessousGalerieExpoHaut { std::make_tuple(-1.0, 0.075),
+        std::make_tuple(-0.898, 0.075), std::make_tuple(-0.898, 0.225), std::make_tuple(-1.0, 0.225) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, sproutchEnDessousGalerieExpoHaut));
+
+    std::vector< std::tuple<double, double> > laTigeAGauche { std::make_tuple(-0.8, 0),
+        std::make_tuple(-0.6, 0.0), std::make_tuple(-0.5, 0.0), std::make_tuple(-0.4, 0.0) };
+    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.022, laTigeAGauche));
+
+
+
+
+    // Les goals, définis pour l'équipe bleue.
+    myPotentialField.addGoal(std::make_tuple(0.85, 0.0), 2.0);      // 3 points. First one so we give it a weight.
+    myPotentialField.addGoal(std::make_tuple(-0.75, 0.2), 0.0);     // 2 points.
+    myPotentialField.addGoal(std::make_tuple(-0.85, 1.35), 0.0);    // 1 point.
+    myPotentialField.addGoal(std::make_tuple(0.45, 1.3), 0.0);      // 1 point.
+    // More accessory goals on the other side of the map.
+    myPotentialField.addGoal(std::make_tuple(-0.75, -0.2 ), 0.0);   // 2 points.
+    myPotentialField.addGoal(std::make_tuple(-0.85, -1.35), 0.0);   // 1 point.
+    myPotentialField.addGoal(std::make_tuple(0.45, -1.3), 0.0);     // 1 point.
+
+
+
+    return myPotentialField;
 }
 
-std::tuple<double, double>
-iterPotentialFieldWithLogFile(Potential_Field myPotential_Field, double dt, std::ofstream &myFile) {
+
+
+
+
+std::tuple<double, double> iterPotentialFieldWithLogFile(Potential_Field myPotential_Field, double dt, std::ofstream &myFile) {
     if (myPotential_Field.GoalTest(0.08)) {
         return std::make_tuple(0.0, 0.0);
     } else {
@@ -716,7 +830,7 @@ std::tuple<double, double> iterPotentialField(Potential_Field myPotential_Field,
         std::tuple<double, double> mySpeed = myPotential_Field.getSpeedVector(dt, 0.84, 4.6666,
                                                                               myPotential_Field.current_position);
         return mySpeed;
-    }
+    }  
 }
 
 
