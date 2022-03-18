@@ -39,15 +39,15 @@ def generateCercle( center, radius, npoint):
 
 def plotSample(center):
     plt.scatter(center[0], center[1], c='red') # sample
-    cercle = generateCercle((center[0], center[1]), 30, 20)
+    cercle = generateCercle((center[0], center[1]), 30, 20) #Zone d'influence.
     plt.scatter(cercle[:,0], cercle[:,1], c='pink', marker='+')
-    cercle = generateCercle((center[0], center[1]), 15, 20)
+    cercle = generateCercle((center[0], center[1]), 20, 20) #Ici, hitbox.
     plt.scatter(cercle[:,0], cercle[:,1], c='pink', marker='+')
     
 
 for i in range (n):
-    x[i] = data[i,0]
-    y[i] = data[i,1]
+    x[i] = 100 * data[i,0]
+    y[i] = 100 * data[i,1]
     repulsive_x[i]= data[i,2]
     repulsive_y[i]= data[i,3]
     attractive_x[i] = data[i,4]
@@ -55,20 +55,92 @@ for i in range (n):
     direct_speed[i] = data[i,6]
     omega_speed[i] = data[i,7]
     
-
-plt.scatter(x,y, marker = '.')
-plt.scatter(50,200)
-plt.scatter(-100,50)
+# AJOUTER LA CARTE DANS CE PÂTÉ
+plt.plot(x,y)
+plt.scatter(50,75)
+plt.scatter(-75,60)
 plt.title('Displacement of the robot in the map')
 plt.xlabel('[cm]')
 plt.ylabel('[cm]')
-plotSample((-60,100))
+plotSample((-25,75))
 #plotSample((0,120))
 #plotSample((0,80))
-plotSample((0,145))
+plotSample((0,100))
+
+# Les borders
+x = [-100, 49, 100, 100, 49, -100, -100]
+y = [-150, -150, -99, 99, 150, 150, -150]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='black',label="Borders")
+
+x = [-95, 45.46, 95, 95, 45.46, -95, -95]
+y = [-145, -145, -95.46, 95.46, 145, 145, -145]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red',label="Hitbox of obstacles")
+
+
+# Ajout des rectangles
+x = [17.5, 17.5, 32.5, 32.5]
+y = [150, 139.8, 139.8, 150]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+x = [12.5, 12.5, 37.5, 37.5]
+y = [150, 134.8, 134.8, 150]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [17.5, 17.5, 32.5, 32.5]
+y = [-150, -139.8, -139.8, -150]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+x = [12.5, 12.5, 37.5, 37.5]
+y = [-150, -134.8, -134.8, -150]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [-100, -91.5, -91.5, -100]
+y = [33, 33, 105, 105]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+x = [-100, -86.5, -86.5, -100]
+y = [27, 27, 110, 110]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [-100, -91.5, -91.5, -100]
+y = [-33, -33, -105, -105]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+
+x = [-100, -86.5, -86.5, -100]
+y = [-27, -27, -110, -110]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [-100, -89.8, -89.8, -100]
+y = [-22.5, -22.5, -7.5, -7.5]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+x = [-100, -81.5, -81.5, -100]
+y = [-27.5, -27.5, -2.5, -2.5]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [-100, -89.8, -89.8, -100]
+y = [22.5, 22.5, 7.5, 7.5]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
+x = [-100, -81.5, -81.5, -100]
+y = [27.5, 27.5, 2.5, 2.5]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+x = [-100, -40]
+y = [0,0]
+plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue', label="Rectangles")
+x = [-100, -35, -35, -100]
+y = [5, 5, -5, -5]
+plt.plot(x, y, linestyle='--', linewidth=1, color='red')
+
+
+plt.legend()
 plt.show()
 
-plt.plot(attractive_y, label = 'attactive_y')
+
+##################################################
+"""plt.plot(attractive_y, label = 'attactive_y')
 plt.plot(attractive_x, label = 'attactive_x')
 plt.plot(repulsive_x, label = 'repulsive_x')
 plt.plot(repulsive_y, label = 'repulsive_y')
@@ -81,8 +153,8 @@ plt.plot(omega_speed, label = 'omega_ref ([rad/s])')
 plt.xlabel('Number of iterations')
 plt.ylabel('Amplitude')
 plt.legend()
-plt.show()
-
+plt.show()"""
+##################################################
 
 """
 test 1 :

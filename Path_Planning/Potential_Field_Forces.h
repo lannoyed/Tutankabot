@@ -22,11 +22,8 @@
 
 // The obstacles in the map will be represented as circles, just like the robot.
 // Borders will be represented as being rectangles.
-#define rho_0_border 0.1   // Distance of influence of border set to 10 [cm]. Every border has the same distance of influence.
-#define rho_0_circle 0.15  // Distance of influence of obstacle in map : the samples on the floor have a diameter of 15 [cm], so we say r_influence = 15 [cm].
 #define radius_robot 0.15  // Our robot is represented as a point in the middle of a circle of radius radius_robot, which is here 15 [cm].
 #define PI 3.14159265
-// Every obstacle in the map has the same distance of influence, as a first generalisation.
 
 
 
