@@ -169,12 +169,19 @@ class Goal
     public:
 
     std::tuple <double, double> position;
+    std::vector<double> weightSimpleBorder;
+    std::vector<double> weightOblicBorder;
+    std::vector<double> weightSample;
+    std::vector<double> weightRectangles;
 
     double weight{};
 
     Goal();
-    Goal(const std::tuple <double, double>& goal_position, double goalWeight);
-    std::tuple <double, double> attForce(std::tuple <double, double> position_robot); // Goal list est dans le problème général, pas comme arg ici.
+    Goal(const std::tuple <double, double>& goal_position, double goalWeight,
+    std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, 
+    std::vector<double> weightSample, std::vector<double> weightRectangles);
+
+    std::tuple <double, double> attForce(std::tuple <double, double> position_robot);
     
     double computeDistance(std::tuple <double, double> position_robot);
     bool goalReached(std::tuple <double, double> position_robot);
@@ -235,6 +242,10 @@ public:
 
     // return the repulsive value from the potential field
     std::tuple <double, double> totalRepulsiveForce();
+    // If we are stuck or if we need to go to base
+    void addBaseOrDestuck(const std::tuple<double, double>& newPosition, double goalWeight,
+    const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
+    const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
     // return the attractive value from the potential field
     std::tuple <double, double> attractiveForce(std::tuple <double, double> position);
     // return the speed (Vref Wref) from the potential field forces modulated by the maximal wheel speed
@@ -244,9 +255,11 @@ public:
 
 
     // Goal gestion
-    void addGoal(const std::tuple <double, double>& newGoalPosition, double goalWeight);
+    void addGoal(const std::tuple <double, double>& newGoalPosition, double goalWeight,
+        const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
+        const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
     void removeGoal();
-    void nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, const std::vector<double>& weightSample, double newWeight, double precision);
+    void nextGoal(double newWeight, double precision);
 
 };
 

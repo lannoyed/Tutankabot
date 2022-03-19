@@ -324,14 +324,18 @@ std::tuple<double, double> Potential_Field::speedFilter(std::tuple<double, doubl
 
 // Add a goal at the end of the list.
 // À l'initialisation, défini que le premier goal = le premier de la liste.
-void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition, double goalWeight) {
+void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition, double goalWeight,
+    const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
+    const std::vector<double>& weightSample, const std::vector<double>& weightRectangles) {
     if (numberOfGoals == 0) {
         numberOfGoals += 1;
-        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight));
+        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight,
+            weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles));
         currentGoal = listOfGoal.at(0);
     } else {
         numberOfGoals += 1;
-        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight));
+        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight,
+            weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles));
     }
 
 }
@@ -343,37 +347,66 @@ void Potential_Field::removeGoal() {
 }
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
-void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, const std::vector<double>& weightSample, double newWeight, double precision) {
-    if (GoalTest(precision)) { // Next goal : appelée que s'il est stuck ou s'il est arrivé au goal. Donc le if ne sert à rien. Mais s'il est stuck, faudrait un truc genre swap pour ne pas supprimer le goal.
-        removeGoal(); // Faire deux fonctions : celle-ci : ne pas y toucher. Faire nextGoalSwap pour les stucks. 
-        currentGoal = listOfGoal.at(0);
-        currentGoal.setWeight(newWeight);
-        int i = 0;
-        // On réattribue les poids de chaque obstacle. Attention que pour Sample, ça va être un vecteur qui change de taille.
-        for (auto &poids : weightSimpleBorder) // weightSimpleBorder de même longueur que simpleBorderList.
-        {
-            simpleBorderList.at(i).setWeight(poids);
-            i += 1;
-        }
-        i = 0;
-        for (auto &poids : weightOblicBorder) {
-            oblicBorderList.at(i).setWeight(poids);
-            i += 1;
-        }
-        i = 0;
-        for (auto &poids : weightSample) {
-            sampleList.at(i).setWeight(poids);
-            i += 1;
-        }
+void Potential_Field::nextGoal(double newWeight, double precision) {
+    // Next goal : appelée que s'il est stuck ou s'il est arrivé au goal. Mais s'il est stuck, faudrait un truc genre swap pour ne pas supprimer le goal.
+    removeGoal(); // Faire nextGoalSwap pour les stucks. 
+    currentGoal = listOfGoal.at(0);
+    currentGoal.setWeight(newWeight);
+    int i = 0;
+    // On réattribue les poids de chaque obstacle. Attention que pour Sample, ça va être un vecteur qui change de taille.
+    for (auto &poids : currentGoal.weightSimpleBorder) // weightSimpleBorder de même longueur que simpleBorderList.
+    {
+        simpleBorderList.at(i).setWeight(poids);
+        i += 1;
     }
-
+    i = 0;
+    for (auto &poids : currentGoal.weightOblicBorder) {
+        oblicBorderList.at(i).setWeight(poids);
+        i += 1;
+    }
+    i = 0;
+    for (auto &poids : currentGoal.weightSample) {
+        sampleList.at(i).setWeight(poids);
+        i += 1;
+    }
 }
+
+void Potential_Field::addBaseOrDestuck(const std::tuple<double, double>& newPosition, double goalWeight,
+    const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
+    const std::vector<double>& weightSample, const std::vector<double>& weightRectangles)
+{
+    currentGoal.setWeight(0.0);
+    listOfGoal.insert(listOfGoal.begin(), Goal(newPosition, goalWeight,
+            weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles));
+    currentGoal = listOfGoal.at(0);
+
+    int i = 0;
+    for (auto &poids : currentGoal.weightSimpleBorder)
+    {
+        simpleBorderList.at(i).setWeight(poids);
+        i += 1;
+    }
+    i = 0;
+    for (auto &poids : currentGoal.weightOblicBorder) {
+        oblicBorderList.at(i).setWeight(poids);
+        i += 1;
+    }
+    i = 0;
+    for (auto &poids : currentGoal.weightSample) {
+        sampleList.at(i).setWeight(poids);
+        i += 1;
+    }
+}
+
 
 // Calculation of the attractive force at the present point towards the goal. This gives back a vector.
 std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, double> position) {
     return currentGoal.attForce(std::move(position));
 }
 
+std::tuple<double, double> Potential_Field::getPosition() const {
+    return current_position;
+}
 
 
 
@@ -386,9 +419,16 @@ Goal::Goal() {
 }
 
 
-Goal::Goal(const std::tuple<double, double> &goal_position, double goalWeight) {
+Goal::Goal(const std::tuple<double, double> &goal_position, double goalWeight,
+    std::vector<double> weightSimpleBorder, std::vector<double> , 
+    std::vector<double> weightSample, std::vector<double> weightRectangles) {
+    
     position = goal_position;   // Position du goal.
     weight = goalWeight;        // Poids du goal. Default weight : 0.0.
+    weightSimpleBorder = weightSimpleBorder;
+    weightOblicBorder = weightOblicBorder;
+    weightSample = weightSample;
+    weightRectangles = weightRectangles;
 }
 
 std::tuple<double, double> Goal::attForce(std::tuple<double, double> position_robot) {
@@ -749,12 +789,40 @@ Potential_Field initPotentialField()
     myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, carreDeFouille));*/
 
 
-    // Simple borders.
+    // Simple borders. Use of push_back : first in = the last one of the list.
     myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, -1.5, 0.05)); // Bord horizontal bas.
     myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, -1.0, 0.05)); // Bord vertical gauche.
     myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 1, 1.5, 0.05));  // Bord horizontal haut.
     myPotentialField.addSimpleBorder(SimpleBorder(2.0, 0.15, 0, 1.0, 0.05));  // Bord vertical droit.
 
+    std::vector<double> weightSimpleBorder;
+    int i = 0;
+    for(i; i < 4; i++)
+    {
+        weightSimpleBorder.push_back(2.0);
+    }
+
+    std::vector<double> weightOblicBorder;
+    i = 0;
+    for(i; i < 2; i++)
+    {
+        weightOblicBorder.push_back(2.0);
+    }
+
+    std::vector<double> weightRectangles;
+    i = 0;
+    for(i; i < 7; i++)
+    {
+        weightRectangles.push_back(2.0);
+    }
+
+    std::vector<double> weightSample;
+    i = 0;
+    for(i; i < 1; i++)
+    {
+        weightSample.push_back(0.0);
+    }
+    
 
     // Oblic borders.
     myPotentialField.addOblicBorder(OblicBorder(2.0, 0.15, 1.0, -2.07484, 0.06)); // Bord oblique en bas à droite.
@@ -794,15 +862,23 @@ Potential_Field initPotentialField()
 
 
 
+
     // Les goals, définis pour l'équipe bleue.
-    myPotentialField.addGoal(std::make_tuple(0.85, 0.0), 2.0);      // 3 points. First one so we give it a weight.
-    myPotentialField.addGoal(std::make_tuple(-0.75, 0.2), 0.0);     // 2 points.
-    myPotentialField.addGoal(std::make_tuple(-0.85, 1.35), 0.0);    // 1 point.
-    myPotentialField.addGoal(std::make_tuple(0.45, 1.3), 0.0);      // 1 point.
+    myPotentialField.addGoal(std::make_tuple(0.85, 0.0), 2.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 3 points. First one so we give it a weight.
+    myPotentialField.addGoal(std::make_tuple(-0.75, 0.2), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 2 points.
+    myPotentialField.addGoal(std::make_tuple(-0.85, 1.35), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 1 point.
+    myPotentialField.addGoal(std::make_tuple(0.45, 1.3), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 1 point.
     // More accessory goals on the other side of the map.
-    myPotentialField.addGoal(std::make_tuple(-0.75, -0.2 ), 0.0);   // 2 points.
-    myPotentialField.addGoal(std::make_tuple(-0.85, -1.35), 0.0);   // 1 point.
-    myPotentialField.addGoal(std::make_tuple(0.45, -1.3), 0.0);     // 1 point.
+    myPotentialField.addGoal(std::make_tuple(-0.75, -0.2 ), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 2 points.
+    myPotentialField.addGoal(std::make_tuple(-0.85, -1.35), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 1 point.
+    myPotentialField.addGoal(std::make_tuple(0.45, -1.3), 0.0, 
+        weightSimpleBorder, weightOblicBorder, weightSample, weightRectangles);     // 1 point.
 
 
 
@@ -904,9 +980,7 @@ next_position(const Potential_Field &myPotential_Field, std::tuple<double, doubl
 }
 
 
-std::tuple<double, double> Potential_Field::getPosition() const {
-    return current_position;
-}
+
 
 
 // Test function : instantiate here to see if it works.
@@ -916,6 +990,7 @@ int main(int arg, char *argv[]) {
      *                      TEST OF PATH                         *
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+    /*
 
     // création des obstacles
     double hitBox = 0.05;
@@ -979,7 +1054,7 @@ int main(int arg, char *argv[]) {
     myPotential_Field.addSample(Sample6);
     myPotential_Field.addSample(Sample7);
     myPotential_Field.addSample(Sample8);
-     */
+     
     double dt = 0.1;
 
     std::ofstream myFile;
@@ -1025,7 +1100,7 @@ int main(int arg, char *argv[]) {
             myFile << tupleToString(mySpeed) << " ";
             myFile << tupleToString(myPotential_Field.currentSpeedVector) << "\n";
 
-        } */
+        }
 
         i++;
 
@@ -1035,6 +1110,7 @@ int main(int arg, char *argv[]) {
 
     std::cout << "Finish";
 
+    */
 
 
 
