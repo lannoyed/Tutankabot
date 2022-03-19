@@ -327,11 +327,11 @@ std::tuple<double, double> Potential_Field::speedFilter(std::tuple<double, doubl
 void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition, double goalWeight) {
     if (numberOfGoals == 0) {
         numberOfGoals += 1;
-        listOfGoal.emplace_back(newGoalPosition, goalWeight);
+        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight));
         currentGoal = listOfGoal.at(0);
     } else {
         numberOfGoals += 1;
-        listOfGoal.emplace_back(newGoalPosition, goalWeight);
+        listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight));
     }
 
 }
@@ -344,8 +344,8 @@ void Potential_Field::removeGoal() {
 
 // If the goal has been reached, we delete it from the list and set the new goal to the next one.
 void Potential_Field::nextGoal(const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, const std::vector<double>& weightSample, double newWeight, double precision) {
-    if (GoalTest(precision)) {
-        removeGoal();
+    if (GoalTest(precision)) { // Next goal : appelée que s'il est stuck ou s'il est arrivé au goal. Donc le if ne sert à rien. Mais s'il est stuck, faudrait un truc genre swap pour ne pas supprimer le goal.
+        removeGoal(); // Faire deux fonctions : celle-ci : ne pas y toucher. Faire nextGoalSwap pour les stucks. 
         currentGoal = listOfGoal.at(0);
         currentGoal.setWeight(newWeight);
         int i = 0;
