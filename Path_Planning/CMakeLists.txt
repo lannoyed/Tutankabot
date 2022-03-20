@@ -3,4 +3,4 @@ project(Path_Planning)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Path_Planning main.cpp)
+add_executable(Path_Planning Potential_Field_Forces.cpp)
