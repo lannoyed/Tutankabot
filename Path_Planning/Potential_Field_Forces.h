@@ -26,11 +26,9 @@
 #define PI 3.14159265
 
 
-
 // ====================================================================================================================================================================================================================
 // Obstacle Declaration
 // ====================================================================================================================================================================================================================
-
 class Obstacle
 {
 
@@ -43,7 +41,7 @@ public :
 
     Obstacle();
     Obstacle(double k_rep, double distanceOfInfluence, std::string typeName);
-    
+
     void setWeight (double newWeight);
     void setInfluence (double newInfluence);
 };
@@ -55,7 +53,7 @@ public :
 
 class Rectangle : public Obstacle
 {
-    public:
+public:
 
     double hitBox;
     std::vector< std::tuple<double, double> > coordonnees; // Vecteur qui va contenir les points du rectangle.
@@ -166,7 +164,7 @@ public :
 class Goal
 {
 
-    public:
+public:
 
     std::tuple <double, double> position;
     std::vector<double> weightSimpleBorder;
@@ -177,12 +175,12 @@ class Goal
     double weight{};
 
     Goal();
-    Goal(const std::tuple <double, double>& goal_position, double goalWeight,
-    std::vector<double> weightSimpleBorder, std::vector<double> weightOblicBorder, 
-    std::vector<double> weightSample, std::vector<double> weightRectangles);
+    Goal(const std::tuple<double, double> &goal_position, double goalWeight,
+         std::vector<double> weightSimpleBorderA, std::vector<double>  weightOblicBorderA,
+         std::vector<double> weightSampleA, std::vector<double> weightRectanglesA);
 
     std::tuple <double, double> attForce(std::tuple <double, double> position_robot);
-    
+
     double computeDistance(std::tuple <double, double> position_robot);
     bool goalReached(std::tuple <double, double> position_robot);
 
@@ -215,6 +213,11 @@ public:
     std::vector< Goal >         listOfGoal;                 // List of goals.
     int                         numberOfGoals{};              // Self-explanatory.
     Goal                        currentGoal;                // Same.
+    bool                        isStuck{};
+    int                        didntMove{};
+    bool                        willNotMove{};
+    int                       didntRotate{};
+
 
 
     // constructors
@@ -224,6 +227,7 @@ public:
     // communication with external structures  to update in the real project
     void setPosition(const std::tuple <double, double>& position);
     void setSpeedVector(const std::tuple <double, double>& initialSpeedVector);
+    void setSpeedVector(double theta);
 
     // update of obstacle's list
     void addSimpleBorder(const SimpleBorder &object);
@@ -242,10 +246,7 @@ public:
 
     // return the repulsive value from the potential field
     std::tuple <double, double> totalRepulsiveForce();
-    // If we are stuck or if we need to go to base
-    void addBaseOrDestuck(const std::tuple<double, double>& newPosition, double goalWeight,
-    const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
-    const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
+
     // return the attractive value from the potential field
     std::tuple <double, double> attractiveForce(std::tuple <double, double> position);
     // return the speed (Vref Wref) from the potential field forces modulated by the maximal wheel speed
@@ -256,10 +257,16 @@ public:
 
     // Goal gestion
     void addGoal(const std::tuple <double, double>& newGoalPosition, double goalWeight,
-        const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder, 
-        const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
+                 const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder,
+                 const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
     void removeGoal();
-    void nextGoal(double newWeight, double precision);
+    void nextGoal(double newWeight);
+    void nextGoalStuck(double newWeight);
+    // If we are stuck or if we need to go to base
+    void nextGoalBase(const std::tuple<double, double>& newPosition, double goalWeight,
+                      const std::vector<double>& weightSimpleBorder, const std::vector<double>& weightOblicBorder,
+                      const std::vector<double>& weightSample, const std::vector<double>& weightRectangles);
+
 
 };
 
@@ -279,5 +286,5 @@ Potential_Field initPotentialField();
 //  *   update the attaction force
 //  *   update vRef and wRef
 
-std::tuple<double,double> iterPotentialFieldWithLogFile(Potential_Field myPotential_Field, double dt, std::ofstream & myFile);
+std::tuple<double,double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, std::ofstream & myFile);
 std::tuple<double,double> iterPotentialField(Potential_Field myPotential_Field, double dt);
