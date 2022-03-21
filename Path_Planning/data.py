@@ -57,81 +57,80 @@ for i in range (n):
     
 # AJOUTER LA CARTE DANS CE PÂTÉ
 plt.plot(x,y)
-plt.scatter(50,75)
-plt.scatter(-75,60)
+plt.scatter(150,225)
+plt.scatter(25,210)
 plt.title('Displacement of the robot in the map')
 plt.xlabel('[cm]')
 plt.ylabel('[cm]')
-plotSample((-25,75))
+plotSample((75,225))
 #plotSample((0,120))
 #plotSample((0,80))
-plotSample((0,100))
+plotSample((100,250))
 
 # Les borders
-x = [-100, 49, 100, 100, 49, -100, -100]
-y = [-150, -150, -99, 99, 150, 150, -150]
+x = [0, 149, 200, 200, 149, 0, 0]
+y = [0, 0, 51, 249, 300, 300, 0]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='black',label="Borders")
 
-x = [-95, 45.46, 95, 95, 45.46, -95, -95]
-y = [-145, -145, -95.46, 95.46, 145, 145, -145]
+x = [5, 145.46, 195, 195, 145.46, 5, 5]
+y = [5, 5, 54.54, 245.46, 295, 295, 5]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red',label="Hitbox of obstacles")
 
 
-# Ajout des rectangles
-x = [17.5, 17.5, 32.5, 32.5]
-y = [150, 139.8, 139.8, 150]
+# Ajout des rectangles : en haut à droite.
+x = [117.5, 117.5, 132.5, 132.5]
+y = [300, 289.8, 289.8, 300]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-x = [12.5, 12.5, 37.5, 37.5]
-y = [150, 134.8, 134.8, 150]
+x = [112.5, 112.5, 137.5, 137.5]
+y = [300, 284.8, 284.8, 300]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [17.5, 17.5, 32.5, 32.5]
-y = [-150, -139.8, -139.8, -150]
+# En bas à droite.
+x = [117.5, 117.5, 132.5, 132.5]
+y = [0, 10.2, 10.2, 0]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-x = [12.5, 12.5, 37.5, 37.5]
-y = [-150, -134.8, -134.8, -150]
+x = [112.5, 112.5, 137.5, 137.5]
+y = [0, 15.2, 15.2, 0]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [-100, -91.5, -91.5, -100]
-y = [33, 33, 105, 105]
+# Galerie d'art haute
+x = [0, 8.5, 8.5, 0]
+y = [183, 183, 255, 255]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-x = [-100, -86.5, -86.5, -100]
-y = [27, 27, 110, 110]
+x = [0, 13.5, 13.5, 0]
+y = [178, 178, 260, 260]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [-100, -91.5, -91.5, -100]
-y = [-33, -33, -105, -105]
+# Galerie d'art basse
+x = [0, 8.5, 8.5, 0]
+y = [117, 117, 45, 45]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-
-x = [-100, -86.5, -86.5, -100]
-y = [-27, -27, -110, -110]
+x = [0, 13.5, 13.5, 0]
+y = [122, 122, 40, 40]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [-100, -89.8, -89.8, -100]
-y = [-22.5, -22.5, -7.5, -7.5]
+# Petit rectangle bas gauche
+x = [0, 10.2, 10.2, 0]
+y = [127.5, 127.5, 145, 145]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-x = [-100, -81.5, -81.5, -100]
-y = [-27.5, -27.5, -2.5, -2.5]
+x = [0, 15.2, 15.2, 0]
+y = [122.5, 122.5, 150, 150]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [-100, -89.8, -89.8, -100]
-y = [22.5, 22.5, 7.5, 7.5]
+# Petit rectangle haut gauche
+x = [0, 10.2, 10.2, 0]
+y = [172.5, 172.5, 157.5, 157.5]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue')
-x = [-100, -81.5, -81.5, -100]
-y = [27.5, 27.5, 2.5, 2.5]
+x = [0, 15.2, 15.2, 0]
+y = [177.5, 177.5, 152.5, 152.5]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
-
-x = [-100, -40]
-y = [0,0]
+# La tige
+x = [0, 60]
+y = [150,150]
 plt.plot(x, y, linestyle='-', linewidth=1.5, color='blue', label="Rectangles")
-x = [-100, -35, -35, -100]
-y = [5, 5, -5, -5]
+x = [0, 65, 65, 0]
+y = [155, 155, 145, 145]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
 
