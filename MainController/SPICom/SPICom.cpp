@@ -54,5 +54,8 @@ double get_speed(int spi_number){
 	tick_diff = buffer_to_double(buffer) ; 
 	tick_diff /= 0.02 ; // The tick diff is now a number of tick per second 
 	tick_diff /= 8192 ; // Now a number of turn per second  
+	if (spi_number == 4){
+		tick_diff *= -1 ; 
+	}
 	return tick_diff ; 
 }

@@ -177,7 +177,7 @@ void sendTheta(float theta, int motor){
 	char command[50] ; 
 	int thetaCan ; 
 	if (motor == 1 ) {	
-		thetaCan = thetaToCan(theta) ;
+		thetaCan = thetaToCan(-theta) ;
 	} else{ 
 		thetaCan = thetaToCan(theta) ;
 	}
@@ -193,7 +193,7 @@ void sendTheta(float theta, int motor){
 	system(command) ; 
 }
 
-void canInit(){
+void CAN_init(){
 	char command[50] ; 
 	strcpy(command, "cansend can0 708#1EFF40") ; // Allumage de la led 
 	system(command) ; 
