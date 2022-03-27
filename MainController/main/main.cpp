@@ -2,15 +2,13 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <time.h> 
+# include <bitset>
+# include <iostream>
 # include "../CanCom/canCom.cpp"
+# include "../SPICom/SPICom.cpp"
 
 int main(){
-	float theta = 10 ; 
-	canInit() ; 
-	sendTheta(theta, 1) ;
-	sendTheta(theta, 2) ; 
-	sleep(5) ; 
-	sendTheta(0.0, 	 1) ; 
-	sendTheta(0.0,   2) ; 
+	SPI_init() ; 
+	Can
 	return 0 ; 
 }
