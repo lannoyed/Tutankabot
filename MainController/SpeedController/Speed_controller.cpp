@@ -25,7 +25,7 @@ typedef struct{
 
 
 float computePIOutput(PI* pi){
-	return pi->e*pi->kp ;//+ pi->I*pi->kp/pi->ti ; 
+	return pi->e*pi->kp + pi->I*pi->kp/pi->ti ; 
 }
 
 void speedControllerLoop(speedController *sc, time_t t ){
@@ -43,7 +43,7 @@ void speedControllerLoop(speedController *sc, time_t t ){
 		sc->pi->I += (sc->t2-sc->t1) * e ; 
 	}
 	sc->command = output ; 
-	sendTheta(output, sc->spi_number) ; 
+	sendTheta(output, sc->motor_number) ; 
 }
 
 
