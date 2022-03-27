@@ -168,10 +168,12 @@ int toHexadecimal(double dutyCycle, char* speed){
 
 double thetaToCan(float theta){
 	double a = (100+theta)/2.0 ;  
-	return a ; 
+	return a*0.68 ; 
 }
 
 void sendTheta(float theta, int motor){
+	// Theta est la commande de la roue et peut aller de -100 à 100 
+	
 	char command[50] ; 
 	int thetaCan ; 
 	if (motor == 1 ) {	
