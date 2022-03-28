@@ -7,36 +7,30 @@
 # include "../CanCom/canCom.cpp"
 # include "../SPICom/SPICom.cpp"
 # include "../SpeedController/Speed_controller.cpp"
+# include "MainController.cpp"
 
 int main(){
 	//Initialization 
 	SPI_init() ; 
 	CAN_init() ; 
-	speedController* sc1 ; 
-	sc1 = speedControllerInit(20.0, 1.0, 30, -30, time(NULL), 0.0, 5, 1);
-	speedController* sc2 ; 
-	sc2 = speedControllerInit(20.0, 1.0, 30, -30, time(NULL), 0.0, 4, 2);
-	
-	sc1->speed_ref = 1.0 ; 
-	sc2->speed_ref = 1.0 ;  
-	//sendTheta(10,1) ; 
-	//sendTheta(10,2) ; 
-	//sendTheta(0,1) ; 
-	//sendTheta(0,2) ; 
+	sendTheta(0,1) ; 
+	sendTheta(0,2) ; 
+	Controller* ctrl ; 
+	ctrl = ControllerInit() ; 
+	set_speed(ctrl, 0.01, 0.01) ; 
 	for (int i = 0 ; i < 20000 ; i++){
-		speedControllerLoop(sc1, time(NULL)) ; 
-		speedControllerLoop(sc2, time(NULL)) ; 
+		ControllerLoop(ctrl) ;  
 		printf("i = %d\t", i) ; 
-		printf("%f\t%f\t%f\t", sc1->speed_mes, sc1->speed_ref, sc1->command) ; 
-		printf("%f\t%f\t%f\n", sc2->speed_mes, sc2->speed_ref, sc2->command) ;  
+		printf("%f\t%f\t", ctrl->sc1->speed_mes, ctrl->sc1->speed_ref) ; 
+		printf("%f\t%f\n", ctrl->sc2->speed_mes, ctrl->sc2->speed_ref) ;  
 		//printf("%f\t", get_speed(4)) ; 
 		//printf("%f\n", get_speed(5)) ;
 		sleep(0.2) ; 
 	} 
+	
 	sendTheta(0,1) ; 
-	sendTheta(0,2) ; 
-	speedControllerFree(sc1) ; 
-	speedControllerFree(sc2) ; 
+	sendTheta(0,2) ;
+	ControllerFree(ctrl) ; 
 	return 0 ; 
 }
 
