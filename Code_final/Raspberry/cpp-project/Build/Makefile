@@ -17,9 +17,10 @@ VERBOSE = TRUE
 MAINDIR = main_folder
 LIDARSDKDIR = lidar_sdk/hal lidar_sdk/arch lidar_sdk/arch/linux lidar_sdk
 EXAMPLEDIR = example
+LIDARDIR = lidar
 
 # Create the list of directories
-DIRS = $(MAINDIR) $(LIDARSDKDIR) $(EXAMPLEDIR)
+DIRS = $(MAINDIR) $(LIDARSDKDIR) $(EXAMPLEDIR) $(LIDARDIR)
 SOURCEDIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCEDIR)/, $(dir)))
 TARGETDIRS = $(foreach dir, $(DIRS), $(addprefix $(BUILDDIR)/, $(dir)))
 
