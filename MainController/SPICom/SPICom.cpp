@@ -57,5 +57,5 @@ double get_speed(int spi_number){
 	if (spi_number == 4){
 		tick_diff *= -1 ; 
 	}
-	return tick_diff ; 
+	return tick_diff*2*M_PI ; 
 }
