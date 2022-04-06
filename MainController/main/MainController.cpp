@@ -1,7 +1,29 @@
-# include "MainController.h"
+typedef struct{
+	speedController* sc1 ;	// speedController of the wheel 1  
+	speedController* sc2 ;  // speedController of the wheel 2 
+	float x,y,theta ; 		// Position of the robot  
+	float v_ref, w_ref ;	// Translation and rotation speed of the robot 
+	
+	double r ; 
+	double l ;
+	
+	std::chrono::high_resolution_clock::time_point tL[2] ; 			// Time reference for the localization system 
+	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
+	int calib_flag ; 
+	int team ; 
+	
+} Controller ;
 
 enum {CALIB_START, CALIB_BACKWARD_1, CALIB_WALL_1, CALIB_FORWARD_1, CALIB_TURN_1, CALIB_BACKWARD_2, CALIB_WALL_2, CALIB_FORWARD_2, CALIB_TURN_2, CALIB_BACKWARD_3, CALIB_FINISH};
 enum {PURPLE, YELLOW} ; 
+
+Controller* ControllerInit() ; 
+void set_speed(Controller* ctrl, double v, double w) ; 
+void speed_conversion(Controller* ctrl) ; 
+void ControllerLoop(Controller* ctrl) ;
+void ControllerFree(Controller* ctrl) ; 
+void odometryLoop(Controller* ctrl) ;  
+void odometryCalibration(Controller* ctrl) ;
 
 Controller* ControllerInit(){
 	Controller* ctrl = (Controller*)malloc(sizeof(Controller)) ; 
@@ -213,3 +235,4 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 	}
 }
+

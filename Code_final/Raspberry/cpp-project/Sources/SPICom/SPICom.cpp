@@ -47,11 +47,19 @@ double get_speed(int spi_number){
 	double tick_diff ; 
 	unsigned char buffer[5] ; 
 	SPI_receive(spi_number, buffer) ;
-	tick_diff = buffer_to_double(buffer) ; 
-	tick_diff /= 0.02 ; // The tick diff is now a number of tick per second 
-	tick_diff /= 8192 ; // Now a number of turn per second  
-	if (spi_number == 4){
-		tick_diff *= -1 ; 
+	tick_diff = buffer_to_double(buffer) ;
+	if (spi_number == 4 || spi_number == 5){
+		tick_diff /= 0.02 ; // The tick diff is now a number of tick per second 
+		tick_diff /= 8192 ; // Now a number of turn per second  
+		if (spi_number == 4){
+			tick_diff *= -1 ; 
+		}
+	} else { 
+		tick_diff /= 0.02 ; 	// The tick_diff is now a number of tick per second
+		tick_diff /= 2465 ; 	// Now a number of turn of the wheel per second  
+		if (spi_number == 7){
+			tick_diff *= -1 ; 
+		}
 	}
 	return tick_diff*2*M_PI ; 
 }

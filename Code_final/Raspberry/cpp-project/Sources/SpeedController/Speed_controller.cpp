@@ -8,7 +8,7 @@ void speedControllerLoop(speedController *sc){
 	sc->t2 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::duration<double> dt = std::chrono::duration_cast<std::chrono::duration<double>>(sc->t2-sc->t1) ; 
 	float speed_mes = get_speed(sc->spi_number) ; 
-	if (fabs(speed_mes-sc->speed_mes) < 5.0){
+	if (fabs(speed_mes-sc->speed_mes) < 10.0){
 		sc->speed_mes = speed_mes ;
 	}		
 	float e = sc->speed_ref - sc->speed_mes ; 
@@ -19,7 +19,7 @@ void speedControllerLoop(speedController *sc){
 	} else if (computePIOutput(sc->pi) < sc->lim_down){
 		output = sc->lim_down ; 
 	} else {
-		sc->pi->I += (dt.count()) * e ; 
+		sc->pi->I += (dt.count()) * e; 
 	}
 	sc->command = output ; 
 	sendTheta(output, sc->motor_number) ; 
