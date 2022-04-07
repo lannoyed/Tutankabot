@@ -23,6 +23,10 @@ Controller* ControllerInit(){
 	ctrl->x_opp = 200.0 ; 
 	ctrl->y_opp = 200.0 ; 
 	ctrl->last_lidar_update = t0 ; 
+	ctrl->t0 = std::chrono::high_resolution_clock::now();
+	ctrl->t1 = std::chrono::high_resolution_clock::now();
+	ctrl->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (ctrl->t1-ctrl->t0);
+	ctrl->time = ctrl->Dt.count() - 18;
 	return ctrl ; 
 } 
 
@@ -260,4 +264,10 @@ void update_opponent_location(Controller* ctrl){
 	}
 	ctrl->x_opp = loc_opponent_final[0] ; 
 	ctrl->y_opp = loc_opponent_final[1] ; 
+}
+
+void updateTime (Controller* cvs){
+	cvs->t1 = std::chrono::high_resolution_clock::now();
+	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
+	cvs->time = cvs->Dt.count() -18.0;
 }
