@@ -20,6 +20,11 @@ Controller* ControllerInit(){
 	ctrl->t_flag = t0 ; 
 	ctrl->calib_flag = CALIB_START ; 
 	ctrl->team = YELLOW ; 
+ 	ctrl->t0 = std::chrono::high_resolution_clock::now();
+  ctrl->t1 = std::chrono::high_resolution_clock::now();
+  ctrl->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (ctrl->t1-ctrl->t0);
+	ctrl->time = ctrl->Dt.count() - 18;
+ 
 	return ctrl ; 
 } 
 
@@ -213,3 +218,10 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 	}
 }
+
+void updateTime (Controller* cvs){
+	cvs->t1 = std::chrono::high_resolution_clock::now();
+	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
+	cvs->time = cvs->Dt.count() -18.0;
+}
+

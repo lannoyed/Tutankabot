@@ -7,9 +7,6 @@
  * \brief Potential field header
  */
 
-#ifndef _POTENTIAL_FIELD_FORCES_GR4_H_ // adapt it with the name of this file (header guard)
-#define _POTENTIAL_FIELD_FORCES_GR4_H_ // must be the same name as the line before
-
 // include ctrlStruct !!!! Pour les coordonnées !
 
 #include <cstdio>
@@ -19,15 +16,13 @@
 #include <vector>
 #include <list>
 #include <string>
-#include <cmath>
+//#include <cmath>
 #include <queue>
 #include <fstream>
 
 #include "data.h"
-#include "MainController.h"
 
 
-NAMESPACE_INIT(ctrlGr4); // where X should be replaced by your group number
 
 
 // ====================================================================================================================================================================================================================
@@ -297,8 +292,3 @@ std::tuple<double,double> iterPotentialField(Potential_Field myPotential_Field, 
 
 std::tuple<double, double> Filter(std::tuple<double, double> speedVector,  std::deque<double>*  stack, double * ouput1_filtered, double *output2_filtered);
 
-
-NAMESPACE_CLOSE();
-
-// end of header guard
-#endif

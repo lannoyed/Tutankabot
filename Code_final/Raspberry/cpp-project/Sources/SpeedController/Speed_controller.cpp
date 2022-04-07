@@ -2,7 +2,6 @@
 float computePIOutput(PI* pi){
 	return pi->e*pi->kp + pi->I*pi->kp/pi->ti ; 
 }
-
 void speedControllerLoop(speedController *sc){
 	sc->t1 = sc->t2 ; 
 	sc->t2 = std::chrono::high_resolution_clock::now() ; 
@@ -24,8 +23,6 @@ void speedControllerLoop(speedController *sc){
 	sc->command = output ; 
 	sendTheta(output, sc->motor_number) ; 
 }
-
-
 PI* PIInit(float kp, float ti){
 	PI* pi = (PI*)malloc(sizeof(PI)) ; 
 	pi->kp = kp ; 
@@ -34,7 +31,6 @@ PI* PIInit(float kp, float ti){
 	pi->out = 0 ; 
 	return pi ; 
 }
-
 speedController* speedControllerInit(float kp, float ti, float lim_up, float lim_down, float kphi, int spi_number, int motor_number){
 	speedController* sc = (speedController*)malloc(sizeof(speedController)) ; 
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
@@ -52,7 +48,6 @@ speedController* speedControllerInit(float kp, float ti, float lim_up, float lim
 	sc->motor_number = motor_number ; 
 	return sc ; 
 }
-
 void speedControllerFree(speedController* sc){
 	free(sc->pi) ; 
 	free(sc) ; 

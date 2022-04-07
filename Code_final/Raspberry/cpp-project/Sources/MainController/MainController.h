@@ -17,13 +17,24 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
 	int calib_flag ; 
 	int team ; 
+ 
+  int state;
+ 	FILE* data ; 							///< File for data recording 
+
+	// Global informations 
+	std::chrono::high_resolution_clock::time_point t0;
+	std::chrono::high_resolution_clock::time_point t1;
+	std::chrono::duration<double> Dt;
+	double time; 
 	
 } Controller ;
 
 Controller* ControllerInit() ; 
 void set_speed(Controller* ctrl, double v, double w) ; 
-void speed_conversion(Controller* ctrl) ;  	
+void speedConversion(Controller* ctrl) ;  	
 void ControllerLoop(Controller* ctrl) ;
 void ControllerFree(Controller* ctrl) ; 
 void odometryLoop(Controller* ctrl) ;  
 void odometryCalibration(Controller* ctrl) ;
+
+void updateTime (Controller* cvs);

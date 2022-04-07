@@ -10,9 +10,7 @@ char data_file[] = "prout.csv";
 
 int main(int argc, char* argv){
     /*connectLidar();
-
     lidarToFile(data_file);
-
     disconnectLidar();*/
 	SPI_init() ; 
 	CAN_init() ; 
@@ -33,9 +31,9 @@ int main(int argc, char* argv){
 		//printf("%f\t", get_speed(4)) ; 
 		//printf("%f\n", get_speed(5)) ;
 	} 
-	
+
 	sendTheta(0,1) ; 
 	sendTheta(0,2) ;
 	ControllerFree(ctrl) ;
-	
+
 }

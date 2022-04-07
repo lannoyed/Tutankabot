@@ -11,9 +11,7 @@
 
 # include "FSM.h"
 
-# include "Speed_controller.h"
-# include "Odometry.h"
-# include "Potential_Field_Forces_gr4.h"
+
 //# include "data.h"
 
 
@@ -74,13 +72,17 @@ void controller_init(Controller *cvs){
     double opponent2_x_filtered = 0.0;
     double opponent2_y_filtered = 0.0;
 
-    speed_regulation_init(cvs) ; 	// Initialize the speed controller
-    localization_init(cvs) ;
+    //TO DO ATTENTION INIT 
+    
+    //speed_regulation_init(cvs) ; 	// Initialize the speed controller
+    //localization_init(cvs) ;
+    
     cvs->data = fopen("data.txt", "w");
 
     #ifdef  SIMU_PROJECT
     cvs->outputs->lidar_frequency = 5;
-    #endif
+    #endif // 1 
+        
 
     myPotentialField = initPotentialField();
 
@@ -97,7 +99,7 @@ void controller_init(Controller *cvs){
  * 
  * \param[in] cvs controller main structure
  */
-void controller_loop(Controller* *cvs){
+void controller_loop(Controller *cvs){
     //set_plot((double)cvs->state, "State");
     //set_plot((double)number_sample, "Number Sample");
     //set_plot((double)returnBaseTime, "Return Base Time");
@@ -111,36 +113,37 @@ void controller_loop(Controller* *cvs){
     //set_plot((double) myPotentialField.listOfGoal.size(), "real number of goals");
     set_plot((double) cvs-> loc_opponent1[0], "lidar x");
     set_plot((double) cvs-> loc_opponent1[1], "lidar y");
-    #endif
+    #endif // 2
 
 
     #ifdef SIMU_PROJECT
     targetDetected = cvs->inputs->target_detected;
-    #endif
+    #endif // 3
 
 
     updateTime(cvs);
-    localization_loop(cvs); // localization fait à chaques appels
+    odometryLoop(cvs); // localization fait à chaques appels
     myPotentialField.updatePotentialField(cvs);
 
     
-
+    #ifdef  SIMU_PROJECT
     if (time_last_update_lidar + lidar_periode < cvs->time ){ // tuple de doubles.
         positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
         positionOpponent2Averaged = Filter(std::make_tuple((double) cvs-> loc_opponent2[0], (double) cvs-> loc_opponent2[1]), &stack_2, &opponent2_x_filtered, &opponent2_y_filtered);
         time_last_update_lidar = cvs->time;
     }
 
-    #ifdef  SIMU_PROJECT
+
     set_plot((double) std::get<0>(positionOpponent1Averaged), "x opponent");
     set_plot((double) std::get<1>(positionOpponent1Averaged), "y opponent");
-    #endif
+
 
     lidar_smoothing << std::get<0>(positionOpponent1Averaged) << "\t" << std::get<1>(positionOpponent1Averaged) << "\t" << cvs-> loc_opponent1[0] << "\t" << cvs-> loc_opponent1[1] <<"\n";
   
     if(cvs->state != STATE_CALIBRATION){
         myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
     }
+    #endif // 4
     
     //vérifier que l adversaire n'est pas sur un goal
     #ifdef  SIMU_PROJECT
@@ -156,7 +159,7 @@ void controller_loop(Controller* *cvs){
         }
     }
     fprintf(cvs->data, "\n");
-    #endif
+    #endif // 5 
 
 
     if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
@@ -169,8 +172,8 @@ void controller_loop(Controller* *cvs){
     switch (cvs->state) // cvs->state is a state stored in the controller main structure
     {
         case STATE_CALIBRATION:
-            myFileTracking << STATE_CALIBRATION << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
-            odometry_calibration(cvs);
+            myFileTracking << STATE_CALIBRATION << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
+            odometryCalibration(cvs);
             number_sample = 0;
 
             if (cvs->time - time_begin_calibration >= 10 && cvs->time >=5){
@@ -188,18 +191,18 @@ void controller_loop(Controller* *cvs){
                     initGoals(&myPotentialField, cvs->inputs->robot_id);
                 #else
                     initGoals(&myPotentialField, team_number);
-                #endif
+                #endif // 6 
                 cvs->state = STATE_GO2GOAL;
             }
             break;
 
         case STATE_GO2GOAL:
 
-            myFileTracking << STATE_GO2GOAL << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
+            myFileTracking << STATE_GO2GOAL << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
             // iterate potential field
             speedConsigne = iterPotentialFieldWithLogFile(&myPotentialField, 0.1, myFile);
-            cvs->robot_speeds[0] = (float) std::get<0>(speedConsigne);
-            cvs->robot_speeds[1] = (float) std::get<1>(speedConsigne);
+            cvs->v_ref = (float) std::get<0>(speedConsigne);
+            cvs->w_ref = (float) std::get<1>(speedConsigne);
 
             double xx;
             double yy; 
@@ -241,7 +244,7 @@ void controller_loop(Controller* *cvs){
             break;
 
         case STATE_STUCK:
-            myFileTracking << STATE_STUCK << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
+            myFileTracking << STATE_STUCK << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
 
             // change goal correctly
             myPotentialField.nextGoalStuck(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
@@ -255,13 +258,13 @@ void controller_loop(Controller* *cvs){
 
         case DO_ACTION:
             time_wait_init_waiting_for_target = 0.0;
-            myFileTracking << DO_ACTION << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
+            myFileTracking << DO_ACTION << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
             isFull = (number_sample == 2);
             action_finished = (cvs->time - time_wait_init) > 1.5;
             
 
-            cvs->robot_speeds[0] = 0.0;
-            cvs->robot_speeds[1] = 0.0;
+            cvs->v_ref = 0.0;
+            cvs->w_ref = 0.0;
 
             myPotentialField.didntMove = 0;
             myPotentialField.didntRotate = 0;
@@ -282,20 +285,24 @@ void controller_loop(Controller* *cvs){
                 myPotentialField.nextGoal(10.0);
                 cvs->state = STATE_GO2GOAL;
             }
+            #ifdef SIMU_PROJECT
             cvs->outputs->flag_release = 0;
+            #endif
             break;
 
         case RETURN_BASE :
             time_wait_init_waiting_for_target = 0.0;
-            myFileTracking << RETURN_BASE << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
+            myFileTracking << RETURN_BASE << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
             myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, 10.0);
             cvs->state = STATE_GO2GOAL;
             break;
         
         case AT_BASE :
             time_wait_init_waiting_for_target = 0.0;
-            myFileTracking << AT_BASE << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
+            myFileTracking << AT_BASE << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
+            #ifdef SIMU_PROJECT
             cvs->outputs->flag_release = 1;
+            #endif
             number_sample = 0;
             myPotentialField.nextGoal(10.0);
             time_begin_calibration = cvs->time;
@@ -304,18 +311,22 @@ void controller_loop(Controller* *cvs){
             break;
 
         case STOP:
-            myFileTracking << STOP << "\t"<< cvs->loc[0] <<"\t"<< cvs->loc[1] << "\n";
-            cvs->robot_speeds[0] = (float) 0.0;
-            cvs->robot_speeds[1] = (float) 0.0;
+            myFileTracking << STOP << "\t"<< cvs->x <<"\t"<< cvs->y << "\n";
+            cvs->v_ref = (float) 0.0;
+            cvs->w_ref = (float) 0.0;
+            #ifdef SIMU_PROJECT
             cvs->outputs->flag_release = 1;
+            #endif
             break;
 
         default:
             printf("Error: unknown state : %d !\n", cvs->state);
             exit(EXIT_FAILURE);
     }
-    speed_regulation(cvs);            // Actualize the command of the motors to maintain a certain speed
-
+    speedConversion(cvs);           // Actualize the command of the motors to maintain a certain speed
+   	speedControllerLoop(cvs->sc1) ; 
+	  speedControllerLoop(cvs->sc2) ;
+    
     /*
     =======
 	if (cvs->inputs->t < 0){
@@ -358,13 +369,11 @@ void controller_loop(Controller* *cvs){
  */
 
 void controller_finish(Controller *cvs){
-	
+	  // TO DO ATTENTION FINITSH
     //fclose(cvs->data) ; 
-	speed_regulation_finish(cvs) ;	// Sets all command at 0
+	  //speed_regulation_finish(cvs) ;	// Sets all command at 0
     lidar_smoothing.close();
     myFile.close();
     myFileTracking.close();
 
 }
-
-NAMESPACE_CLOSE();

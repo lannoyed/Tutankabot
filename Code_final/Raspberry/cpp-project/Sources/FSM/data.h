@@ -1,11 +1,7 @@
 # include <stdio.h>
 # include <stdlib.h>
-
-
-
-
-//Global value
-#define PI                  3.14159265
+# include <math.h>
+#include "MainController.h"
 
 
 #ifdef SIMU_PROJECT
