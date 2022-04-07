@@ -3,6 +3,7 @@
 # include <chrono> 
 # include <math.h>
 # include "Speed_controller.h"
+# include "lidar.h"
 
 typedef struct{
 	speedController* sc1 ;	// speedController of the wheel 1  
@@ -13,28 +14,20 @@ typedef struct{
 	double r ; 
 	double l ;
 	
+	double x_opp, y_opp ; 
 	std::chrono::high_resolution_clock::time_point tL[2] ; 			// Time reference for the localization system 
 	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
 	int calib_flag ; 
 	int team ; 
- 
-  int state;
- 	FILE* data ; 							///< File for data recording 
-
-	// Global informations 
-	std::chrono::high_resolution_clock::time_point t0;
-	std::chrono::high_resolution_clock::time_point t1;
-	std::chrono::duration<double> Dt;
-	double time; 
-	
+	double lidar_angles[8192], lidar_distance[8192], lidar_quality[8192] ; 
+	std::chrono::high_resolution_clock::time_point last_lidar_update ; 
 } Controller ;
 
 Controller* ControllerInit() ; 
 void set_speed(Controller* ctrl, double v, double w) ; 
-void speedConversion(Controller* ctrl) ;  	
+void speed_conversion(Controller* ctrl) ;  	
 void ControllerLoop(Controller* ctrl) ;
 void ControllerFree(Controller* ctrl) ; 
 void odometryLoop(Controller* ctrl) ;  
 void odometryCalibration(Controller* ctrl) ;
-
-void updateTime (Controller* cvs);
+void update_opponent_location(Controller* ctrl) ; 
