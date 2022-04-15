@@ -17,7 +17,7 @@ void SPI_receive(int spi_number, unsigned char* buffer){
 	buffer[2] = 0x00 ; 
 	buffer[3] = 0x00 ; 
 	buffer[4] = 0x00 ; 
-	buffer[5] = 0x00 ; 
+	buffer[5] = 0x00 ; //Bizarre ? Faut s'arrêter à 4 logiquement.
 	wiringPiSPIDataRW(0.0, buffer, 5) ; 
 	buffer[0] = spi_number ; // Repeat the operation to get the information on the buffer
 	buffer[1] = 0x00 ; 
@@ -42,6 +42,18 @@ double buffer_to_double(unsigned char* buffer){
 	return count*sign ; 
 }
 
+
+double buffer_to_double_distance(unsigned char* buffer)
+{
+	double count = 0 ; 
+	// Only 3 bytes are necessary : the 2,3,4 car le 1 est à 0 en permanence.
+	for (int i = 0 ; i < 3 ; i++)
+	{
+		count += pow(16,i)*(double)buffer[4-i]; 
+	} 
+	return count; 
+}
+
 double get_speed(int spi_number){
 	// Returns the speed of the odometer represented by spi_number 
 	double tick_diff ; 
@@ -62,4 +74,15 @@ double get_speed(int spi_number){
 		}
 	}
 	return tick_diff*2*M_PI ; 
+}
+
+double get_distance(int spi_number)
+{
+	double number_of_ticks;
+	unsigned char buffer[5];
+
+	SPI_receive(spi_number, buffer);
+	number_of_ticks = buffer_to_double_distance(buffer);
+
+	return number_of_ticks * factor;
 }
