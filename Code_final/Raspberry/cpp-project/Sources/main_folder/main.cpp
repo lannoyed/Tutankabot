@@ -19,7 +19,7 @@ int main(int argc, char* argv){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ; 
-	set_speed(ctrl, 0.0, 0.0) ; 
+	set_speed(ctrl, 0.1, 0.0) ; 
 	while(Dt.count() < 20.0){
 		ControllerLoop(ctrl) ;
 		t1 = std::chrono::high_resolution_clock::now() ; 
