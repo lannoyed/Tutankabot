@@ -1,3 +1,7 @@
+# Ignore
+Sonars/
+
+
 # Prerequisites
 *.d
 
