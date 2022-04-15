@@ -1,5 +1,5 @@
 Flow report for DE0_NANO_ENC
-Sat Apr 02 17:49:14 2022
+Fri Apr 15 12:00:09 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,17 +40,17 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat Apr 02 17:49:08 2022       ;
+; Flow Status                        ; Successful - Fri Apr 15 12:00:01 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; DE0_NANO_ENC                                ;
 ; Top-level Entity Name              ; DE0_NANO_ENC                                ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 760 / 22,320 ( 3 % )                        ;
-;     Total combinational functions  ; 708 / 22,320 ( 3 % )                        ;
-;     Dedicated logic registers      ; 497 / 22,320 ( 2 % )                        ;
-; Total registers                    ; 497                                         ;
+; Total logic elements               ; 1,284 / 22,320 ( 6 % )                      ;
+;     Total combinational functions  ; 1,209 / 22,320 ( 5 % )                      ;
+;     Dedicated logic registers      ; 760 / 22,320 ( 3 % )                        ;
+; Total registers                    ; 760                                         ;
 ; Total pins                         ; 83 / 154 ( 54 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0 / 608,256 ( 0 % )                         ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/02/2022 17:48:27 ;
+; Start date & time ; 04/15/2022 11:59:00 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE0_NANO_ENC        ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 10995770589194.164891450610020         ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 10995770589210.165001673921240         ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
@@ -91,11 +91,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:24     ; 1.0                     ; 4767 MB             ; 00:00:46                           ;
-; Fitter               ; 00:00:12     ; 1.0                     ; 5547 MB             ; 00:00:15                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4673 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:05     ; 1.1                     ; 4785 MB             ; 00:00:05                           ;
-; Total                ; 00:00:43     ; --                      ; --                  ; 00:01:08                           ;
+; Analysis & Synthesis ; 00:00:32     ; 1.0                     ; 4802 MB             ; 00:01:00                           ;
+; Fitter               ; 00:00:23     ; 1.1                     ; 5529 MB             ; 00:00:26                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4677 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:06     ; 1.2                     ; 4789 MB             ; 00:00:06                           ;
+; Total                ; 00:01:04     ; --                      ; --                  ; 00:01:35                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -104,10 +104,10 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-1Q6AO2H  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; DESKTOP-1Q6AO2H  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; DESKTOP-1Q6AO2H  ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; DESKTOP-1Q6AO2H  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; DESKTOP-JVBRDIR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-JVBRDIR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-JVBRDIR  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-JVBRDIR  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 

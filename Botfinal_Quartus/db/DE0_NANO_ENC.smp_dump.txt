@@ -1,4 +1,54 @@
 
+State Machine - |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|state
+Name state.OVERFLOW state.COUNTING state.INIT_MODE state.TRIG_MODE state.INTER_TRIG state.TRIG_LOW state.STAND_BY 
+state.STAND_BY 0 0 0 0 0 0 0 
+state.TRIG_LOW 0 0 0 0 0 1 1 
+state.INTER_TRIG 0 0 0 0 1 0 1 
+state.TRIG_MODE 0 0 0 1 0 0 1 
+state.INIT_MODE 0 0 1 0 0 0 1 
+state.COUNTING 0 1 0 0 0 0 1 
+state.OVERFLOW 1 0 0 0 0 0 1 
+
+State Machine - |DE0_NANO_ENC|sonar_FSM:sonar_FSM_04|state
+Name state.OVERFLOW state.COUNTING state.INIT_MODE state.TRIG_MODE state.INTER_TRIG state.TRIG_LOW state.STAND_BY 
+state.STAND_BY 0 0 0 0 0 0 0 
+state.TRIG_LOW 0 0 0 0 0 1 1 
+state.INTER_TRIG 0 0 0 0 1 0 1 
+state.TRIG_MODE 0 0 0 1 0 0 1 
+state.INIT_MODE 0 0 1 0 0 0 1 
+state.COUNTING 0 1 0 0 0 0 1 
+state.OVERFLOW 1 0 0 0 0 0 1 
+
+State Machine - |DE0_NANO_ENC|sonar_FSM:sonar_FSM_03|state
+Name state.OVERFLOW state.COUNTING state.INIT_MODE state.TRIG_MODE state.INTER_TRIG state.TRIG_LOW state.STAND_BY 
+state.STAND_BY 0 0 0 0 0 0 0 
+state.TRIG_LOW 0 0 0 0 0 1 1 
+state.INTER_TRIG 0 0 0 0 1 0 1 
+state.TRIG_MODE 0 0 0 1 0 0 1 
+state.INIT_MODE 0 0 1 0 0 0 1 
+state.COUNTING 0 1 0 0 0 0 1 
+state.OVERFLOW 1 0 0 0 0 0 1 
+
+State Machine - |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|state
+Name state.OVERFLOW state.COUNTING state.INIT_MODE state.TRIG_MODE state.INTER_TRIG state.TRIG_LOW state.STAND_BY 
+state.STAND_BY 0 0 0 0 0 0 0 
+state.TRIG_LOW 0 0 0 0 0 1 1 
+state.INTER_TRIG 0 0 0 0 1 0 1 
+state.TRIG_MODE 0 0 0 1 0 0 1 
+state.INIT_MODE 0 0 1 0 0 0 1 
+state.COUNTING 0 1 0 0 0 0 1 
+state.OVERFLOW 1 0 0 0 0 0 1 
+
+State Machine - |DE0_NANO_ENC|sonar_FSM:sonar_FSM_01|state
+Name state.OVERFLOW state.COUNTING state.INIT_MODE state.TRIG_MODE state.INTER_TRIG state.TRIG_LOW state.STAND_BY 
+state.STAND_BY 0 0 0 0 0 0 0 
+state.TRIG_LOW 0 0 0 0 0 1 1 
+state.INTER_TRIG 0 0 0 0 1 0 1 
+state.TRIG_MODE 0 0 0 1 0 0 1 
+state.INIT_MODE 0 0 1 0 0 0 1 
+state.COUNTING 0 1 0 0 0 0 1 
+state.OVERFLOW 1 0 0 0 0 0 1 
+
 State Machine - |DE0_NANO_ENC|quad_dec:decoder4|state
 Name state.S11 state.S10 state.S01 state.S00 
 state.S00 0 0 0 0 

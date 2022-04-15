@@ -1,1 +1,2 @@
-Warning (10273): Verilog HDL warning at DE0_NANO_ENC.sv(202): extended using "x" or "z" File: C:/Users/franc/LELME2002_Robot_code/Quartus/Quartus minibot/theo2/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 202
+Info (10281): Verilog HDL Declaration information at sonar_FSM.sv(45): object "overflow" differs only in case from object "OVERFLOW" in the same scope File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 45
+Warning (10268): Verilog HDL information at DE0_NANO_ENC.sv(181): always construct contains both blocking and non-blocking assignments File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 181
