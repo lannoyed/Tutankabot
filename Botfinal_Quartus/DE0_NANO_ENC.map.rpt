@@ -1,0 +1,518 @@
+Analysis & Synthesis report for DE0_NANO_ENC
+Sat Apr 02 17:48:50 2022
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |DE0_NANO_ENC|quad_dec:decoder4|state
+  9. State Machine - |DE0_NANO_ENC|quad_dec:decoder3|state
+ 10. State Machine - |DE0_NANO_ENC|quad_dec:decoder2|state
+ 11. State Machine - |DE0_NANO_ENC|quad_dec:decoder1|state
+ 12. Registers Removed During Synthesis
+ 13. General Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for User Entity Instance: clock_divider:clock_divider1
+ 16. Port Connectivity Checks: "spi_slave:spi_slave_instance"
+ 17. Post-Synthesis Netlist Statistics for Top Partition
+ 18. Elapsed Time Per Partition
+ 19. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sat Apr 02 17:48:50 2022       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; DE0_NANO_ENC                                ;
+; Top-level Entity Name              ; DE0_NANO_ENC                                ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 982                                         ;
+;     Total combinational functions  ; 708                                         ;
+;     Dedicated logic registers      ; 497                                         ;
+; Total registers                    ; 497                                         ;
+; Total pins                         ; 83                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE22F17C6       ;                    ;
+; Top-level entity name                                            ; DE0_NANO_ENC       ; DE0_NANO_ENC       ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                   ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                               ; Library ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
+; spi.sv                           ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/spi.sv                 ;         ;
+; speed_tick_computer.sv           ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv ;         ;
+; decoder.sv                       ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/decoder.sv             ;         ;
+; DE0_NANO_ENC.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv        ;         ;
+; clock_divider.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv       ;         ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                                          ;
++---------------------------------------------+----------------------------------------+
+; Resource                                    ; Usage                                  ;
++---------------------------------------------+----------------------------------------+
+; Estimated Total logic elements              ; 982                                    ;
+;                                             ;                                        ;
+; Total combinational functions               ; 708                                    ;
+; Logic element usage by number of LUT inputs ;                                        ;
+;     -- 4 input functions                    ; 260                                    ;
+;     -- 3 input functions                    ; 368                                    ;
+;     -- <=2 input functions                  ; 80                                     ;
+;                                             ;                                        ;
+; Logic elements by mode                      ;                                        ;
+;     -- normal mode                          ; 332                                    ;
+;     -- arithmetic mode                      ; 376                                    ;
+;                                             ;                                        ;
+; Total registers                             ; 497                                    ;
+;     -- Dedicated logic registers            ; 497                                    ;
+;     -- I/O registers                        ; 0                                      ;
+;                                             ;                                        ;
+; I/O pins                                    ; 83                                     ;
+;                                             ;                                        ;
+; Embedded Multiplier 9-bit elements          ; 0                                      ;
+;                                             ;                                        ;
+; Maximum fan-out node                        ; clock_divider:clock_divider1|clock_out ;
+; Maximum fan-out                             ; 257                                    ;
+; Total fan-out                               ; 3783                                   ;
+; Average fan-out                             ; 2.63                                   ;
++---------------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                            ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node        ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                        ; Entity Name         ; Library Name ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------+---------------------+--------------+
+; |DE0_NANO_ENC                     ; 708 (4)             ; 497 (0)                   ; 0           ; 0            ; 0       ; 0         ; 83   ; 0            ; |DE0_NANO_ENC                              ; DE0_NANO_ENC        ; work         ;
+;    |clock_divider:clock_divider1| ; 44 (44)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|clock_divider:clock_divider1 ; clock_divider       ; work         ;
+;    |quad_dec:decoder1|            ; 44 (44)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|quad_dec:decoder1            ; quad_dec            ; work         ;
+;    |quad_dec:decoder2|            ; 44 (44)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|quad_dec:decoder2            ; quad_dec            ; work         ;
+;    |quad_dec:decoder3|            ; 44 (44)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|quad_dec:decoder3            ; quad_dec            ; work         ;
+;    |quad_dec:decoder4|            ; 44 (44)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|quad_dec:decoder4            ; quad_dec            ; work         ;
+;    |speed_tick_computer:stcEnc1|  ; 64 (64)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcEnc1  ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcEnc2|  ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcEnc2  ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcOdo1|  ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcOdo1  ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcOdo2|  ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcOdo2  ; speed_tick_computer ; work         ;
+;    |spi_slave:spi_slave_instance| ; 252 (252)           ; 48 (48)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|spi_slave:spi_slave_instance ; spi_slave           ; work         ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------+
+; State Machine - |DE0_NANO_ENC|quad_dec:decoder4|state     ;
++-----------+-----------+-----------+-----------+-----------+
+; Name      ; state.S11 ; state.S10 ; state.S01 ; state.S00 ;
++-----------+-----------+-----------+-----------+-----------+
+; state.S00 ; 0         ; 0         ; 0         ; 0         ;
+; state.S01 ; 0         ; 0         ; 1         ; 1         ;
+; state.S10 ; 0         ; 1         ; 0         ; 1         ;
+; state.S11 ; 1         ; 0         ; 0         ; 1         ;
++-----------+-----------+-----------+-----------+-----------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------+
+; State Machine - |DE0_NANO_ENC|quad_dec:decoder3|state     ;
++-----------+-----------+-----------+-----------+-----------+
+; Name      ; state.S11 ; state.S10 ; state.S01 ; state.S00 ;
++-----------+-----------+-----------+-----------+-----------+
+; state.S00 ; 0         ; 0         ; 0         ; 0         ;
+; state.S01 ; 0         ; 0         ; 1         ; 1         ;
+; state.S10 ; 0         ; 1         ; 0         ; 1         ;
+; state.S11 ; 1         ; 0         ; 0         ; 1         ;
++-----------+-----------+-----------+-----------+-----------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------+
+; State Machine - |DE0_NANO_ENC|quad_dec:decoder2|state     ;
++-----------+-----------+-----------+-----------+-----------+
+; Name      ; state.S11 ; state.S10 ; state.S01 ; state.S00 ;
++-----------+-----------+-----------+-----------+-----------+
+; state.S00 ; 0         ; 0         ; 0         ; 0         ;
+; state.S01 ; 0         ; 0         ; 1         ; 1         ;
+; state.S10 ; 0         ; 1         ; 0         ; 1         ;
+; state.S11 ; 1         ; 0         ; 0         ; 1         ;
++-----------+-----------+-----------+-----------+-----------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------+
+; State Machine - |DE0_NANO_ENC|quad_dec:decoder1|state     ;
++-----------+-----------+-----------+-----------+-----------+
+; Name      ; state.S11 ; state.S10 ; state.S01 ; state.S00 ;
++-----------+-----------+-----------+-----------+-----------+
+; state.S00 ; 0         ; 0         ; 0         ; 0         ;
+; state.S01 ; 0         ; 0         ; 1         ; 1         ;
+; state.S10 ; 0         ; 1         ; 0         ; 1         ;
+; state.S11 ; 1         ; 0         ; 0         ; 1         ;
++-----------+-----------+-----------+-----------+-----------+
+
+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; quad_dec:decoder4|state~8             ; Lost fanout        ;
+; quad_dec:decoder4|state~9             ; Lost fanout        ;
+; quad_dec:decoder3|state~8             ; Lost fanout        ;
+; quad_dec:decoder3|state~9             ; Lost fanout        ;
+; quad_dec:decoder2|state~8             ; Lost fanout        ;
+; quad_dec:decoder2|state~9             ; Lost fanout        ;
+; quad_dec:decoder1|state~8             ; Lost fanout        ;
+; quad_dec:decoder1|state~9             ; Lost fanout        ;
+; Total Number of Removed Registers = 8 ;                    ;
++---------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 497   ;
+; Number of registers using Synchronous Clear  ; 32    ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 151   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 144   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder4|count[8]         ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder3|count[18]        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder2|count[19]        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder1|count[17]        ;
+; 257:1              ; 7 bits    ; 1197 LEs      ; 49 LEs               ; 1148 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[26] ;
+; 260:1              ; 8 bits    ; 1384 LEs      ; 64 LEs               ; 1320 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[2]  ;
+; 261:1              ; 16 bits   ; 2784 LEs      ; 128 LEs              ; 2656 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[21] ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder4|Selector34       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder3|Selector33       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder2|Selector34       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder1|Selector33       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder4|Selector35       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder3|Selector32       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder2|Selector35       ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder1|Selector35       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: clock_divider:clock_divider1 ;
++----------------+----------------------------------+-----------------------+
+; Parameter Name ; Value                            ; Type                  ;
++----------------+----------------------------------+-----------------------+
+; divisor        ; 00000000000001111010000100100000 ; Unsigned Binary       ;
++----------------+----------------------------------+-----------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "spi_slave:spi_slave_instance"                                                            ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; d[39..32] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; q[31..0]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 83                          ;
+; cycloneiii_ff         ; 497                         ;
+;     CLR               ; 7                           ;
+;     ENA CLR           ; 144                         ;
+;     SCLR              ; 32                          ;
+;     plain             ; 314                         ;
+; cycloneiii_io_obuf    ; 68                          ;
+; cycloneiii_lcell_comb ; 708                         ;
+;     arith             ; 376                         ;
+;         2 data inputs ; 39                          ;
+;         3 data inputs ; 337                         ;
+;     normal            ; 332                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 38                          ;
+;         3 data inputs ; 31                          ;
+;         4 data inputs ; 260                         ;
+;                       ;                             ;
+; Max LUT depth         ; 10.10                       ;
+; Average LUT depth     ; 5.35                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:03     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Sat Apr 02 17:48:25 2022
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE0_NANO_ENC -c DE0_NANO_ENC
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file spi.sv
+    Info (12023): Found entity 1: spi_slave File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/spi.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file speed_tick_computer.sv
+    Info (12023): Found entity 1: speed_tick_computer File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file decoder.sv
+    Info (12023): Found entity 1: quad_dec File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/decoder.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file de0_nano_enc.sv
+    Info (12023): Found entity 1: DE0_NANO_ENC File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file clock_divider.sv
+    Info (12023): Found entity 1: clock_divider File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 1
+Info (12127): Elaborating entity "DE0_NANO_ENC" for the top level hierarchy
+Warning (10858): Verilog HDL warning at DE0_NANO_ENC.sv(154): object AddressToSend used but never assigned File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 154
+Warning (10036): Verilog HDL or VHDL warning at DE0_NANO_ENC.sv(157): object "DataReceived" assigned a value but never read File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 157
+Warning (10030): Net "AddressToSend" at DE0_NANO_ENC.sv(154) has no driver or initial value, using a default initial value '0' File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 154
+Info (12128): Elaborating entity "clock_divider" for hierarchy "clock_divider:clock_divider1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 90
+Info (12128): Elaborating entity "quad_dec" for hierarchy "quad_dec:decoder1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 97
+Info (12128): Elaborating entity "speed_tick_computer" for hierarchy "speed_tick_computer:stcOdo1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 128
+Info (12128): Elaborating entity "spi_slave" for hierarchy "spi_slave:spi_slave_instance" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 166
+Warning (13039): The following bidirectional pins have no drivers
+    Warning (13040): bidirectional pin "GPIO_0[9]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[11]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[15]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_1[9]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[13]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[29]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_0[0]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[1]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[2]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[3]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[4]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[5]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[6]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[7]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[8]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[10]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[12]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[14]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[16]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[17]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[18]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[19]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[20]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[21]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[22]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[23]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[24]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[25]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[26]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[27]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[28]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[29]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[30]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[31]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[32]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_0[33]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
+    Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[7]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[16]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[17]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[18]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[19]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[20]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[21]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[22]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[23]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[24]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[25]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[26]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[30]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+    Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 47
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 8 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 5 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
+    Warning (15610): No output dependent on input pin "GPIO_0_IN[0]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 45
+    Warning (15610): No output dependent on input pin "GPIO_0_IN[1]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 45
+    Warning (15610): No output dependent on input pin "GPIO_1_IN[0]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 48
+    Warning (15610): No output dependent on input pin "GPIO_1_IN[1]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 48
+Info (21057): Implemented 1065 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 7 input pins
+    Info (21059): Implemented 8 output pins
+    Info (21060): Implemented 68 bidirectional pins
+    Info (21061): Implemented 982 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 78 warnings
+    Info: Peak virtual memory: 4767 megabytes
+    Info: Processing ended: Sat Apr 02 17:48:50 2022
+    Info: Elapsed time: 00:00:25
+    Info: Total CPU time (on all processors): 00:00:46
+
+

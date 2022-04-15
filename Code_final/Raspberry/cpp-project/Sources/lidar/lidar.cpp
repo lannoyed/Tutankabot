@@ -56,3 +56,46 @@ void lidarToFile(char *filename){
         fclose(fpt);
     }
 }
+
+void update_lidar_data(std::chrono::high_resolution_clock::time_point last_lidar_update, double* angles, double* dist, double* quality){
+	rplidar_response_measurement_node_hq_t nodes[8192]; 
+	size_t nodeCount = sizeof(nodes)/sizeof(rplidar_response_measurement_node_hq_t) ; 
+	u_result scan = lidar->grabScanDataHq(nodes, nodeCount) ;
+	if (IS_OK(scan)){
+		lidar->ascendScanData(nodes, nodeCount);
+		for(int i = 0 ; i < nodeCount; i++){
+			angles[i] = nodes[i].angle_z_q14 * 90.f / (1 << 14);
+			dist[i] = nodes[i].dist_mm_q2 / 1000.f / (1 << 2);
+			quality[i] = nodes[i].quality;
+		}
+	}
+	last_lidar_update = std::chrono::high_resolution_clock::now() ;
+}
+
+int check_beacon1(double x, double y){
+	if (y < 3.2 && y > 2.95){
+		if (x > -0.2 && x < 0.4){
+			return 1 ; 
+		}
+	}
+	return 0 ; 
+}
+
+int check_beacon2(double x, double y){
+	if (y < 3.2 && y > 2.95){
+		if (x > 1.85 && x < 2.05){
+			return 1 ; 
+		}
+	}
+	return 0 ; 
+}
+
+int check_beacon3(double x, double y){
+	if (y > -0.2 && y < 0.05){
+		if (x > 0.9 && x < 1.1){
+			return 1 ; 
+		}
+	}
+	return 0 ;
+}
+

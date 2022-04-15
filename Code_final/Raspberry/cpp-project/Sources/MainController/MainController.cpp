@@ -20,6 +20,13 @@ Controller* ControllerInit(){
 	ctrl->t_flag = t0 ; 
 	ctrl->calib_flag = CALIB_START ; 
 	ctrl->team = YELLOW ; 
+	ctrl->x_opp = 200.0 ; 
+	ctrl->y_opp = 200.0 ; 
+	ctrl->last_lidar_update = t0 ; 
+	ctrl->t0 = std::chrono::high_resolution_clock::now();
+	ctrl->t1 = std::chrono::high_resolution_clock::now();
+	ctrl->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (ctrl->t1-ctrl->t0);
+	ctrl->time = ctrl->Dt.count() - 18;
 	return ctrl ; 
 } 
 
@@ -40,6 +47,8 @@ void ControllerLoop(Controller*  ctrl){
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
 	odometryLoop(ctrl) ; 
+	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
+	update_opponent_location(ctrl) ; 
 }
 
 void ControllerFree(Controller* ctrl){
@@ -212,4 +221,53 @@ void odometryCalibration(Controller* ctrl){
 			printf("Caca \n") ; 
 			break ; 
 	}
+}
+
+void update_opponent_location(Controller* ctrl){
+	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+	double v = ctrl->v_ref ; 
+	double w = ctrl->w_ref ; 
+	double loc_opponent[nb_lidar_data][2] ;  
+	double beacon1[nb_lidar_data][2], beacon2[nb_lidar_data][2], beacon3[nb_lidar_data][2] ;
+	int ib1=0, ib2=0, ib3=0, io1=0, io2=0 ; 
+	double loc_opponent_final[2] ; 
+	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ;
+	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
+	double x_curr, y_curr ; 
+	for (int i = 0 ; i < nb_lidar_data ; i++){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 7.5){
+			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
+			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->x - 0.00294*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
+			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->y - 0.00294*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ;
+			if (check_beacon1(x_curr,y_curr)){
+				beacon1[ib1][0] = x_curr ; beacon1[ib1][1] = y_curr ; 
+				ib1++ ; 
+			} else if (check_beacon2(x_curr,y_curr)){
+				beacon2[ib2][0] = x_curr ; beacon2[ib2][1] = y_curr ; 
+				ib2++ ;
+			} else if (check_beacon3(x_curr,y_curr)){
+				beacon3[ib3][0] = x_curr ; beacon3[ib3][1] = y_curr ; 
+				ib3++ ; 
+			} else if (x_curr > 0.0 && x_curr < 2.0 && y_curr > 0.0 && y_curr < 3.0){
+				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
+				io1++ ; 
+			}
+		}
+	}
+	if (io1 != 0){
+		for (int i = 0 ; i < io1 ; i++){
+			loc_opponent_final[0] += loc_opponent[i][0] ; 
+			loc_opponent_final[1] += loc_opponent[i][1] ; 
+		}
+		loc_opponent_final[0] /= io1 ; 
+		loc_opponent_final[1] /= io1 ; 
+	}
+	ctrl->x_opp = loc_opponent_final[0] ; 
+	ctrl->y_opp = loc_opponent_final[1] ; 
+}
+
+void updateTime (Controller* cvs){
+	cvs->t1 = std::chrono::high_resolution_clock::now();
+	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
+	cvs->time = cvs->Dt.count() -18.0;
 }

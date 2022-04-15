@@ -10,10 +10,7 @@
 // For the reference in coordinate system : see the 'RepresentationCarte.png' file.
 
 
-#include "namespace_ctrl.h"
 
-
-NAMESPACE_INIT(ctrlGr4); 
 
 // Default constructor.
 Potential_Field::Potential_Field() {
@@ -266,7 +263,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     if (cosTheta >= 1.0) {
         omega = 0.0;
     } else if (cosTheta <= -1.0) {
-        omega = PI / dt;
+        omega = M_PI / dt;
     } else {
         omega = S * acos(cosTheta) / dt;
     }
@@ -564,12 +561,14 @@ void Potential_Field::goalStolenByOpponent(std::tuple<double, double> positionOp
     //}
 }
 
-void Potential_Field::updatePotentialField(CtrlStruct *cvs){
-    setPosition(std::make_tuple(cvs->loc[0], cvs->loc[1])); // récuperation de x et y
-    setSpeedVector( (double) cvs->loc[2]);                  // récuperation de theta
+void Potential_Field::updatePotentialField(Controller *cvs){
+    setPosition(std::make_tuple(cvs->x, cvs->y)); // récuperation de x et y
+    setSpeedVector( (double) cvs->theta);                  // récuperation de theta
     //std::tuple<double, double> positionOpponent1Averaged = myPotentialField.speedFilter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1] ));
+    /* TO DO ATTENTION LIDAR
     opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]));
     opponentList.at(1).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent2[0], (double) cvs-> loc_opponent2[1]));
+    */ 
 }
 
 
@@ -1135,4 +1134,3 @@ std::tuple<double, double> Filter(std::tuple<double, double> opponentPosition, s
     return std::make_tuple(*ouput1_filtered, *output2_filtered);
 }
 
-NAMESPACE_CLOSE();

@@ -1,0 +1,28 @@
+
+State Machine - |DE0_NANO_ENC|quad_dec:decoder4|state
+Name state.S11 state.S10 state.S01 state.S00 
+state.S00 0 0 0 0 
+state.S01 0 0 1 1 
+state.S10 0 1 0 1 
+state.S11 1 0 0 1 
+
+State Machine - |DE0_NANO_ENC|quad_dec:decoder3|state
+Name state.S11 state.S10 state.S01 state.S00 
+state.S00 0 0 0 0 
+state.S01 0 0 1 1 
+state.S10 0 1 0 1 
+state.S11 1 0 0 1 
+
+State Machine - |DE0_NANO_ENC|quad_dec:decoder2|state
+Name state.S11 state.S10 state.S01 state.S00 
+state.S00 0 0 0 0 
+state.S01 0 0 1 1 
+state.S10 0 1 0 1 
+state.S11 1 0 0 1 
+
+State Machine - |DE0_NANO_ENC|quad_dec:decoder1|state
+Name state.S11 state.S10 state.S01 state.S00 
+state.S00 0 0 0 0 
+state.S01 0 0 1 1 
+state.S10 0 1 0 1 
+state.S11 1 0 0 1 
