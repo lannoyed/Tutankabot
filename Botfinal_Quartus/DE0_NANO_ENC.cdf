@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE22F17) Path("C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/") File("DE0_NANO_ENC.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE22F17) Path("C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/") File("DE0_NANO_ENC.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

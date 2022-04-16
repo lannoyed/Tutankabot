@@ -75,8 +75,8 @@ double get_speed(int spi_number){
 	}
 	return -tick_diff*2*M_PI ; 
 }
-// Erreur à la compilation
-/*
+
+
 double get_distance(int spi_number)
 {
 	double number_of_ticks;
@@ -86,4 +86,4 @@ double get_distance(int spi_number)
 	number_of_ticks = buffer_to_double_distance(buffer);
 
 	return number_of_ticks * factor;
-}*/
+}

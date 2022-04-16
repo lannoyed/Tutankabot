@@ -248,22 +248,31 @@ always_ff @(posedge CLOCK_50)
 		end
 	end
 
-// Attribution des pins pour tous les sonars : cfr. l'image dans le Teams -> Paques -> Branchement_Modifié_1.png. 
-assign Echo1 = GPIO_1[1];
-assign GPIO_1[0] = Trigger1;
+// Attribution des pins pour tous les sonars : cfr. l'image dans le Teams -> Paques -> Branchement_Modifié_1.png. ATTENTION : l'ordre est inversé
+// car pour les branchements, c'était impossible de faire autrement. Donc, le sonar 1 est "de l'autre côté" de ce qu'il devrait être.
 
-assign Echo2 = GPIO_1[5];
-assign GPIO_1[3] = Trigger2;
 
-assign Echo3 = GPIO_1[7];
-assign GPIO_1[17] = Trigger3;
+// SONAR 1
+assign GPIO_1[17] = Trigger1;
+assign Echo1 = GPIO_1[15];
 
-assign Echo4 = GPIO_1[15];
-assign GPIO_1[13] = Trigger4;
+// SONAR 2
+assign GPIO_1[13] = Trigger2;
+assign Echo2 = GPIO_1[11];
 
-assign Echo5 = GPIO_1[11];
-assign GPIO_1[9] = Trigger5;
+// SONAR 3
+assign Echo3 = GPIO_1[9];
 
+// SONAR 5
+assign GPIO_1[7] = Trigger5;
+assign Echo5 = GPIO_1[5];
+
+// SONAR 4
+assign GPIO_1[3] = Trigger4;
+assign Echo4 = GPIO_1[1];
+
+// FIN SONAR 3
+assign GPIO_1[0] = Trigger3;
 
 	
 //=======================================================
@@ -335,8 +344,8 @@ assign GPIO_1[9] = Trigger5;
 //============  LEDS FOR DEBUGGING VISUALLY ============
 //======================================================
 
-assign LED = speedOdo1[7:0];
-	
+
+assign LED = distance5[19:12];
 	
 
 endmodule
