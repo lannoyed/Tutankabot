@@ -27,6 +27,7 @@ Controller* ControllerInit(){
 	ctrl->t1 = std::chrono::high_resolution_clock::now();
 	ctrl->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (ctrl->t1-ctrl->t0);
 	ctrl->time = ctrl->Dt.count() - 18;
+	ctrl->state = 0 ; 
 	return ctrl ; 
 } 
 
