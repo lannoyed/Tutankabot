@@ -1,13 +1,13 @@
 |DE0_NANO_ENC
 CLOCK_50 => CLOCK_50.IN10
-LED[0] <= speed_tick_computer:stcEnc1.speed_tick
-LED[1] <= speed_tick_computer:stcEnc1.speed_tick
-LED[2] <= speed_tick_computer:stcEnc1.speed_tick
-LED[3] <= speed_tick_computer:stcEnc1.speed_tick
-LED[4] <= speed_tick_computer:stcEnc1.speed_tick
-LED[5] <= speed_tick_computer:stcEnc1.speed_tick
-LED[6] <= speed_tick_computer:stcEnc1.speed_tick
-LED[7] <= speed_tick_computer:stcEnc1.speed_tick
+LED[0] <= speed_tick_computer:stcOdo1.speed_tick
+LED[1] <= speed_tick_computer:stcOdo1.speed_tick
+LED[2] <= speed_tick_computer:stcOdo1.speed_tick
+LED[3] <= speed_tick_computer:stcOdo1.speed_tick
+LED[4] <= speed_tick_computer:stcOdo1.speed_tick
+LED[5] <= speed_tick_computer:stcOdo1.speed_tick
+LED[6] <= speed_tick_computer:stcOdo1.speed_tick
+LED[7] <= speed_tick_computer:stcOdo1.speed_tick
 KEY[0] => rst.IN4
 KEY[1] => reset.DATAIN
 GPIO_0[0] <> <UNC>

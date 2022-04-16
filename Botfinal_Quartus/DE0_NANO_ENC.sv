@@ -335,7 +335,7 @@ assign GPIO_1[9] = Trigger5;
 //============  LEDS FOR DEBUGGING VISUALLY ============
 //======================================================
 
-assign LED = speedEnc1[7:0];
+assign LED = speedOdo1[7:0];
 	
 	
 
