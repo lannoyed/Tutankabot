@@ -344,8 +344,8 @@ assign GPIO_1[0] = Trigger3;
 //============  LEDS FOR DEBUGGING VISUALLY ============
 //======================================================
 
+
 assign LED = distance5[19:12];
-	
 	
 
 endmodule

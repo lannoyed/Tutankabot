@@ -1,5 +1,9 @@
 Timing Analyzer report for DE0_NANO_ENC
+<<<<<<< HEAD
 Sat Apr 16 10:36:40 2022
+=======
+Sat Apr 16 09:59:08 2022
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -99,14 +103,24 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
+<<<<<<< HEAD
 ; Average used               ; 1.26        ;
+=======
+; Average used               ; 1.29        ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+<<<<<<< HEAD
 ;     Processor 2            ;   9.4%      ;
 ;     Processor 3            ;   8.6%      ;
 ;     Processor 4            ;   8.3%      ;
+=======
+;     Processor 2            ;  10.0%      ;
+;     Processor 3            ;   9.6%      ;
+;     Processor 4            ;   9.5%      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------------------------+-------------+
 
 
@@ -115,7 +129,11 @@ refer to the applicable agreement for further details.
 +------------------+--------+--------------------------+
 ; SDC File Path    ; Status ; Read at                  ;
 +------------------+--------+--------------------------+
+<<<<<<< HEAD
 ; DE0_NANO_ENC.SDC ; OK     ; Sat Apr 16 10:36:39 2022 ;
+=======
+; DE0_NANO_ENC.SDC ; OK     ; Sat Apr 16 09:59:06 2022 ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +------------------+--------+--------------------------+
 
 
@@ -128,6 +146,7 @@ refer to the applicable agreement for further details.
 +------------+------+--------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------+
 
 
+<<<<<<< HEAD
 +-------------------------------------------------+
 ; Slow 1200mV 85C Model Fmax Summary              ;
 +-----------+-----------------+------------+------+
@@ -135,6 +154,15 @@ refer to the applicable agreement for further details.
 +-----------+-----------------+------------+------+
 ; 135.3 MHz ; 135.3 MHz       ; CLOCK_50   ;      ;
 +-----------+-----------------+------------+------+
+=======
++--------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary               ;
++------------+-----------------+------------+------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
++------------+-----------------+------------+------+
+; 150.51 MHz ; 150.51 MHz      ; CLOCK_50   ;      ;
++------------+-----------------+------------+------+
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
@@ -149,7 +177,11 @@ HTML report is unavailable in plain text report export.
 +----------+--------+-----------------+
 ; Clock    ; Slack  ; End Point TNS   ;
 +----------+--------+-----------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 12.609 ; 0.000           ;
+=======
+; CLOCK_50 ; 13.356 ; 0.000           ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+--------+-----------------+
 
 
@@ -179,7 +211,11 @@ No paths to report.
 +----------+-------+--------------------------------+
 ; Clock    ; Slack ; End Point TNS                  ;
 +----------+-------+--------------------------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 9.544 ; 0.000                          ;
+=======
+; CLOCK_50 ; 9.593 ; 0.000                          ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+-------+--------------------------------+
 
 
@@ -188,6 +224,7 @@ No paths to report.
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
 ; Slack  ; From Node                                 ; To Node                               ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
+<<<<<<< HEAD
 ; 12.609 ; a[2]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.069     ; 7.317      ;
 ; 12.609 ; a[2]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.069     ; 7.317      ;
 ; 12.623 ; a[3]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.069     ; 7.303      ;
@@ -288,6 +325,108 @@ No paths to report.
 ; 13.354 ; a[1]                                      ; a[24]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.061     ; 6.580      ;
 ; 13.356 ; a[1]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.061     ; 6.578      ;
 ; 13.361 ; a[1]                                      ; a[21]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.061     ; 6.573      ;
+=======
+; 13.356 ; a[1]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.579      ;
+; 13.360 ; a[2]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.575      ;
+; 13.467 ; a[3]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.468      ;
+; 13.566 ; a[0]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.369      ;
+; 13.585 ; a[1]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.348      ;
+; 13.587 ; a[1]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.346      ;
+; 13.589 ; a[2]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.344      ;
+; 13.590 ; a[1]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.343      ;
+; 13.591 ; a[2]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.342      ;
+; 13.594 ; a[2]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.339      ;
+; 13.617 ; a[1]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.316      ;
+; 13.621 ; a[2]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.312      ;
+; 13.653 ; a[1]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.280      ;
+; 13.657 ; a[2]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.276      ;
+; 13.696 ; a[3]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.237      ;
+; 13.698 ; a[3]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.235      ;
+; 13.701 ; a[3]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.232      ;
+; 13.728 ; a[3]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.205      ;
+; 13.759 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.151      ;
+; 13.764 ; a[3]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.169      ;
+; 13.765 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.145      ;
+; 13.795 ; a[0]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.138      ;
+; 13.797 ; a[0]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.136      ;
+; 13.800 ; a[0]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.133      ;
+; 13.811 ; a[1]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.124      ;
+; 13.812 ; a[1]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.123      ;
+; 13.813 ; a[8]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.120      ;
+; 13.815 ; a[2]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.120      ;
+; 13.816 ; a[2]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.119      ;
+; 13.818 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.092      ;
+; 13.824 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.086      ;
+; 13.827 ; a[0]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.106      ;
+; 13.849 ; a[1]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 6.083      ;
+; 13.849 ; a[1]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 6.083      ;
+; 13.853 ; a[2]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 6.079      ;
+; 13.853 ; a[2]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 6.079      ;
+; 13.854 ; a[1]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.081      ;
+; 13.855 ; a[1]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.080      ;
+; 13.857 ; a[1]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.078      ;
+; 13.858 ; a[2]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.077      ;
+; 13.859 ; a[2]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.076      ;
+; 13.861 ; a[2]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.074      ;
+; 13.863 ; a[0]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.070      ;
+; 13.865 ; a[1]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.068      ;
+; 13.867 ; a[1]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.066      ;
+; 13.869 ; a[2]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.064      ;
+; 13.871 ; a[2]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.062      ;
+; 13.875 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.035      ;
+; 13.881 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[29]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 6.029      ;
+; 13.885 ; a[6]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 6.048      ;
+; 13.922 ; a[3]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.013      ;
+; 13.923 ; a[3]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 6.012      ;
+; 13.934 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.976      ;
+; 13.940 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[29]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.970      ;
+; 13.952 ; a[9]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 5.981      ;
+; 13.960 ; a[3]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 5.972      ;
+; 13.960 ; a[3]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 5.972      ;
+; 13.965 ; a[3]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.970      ;
+; 13.966 ; a[3]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.969      ;
+; 13.968 ; a[3]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.967      ;
+; 13.972 ; a[1]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.959      ;
+; 13.976 ; a[1]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.955      ;
+; 13.976 ; a[3]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 5.957      ;
+; 13.976 ; a[2]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.955      ;
+; 13.977 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.933      ;
+; 13.978 ; a[3]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 5.955      ;
+; 13.980 ; a[2]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.951      ;
+; 13.983 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.927      ;
+; 13.991 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[26]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.919      ;
+; 13.997 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[27]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.913      ;
+; 14.021 ; a[0]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.914      ;
+; 14.022 ; a[0]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.913      ;
+; 14.041 ; a[14]                                     ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.896      ;
+; 14.042 ; a[8]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.889      ;
+; 14.044 ; a[8]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.887      ;
+; 14.047 ; a[8]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.884      ;
+; 14.050 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[26]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.860      ;
+; 14.056 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[27]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.854      ;
+; 14.059 ; a[0]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 5.873      ;
+; 14.059 ; a[0]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 5.873      ;
+; 14.064 ; a[0]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.871      ;
+; 14.065 ; a[0]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.870      ;
+; 14.067 ; a[0]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.060     ; 5.868      ;
+; 14.074 ; a[8]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.857      ;
+; 14.075 ; a[0]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 5.858      ;
+; 14.077 ; a[0]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.062     ; 5.856      ;
+; 14.083 ; a[3]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.848      ;
+; 14.087 ; a[3]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.844      ;
+; 14.089 ; quad_dec:decoder2|state.S00               ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.084     ; 5.822      ;
+; 14.093 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.817      ;
+; 14.095 ; quad_dec:decoder2|state.S00               ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.084     ; 5.816      ;
+; 14.097 ; sonar_FSM:sonar_FSM_05|counterRegister[2] ; sonar_FSM:sonar_FSM_05|state.OVERFLOW ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.254     ; 5.644      ;
+; 14.099 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[29]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.811      ;
+; 14.107 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[24]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.803      ;
+; 14.110 ; a[8]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.821      ;
+; 14.113 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[25]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.085     ; 5.797      ;
+; 14.114 ; a[6]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.817      ;
+; 14.116 ; a[6]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.815      ;
+; 14.119 ; a[6]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.064     ; 5.812      ;
+; 14.121 ; a[1]                                      ; a[17]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.063     ; 5.811      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
@@ -296,6 +435,7 @@ No paths to report.
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 ; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+<<<<<<< HEAD
 ; 0.219 ; sonar_FSM:sonar_FSM_05|state.INIT_MODE     ; sonar_FSM:sonar_FSM_05|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.231      ; 0.607      ;
 ; 0.358 ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
 ; 0.358 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
@@ -334,9 +474,80 @@ No paths to report.
 ; 0.374 ; quad_dec:decoder2|sync[0]                  ; quad_dec:decoder2|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.593      ;
 ; 0.381 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.INTER_TRIG    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.600      ;
 ; 0.381 ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_05|state.INTER_TRIG    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.599      ;
+=======
+; 0.357 ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.063      ; 0.577      ;
+; 0.357 ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.063      ; 0.577      ;
+; 0.357 ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.063      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[8]                                       ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[4]                                       ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[1]                                       ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[2]                                       ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[5]                                       ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[7]                                       ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[10]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[11]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[14]                                      ; a[14]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[13]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[16]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[17]                                      ; a[17]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[19]                                      ; a[19]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[20]                                      ; a[20]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[23]                                      ; a[23]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; a[22]                                      ; a[22]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.358 ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.577      ;
+; 0.359 ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.577      ;
+; 0.359 ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.577      ;
+; 0.359 ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.577      ;
+; 0.361 ; a[0]                                       ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.580      ;
+; 0.374 ; quad_dec:decoder4|sync[0]                  ; quad_dec:decoder4|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.592      ;
+; 0.374 ; quad_dec:decoder2|sync[0]                  ; quad_dec:decoder2|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.593      ;
+; 0.374 ; quad_dec:decoder1|sync[1]                  ; quad_dec:decoder1|AB[1]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.593      ;
+; 0.375 ; sonar_FSM:sonar_FSM_03|state.INTER_TRIG    ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.062      ; 0.594      ;
+; 0.375 ; sonar_FSM:sonar_FSM_04|state.INTER_TRIG    ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.061      ; 0.593      ;
+; 0.382 ; clock_divider:clock_divider1|clock_out     ; clock_divider:clock_divider1|clock_out     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[5]  ; sonar_FSM:sonar_FSM_01|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[7]  ; sonar_FSM:sonar_FSM_01|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[8]  ; sonar_FSM:sonar_FSM_01|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+<<<<<<< HEAD
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
@@ -396,6 +607,35 @@ No paths to report.
 ; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
 ; 0.382 ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+=======
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[14] ; sonar_FSM:sonar_FSM_05|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+; 0.382 ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.038      ; 0.577      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
@@ -406,7 +646,11 @@ The design MTBF is not calculated because there are no specified synchronizers i
 Number of Synchronizer Chains Found: 8
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
 Worst Case Available Settling Time: 33.392 ns
+=======
+Worst Case Available Settling Time: 32.915 ns
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 
@@ -416,7 +660,11 @@ Worst Case Available Settling Time: 33.392 ns
 +------------+-----------------+------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
 +------------+-----------------+------------+------+
+<<<<<<< HEAD
 ; 150.44 MHz ; 150.44 MHz      ; CLOCK_50   ;      ;
+=======
+; 168.07 MHz ; 168.07 MHz      ; CLOCK_50   ;      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +------------+-----------------+------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -426,7 +674,11 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +----------+--------+----------------+
 ; Clock    ; Slack  ; End Point TNS  ;
 +----------+--------+----------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 13.353 ; 0.000          ;
+=======
+; CLOCK_50 ; 14.050 ; 0.000          ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+--------+----------------+
 
 
@@ -435,7 +687,11 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +----------+-------+----------------+
 ; Clock    ; Slack ; End Point TNS  ;
 +----------+-------+----------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 0.165 ; 0.000          ;
+=======
+; CLOCK_50 ; 0.311 ; 0.000          ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+-------+----------------+
 
 
@@ -456,7 +712,11 @@ No paths to report.
 +----------+-------+-------------------------------+
 ; Clock    ; Slack ; End Point TNS                 ;
 +----------+-------+-------------------------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 9.517 ; 0.000                         ;
+=======
+; CLOCK_50 ; 9.564 ; 0.000                         ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+-------+-------------------------------+
 
 
@@ -465,6 +725,7 @@ No paths to report.
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
 ; Slack  ; From Node                                 ; To Node                               ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
+<<<<<<< HEAD
 ; 13.353 ; a[2]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.065     ; 6.577      ;
 ; 13.353 ; a[2]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.065     ; 6.577      ;
 ; 13.368 ; a[3]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.065     ; 6.562      ;
@@ -565,6 +826,108 @@ No paths to report.
 ; 14.046 ; a[4]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 5.899      ;
 ; 14.047 ; a[4]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 5.898      ;
 ; 14.049 ; a[1]                                      ; a[21]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.891      ;
+=======
+; 14.050 ; a[1]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.893      ;
+; 14.052 ; a[2]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.891      ;
+; 14.145 ; a[3]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.798      ;
+; 14.234 ; a[0]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.709      ;
+; 14.271 ; a[1]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.669      ;
+; 14.271 ; a[1]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.669      ;
+; 14.273 ; a[2]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.667      ;
+; 14.273 ; a[2]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.667      ;
+; 14.274 ; a[1]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.666      ;
+; 14.276 ; a[2]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.664      ;
+; 14.311 ; a[1]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.629      ;
+; 14.313 ; a[2]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.627      ;
+; 14.321 ; a[1]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.619      ;
+; 14.323 ; a[2]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.617      ;
+; 14.366 ; a[3]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.574      ;
+; 14.366 ; a[3]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.574      ;
+; 14.369 ; a[3]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.571      ;
+; 14.406 ; a[3]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.534      ;
+; 14.416 ; a[3]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.524      ;
+; 14.445 ; a[8]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.495      ;
+; 14.455 ; a[0]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.485      ;
+; 14.455 ; a[0]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.485      ;
+; 14.458 ; a[0]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.482      ;
+; 14.466 ; a[1]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.477      ;
+; 14.466 ; a[1]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.477      ;
+; 14.468 ; a[2]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.475      ;
+; 14.468 ; a[2]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.475      ;
+; 14.494 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.425      ;
+; 14.495 ; a[0]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.445      ;
+; 14.502 ; a[6]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.438      ;
+; 14.505 ; a[0]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.435      ;
+; 14.512 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.407      ;
+; 14.515 ; a[1]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.425      ;
+; 14.517 ; a[2]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.423      ;
+; 14.518 ; a[1]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.422      ;
+; 14.520 ; a[2]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.420      ;
+; 14.526 ; a[1]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.417      ;
+; 14.527 ; a[1]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.416      ;
+; 14.527 ; a[1]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.416      ;
+; 14.528 ; a[2]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.415      ;
+; 14.529 ; a[2]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.414      ;
+; 14.529 ; a[2]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.414      ;
+; 14.535 ; a[1]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.405      ;
+; 14.537 ; a[2]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.403      ;
+; 14.540 ; a[1]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.400      ;
+; 14.541 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.378      ;
+; 14.542 ; a[2]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.398      ;
+; 14.559 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.360      ;
+; 14.561 ; a[3]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.382      ;
+; 14.561 ; a[3]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.382      ;
+; 14.564 ; a[9]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.376      ;
+; 14.594 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.325      ;
+; 14.610 ; a[3]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.330      ;
+; 14.612 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[29]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.307      ;
+; 14.613 ; a[3]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.327      ;
+; 14.621 ; a[3]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.322      ;
+; 14.622 ; a[3]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.321      ;
+; 14.622 ; a[3]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.321      ;
+; 14.630 ; a[3]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.310      ;
+; 14.635 ; a[3]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.305      ;
+; 14.641 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.278      ;
+; 14.646 ; a[1]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.292      ;
+; 14.648 ; a[2]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.290      ;
+; 14.650 ; a[0]                                      ; a[6]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.293      ;
+; 14.650 ; a[0]                                      ; a[9]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.293      ;
+; 14.654 ; a[1]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.284      ;
+; 14.656 ; a[2]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.282      ;
+; 14.659 ; a[14]                                     ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 5.286      ;
+; 14.659 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[29]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.260      ;
+; 14.666 ; a[8]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.271      ;
+; 14.666 ; a[8]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.271      ;
+; 14.669 ; a[8]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.268      ;
+; 14.682 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.237      ;
+; 14.694 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[26]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.225      ;
+; 14.699 ; a[0]                                      ; a[16]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.241      ;
+; 14.700 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[31]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.219      ;
+; 14.702 ; a[0]                                      ; a[18]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.238      ;
+; 14.706 ; a[8]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.231      ;
+; 14.710 ; a[0]                                      ; a[8]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.233      ;
+; 14.711 ; a[0]                                      ; a[4]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.232      ;
+; 14.711 ; a[0]                                      ; a[7]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.052     ; 5.232      ;
+; 14.712 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[27]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.207      ;
+; 14.716 ; a[8]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.221      ;
+; 14.719 ; a[0]                                      ; a[0]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.221      ;
+; 14.723 ; a[6]                                      ; a[2]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.214      ;
+; 14.723 ; a[6]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.214      ;
+; 14.724 ; a[0]                                      ; a[10]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.216      ;
+; 14.726 ; a[6]                                      ; a[1]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.211      ;
+; 14.733 ; sonar_FSM:sonar_FSM_05|counterRegister[2] ; sonar_FSM:sonar_FSM_05|state.OVERFLOW ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.257     ; 5.005      ;
+; 14.741 ; a[3]                                      ; a[13]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.197      ;
+; 14.741 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[26]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.178      ;
+; 14.744 ; a[4]                                      ; a[5]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.196      ;
+; 14.749 ; a[3]                                      ; a[14]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.057     ; 5.189      ;
+; 14.759 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[27]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.160      ;
+; 14.763 ; a[6]                                      ; a[12]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.174      ;
+; 14.768 ; quad_dec:decoder2|state.S00               ; quad_dec:decoder2|count[30]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.074     ; 5.153      ;
+; 14.773 ; a[6]                                      ; a[11]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.058     ; 5.164      ;
+; 14.775 ; a[1]                                      ; a[17]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.165      ;
+; 14.777 ; a[2]                                      ; a[17]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.055     ; 5.163      ;
+; 14.782 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[28]           ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.076     ; 5.137      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
@@ -573,6 +936,7 @@ No paths to report.
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 ; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+<<<<<<< HEAD
 ; 0.165 ; sonar_FSM:sonar_FSM_05|state.INIT_MODE     ; sonar_FSM:sonar_FSM_05|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.242      ; 0.551      ;
 ; 0.311 ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.511      ;
 ; 0.311 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.511      ;
@@ -658,6 +1022,42 @@ No paths to report.
 ; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+=======
+; 0.311 ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.511      ;
+; 0.311 ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.511      ;
+; 0.311 ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.511      ;
+; 0.312 ; a[8]                                       ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[4]                                       ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[1]                                       ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[2]                                       ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[5]                                       ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[7]                                       ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[10]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[11]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[14]                                      ; a[14]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[13]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[19]                                      ; a[19]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[20]                                      ; a[20]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[23]                                      ; a[23]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; a[22]                                      ; a[22]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.312 ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.511      ;
+; 0.313 ; a[16]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.054      ; 0.511      ;
+; 0.313 ; a[17]                                      ; a[17]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.054      ; 0.511      ;
+; 0.320 ; a[0]                                       ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.519      ;
+; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; clock_divider:clock_divider1|clock_out     ; clock_divider:clock_divider1|clock_out     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
@@ -667,12 +1067,69 @@ No paths to report.
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+<<<<<<< HEAD
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; sonar_FSM:sonar_FSM_01|state.COUNTING      ; sonar_FSM:sonar_FSM_01|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
 ; 0.333 ; clock_divider:clock_divider1|clock_out     ; clock_divider:clock_divider1|clock_out     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+=======
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[10] ; sonar_FSM:sonar_FSM_05|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[14] ; sonar_FSM:sonar_FSM_05|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[19] ; sonar_FSM:sonar_FSM_03|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[5]  ; sonar_FSM:sonar_FSM_03|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[4]  ; sonar_FSM:sonar_FSM_03|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.333 ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.034      ; 0.511      ;
+; 0.338 ; quad_dec:decoder1|sync[1]                  ; quad_dec:decoder1|AB[1]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.056      ; 0.538      ;
+; 0.339 ; sonar_FSM:sonar_FSM_04|state.INTER_TRIG    ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.055      ; 0.538      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
@@ -683,7 +1140,11 @@ The design MTBF is not calculated because there are no specified synchronizers i
 Number of Synchronizer Chains Found: 8
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
 Worst Case Available Settling Time: 34.142 ns
+=======
+Worst Case Available Settling Time: 33.730 ns
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 
@@ -693,7 +1154,11 @@ Worst Case Available Settling Time: 34.142 ns
 +----------+--------+----------------+
 ; Clock    ; Slack  ; End Point TNS  ;
 +----------+--------+----------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 15.664 ; 0.000          ;
+=======
+; CLOCK_50 ; 16.138 ; 0.000          ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+--------+----------------+
 
 
@@ -702,7 +1167,11 @@ Worst Case Available Settling Time: 34.142 ns
 +----------+-------+----------------+
 ; Clock    ; Slack ; End Point TNS  ;
 +----------+-------+----------------+
+<<<<<<< HEAD
 ; CLOCK_50 ; 0.068 ; 0.000          ;
+=======
+; CLOCK_50 ; 0.186 ; 0.000          ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------+-------+----------------+
 
 
@@ -723,10 +1192,11 @@ No paths to report.
 +----------+-------+-------------------------------+
 ; Clock    ; Slack ; End Point TNS                 ;
 +----------+-------+-------------------------------+
-; CLOCK_50 ; 9.270 ; 0.000                         ;
+; CLOCK_50 ; 9.272 ; 0.000                         ;
 +----------+-------+-------------------------------+
 
 
+<<<<<<< HEAD
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Fast 1200mV 0C Model Setup: 'CLOCK_50'                                                                                                                           ;
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
@@ -833,6 +1303,114 @@ No paths to report.
 ; 16.137 ; a[0]                                      ; a[19]                                 ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.815      ;
 ; 16.141 ; a[1]                                      ; a[3]                                  ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.036     ; 3.810      ;
 +--------+-------------------------------------------+---------------------------------------+--------------+-------------+--------------+------------+------------+
+=======
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup: 'CLOCK_50'                                                                                                                                ;
++--------+-------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                 ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+-------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 16.138 ; a[1]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.814      ;
+; 16.144 ; a[2]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.808      ;
+; 16.210 ; a[3]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.742      ;
+; 16.260 ; a[0]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.692      ;
+; 16.300 ; a[1]                                      ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.650      ;
+; 16.300 ; a[1]                                      ; a[3]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.650      ;
+; 16.303 ; a[1]                                      ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.647      ;
+; 16.306 ; a[2]                                      ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.644      ;
+; 16.306 ; a[2]                                      ; a[3]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.644      ;
+; 16.309 ; a[2]                                      ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.641      ;
+; 16.321 ; a[1]                                      ; a[12]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.629      ;
+; 16.327 ; a[2]                                      ; a[12]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.623      ;
+; 16.346 ; a[1]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.604      ;
+; 16.352 ; a[2]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.598      ;
+; 16.360 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.577      ;
+; 16.364 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.573      ;
+; 16.372 ; a[3]                                      ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.578      ;
+; 16.372 ; a[3]                                      ; a[3]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.578      ;
+; 16.375 ; a[3]                                      ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.575      ;
+; 16.392 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.545      ;
+; 16.393 ; a[3]                                      ; a[12]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.557      ;
+; 16.396 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.541      ;
+; 16.418 ; a[3]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.532      ;
+; 16.422 ; a[0]                                      ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.528      ;
+; 16.422 ; a[0]                                      ; a[3]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.528      ;
+; 16.425 ; a[0]                                      ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.525      ;
+; 16.428 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[29]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.509      ;
+; 16.432 ; a[1]                                      ; a[6]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.520      ;
+; 16.432 ; a[1]                                      ; a[9]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.520      ;
+; 16.432 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[28]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.505      ;
+; 16.438 ; a[8]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.512      ;
+; 16.438 ; a[2]                                      ; a[6]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.514      ;
+; 16.438 ; a[2]                                      ; a[9]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.514      ;
+; 16.443 ; a[0]                                      ; a[12]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.507      ;
+; 16.448 ; a[1]                                      ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.504      ;
+; 16.449 ; a[1]                                      ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.503      ;
+; 16.449 ; a[1]                                      ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.503      ;
+; 16.454 ; a[2]                                      ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.498      ;
+; 16.455 ; a[2]                                      ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.497      ;
+; 16.455 ; a[2]                                      ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.497      ;
+; 16.458 ; a[1]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.492      ;
+; 16.460 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[29]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.477      ;
+; 16.461 ; a[1]                                      ; a[18]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.489      ;
+; 16.464 ; a[1]                                      ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.486      ;
+; 16.464 ; a[2]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.486      ;
+; 16.464 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[28]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.473      ;
+; 16.467 ; a[2]                                      ; a[18]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.483      ;
+; 16.468 ; a[0]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.482      ;
+; 16.469 ; a[1]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.481      ;
+; 16.470 ; a[2]                                      ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.480      ;
+; 16.475 ; a[2]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.475      ;
+; 16.480 ; a[6]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.470      ;
+; 16.484 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.453      ;
+; 16.488 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.449      ;
+; 16.496 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[27]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.441      ;
+; 16.500 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[26]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.437      ;
+; 16.504 ; a[3]                                      ; a[6]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.448      ;
+; 16.504 ; a[3]                                      ; a[9]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.448      ;
+; 16.515 ; a[9]                                      ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.435      ;
+; 16.520 ; a[3]                                      ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.432      ;
+; 16.521 ; a[3]                                      ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.431      ;
+; 16.521 ; a[3]                                      ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.431      ;
+; 16.528 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[27]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.409      ;
+; 16.530 ; a[3]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.420      ;
+; 16.532 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[26]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.405      ;
+; 16.533 ; a[3]                                      ; a[18]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.417      ;
+; 16.534 ; a[1]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.038     ; 3.415      ;
+; 16.536 ; a[3]                                      ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.414      ;
+; 16.540 ; a[2]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.038     ; 3.409      ;
+; 16.541 ; a[3]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.409      ;
+; 16.543 ; a[1]                                      ; a[14]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.038     ; 3.406      ;
+; 16.549 ; a[2]                                      ; a[14]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.038     ; 3.400      ;
+; 16.552 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[29]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.385      ;
+; 16.554 ; a[0]                                      ; a[6]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.398      ;
+; 16.554 ; a[0]                                      ; a[9]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.398      ;
+; 16.556 ; quad_dec:decoder4|state.S01               ; quad_dec:decoder4|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.022     ; 3.409      ;
+; 16.556 ; quad_dec:decoder2|AB[0]                   ; quad_dec:decoder2|count[28]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.381      ;
+; 16.559 ; quad_dec:decoder2|state.S00               ; quad_dec:decoder2|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.049     ; 3.379      ;
+; 16.560 ; quad_dec:decoder4|state.S01               ; quad_dec:decoder4|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.022     ; 3.405      ;
+; 16.563 ; quad_dec:decoder2|state.S00               ; quad_dec:decoder2|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.049     ; 3.375      ;
+; 16.564 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[25]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.373      ;
+; 16.568 ; a[14]                                     ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.033     ; 3.386      ;
+; 16.568 ; quad_dec:decoder2|state.S01               ; quad_dec:decoder2|count[24]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.369      ;
+; 16.570 ; a[0]                                      ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.382      ;
+; 16.571 ; a[0]                                      ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.381      ;
+; 16.571 ; a[0]                                      ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.035     ; 3.381      ;
+; 16.580 ; a[0]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.370      ;
+; 16.582 ; sonar_FSM:sonar_FSM_05|counterRegister[2] ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.190     ; 3.215      ;
+; 16.583 ; a[0]                                      ; a[18]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.367      ;
+; 16.586 ; a[0]                                      ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.364      ;
+; 16.591 ; a[0]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.037     ; 3.359      ;
+; 16.596 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[25]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.341      ;
+; 16.600 ; a[8]                                      ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.039     ; 3.348      ;
+; 16.600 ; a[8]                                      ; a[3]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.039     ; 3.348      ;
+; 16.600 ; quad_dec:decoder2|AB[1]                   ; quad_dec:decoder2|count[24]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.050     ; 3.337      ;
+; 16.603 ; a[8]                                      ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.039     ; 3.345      ;
+; 16.605 ; quad_dec:decoder4|AB[1]                   ; quad_dec:decoder4|count[31]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.020     ; 3.362      ;
+; 16.606 ; a[3]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.038     ; 3.343      ;
+; 16.607 ; reset5                                    ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.065     ; 3.315      ;
+; 16.609 ; quad_dec:decoder4|AB[1]                   ; quad_dec:decoder4|count[30]                ; CLOCK_50     ; CLOCK_50    ; 20.000       ; -0.020     ; 3.358      ;
++--------+-------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -840,6 +1418,7 @@ No paths to report.
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 ; Slack ; From Node                                  ; To Node                                    ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
+<<<<<<< HEAD
 ; 0.068 ; sonar_FSM:sonar_FSM_05|state.INIT_MODE     ; sonar_FSM:sonar_FSM_05|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.170      ; 0.322      ;
 ; 0.141 ; sonar_FSM:sonar_FSM_04|state.INIT_MODE     ; sonar_FSM:sonar_FSM_04|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.162      ; 0.387      ;
 ; 0.186 ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
@@ -878,6 +1457,76 @@ No paths to report.
 ; 0.195 ; quad_dec:decoder4|sync[0]                  ; quad_dec:decoder4|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.315      ;
 ; 0.197 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.INTER_TRIG    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.318      ;
 ; 0.198 ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_05|state.INTER_TRIG    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.318      ;
+=======
+; 0.186 ; a[8]                                       ; a[8]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[4]                                       ; a[4]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[1]                                       ; a[1]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[2]                                       ; a[2]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[5]                                       ; a[5]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[7]                                       ; a[7]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[10]                                      ; a[10]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; a[11]                                      ; a[11]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_05|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_05|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; sonar_FSM:sonar_FSM_05|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_02|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_02|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; sonar_FSM:sonar_FSM_02|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_03|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; sonar_FSM:sonar_FSM_03|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_04|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; sonar_FSM:sonar_FSM_04|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.307      ;
+; 0.187 ; a[14]                                      ; a[14]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[13]                                      ; a[13]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[16]                                      ; a[16]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[17]                                      ; a[17]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[19]                                      ; a[19]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[20]                                      ; a[20]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[23]                                      ; a[23]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; a[22]                                      ; a[22]                                      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; sonar_FSM:sonar_FSM_01|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; sonar_FSM:sonar_FSM_01|state.TRIG_LOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; sonar_FSM:sonar_FSM_01|state.OVERFLOW      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.307      ;
+; 0.193 ; a[0]                                       ; a[0]                                       ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.314      ;
+; 0.193 ; quad_dec:decoder4|sync[0]                  ; quad_dec:decoder4|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.314      ;
+; 0.194 ; quad_dec:decoder1|sync[1]                  ; quad_dec:decoder1|AB[1]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; sonar_FSM:sonar_FSM_04|state.INTER_TRIG    ; sonar_FSM:sonar_FSM_04|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.315      ;
+; 0.195 ; quad_dec:decoder2|sync[0]                  ; quad_dec:decoder2|AB[0]                    ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.036      ; 0.315      ;
+; 0.195 ; sonar_FSM:sonar_FSM_03|state.INTER_TRIG    ; sonar_FSM:sonar_FSM_03|state.TRIG_MODE     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.037      ; 0.316      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; clock_divider:clock_divider1|clock_out     ; clock_divider:clock_divider1|clock_out     ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; sonar_FSM:sonar_FSM_01|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; sonar_FSM:sonar_FSM_01|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; sonar_FSM:sonar_FSM_01|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[5]  ; sonar_FSM:sonar_FSM_01|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[7]  ; sonar_FSM:sonar_FSM_01|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[8]  ; sonar_FSM:sonar_FSM_01|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; sonar_FSM:sonar_FSM_01|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; sonar_FSM:sonar_FSM_01|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; sonar_FSM:sonar_FSM_01|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; sonar_FSM:sonar_FSM_02|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; sonar_FSM:sonar_FSM_02|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; sonar_FSM:sonar_FSM_02|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; sonar_FSM:sonar_FSM_02|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; sonar_FSM:sonar_FSM_02|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; sonar_FSM:sonar_FSM_02|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; sonar_FSM:sonar_FSM_02|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; sonar_FSM:sonar_FSM_02|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; sonar_FSM:sonar_FSM_02|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; sonar_FSM:sonar_FSM_02|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; sonar_FSM:sonar_FSM_02|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; sonar_FSM:sonar_FSM_02|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; sonar_FSM:sonar_FSM_02|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; sonar_FSM:sonar_FSM_05|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; sonar_FSM:sonar_FSM_05|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; sonar_FSM:sonar_FSM_05|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; sonar_FSM:sonar_FSM_05|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; sonar_FSM:sonar_FSM_05|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; sonar_FSM:sonar_FSM_05|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
@@ -885,6 +1534,7 @@ No paths to report.
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; sonar_FSM:sonar_FSM_05|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; sonar_FSM:sonar_FSM_05|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+<<<<<<< HEAD
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; sonar_FSM:sonar_FSM_05|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[10] ; sonar_FSM:sonar_FSM_05|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; sonar_FSM:sonar_FSM_05|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
@@ -894,14 +1544,32 @@ No paths to report.
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[4]  ; sonar_FSM:sonar_FSM_03|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+=======
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; sonar_FSM:sonar_FSM_04|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; sonar_FSM:sonar_FSM_04|counterRegister[4]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; sonar_FSM:sonar_FSM_04|counterRegister[5]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; sonar_FSM:sonar_FSM_04|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; sonar_FSM:sonar_FSM_04|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; sonar_FSM:sonar_FSM_04|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; sonar_FSM:sonar_FSM_04|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; sonar_FSM:sonar_FSM_04|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; sonar_FSM:sonar_FSM_04|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; sonar_FSM:sonar_FSM_04|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; sonar_FSM:sonar_FSM_04|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; sonar_FSM:sonar_FSM_04|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; sonar_FSM:sonar_FSM_03|counterRegister[7]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; sonar_FSM:sonar_FSM_03|counterRegister[8]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; sonar_FSM:sonar_FSM_03|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; sonar_FSM:sonar_FSM_03|counterRegister[2]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; sonar_FSM:sonar_FSM_03|counterRegister[10] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; sonar_FSM:sonar_FSM_03|counterRegister[11] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; sonar_FSM:sonar_FSM_03|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; sonar_FSM:sonar_FSM_03|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; sonar_FSM:sonar_FSM_03|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; sonar_FSM:sonar_FSM_03|counterRegister[17] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+<<<<<<< HEAD
 ; 0.201 ; sonar_FSM:sonar_FSM_03|counterRegister[19] ; sonar_FSM:sonar_FSM_03|counterRegister[19] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_03|state.COUNTING      ; sonar_FSM:sonar_FSM_03|state.COUNTING      ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; sonar_FSM:sonar_FSM_04|counterRegister[1]  ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
@@ -940,6 +1608,8 @@ No paths to report.
 ; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; sonar_FSM:sonar_FSM_01|counterRegister[13] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; sonar_FSM:sonar_FSM_01|counterRegister[14] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
 ; 0.201 ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; sonar_FSM:sonar_FSM_01|counterRegister[16] ; CLOCK_50     ; CLOCK_50    ; 0.000        ; 0.022      ; 0.307      ;
+=======
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +-------+--------------------------------------------+--------------------------------------------+--------------+-------------+--------------+------------+------------+
 
 
@@ -950,7 +1620,11 @@ The design MTBF is not calculated because there are no specified synchronizers i
 Number of Synchronizer Chains Found: 8
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
 Worst Case Available Settling Time: 36.196 ns
+=======
+Worst Case Available Settling Time: 35.901 ns
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 
@@ -960,8 +1634,13 @@ Worst Case Available Settling Time: 36.196 ns
 +------------------+--------+-------+----------+---------+---------------------+
 ; Clock            ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
 +------------------+--------+-------+----------+---------+---------------------+
+<<<<<<< HEAD
 ; Worst-case Slack ; 12.609 ; 0.068 ; N/A      ; N/A     ; 9.270               ;
 ;  CLOCK_50        ; 12.609 ; 0.068 ; N/A      ; N/A     ; 9.270               ;
+=======
+; Worst-case Slack ; 13.356 ; 0.186 ; N/A      ; N/A     ; 9.272               ;
+;  CLOCK_50        ; 13.356 ; 0.186 ; N/A      ; N/A     ; 9.272               ;
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; Design-wide TNS  ; 0.0    ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
 ;  CLOCK_50        ; 0.000  ; 0.000 ; N/A      ; N/A     ; 0.000               ;
 +------------------+--------+-------+----------+---------+---------------------+
@@ -1555,7 +2234,11 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+<<<<<<< HEAD
     Info: Processing started: Sat Apr 16 10:36:38 2022
+=======
+    Info: Processing started: Sat Apr 16 09:59:02 2022
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Info: Command: quartus_sta DE0_NANO_ENC -c DE0_NANO_ENC
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -1564,6 +2247,7 @@ Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Info (332104): Reading SDC File: 'DE0_NANO_ENC.SDC'
 Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
+<<<<<<< HEAD
 Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
     Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
 Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
@@ -1586,25 +2270,61 @@ Info (332146): Worst-case setup slack is 12.609
     Info (332119): ========= =================== =====================
     Info (332119):    12.609               0.000 CLOCK_50 
 Info (332146): Worst-case hold slack is 0.219
+=======
+Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register speed_tick_computer:stcOdo1|count1[0] is being clocked by clock_divider:clock_divider1|clock_out
+Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
+Warning (332060): Node: GPIO_1[15] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_04|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[15]
+Warning (332060): Node: GPIO_1[7] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_03|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[7]
+Warning (332060): Node: GPIO_1[1] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_01|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[1]
+Warning (332060): Node: GPIO_1[5] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_02|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[5]
+Warning (332060): Node: GPIO_1[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[11]
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Info (332146): Worst-case setup slack is 13.356
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    13.356               0.000 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.357
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     0.219               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
+<<<<<<< HEAD
 Info (332146): Worst-case minimum pulse width slack is 9.544
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     9.544               0.000 CLOCK_50 
+=======
+Info (332146): Worst-case minimum pulse width slack is 9.593
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.593               0.000 CLOCK_50 
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Info (332114): Report Metastability: Found 8 synchronizer chains.
     Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
     Info (332114): Number of Synchronizer Chains Found: 8
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
     Info (332114): Worst Case Available Settling Time: 33.392 ns
+=======
+    Info (332114): Worst Case Available Settling Time: 32.915 ns
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
     Info (332114): 
 Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
+<<<<<<< HEAD
 Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
     Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
 Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
@@ -1634,11 +2354,43 @@ Info (332146): Worst-case minimum pulse width slack is 9.517
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     9.517               0.000 CLOCK_50 
+=======
+Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register speed_tick_computer:stcOdo1|count1[0] is being clocked by clock_divider:clock_divider1|clock_out
+Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
+Warning (332060): Node: GPIO_1[15] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_04|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[15]
+Warning (332060): Node: GPIO_1[7] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_03|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[7]
+Warning (332060): Node: GPIO_1[1] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_01|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[1]
+Warning (332060): Node: GPIO_1[5] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_02|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[5]
+Warning (332060): Node: GPIO_1[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[11]
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 14.050
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    14.050               0.000 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.311
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.311               0.000 CLOCK_50 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 9.564
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.564               0.000 CLOCK_50 
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Info (332114): Report Metastability: Found 8 synchronizer chains.
     Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
     Info (332114): Number of Synchronizer Chains Found: 8
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
     Info (332114): Worst Case Available Settling Time: 34.142 ns
     Info (332114): 
 Info: Analyzing Fast 1200mV 0C Model
@@ -1665,25 +2417,63 @@ Info (332146): Worst-case hold slack is 0.068
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     0.068               0.000 CLOCK_50 
-Info (332140): No Recovery paths to report
-Info (332140): No Removal paths to report
-Info (332146): Worst-case minimum pulse width slack is 9.270
+=======
+    Info (332114): Worst Case Available Settling Time: 33.730 ns
+    Info (332114): 
+Info: Analyzing Fast 1200mV 0C Model
+Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register speed_tick_computer:stcOdo1|count1[0] is being clocked by clock_divider:clock_divider1|clock_out
+Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
+Warning (332060): Node: GPIO_1[15] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_04|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[15]
+Warning (332060): Node: GPIO_1[7] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_03|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[7]
+Warning (332060): Node: GPIO_1[1] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_01|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[1]
+Warning (332060): Node: GPIO_1[5] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_02|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[5]
+Warning (332060): Node: GPIO_1[11] was determined to be a clock but was found without an associated clock assignment.
+    Info (13166): Register sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits|out_value[13] is being clocked by GPIO_1[11]
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 16.138
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     9.270               0.000 CLOCK_50 
+    Info (332119):    16.138               0.000 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.186
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.186               0.000 CLOCK_50 
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 9.272
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.272               0.000 CLOCK_50 
 Info (332114): Report Metastability: Found 8 synchronizer chains.
     Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
     Info (332114): Number of Synchronizer Chains Found: 8
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+<<<<<<< HEAD
     Info (332114): Worst Case Available Settling Time: 36.196 ns
+=======
+    Info (332114): Worst Case Available Settling Time: 35.901 ns
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
     Info (332114): 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 22 warnings
     Info: Peak virtual memory: 4788 megabytes
+<<<<<<< HEAD
     Info: Processing ended: Sat Apr 16 10:36:40 2022
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:03
+=======
+    Info: Processing ended: Sat Apr 16 09:59:08 2022
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:06
+>>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
