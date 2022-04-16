@@ -1,24 +1,13 @@
 |DE0_NANO_ENC
 CLOCK_50 => CLOCK_50.IN10
-<<<<<<< HEAD
-LED[0] <= sonar_FSM:sonar_FSM_05.port5
-LED[1] <= sonar_FSM:sonar_FSM_05.port5
-LED[2] <= sonar_FSM:sonar_FSM_05.port5
-LED[3] <= sonar_FSM:sonar_FSM_05.port5
-LED[4] <= sonar_FSM:sonar_FSM_05.port5
-LED[5] <= sonar_FSM:sonar_FSM_05.port5
-LED[6] <= sonar_FSM:sonar_FSM_05.port5
-LED[7] <= sonar_FSM:sonar_FSM_05.port5
-=======
-LED[0] <= speed_tick_computer:stcOdo1.speed_tick
-LED[1] <= speed_tick_computer:stcOdo1.speed_tick
-LED[2] <= speed_tick_computer:stcOdo1.speed_tick
-LED[3] <= speed_tick_computer:stcOdo1.speed_tick
-LED[4] <= speed_tick_computer:stcOdo1.speed_tick
-LED[5] <= speed_tick_computer:stcOdo1.speed_tick
-LED[6] <= speed_tick_computer:stcOdo1.speed_tick
-LED[7] <= speed_tick_computer:stcOdo1.speed_tick
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+LED[0] << sonar_FSM:sonar_FSM_02.port5
+LED[1] << sonar_FSM:sonar_FSM_02.port5
+LED[2] << sonar_FSM:sonar_FSM_02.port5
+LED[3] << sonar_FSM:sonar_FSM_02.port5
+LED[4] << sonar_FSM:sonar_FSM_02.port5
+LED[5] << sonar_FSM:sonar_FSM_02.port5
+LED[6] << sonar_FSM:sonar_FSM_02.port5
+LED[7] << sonar_FSM:sonar_FSM_02.port5
 KEY[0] => rst.IN4
 KEY[1] => reset.DATAIN
 GPIO_0[0] <> <UNC>

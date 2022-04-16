@@ -47,10 +47,14 @@ double buffer_to_double_distance(unsigned char* buffer)
 {
 	double count = 0 ; 
 	// Only 3 bytes are necessary : the 2,3,4 car le 1 est à 0 en permanence.
-	for (int i = 0 ; i < 3 ; i++)
+	count = buffer[4] + (buffer[3] << 8) + (buffer[2] << 16);
+	/*for (int i = 0 ; i < 3 ; i++)
 	{
-		count += pow(16,i)*(double)buffer[4-i]; 
-	} 
+		std::string sName(reinterpret_cast<char*>(buffer[4-i]));
+		count += pow(16, i*2) * (double) std::stoi(sName, 0, 16);
+
+		//count += pow(16,i)*(double)buffer[4-i]; 
+	} */
 	return count; 
 }
 
@@ -85,5 +89,5 @@ double get_distance(int spi_number)
 	SPI_receive(spi_number, buffer);
 	number_of_ticks = buffer_to_double_distance(buffer);
 
-	return number_of_ticks * factor;
+	return number_of_ticks * FACTOR + OFFSET;
 }

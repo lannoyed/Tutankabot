@@ -1,9 +1,5 @@
 Analysis & Synthesis report for DE0_NANO_ENC
-<<<<<<< HEAD
-Sat Apr 16 10:36:26 2022
-=======
-Sat Apr 16 09:58:35 2022
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+Sat Apr 16 14:27:21 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -67,11 +63,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-<<<<<<< HEAD
-; Analysis & Synthesis Status        ; Successful - Sat Apr 16 10:36:26 2022       ;
-=======
-; Analysis & Synthesis Status        ; Successful - Sat Apr 16 09:58:34 2022       ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; Analysis & Synthesis Status        ; Successful - Sat Apr 16 14:27:21 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; DE0_NANO_ENC                                ;
 ; Top-level Entity Name              ; DE0_NANO_ENC                                ;
@@ -193,22 +185,22 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                   ;
-+----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                               ; Library ;
-+----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
-; sonar_FSM.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv           ;         ;
-; full_adder25.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder25.sv        ;         ;
-; full_adder20.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder20.sv        ;         ;
-; full_adder9.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder9.sv         ;         ;
-; full_adder_1_bit.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder_1_bit.sv    ;         ;
-; spi.sv                           ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/spi.sv                 ;         ;
-; speed_tick_computer.sv           ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv ;         ;
-; decoder.sv                       ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/decoder.sv             ;         ;
-; DE0_NANO_ENC.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv        ;         ;
-; clock_divider.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv       ;         ;
-+----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                   ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                               ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------+---------+
+; sonar_FSM.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv           ;         ;
+; full_adder25.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder25.sv        ;         ;
+; full_adder20.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder20.sv        ;         ;
+; full_adder9.sv                   ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder9.sv         ;         ;
+; full_adder_1_bit.sv              ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder_1_bit.sv    ;         ;
+; spi.sv                           ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/spi.sv                 ;         ;
+; speed_tick_computer.sv           ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv ;         ;
+; decoder.sv                       ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/decoder.sv             ;         ;
+; DE0_NANO_ENC.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv        ;         ;
+; clock_divider.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/clock_divider.sv       ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -390,7 +382,7 @@ refer to the applicable agreement for further details.
 ;       |myLatch20:latch_20_bits|    ; 1 (1)               ; 20 (20)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
 ;    |speed_tick_computer:stcEnc1|   ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcEnc1                                                    ; speed_tick_computer ; work         ;
 ;    |speed_tick_computer:stcEnc2|   ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcEnc2                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcOdo1|   ; 64 (64)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcOdo1                                                    ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcOdo1|   ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcOdo1                                                    ; speed_tick_computer ; work         ;
 ;    |speed_tick_computer:stcOdo2|   ; 56 (56)             ; 64 (64)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|speed_tick_computer:stcOdo2                                                    ; speed_tick_computer ; work         ;
 ;    |spi_slave:spi_slave_instance|  ; 356 (356)           ; 48 (48)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_NANO_ENC|spi_slave:spi_slave_instance                                                   ; spi_slave           ; work         ;
 +------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+---------------------+--------------+
@@ -589,7 +581,6 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-<<<<<<< HEAD
 ; 3:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |DE0_NANO_ENC|a[7]                               ;
 ; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder4|count[30]        ;
 ; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder3|count[22]        ;
@@ -599,30 +590,13 @@ Encoding Type:  One-Hot
 ; 261:1              ; 4 bits    ; 696 LEs       ; 56 LEs               ; 640 LEs                ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[22] ;
 ; 261:1              ; 20 bits   ; 3480 LEs      ; 260 LEs              ; 3220 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[14] ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder4|Selector33       ;
-=======
-; 3:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |DE0_NANO_ENC|a[10]                              ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder4|count[6]         ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder3|count[19]        ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder2|count[0]         ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |DE0_NANO_ENC|quad_dec:decoder1|count[23]        ;
-; 257:1              ; 7 bits    ; 1197 LEs      ; 63 LEs               ; 1134 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[31] ;
-; 260:1              ; 8 bits    ; 1384 LEs      ; 96 LEs               ; 1288 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[8]  ;
-; 261:1              ; 4 bits    ; 696 LEs       ; 56 LEs               ; 640 LEs                ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[21] ;
-; 261:1              ; 12 bits   ; 2088 LEs      ; 156 LEs              ; 1932 LEs               ; Yes        ; |DE0_NANO_ENC|spi_slave:spi_slave_instance|q[20] ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder4|Selector34       ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder3|Selector34       ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder2|Selector33       ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder1|Selector33       ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder4|Selector35       ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder3|Selector32       ;
-<<<<<<< HEAD
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder2|Selector35       ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder1|Selector32       ;
-=======
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder2|Selector32       ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |DE0_NANO_ENC|quad_dec:decoder1|Selector35       ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
 
 
@@ -736,13 +710,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;         3 data inputs ; 125                         ;
 ;         4 data inputs ; 559                         ;
 ;                       ;                             ;
-<<<<<<< HEAD
 ; Max LUT depth         ; 10.10                       ;
 ; Average LUT depth     ; 5.41                        ;
-=======
-; Max LUT depth         ; 12.10                       ;
-; Average LUT depth     ; 6.04                        ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +-----------------------+-----------------------------+
 
 
@@ -751,11 +720,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-<<<<<<< HEAD
 ; Top            ; 00:00:02     ;
-=======
-; Top            ; 00:00:03     ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +----------------+--------------+
 
 
@@ -765,38 +730,33 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-<<<<<<< HEAD
-    Info: Processing started: Sat Apr 16 10:36:13 2022
-=======
-    Info: Processing started: Sat Apr 16 09:58:06 2022
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+    Info: Processing started: Sat Apr 16 14:27:07 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE0_NANO_ENC -c DE0_NANO_ENC
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 3 design units, including 3 entities, in source file sonar_fsm.sv
-    Info (12023): Found entity 1: sonar_FSM File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 28
-    Info (12023): Found entity 2: myLatch20 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 142
-    Info (12023): Found entity 3: myLatch_1bit File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 147
+    Info (12023): Found entity 1: sonar_FSM File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 28
+    Info (12023): Found entity 2: myLatch20 File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 142
+    Info (12023): Found entity 3: myLatch_1bit File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 147
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder25.sv
-    Info (12023): Found entity 1: full_adder25 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder25.sv Line: 2
+    Info (12023): Found entity 1: full_adder25 File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder25.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder20.sv
-    Info (12023): Found entity 1: full_adder20 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder20.sv Line: 1
+    Info (12023): Found entity 1: full_adder20 File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder20.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder9.sv
-    Info (12023): Found entity 1: full_adder9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder9.sv Line: 1
+    Info (12023): Found entity 1: full_adder9 File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder9.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder_1_bit.sv
-    Info (12023): Found entity 1: full_adder_1_bit File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder_1_bit.sv Line: 2
+    Info (12023): Found entity 1: full_adder_1_bit File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/full_adder_1_bit.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file spi.sv
-    Info (12023): Found entity 1: spi_slave File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/spi.sv Line: 1
+    Info (12023): Found entity 1: spi_slave File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/spi.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file speed_tick_computer.sv
-    Info (12023): Found entity 1: speed_tick_computer File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv Line: 1
+    Info (12023): Found entity 1: speed_tick_computer File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/speed_tick_computer.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file decoder.sv
-    Info (12023): Found entity 1: quad_dec File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/decoder.sv Line: 1
+    Info (12023): Found entity 1: quad_dec File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/decoder.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file de0_nano_enc.sv
-    Info (12023): Found entity 1: DE0_NANO_ENC File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 6
+    Info (12023): Found entity 1: DE0_NANO_ENC File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 6
 Info (12021): Found 1 design units, including 1 entities, in source file clock_divider.sv
-    Info (12023): Found entity 1: clock_divider File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 1
+    Info (12023): Found entity 1: clock_divider File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 1
 Info (12127): Elaborating entity "DE0_NANO_ENC" for the top level hierarchy
-<<<<<<< HEAD
 Warning (10858): Verilog HDL warning at DE0_NANO_ENC.sv(284): object AddressToSend used but never assigned File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 284
 Warning (10036): Verilog HDL or VHDL warning at DE0_NANO_ENC.sv(287): object "DataReceived" assigned a value but never read File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 287
 Warning (10030): Net "AddressToSend" at DE0_NANO_ENC.sv(284) has no driver or initial value, using a default initial value '0' File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 284
@@ -886,137 +846,31 @@ Warning (13009): TRI or OPNDRN buffers permanently enabled
     Warning (13010): Node "GPIO_1[7]~synth" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
     Warning (13010): Node "GPIO_1[13]~synth" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
     Warning (13010): Node "GPIO_1[17]~synth" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-=======
-Warning (10858): Verilog HDL warning at DE0_NANO_ENC.sv(275): object AddressToSend used but never assigned File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 275
-Warning (10036): Verilog HDL or VHDL warning at DE0_NANO_ENC.sv(278): object "DataReceived" assigned a value but never read File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 278
-Warning (10030): Net "AddressToSend" at DE0_NANO_ENC.sv(275) has no driver or initial value, using a default initial value '0' File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 275
-Info (12128): Elaborating entity "clock_divider" for hierarchy "clock_divider:clock_divider1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 90
-Info (12128): Elaborating entity "quad_dec" for hierarchy "quad_dec:decoder1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 97
-Info (12128): Elaborating entity "speed_tick_computer" for hierarchy "speed_tick_computer:stcOdo1" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 128
-Info (12128): Elaborating entity "sonar_FSM" for hierarchy "sonar_FSM:sonar_FSM_01" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 172
-Info (12128): Elaborating entity "full_adder20" for hierarchy "sonar_FSM:sonar_FSM_01|full_adder20:FA20" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 53
-Info (12128): Elaborating entity "full_adder9" for hierarchy "sonar_FSM:sonar_FSM_01|full_adder20:FA20|full_adder9:FA90" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder20.sv Line: 6
-Info (12128): Elaborating entity "full_adder_1_bit" for hierarchy "sonar_FSM:sonar_FSM_01|full_adder20:FA20|full_adder9:FA90|full_adder_1_bit:FA0" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/full_adder9.sv Line: 10
-Info (12128): Elaborating entity "myLatch20" for hierarchy "sonar_FSM:sonar_FSM_01|myLatch20:latch_20_bits" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 56
-Info (12128): Elaborating entity "myLatch_1bit" for hierarchy "sonar_FSM:sonar_FSM_01|myLatch_1bit:latch_carry_out" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 59
-Info (12128): Elaborating entity "full_adder25" for hierarchy "full_adder25:FA25_0" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 179
-Info (12128): Elaborating entity "spi_slave" for hierarchy "spi_slave:spi_slave_instance" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 287
-Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[0]" and its non-tri-state driver. File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[3]" and its non-tri-state driver. File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[9]" and its non-tri-state driver. File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[13]" and its non-tri-state driver. File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[17]" and its non-tri-state driver. File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "GPIO_0[9]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[11]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[15]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[7]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[16]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[29]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_0[0]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[1]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[2]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[3]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[4]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[5]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[6]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[7]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[8]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[10]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[12]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[14]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[16]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[17]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[18]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[19]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[20]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[21]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[22]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[23]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[24]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[25]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[26]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[27]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[28]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[29]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[30]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[31]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[32]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_0[33]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[18]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[19]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[20]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[21]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[22]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[23]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[24]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[25]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[26]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[30]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-Warning (13009): TRI or OPNDRN buffers permanently enabled
-    Warning (13010): Node "GPIO_1[0]~synth" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13010): Node "GPIO_1[3]~synth" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13010): Node "GPIO_1[9]~synth" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13010): Node "GPIO_1[13]~synth" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Warning (13010): Node "GPIO_1[17]~synth" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 23 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.map.smsg
+Info (144001): Generated suppressed messages file C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 4 input pin(s) that do not drive logic
-<<<<<<< HEAD
     Warning (15610): No output dependent on input pin "GPIO_0_IN[0]" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
     Warning (15610): No output dependent on input pin "GPIO_0_IN[1]" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
     Warning (15610): No output dependent on input pin "GPIO_1_IN[0]" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
     Warning (15610): No output dependent on input pin "GPIO_1_IN[1]" File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
 Info (21057): Implemented 1603 device resources after synthesis - the final resource count might be different
-=======
-    Warning (15610): No output dependent on input pin "GPIO_0_IN[0]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
-    Warning (15610): No output dependent on input pin "GPIO_0_IN[1]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
-    Warning (15610): No output dependent on input pin "GPIO_1_IN[0]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
-    Warning (15610): No output dependent on input pin "GPIO_1_IN[1]" File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
-Info (21057): Implemented 1597 device resources after synthesis - the final resource count might be different
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 8 output pins
     Info (21060): Implemented 68 bidirectional pins
     Info (21061): Implemented 1520 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 84 warnings
-<<<<<<< HEAD
-    Info: Peak virtual memory: 4775 megabytes
-    Info: Processing ended: Sat Apr 16 10:36:26 2022
-    Info: Elapsed time: 00:00:13
-    Info: Total CPU time (on all processors): 00:00:25
-=======
-    Info: Peak virtual memory: 4772 megabytes
-    Info: Processing ended: Sat Apr 16 09:58:35 2022
-    Info: Elapsed time: 00:00:29
-    Info: Total CPU time (on all processors): 00:00:50
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+    Info: Peak virtual memory: 4774 megabytes
+    Info: Processing ended: Sat Apr 16 14:27:21 2022
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:26
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.map.smsg.
+The suppressed messages can be found in C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.map.smsg.
 
 

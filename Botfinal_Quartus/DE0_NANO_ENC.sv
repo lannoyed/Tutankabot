@@ -345,7 +345,7 @@ assign GPIO_1[0] = Trigger3;
 //======================================================
 
 
-assign LED = distance5[19:12];
+assign LED = distance2[19:12];
 	
 
 endmodule
