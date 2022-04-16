@@ -274,8 +274,14 @@ void updateTime (Controller* cvs){
 }
 
 void make_angle(Controller* ctrl, double angle){
-	double kp_angle = 0.3 ; 
-	ctrl->w_ref = kp_angle*(ctrl->theta-angle) ; 
+	double kp_angle = 0.3 ; 	
+	double w_ref = kp_angle*(ctrl->theta-angle) ;
+	if (wref > 1.0){
+		wref = 1.0 ; 
+	} else if (wref < -1.0){
+		wref = -1.0 ; 
+	} 
+	ctrl->w_ref = wref ; 
 }
 
 void make_x(Controller* ctrl, double x){
