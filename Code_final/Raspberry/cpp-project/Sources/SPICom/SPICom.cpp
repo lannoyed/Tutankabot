@@ -73,7 +73,7 @@ double get_speed(int spi_number){
 			tick_diff *= -1 ; 
 		}
 	}
-	return tick_diff*2*M_PI ; 
+	return -tick_diff*2*M_PI ; 
 }
 // Erreur à la compilation
 /*
