@@ -272,3 +272,31 @@ void updateTime (Controller* cvs){
 	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
 	cvs->time = cvs->Dt.count() -18.0;
 }
+
+void make_angle(Controller* ctrl, double angle){
+	double kp_angle = 0.3 ; 
+	ctrl->w_ref = kp_angle*(ctrl->theta-angle) ; 
+}
+
+void make_x(Controller* ctrl, double x){
+	double kp_dist = 0.5 ; 
+	double vref = kp_dist*(ctrl->x-x) ; 
+	if (vref > 0.2){
+		vref = 0.2 ; 
+	} else if (vref < -0.2){
+		vref = -0.2 ; 
+	}
+	ctrl->v_ref = vref ; 
+}
+
+void make_x(Controller* ctrl, double y){
+	double kp_dist = 0.5 ; 
+	double vref = kp_dist*(ctrl->y-y) ; 
+	if (vref > 0.2){
+		vref = 0.2 ; 
+	} else if (vref < -0.2){
+		vref = -0.2 ; 
+	}
+	ctrl->v_ref = vref ; 
+}
+
