@@ -1,13 +1,13 @@
 |DE0_NANO_ENC
 CLOCK_50 => CLOCK_50.IN10
-LED[0] <= speed_tick_computer:stcEnc1.speed_tick
-LED[1] <= speed_tick_computer:stcEnc1.speed_tick
-LED[2] <= speed_tick_computer:stcEnc1.speed_tick
-LED[3] <= speed_tick_computer:stcEnc1.speed_tick
-LED[4] <= speed_tick_computer:stcEnc1.speed_tick
-LED[5] <= speed_tick_computer:stcEnc1.speed_tick
-LED[6] <= speed_tick_computer:stcEnc1.speed_tick
-LED[7] <= speed_tick_computer:stcEnc1.speed_tick
+LED[0] <= sonar_FSM:sonar_FSM_05.port5
+LED[1] <= sonar_FSM:sonar_FSM_05.port5
+LED[2] <= sonar_FSM:sonar_FSM_05.port5
+LED[3] <= sonar_FSM:sonar_FSM_05.port5
+LED[4] <= sonar_FSM:sonar_FSM_05.port5
+LED[5] <= sonar_FSM:sonar_FSM_05.port5
+LED[6] <= sonar_FSM:sonar_FSM_05.port5
+LED[7] <= sonar_FSM:sonar_FSM_05.port5
 KEY[0] => rst.IN4
 KEY[1] => reset.DATAIN
 GPIO_0[0] <> <UNC>
@@ -48,8 +48,8 @@ GPIO_1[2] <> <UNC>
 GPIO_1[3] <> GPIO_1[3]
 GPIO_1[4] <> <UNC>
 GPIO_1[6] <> <UNC>
+GPIO_1[7] <> GPIO_1[7]
 GPIO_1[8] <> <UNC>
-GPIO_1[9] <> GPIO_1[9]
 GPIO_1[13] <> GPIO_1[13]
 GPIO_1[17] <> GPIO_1[17]
 GPIO_1[18] <> <UNC>
