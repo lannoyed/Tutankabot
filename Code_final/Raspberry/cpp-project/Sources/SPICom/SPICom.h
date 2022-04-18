@@ -1,11 +1,15 @@
 # include <stdio.h>
 # include <stdlib.h> 
+# include <iostream>
+# include <string>
 # include <unistd.h> 
 # include <wiringPiSPI.h>
 # include <math.h>
 
 
-#define factor 6.8 * pow(10, -6)  // Speed of sound in air (340 [m/s]) divided by the CLOCK_50 (50 * 10**6 [Hz]).
+#define FACTOR 3.4 / pow(10, 6)  // Speed of sound in air (340 [m/s]) divided by the CLOCK_50 (50 * 10**6 [Hz]).
+#define OFFSET 0.025 // Offset remarqué dans la mesure
+
 
 void SPI_init(); 
 void SPI_receive(int spi_number, unsigned char* buffer); 

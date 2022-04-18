@@ -1,9 +1,5 @@
 Fitter report for DE0_NANO_ENC
-<<<<<<< HEAD
-Sat Apr 16 10:36:34 2022
-=======
-Sat Apr 16 09:58:56 2022
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+Sat Apr 16 14:27:30 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -73,18 +69,14 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-<<<<<<< HEAD
-; Fitter Status                      ; Successful - Sat Apr 16 10:36:34 2022       ;
-=======
-; Fitter Status                      ; Successful - Sat Apr 16 09:58:55 2022       ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; Fitter Status                      ; Successful - Sat Apr 16 14:27:30 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; DE0_NANO_ENC                                ;
 ; Top-level Entity Name              ; DE0_NANO_ENC                                ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 1,283 / 22,320 ( 6 % )                      ;
+; Total logic elements               ; 1,287 / 22,320 ( 6 % )                      ;
 ;     Total combinational functions  ; 1,215 / 22,320 ( 5 % )                      ;
 ;     Dedicated logic registers      ; 760 / 22,320 ( 3 % )                        ;
 ; Total registers                    ; 760                                         ;
@@ -163,20 +155,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.04        ;
+; Average used               ; 1.05        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-<<<<<<< HEAD
-;     Processor 2            ;   1.7%      ;
-;     Processor 3            ;   1.4%      ;
-;     Processor 4            ;   1.4%      ;
-=======
-;     Processor 2            ;   1.4%      ;
-;     Processor 3            ;   1.1%      ;
-;     Processor 4            ;   1.1%      ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+;     Processor 2            ;   1.9%      ;
+;     Processor 3            ;   1.7%      ;
+;     Processor 4            ;   1.7%      ;
 +----------------------------+-------------+
 
 
@@ -258,7 +244,7 @@ refer to the applicable agreement for further details.
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.pin.
+The pin-out file can be found in C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.pin.
 
 
 +----------------------------------------------------------------------+
@@ -266,16 +252,16 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 +---------------------------------------------+------------------------+
 ; Resource                                    ; Usage                  ;
 +---------------------------------------------+------------------------+
-; Total logic elements                        ; 1,283 / 22,320 ( 6 % ) ;
-;     -- Combinational with no register       ; 523                    ;
-;     -- Register only                        ; 68                     ;
-;     -- Combinational with a register        ; 692                    ;
+; Total logic elements                        ; 1,287 / 22,320 ( 6 % ) ;
+;     -- Combinational with no register       ; 527                    ;
+;     -- Register only                        ; 72                     ;
+;     -- Combinational with a register        ; 688                    ;
 ;                                             ;                        ;
 ; Logic element usage by number of LUT inputs ;                        ;
 ;     -- 4 input functions                    ; 559                    ;
 ;     -- 3 input functions                    ; 462                    ;
 ;     -- <=2 input functions                  ; 194                    ;
-;     -- Register only                        ; 68                     ;
+;     -- Register only                        ; 72                     ;
 ;                                             ;                        ;
 ; Logic elements by mode                      ;                        ;
 ;     -- normal mode                          ; 839                    ;
@@ -285,11 +271,7 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 ;     -- Dedicated logic registers            ; 760 / 22,320 ( 3 % )   ;
 ;     -- I/O registers                        ; 0 / 698 ( 0 % )        ;
 ;                                             ;                        ;
-<<<<<<< HEAD
-; Total LABs:  partially or completely used   ; 106 / 1,395 ( 8 % )    ;
-=======
-; Total LABs:  partially or completely used   ; 114 / 1,395 ( 8 % )    ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; Total LABs:  partially or completely used   ; 117 / 1,395 ( 8 % )    ;
 ; Virtual pins                                ; 0                      ;
 ; I/O pins                                    ; 83 / 154 ( 54 % )      ;
 ;     -- Clock pins                           ; 4 / 7 ( 57 % )         ;
@@ -307,21 +289,12 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 ; ASMI blocks                                 ; 0 / 1 ( 0 % )          ;
 ; Oscillator blocks                           ; 0 / 1 ( 0 % )          ;
 ; Impedance control blocks                    ; 0 / 4 ( 0 % )          ;
-<<<<<<< HEAD
-; Average interconnect usage (total/H/V)      ; 2.0% / 1.9% / 2.1%     ;
-; Peak interconnect usage (total/H/V)         ; 12.7% / 11.0% / 15.0%  ;
+; Average interconnect usage (total/H/V)      ; 2.0% / 1.9% / 2.3%     ;
+; Peak interconnect usage (total/H/V)         ; 18.4% / 16.3% / 21.4%  ;
 ; Maximum fan-out                             ; 256                    ;
 ; Highest non-global fan-out                  ; 144                    ;
-; Total fan-out                               ; 6095                   ;
-; Average fan-out                             ; 2.69                   ;
-=======
-; Average interconnect usage (total/H/V)      ; 2.0% / 1.8% / 2.1%     ;
-; Peak interconnect usage (total/H/V)         ; 15.4% / 14.9% / 16.3%  ;
-; Maximum fan-out                             ; 256                    ;
-; Highest non-global fan-out                  ; 144                    ;
-; Total fan-out                               ; 6063                   ;
-; Average fan-out                             ; 2.67                   ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; Total fan-out                               ; 6103                   ;
+; Average fan-out                             ; 2.68                   ;
 +---------------------------------------------+------------------------+
 *  Register count does not include registers inside RAM blocks or DSP blocks.
 
@@ -334,16 +307,16 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 +---------------------------------------------+----------------------+--------------------------------+
 ; Difficulty Clustering Region                ; Low                  ; Low                            ;
 ;                                             ;                      ;                                ;
-; Total logic elements                        ; 1283 / 22320 ( 6 % ) ; 0 / 22320 ( 0 % )              ;
-;     -- Combinational with no register       ; 523                  ; 0                              ;
-;     -- Register only                        ; 68                   ; 0                              ;
-;     -- Combinational with a register        ; 692                  ; 0                              ;
+; Total logic elements                        ; 1287 / 22320 ( 6 % ) ; 0 / 22320 ( 0 % )              ;
+;     -- Combinational with no register       ; 527                  ; 0                              ;
+;     -- Register only                        ; 72                   ; 0                              ;
+;     -- Combinational with a register        ; 688                  ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Logic element usage by number of LUT inputs ;                      ;                                ;
 ;     -- 4 input functions                    ; 559                  ; 0                              ;
 ;     -- 3 input functions                    ; 462                  ; 0                              ;
 ;     -- <=2 input functions                  ; 194                  ; 0                              ;
-;     -- Register only                        ; 68                   ; 0                              ;
+;     -- Register only                        ; 72                   ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Logic elements by mode                      ;                      ;                                ;
 ;     -- normal mode                          ; 839                  ; 0                              ;
@@ -353,11 +326,7 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 ;     -- Dedicated logic registers            ; 760 / 22320 ( 3 % )  ; 0 / 22320 ( 0 % )              ;
 ;     -- I/O registers                        ; 0                    ; 0                              ;
 ;                                             ;                      ;                                ;
-<<<<<<< HEAD
-; Total LABs:  partially or completely used   ; 106 / 1395 ( 8 % )   ; 0 / 1395 ( 0 % )               ;
-=======
-; Total LABs:  partially or completely used   ; 114 / 1395 ( 8 % )   ; 0 / 1395 ( 0 % )               ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; Total LABs:  partially or completely used   ; 117 / 1395 ( 8 % )   ; 0 / 1395 ( 0 % )               ;
 ;                                             ;                      ;                                ;
 ; Virtual pins                                ; 0                    ; 0                              ;
 ; I/O pins                                    ; 83                   ; 0                              ;
@@ -373,13 +342,8 @@ The pin-out file can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutanka
 ;     -- Registered Output Connections        ; 0                    ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Internal Connections                        ;                      ;                                ;
-<<<<<<< HEAD
-;     -- Total Connections                    ; 6091                 ; 4                              ;
+;     -- Total Connections                    ; 6099                 ; 4                              ;
 ;     -- Registered Connections               ; 2453                 ; 0                              ;
-=======
-;     -- Total Connections                    ; 6059                 ; 4                              ;
-;     -- Registered Connections               ; 2443                 ; 0                              ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ;                                             ;                      ;                                ;
 ; External Connections                        ;                      ;                                ;
 ;     -- Top                                  ; 136                  ; 0                              ;
@@ -927,7 +891,7 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+----------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node         ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                                                                          ; Entity Name         ; Library Name ;
 +------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+----------------------------------------------------------------------------------------------+---------------------+--------------+
-; |DE0_NANO_ENC                      ; 1283 (47)   ; 760 (28)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 83   ; 0            ; 523 (19)     ; 68 (0)            ; 692 (29)         ; |DE0_NANO_ENC                                                                                ; DE0_NANO_ENC        ; work         ;
+; |DE0_NANO_ENC                      ; 1287 (48)   ; 760 (28)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 83   ; 0            ; 527 (20)     ; 72 (0)            ; 688 (28)         ; |DE0_NANO_ENC                                                                                ; DE0_NANO_ENC        ; work         ;
 ;    |clock_divider:clock_divider1|  ; 44 (44)     ; 33 (33)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 11 (11)      ; 0 (0)             ; 33 (33)          ; |DE0_NANO_ENC|clock_divider:clock_divider1                                                   ; clock_divider       ; work         ;
 ;    |full_adder25:FA25_0|           ; 20 (0)      ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 20 (0)       ; 0 (0)             ; 0 (0)            ; |DE0_NANO_ENC|full_adder25:FA25_0                                                            ; full_adder25        ; work         ;
 ;       |full_adder9:FA90|           ; 5 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 5 (0)        ; 0 (0)             ; 0 (0)            ; |DE0_NANO_ENC|full_adder25:FA25_0|full_adder9:FA90                                           ; full_adder9         ; work         ;
@@ -971,7 +935,7 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 ;          |full_adder_1_bit:FA19|   ; 2 (2)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 2 (2)        ; 0 (0)             ; 0 (0)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_01|full_adder20:FA20|full_adder_1_bit:FA19                 ; full_adder_1_bit    ; work         ;
 ;          |full_adder_1_bit:FA20|   ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_01|full_adder20:FA20|full_adder_1_bit:FA20                 ; full_adder_1_bit    ; work         ;
 ;       |myLatch20:latch_20_bits|    ; 20 (20)     ; 20 (20)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 20 (20)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_01|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
-;    |sonar_FSM:sonar_FSM_02|        ; 74 (43)     ; 47 (27)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 27 (15)      ; 5 (0)             ; 42 (28)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02                                                         ; sonar_FSM           ; work         ;
+;    |sonar_FSM:sonar_FSM_02|        ; 75 (43)     ; 47 (27)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 28 (16)      ; 6 (0)             ; 41 (27)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02                                                         ; sonar_FSM           ; work         ;
 ;       |full_adder20:FA20|          ; 25 (0)      ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 12 (0)       ; 0 (0)             ; 13 (0)           ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20                                       ; full_adder20        ; work         ;
 ;          |full_adder9:FA90|        ; 10 (0)      ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 4 (0)        ; 0 (0)             ; 6 (0)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20|full_adder9:FA90                      ; full_adder9         ; work         ;
 ;             |full_adder_1_bit:FA1| ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20|full_adder9:FA90|full_adder_1_bit:FA1 ; full_adder_1_bit    ; work         ;
@@ -994,7 +958,7 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 ;             |full_adder_1_bit:FA8| ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20|full_adder9:FA91|full_adder_1_bit:FA8 ; full_adder_1_bit    ; work         ;
 ;          |full_adder_1_bit:FA19|   ; 2 (2)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 2 (2)        ; 0 (0)             ; 0 (0)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20|full_adder_1_bit:FA19                 ; full_adder_1_bit    ; work         ;
 ;          |full_adder_1_bit:FA20|   ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|full_adder20:FA20|full_adder_1_bit:FA20                 ; full_adder_1_bit    ; work         ;
-;       |myLatch20:latch_20_bits|    ; 20 (20)     ; 20 (20)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 5 (5)             ; 15 (15)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
+;       |myLatch20:latch_20_bits|    ; 20 (20)     ; 20 (20)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 6 (6)             ; 14 (14)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_02|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
 ;    |sonar_FSM:sonar_FSM_03|        ; 76 (43)     ; 47 (27)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 29 (16)      ; 6 (0)             ; 41 (27)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_03                                                         ; sonar_FSM           ; work         ;
 ;       |full_adder20:FA20|          ; 26 (0)      ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 13 (0)       ; 0 (0)             ; 13 (0)           ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_03|full_adder20:FA20                                       ; full_adder20        ; work         ;
 ;          |full_adder9:FA90|        ; 10 (0)      ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 4 (0)        ; 0 (0)             ; 6 (0)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_03|full_adder20:FA20|full_adder9:FA90                      ; full_adder9         ; work         ;
@@ -1066,21 +1030,12 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 ;             |full_adder_1_bit:FA8| ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|full_adder20:FA20|full_adder9:FA91|full_adder_1_bit:FA8 ; full_adder_1_bit    ; work         ;
 ;          |full_adder_1_bit:FA19|   ; 2 (2)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 2 (2)        ; 0 (0)             ; 0 (0)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|full_adder20:FA20|full_adder_1_bit:FA19                 ; full_adder_1_bit    ; work         ;
 ;          |full_adder_1_bit:FA20|   ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|full_adder20:FA20|full_adder_1_bit:FA20                 ; full_adder_1_bit    ; work         ;
-<<<<<<< HEAD
 ;       |myLatch20:latch_20_bits|    ; 20 (20)     ; 20 (20)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 6 (6)             ; 14 (14)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
-;    |speed_tick_computer:stcEnc1|   ; 68 (68)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 4 (4)        ; 10 (10)           ; 54 (54)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc1                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcEnc2|   ; 65 (65)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 9 (9)             ; 55 (55)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc2                                                    ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcEnc1|   ; 66 (66)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 2 (2)        ; 10 (10)           ; 54 (54)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc1                                                    ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcEnc2|   ; 68 (68)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 4 (4)        ; 11 (11)           ; 53 (53)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc2                                                    ; speed_tick_computer ; work         ;
 ;    |speed_tick_computer:stcOdo1|   ; 64 (64)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 8 (8)             ; 56 (56)          ; |DE0_NANO_ENC|speed_tick_computer:stcOdo1                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcOdo2|   ; 64 (64)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 8 (8)             ; 56 (56)          ; |DE0_NANO_ENC|speed_tick_computer:stcOdo2                                                    ; speed_tick_computer ; work         ;
+;    |speed_tick_computer:stcOdo2|   ; 65 (65)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 9 (9)             ; 55 (55)          ; |DE0_NANO_ENC|speed_tick_computer:stcOdo2                                                    ; speed_tick_computer ; work         ;
 ;    |spi_slave:spi_slave_instance|  ; 356 (356)   ; 48 (48)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 295 (295)    ; 0 (0)             ; 61 (61)          ; |DE0_NANO_ENC|spi_slave:spi_slave_instance                                                   ; spi_slave           ; work         ;
-=======
-;       |myLatch20:latch_20_bits|    ; 20 (20)     ; 20 (20)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 2 (2)             ; 18 (18)          ; |DE0_NANO_ENC|sonar_FSM:sonar_FSM_05|myLatch20:latch_20_bits                                 ; myLatch20           ; work         ;
-;    |speed_tick_computer:stcEnc1|   ; 67 (67)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 3 (3)        ; 11 (11)           ; 53 (53)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc1                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcEnc2|   ; 70 (70)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 13 (13)           ; 51 (51)          ; |DE0_NANO_ENC|speed_tick_computer:stcEnc2                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcOdo1|   ; 73 (73)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 9 (9)        ; 9 (9)             ; 55 (55)          ; |DE0_NANO_ENC|speed_tick_computer:stcOdo1                                                    ; speed_tick_computer ; work         ;
-;    |speed_tick_computer:stcOdo2|   ; 67 (67)     ; 64 (64)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 3 (3)        ; 11 (11)           ; 53 (53)          ; |DE0_NANO_ENC|speed_tick_computer:stcOdo2                                                    ; speed_tick_computer ; work         ;
-;    |spi_slave:spi_slave_instance|  ; 343 (343)   ; 48 (48)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 278 (278)    ; 1 (1)             ; 64 (64)          ; |DE0_NANO_ENC|spi_slave:spi_slave_instance                                                   ; spi_slave           ; work         ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+----------------------------------------------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -1148,35 +1103,27 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; GPIO_1[28]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[30]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[32]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
-; GPIO_0[9]    ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
+; GPIO_0[9]    ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
 ; GPIO_0[11]   ; Bidir    ; (0) 0 ps      ; --            ; --                    ; --  ; --   ;
 ; GPIO_0[13]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_0[15]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[0]    ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[1]    ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[3]    ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
-<<<<<<< HEAD
-; GPIO_1[5]    ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
+; GPIO_1[5]    ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
 ; GPIO_1[7]    ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[9]    ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[10]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[11]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
-=======
-; GPIO_1[5]    ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
-; GPIO_1[7]    ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
-; GPIO_1[9]    ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
-; GPIO_1[10]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
-; GPIO_1[11]   ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 ; GPIO_1[12]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[13]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
-; GPIO_1[14]   ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
+; GPIO_1[14]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[15]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[16]   ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
 ; GPIO_1[17]   ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[27]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
-; GPIO_1[29]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
-; GPIO_1[31]   ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
+; GPIO_1[29]   ; Bidir    ; --            ; (6) 1314 ps   ; --                    ; --  ; --   ;
+; GPIO_1[31]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; GPIO_1[33]   ; Bidir    ; (6) 1314 ps   ; --            ; --                    ; --  ; --   ;
 ; CLOCK_50     ; Input    ; (0) 0 ps      ; --            ; --                    ; --  ; --   ;
 ; KEY[1]       ; Input    ; (0) 0 ps      ; --            ; --                    ; --  ; --   ;
@@ -1184,7 +1131,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------+----------+---------------+---------------+-----------------------+-----+------+
 
 
-<<<<<<< HEAD
 +----------------------------------------------------------------------------+
 ; Pad To Core Delay Chain Fanout                                             ;
 +----------------------------------------------+-------------------+---------+
@@ -1241,14 +1187,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; GPIO_1[30]                                   ;                   ;         ;
 ; GPIO_1[32]                                   ;                   ;         ;
 ; GPIO_0[9]                                    ;                   ;         ;
-;      - spi_slave:spi_slave_instance|cnt[1]   ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[2]   ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[3]   ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[4]   ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[5]   ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[6]   ; 0                 ; 6       ;
-;      - GPIO_0[13]~output                     ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[0]   ; 0                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[1]   ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[2]   ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[3]   ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[4]   ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[5]   ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[6]   ; 1                 ; 6       ;
+;      - GPIO_0[13]~output                     ; 1                 ; 6       ;
+;      - spi_slave:spi_slave_instance|cnt[0]   ; 1                 ; 6       ;
 ; GPIO_0[11]                                   ;                   ;         ;
 ; GPIO_0[13]                                   ;                   ;         ;
 ; GPIO_0[15]                                   ;                   ;         ;
@@ -1262,11 +1208,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - sonar_FSM:sonar_FSM_04|Selector4~3    ; 0                 ; 6       ;
 ; GPIO_1[3]                                    ;                   ;         ;
 ; GPIO_1[5]                                    ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_05|updateDistance ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|Selector5~0    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|Selector3~1    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|state~12       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|Selector4~3    ; 0                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_05|Selector4~0    ; 1                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_05|Selector5~2    ; 1                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_05|Selector3~1    ; 1                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_05|state~13       ; 1                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_05|updateDistance ; 1                 ; 6       ;
 ; GPIO_1[7]                                    ;                   ;         ;
 ; GPIO_1[9]                                    ;                   ;         ;
 ;      - sonar_FSM:sonar_FSM_03|Selector4~0    ; 0                 ; 6       ;
@@ -1275,18 +1221,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - sonar_FSM:sonar_FSM_03|state~13       ; 0                 ; 6       ;
 ;      - sonar_FSM:sonar_FSM_03|updateDistance ; 0                 ; 6       ;
 ; GPIO_1[10]                                   ;                   ;         ;
-;      - quad_dec:decoder2|sync[1]~feeder      ; 0                 ; 6       ;
+;      - quad_dec:decoder2|sync[1]             ; 0                 ; 6       ;
 ; GPIO_1[11]                                   ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_02|Selector4~0    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|Selector5~2    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|Selector3~1    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|state~13       ; 0                 ; 6       ;
 ;      - sonar_FSM:sonar_FSM_02|updateDistance ; 0                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_02|Selector5~0    ; 0                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_02|Selector3~1    ; 0                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_02|state~12       ; 0                 ; 6       ;
+;      - sonar_FSM:sonar_FSM_02|Selector4~3    ; 0                 ; 6       ;
 ; GPIO_1[12]                                   ;                   ;         ;
 ;      - quad_dec:decoder2|sync[0]~feeder      ; 0                 ; 6       ;
 ; GPIO_1[13]                                   ;                   ;         ;
 ; GPIO_1[14]                                   ;                   ;         ;
-;      - quad_dec:decoder1|sync[1]~feeder      ; 1                 ; 6       ;
+;      - quad_dec:decoder1|sync[1]~feeder      ; 0                 ; 6       ;
 ; GPIO_1[15]                                   ;                   ;         ;
 ;      - sonar_FSM:sonar_FSM_01|Selector4~2    ; 0                 ; 6       ;
 ;      - sonar_FSM:sonar_FSM_01|Selector5~0    ; 0                 ; 6       ;
@@ -1294,16 +1240,16 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - sonar_FSM:sonar_FSM_01|state~13       ; 0                 ; 6       ;
 ;      - sonar_FSM:sonar_FSM_01|updateDistance ; 0                 ; 6       ;
 ; GPIO_1[16]                                   ;                   ;         ;
-;      - quad_dec:decoder1|sync[0]~feeder      ; 0                 ; 6       ;
+;      - quad_dec:decoder1|sync[0]             ; 1                 ; 6       ;
 ; GPIO_1[17]                                   ;                   ;         ;
 ; GPIO_1[27]                                   ;                   ;         ;
-;      - quad_dec:decoder4|sync[0]~feeder      ; 0                 ; 6       ;
+;      - quad_dec:decoder4|sync[0]             ; 0                 ; 6       ;
 ; GPIO_1[29]                                   ;                   ;         ;
-;      - quad_dec:decoder4|sync[1]             ; 0                 ; 6       ;
+;      - quad_dec:decoder4|sync[1]~feeder      ; 1                 ; 6       ;
 ; GPIO_1[31]                                   ;                   ;         ;
-;      - quad_dec:decoder3|sync[0]             ; 1                 ; 6       ;
+;      - quad_dec:decoder3|sync[0]~feeder      ; 0                 ; 6       ;
 ; GPIO_1[33]                                   ;                   ;         ;
-;      - quad_dec:decoder3|sync[1]             ; 0                 ; 6       ;
+;      - quad_dec:decoder3|sync[1]~feeder      ; 0                 ; 6       ;
 ; CLOCK_50                                     ;                   ;         ;
 ; KEY[1]                                       ;                   ;         ;
 ; KEY[0]                                       ;                   ;         ;
@@ -1452,275 +1398,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - quad_dec:decoder4|state.S01           ; 0                 ; 6       ;
 ;      - quad_dec:decoder4|state.S00           ; 0                 ; 6       ;
 +----------------------------------------------+-------------------+---------+
-=======
-+-------------------------------------------------------------------------------+
-; Pad To Core Delay Chain Fanout                                                ;
-+-------------------------------------------------+-------------------+---------+
-; Source Pin / Fanout                             ; Pad To Core Index ; Setting ;
-+-------------------------------------------------+-------------------+---------+
-; GPIO_0_IN[0]                                    ;                   ;         ;
-; GPIO_0_IN[1]                                    ;                   ;         ;
-; GPIO_1_IN[0]                                    ;                   ;         ;
-; GPIO_1_IN[1]                                    ;                   ;         ;
-; GPIO_0[0]                                       ;                   ;         ;
-; GPIO_0[1]                                       ;                   ;         ;
-; GPIO_0[2]                                       ;                   ;         ;
-; GPIO_0[3]                                       ;                   ;         ;
-; GPIO_0[4]                                       ;                   ;         ;
-; GPIO_0[5]                                       ;                   ;         ;
-; GPIO_0[6]                                       ;                   ;         ;
-; GPIO_0[7]                                       ;                   ;         ;
-; GPIO_0[8]                                       ;                   ;         ;
-; GPIO_0[10]                                      ;                   ;         ;
-; GPIO_0[12]                                      ;                   ;         ;
-; GPIO_0[14]                                      ;                   ;         ;
-; GPIO_0[16]                                      ;                   ;         ;
-; GPIO_0[17]                                      ;                   ;         ;
-; GPIO_0[18]                                      ;                   ;         ;
-; GPIO_0[19]                                      ;                   ;         ;
-; GPIO_0[20]                                      ;                   ;         ;
-; GPIO_0[21]                                      ;                   ;         ;
-; GPIO_0[22]                                      ;                   ;         ;
-; GPIO_0[23]                                      ;                   ;         ;
-; GPIO_0[24]                                      ;                   ;         ;
-; GPIO_0[25]                                      ;                   ;         ;
-; GPIO_0[26]                                      ;                   ;         ;
-; GPIO_0[27]                                      ;                   ;         ;
-; GPIO_0[28]                                      ;                   ;         ;
-; GPIO_0[29]                                      ;                   ;         ;
-; GPIO_0[30]                                      ;                   ;         ;
-; GPIO_0[31]                                      ;                   ;         ;
-; GPIO_0[32]                                      ;                   ;         ;
-; GPIO_0[33]                                      ;                   ;         ;
-; GPIO_1[2]                                       ;                   ;         ;
-; GPIO_1[4]                                       ;                   ;         ;
-; GPIO_1[6]                                       ;                   ;         ;
-; GPIO_1[8]                                       ;                   ;         ;
-; GPIO_1[18]                                      ;                   ;         ;
-; GPIO_1[19]                                      ;                   ;         ;
-; GPIO_1[20]                                      ;                   ;         ;
-; GPIO_1[21]                                      ;                   ;         ;
-; GPIO_1[22]                                      ;                   ;         ;
-; GPIO_1[23]                                      ;                   ;         ;
-; GPIO_1[24]                                      ;                   ;         ;
-; GPIO_1[25]                                      ;                   ;         ;
-; GPIO_1[26]                                      ;                   ;         ;
-; GPIO_1[28]                                      ;                   ;         ;
-; GPIO_1[30]                                      ;                   ;         ;
-; GPIO_1[32]                                      ;                   ;         ;
-; GPIO_0[9]                                       ;                   ;         ;
-;      - spi_slave:spi_slave_instance|cnt[1]      ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[2]      ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[3]      ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[4]      ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[5]      ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[6]      ; 0                 ; 6       ;
-;      - GPIO_0[13]~output                        ; 0                 ; 6       ;
-;      - spi_slave:spi_slave_instance|cnt[0]      ; 0                 ; 6       ;
-; GPIO_0[11]                                      ;                   ;         ;
-; GPIO_0[13]                                      ;                   ;         ;
-; GPIO_0[15]                                      ;                   ;         ;
-;      - spi_slave:spi_slave_instance|q[0]~feeder ; 0                 ; 6       ;
-; GPIO_1[0]                                       ;                   ;         ;
-; GPIO_1[1]                                       ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_01|Selector4~1       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_01|Selector5~0       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_01|Selector3~1       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_01|state~13          ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_01|updateDistance    ; 0                 ; 6       ;
-; GPIO_1[3]                                       ;                   ;         ;
-; GPIO_1[5]                                       ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_02|Selector5~0       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|Selector3~1       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|state~13          ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|updateDistance    ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_02|Selector4~3       ; 1                 ; 6       ;
-; GPIO_1[7]                                       ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_03|Selector5~0       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_03|Selector3~1       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_03|state~13          ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_03|updateDistance    ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_03|Selector4~3       ; 1                 ; 6       ;
-; GPIO_1[9]                                       ;                   ;         ;
-; GPIO_1[10]                                      ;                   ;         ;
-;      - quad_dec:decoder2|sync[1]~feeder         ; 0                 ; 6       ;
-; GPIO_1[11]                                      ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_05|Selector4~1       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|Selector5~0       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|Selector3~1       ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|state~13          ; 1                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_05|updateDistance    ; 1                 ; 6       ;
-; GPIO_1[12]                                      ;                   ;         ;
-;      - quad_dec:decoder2|sync[0]~feeder         ; 0                 ; 6       ;
-; GPIO_1[13]                                      ;                   ;         ;
-; GPIO_1[14]                                      ;                   ;         ;
-;      - quad_dec:decoder1|sync[1]~feeder         ; 0                 ; 6       ;
-; GPIO_1[15]                                      ;                   ;         ;
-;      - sonar_FSM:sonar_FSM_04|Selector5~0       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_04|Selector3~1       ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_04|state~13          ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_04|updateDistance    ; 0                 ; 6       ;
-;      - sonar_FSM:sonar_FSM_04|Selector4~3       ; 0                 ; 6       ;
-; GPIO_1[16]                                      ;                   ;         ;
-;      - quad_dec:decoder1|sync[0]                ; 1                 ; 6       ;
-; GPIO_1[17]                                      ;                   ;         ;
-; GPIO_1[27]                                      ;                   ;         ;
-;      - quad_dec:decoder4|sync[0]~feeder         ; 0                 ; 6       ;
-; GPIO_1[29]                                      ;                   ;         ;
-;      - quad_dec:decoder4|sync[1]                ; 0                 ; 6       ;
-; GPIO_1[31]                                      ;                   ;         ;
-;      - quad_dec:decoder3|sync[0]~feeder         ; 1                 ; 6       ;
-; GPIO_1[33]                                      ;                   ;         ;
-;      - quad_dec:decoder3|sync[1]~feeder         ; 0                 ; 6       ;
-; CLOCK_50                                        ;                   ;         ;
-; KEY[0]                                          ;                   ;         ;
-;      - quad_dec:decoder1|count[0]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[31]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[1]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[2]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[3]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[4]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[5]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[6]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[7]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[30]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[29]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[28]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[27]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[26]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[25]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[24]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[23]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[22]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[31]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[31]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[31]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[21]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[30]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[30]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[30]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[20]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[29]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[29]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[29]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[19]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[28]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[28]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[28]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[18]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[27]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[27]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[27]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[17]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[26]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[26]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[26]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[16]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[25]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[25]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[25]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[15]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[24]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[24]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[24]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[14]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[23]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[23]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[23]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[13]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[22]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[22]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[22]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[12]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[21]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[21]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[21]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[11]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[20]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[20]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[20]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[10]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[19]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[19]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[19]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[9]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[18]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[18]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[18]              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|count[8]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[17]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[17]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[17]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[16]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[16]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[16]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[15]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[15]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[15]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[14]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[14]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[14]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[13]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[13]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[13]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[12]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[12]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[12]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[11]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[11]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[11]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[10]              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[10]              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[10]              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[9]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[9]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[9]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[8]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[8]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[8]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[7]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[7]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[7]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[6]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[6]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[6]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[5]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[5]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[5]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[4]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[4]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[4]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[3]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[3]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[3]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[2]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[2]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[2]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[1]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[1]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[1]               ; 0                 ; 6       ;
-;      - quad_dec:decoder3|count[0]               ; 0                 ; 6       ;
-;      - quad_dec:decoder2|count[0]               ; 0                 ; 6       ;
-;      - quad_dec:decoder4|count[0]               ; 0                 ; 6       ;
-;      - quad_dec:decoder1|state.S11              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|state.S00              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|state.S01              ; 0                 ; 6       ;
-;      - quad_dec:decoder1|state.S10              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|state.S11              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|state.S10              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|state.S01              ; 0                 ; 6       ;
-;      - quad_dec:decoder3|state.S00              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|state.S11              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|state.S10              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|state.S01              ; 0                 ; 6       ;
-;      - quad_dec:decoder2|state.S00              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|state.S11              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|state.S10              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|state.S01              ; 0                 ; 6       ;
-;      - quad_dec:decoder4|state.S00              ; 0                 ; 6       ;
-; KEY[1]                                          ;                   ;         ;
-+-------------------------------------------------+-------------------+---------+
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1733,75 +1410,43 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; GPIO_0[11]                                ; PIN_A6             ; 48      ; Clock                       ; yes    ; Global Clock         ; GCLK11           ; --                        ;
 ; GPIO_0[9]                                 ; PIN_D5             ; 8       ; Async. clear, Output enable ; no     ; --                   ; --               ; --                        ;
 ; KEY[0]                                    ; PIN_J15            ; 144     ; Async. clear                ; no     ; --                   ; --               ; --                        ;
-<<<<<<< HEAD
-; clock_divider:clock_divider1|LessThan0~10 ; LCCOMB_X20_Y16_N30 ; 32      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
-; clock_divider:clock_divider1|clock_out    ; FF_X20_Y16_N17     ; 256     ; Clock                       ; yes    ; Global Clock         ; GCLK0            ; --                        ;
-; quad_dec:decoder1|Selector32~0            ; LCCOMB_X34_Y11_N28 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder1|Selector33~0            ; LCCOMB_X34_Y11_N16 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder1|count[12]~98            ; LCCOMB_X34_Y11_N26 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|Selector32~0            ; LCCOMB_X36_Y14_N4  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|Selector33~0            ; LCCOMB_X36_Y14_N8  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|count[0]~98             ; LCCOMB_X36_Y14_N26 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|Selector32~0            ; LCCOMB_X37_Y11_N4  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|Selector33~0            ; LCCOMB_X37_Y11_N8  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|count[22]~98            ; LCCOMB_X37_Y11_N18 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|Selector32~0            ; LCCOMB_X40_Y12_N28 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|Selector33~0            ; LCCOMB_X40_Y12_N22 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|count[30]~98            ; LCCOMB_X40_Y12_N10 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; reset5                                    ; FF_X21_Y5_N9       ; 36      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
-; sonar_FSM:sonar_FSM_01|updateDistance     ; LCCOMB_X28_Y1_N26  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK16           ; --                        ;
-; sonar_FSM:sonar_FSM_02|updateDistance     ; LCCOMB_X28_Y4_N28  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK15           ; --                        ;
-; sonar_FSM:sonar_FSM_03|updateDistance     ; LCCOMB_X27_Y4_N28  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK17           ; --                        ;
-; sonar_FSM:sonar_FSM_04|updateDistance     ; LCCOMB_X28_Y2_N28  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK19           ; --                        ;
-; sonar_FSM:sonar_FSM_05|updateDistance     ; LCCOMB_X21_Y7_N14  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK3            ; --                        ;
-=======
-; clock_divider:clock_divider1|LessThan0~10 ; LCCOMB_X21_Y13_N30 ; 32      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
-; clock_divider:clock_divider1|clock_out    ; FF_X21_Y13_N5      ; 256     ; Clock                       ; yes    ; Global Clock         ; GCLK2            ; --                        ;
-; quad_dec:decoder1|Selector32~0            ; LCCOMB_X32_Y14_N28 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder1|Selector33~0            ; LCCOMB_X32_Y14_N18 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder1|count[23]~36            ; LCCOMB_X32_Y14_N20 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|Selector32~0            ; LCCOMB_X35_Y14_N28 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|Selector33~0            ; LCCOMB_X35_Y14_N8  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder2|count[0]~98             ; LCCOMB_X35_Y14_N2  ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|Selector32~0            ; LCCOMB_X41_Y13_N26 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|Selector33~0            ; LCCOMB_X41_Y13_N20 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder3|count[19]~98            ; LCCOMB_X41_Y13_N0  ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|Selector32~0            ; LCCOMB_X38_Y12_N12 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|Selector33~0            ; LCCOMB_X38_Y12_N0  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; quad_dec:decoder4|count[6]~98             ; LCCOMB_X38_Y12_N2  ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
-; reset5                                    ; FF_X19_Y26_N25     ; 36      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
-; sonar_FSM:sonar_FSM_01|updateDistance     ; LCCOMB_X27_Y9_N4   ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK5            ; --                        ;
-; sonar_FSM:sonar_FSM_02|updateDistance     ; LCCOMB_X27_Y1_N18  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK17           ; --                        ;
-; sonar_FSM:sonar_FSM_03|updateDistance     ; LCCOMB_X26_Y3_N28  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK16           ; --                        ;
-; sonar_FSM:sonar_FSM_04|updateDistance     ; LCCOMB_X23_Y5_N30  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK19           ; --                        ;
-; sonar_FSM:sonar_FSM_05|updateDistance     ; LCCOMB_X28_Y1_N30  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK15           ; --                        ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; clock_divider:clock_divider1|LessThan0~10 ; LCCOMB_X28_Y2_N0   ; 32      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
+; clock_divider:clock_divider1|clock_out    ; FF_X28_Y2_N25      ; 256     ; Clock                       ; yes    ; Global Clock         ; GCLK17           ; --                        ;
+; quad_dec:decoder1|Selector32~0            ; LCCOMB_X37_Y16_N4  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder1|Selector33~0            ; LCCOMB_X37_Y16_N8  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder1|count[12]~98            ; LCCOMB_X37_Y16_N2  ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder2|Selector32~0            ; LCCOMB_X36_Y14_N28 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder2|Selector33~0            ; LCCOMB_X36_Y14_N14 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder2|count[0]~98             ; LCCOMB_X36_Y14_N10 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder3|Selector32~0            ; LCCOMB_X38_Y15_N4  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder3|Selector33~0            ; LCCOMB_X38_Y15_N14 ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder3|count[22]~98            ; LCCOMB_X38_Y15_N2  ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder4|Selector32~0            ; LCCOMB_X35_Y12_N4  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder4|Selector33~0            ; LCCOMB_X35_Y12_N8  ; 2       ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; quad_dec:decoder4|count[30]~98            ; LCCOMB_X35_Y12_N18 ; 32      ; Clock enable                ; no     ; --                   ; --               ; --                        ;
+; reset5                                    ; FF_X30_Y5_N1       ; 36      ; Sync. clear                 ; no     ; --                   ; --               ; --                        ;
+; sonar_FSM:sonar_FSM_01|updateDistance     ; LCCOMB_X26_Y4_N14  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK19           ; --                        ;
+; sonar_FSM:sonar_FSM_02|updateDistance     ; LCCOMB_X31_Y8_N26  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK8            ; --                        ;
+; sonar_FSM:sonar_FSM_03|updateDistance     ; LCCOMB_X28_Y4_N28  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK15           ; --                        ;
+; sonar_FSM:sonar_FSM_04|updateDistance     ; LCCOMB_X27_Y3_N30  ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK16           ; --                        ;
+; sonar_FSM:sonar_FSM_05|updateDistance     ; LCCOMB_X34_Y11_N30 ; 20      ; Clock                       ; yes    ; Global Clock         ; GCLK7            ; --                        ;
 +-------------------------------------------+--------------------+---------+-----------------------------+--------+----------------------+------------------+---------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Global & Other Fast Signals                                                                                                                                                       ;
-+----------------------------------------+-------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
-; Name                                   ; Location          ; Fan-Out ; Fan-Out Using Intentional Clock Skew ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+----------------------------------------+-------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
-; CLOCK_50                               ; PIN_R8            ; 250     ; 0                                    ; Global Clock         ; GCLK18           ; --                        ;
-; GPIO_0[11]                             ; PIN_A6            ; 48      ; 0                                    ; Global Clock         ; GCLK11           ; --                        ;
-<<<<<<< HEAD
-; clock_divider:clock_divider1|clock_out ; FF_X20_Y16_N17    ; 256     ; 0                                    ; Global Clock         ; GCLK0            ; --                        ;
-; sonar_FSM:sonar_FSM_01|updateDistance  ; LCCOMB_X28_Y1_N26 ; 20      ; 0                                    ; Global Clock         ; GCLK16           ; --                        ;
-; sonar_FSM:sonar_FSM_02|updateDistance  ; LCCOMB_X28_Y4_N28 ; 20      ; 0                                    ; Global Clock         ; GCLK15           ; --                        ;
-; sonar_FSM:sonar_FSM_03|updateDistance  ; LCCOMB_X27_Y4_N28 ; 20      ; 0                                    ; Global Clock         ; GCLK17           ; --                        ;
-; sonar_FSM:sonar_FSM_04|updateDistance  ; LCCOMB_X28_Y2_N28 ; 20      ; 0                                    ; Global Clock         ; GCLK19           ; --                        ;
-; sonar_FSM:sonar_FSM_05|updateDistance  ; LCCOMB_X21_Y7_N14 ; 20      ; 0                                    ; Global Clock         ; GCLK3            ; --                        ;
-=======
-; clock_divider:clock_divider1|clock_out ; FF_X21_Y13_N5     ; 256     ; 0                                    ; Global Clock         ; GCLK2            ; --                        ;
-; sonar_FSM:sonar_FSM_01|updateDistance  ; LCCOMB_X27_Y9_N4  ; 20      ; 0                                    ; Global Clock         ; GCLK5            ; --                        ;
-; sonar_FSM:sonar_FSM_02|updateDistance  ; LCCOMB_X27_Y1_N18 ; 20      ; 0                                    ; Global Clock         ; GCLK17           ; --                        ;
-; sonar_FSM:sonar_FSM_03|updateDistance  ; LCCOMB_X26_Y3_N28 ; 20      ; 0                                    ; Global Clock         ; GCLK16           ; --                        ;
-; sonar_FSM:sonar_FSM_04|updateDistance  ; LCCOMB_X23_Y5_N30 ; 20      ; 0                                    ; Global Clock         ; GCLK19           ; --                        ;
-; sonar_FSM:sonar_FSM_05|updateDistance  ; LCCOMB_X28_Y1_N30 ; 20      ; 0                                    ; Global Clock         ; GCLK15           ; --                        ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
-+----------------------------------------+-------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Global & Other Fast Signals                                                                                                                                                        ;
++----------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
+; Name                                   ; Location           ; Fan-Out ; Fan-Out Using Intentional Clock Skew ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++----------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
+; CLOCK_50                               ; PIN_R8             ; 250     ; 0                                    ; Global Clock         ; GCLK18           ; --                        ;
+; GPIO_0[11]                             ; PIN_A6             ; 48      ; 0                                    ; Global Clock         ; GCLK11           ; --                        ;
+; clock_divider:clock_divider1|clock_out ; FF_X28_Y2_N25      ; 256     ; 0                                    ; Global Clock         ; GCLK17           ; --                        ;
+; sonar_FSM:sonar_FSM_01|updateDistance  ; LCCOMB_X26_Y4_N14  ; 20      ; 0                                    ; Global Clock         ; GCLK19           ; --                        ;
+; sonar_FSM:sonar_FSM_02|updateDistance  ; LCCOMB_X31_Y8_N26  ; 20      ; 0                                    ; Global Clock         ; GCLK8            ; --                        ;
+; sonar_FSM:sonar_FSM_03|updateDistance  ; LCCOMB_X28_Y4_N28  ; 20      ; 0                                    ; Global Clock         ; GCLK15           ; --                        ;
+; sonar_FSM:sonar_FSM_04|updateDistance  ; LCCOMB_X27_Y3_N30  ; 20      ; 0                                    ; Global Clock         ; GCLK16           ; --                        ;
+; sonar_FSM:sonar_FSM_05|updateDistance  ; LCCOMB_X34_Y11_N30 ; 20      ; 0                                    ; Global Clock         ; GCLK7            ; --                        ;
++----------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
 
 
 +------------------------------------------------+
@@ -1809,328 +1454,178 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+------------------------+
 ; Routing Resource Type ; Usage                  ;
 +-----------------------+------------------------+
-<<<<<<< HEAD
-; Block interconnects   ; 1,609 / 71,559 ( 2 % ) ;
-; C16 interconnects     ; 33 / 2,597 ( 1 % )     ;
-; C4 interconnects      ; 961 / 46,848 ( 2 % )   ;
-; Direct links          ; 360 / 71,559 ( < 1 % ) ;
+; Block interconnects   ; 1,645 / 71,559 ( 2 % ) ;
+; C16 interconnects     ; 38 / 2,597 ( 1 % )     ;
+; C4 interconnects      ; 1,045 / 46,848 ( 2 % ) ;
+; Direct links          ; 335 / 71,559 ( < 1 % ) ;
 ; Global clocks         ; 8 / 20 ( 40 % )        ;
-; Local interconnects   ; 772 / 24,624 ( 3 % )   ;
-; R24 interconnects     ; 37 / 2,496 ( 1 % )     ;
-; R4 interconnects      ; 1,128 / 62,424 ( 2 % ) ;
-=======
-; Block interconnects   ; 1,676 / 71,559 ( 2 % ) ;
-; C16 interconnects     ; 29 / 2,597 ( 1 % )     ;
-; C4 interconnects      ; 987 / 46,848 ( 2 % )   ;
-; Direct links          ; 375 / 71,559 ( < 1 % ) ;
-; Global clocks         ; 8 / 20 ( 40 % )        ;
-; Local interconnects   ; 762 / 24,624 ( 3 % )   ;
-; R24 interconnects     ; 30 / 2,496 ( 1 % )     ;
+; Local interconnects   ; 757 / 24,624 ( 3 % )   ;
+; R24 interconnects     ; 34 / 2,496 ( 1 % )     ;
 ; R4 interconnects      ; 1,118 / 62,424 ( 2 % ) ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 +-----------------------+------------------------+
 
 
 +-----------------------------------------------------------------------------+
 ; LAB Logic Elements                                                          ;
 +---------------------------------------------+-------------------------------+
-<<<<<<< HEAD
-; Number of Logic Elements  (Average = 12.10) ; Number of LABs  (Total = 106) ;
+; Number of Logic Elements  (Average = 11.00) ; Number of LABs  (Total = 117) ;
 +---------------------------------------------+-------------------------------+
-; 1                                           ; 8                             ;
-; 2                                           ; 7                             ;
+; 1                                           ; 19                            ;
+; 2                                           ; 6                             ;
 ; 3                                           ; 4                             ;
-; 4                                           ; 2                             ;
+; 4                                           ; 0                             ;
 ; 5                                           ; 1                             ;
 ; 6                                           ; 2                             ;
-; 7                                           ; 0                             ;
-; 8                                           ; 2                             ;
+; 7                                           ; 4                             ;
+; 8                                           ; 0                             ;
 ; 9                                           ; 1                             ;
-; 10                                          ; 2                             ;
-; 11                                          ; 1                             ;
-; 12                                          ; 1                             ;
-; 13                                          ; 4                             ;
+; 10                                          ; 4                             ;
+; 11                                          ; 2                             ;
+; 12                                          ; 2                             ;
+; 13                                          ; 9                             ;
 ; 14                                          ; 7                             ;
-; 15                                          ; 18                            ;
-=======
-; Number of Logic Elements  (Average = 11.26) ; Number of LABs  (Total = 114) ;
-+---------------------------------------------+-------------------------------+
-; 1                                           ; 13                            ;
-; 2                                           ; 8                             ;
-; 3                                           ; 6                             ;
-; 4                                           ; 1                             ;
-; 5                                           ; 2                             ;
-; 6                                           ; 2                             ;
-; 7                                           ; 0                             ;
-; 8                                           ; 1                             ;
-; 9                                           ; 2                             ;
-; 10                                          ; 2                             ;
-; 11                                          ; 1                             ;
-; 12                                          ; 4                             ;
-; 13                                          ; 6                             ;
-; 14                                          ; 8                             ;
-; 15                                          ; 12                            ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
-; 16                                          ; 46                            ;
+; 15                                          ; 7                             ;
+; 16                                          ; 49                            ;
 +---------------------------------------------+-------------------------------+
 
 
 +--------------------------------------------------------------------+
 ; LAB-wide Signals                                                   ;
 +------------------------------------+-------------------------------+
-<<<<<<< HEAD
-; LAB-wide Signals  (Average = 1.20) ; Number of LABs  (Total = 106) ;
+; LAB-wide Signals  (Average = 1.17) ; Number of LABs  (Total = 117) ;
 +------------------------------------+-------------------------------+
 ; 1 Async. clear                     ; 17                            ;
-; 1 Clock                            ; 62                            ;
+; 1 Clock                            ; 70                            ;
 ; 1 Clock enable                     ; 12                            ;
-; 1 Sync. clear                      ; 5                             ;
-; 2 Clocks                           ; 31                            ;
-=======
-; LAB-wide Signals  (Average = 1.11) ; Number of LABs  (Total = 114) ;
-+------------------------------------+-------------------------------+
-; 1 Async. clear                     ; 17                            ;
-; 1 Clock                            ; 63                            ;
-; 1 Clock enable                     ; 12                            ;
-; 1 Sync. clear                      ; 4                             ;
-; 2 Clocks                           ; 30                            ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; 1 Sync. clear                      ; 9                             ;
+; 2 Clocks                           ; 29                            ;
 +------------------------------------+-------------------------------+
 
 
 +------------------------------------------------------------------------------+
 ; LAB Signals Sourced                                                          ;
 +----------------------------------------------+-------------------------------+
-<<<<<<< HEAD
-; Number of Signals Sourced  (Average = 18.78) ; Number of LABs  (Total = 106) ;
+; Number of Signals Sourced  (Average = 17.09) ; Number of LABs  (Total = 117) ;
 +----------------------------------------------+-------------------------------+
 ; 0                                            ; 0                             ;
-; 1                                            ; 7                             ;
-; 2                                            ; 2                             ;
-; 3                                            ; 2                             ;
-; 4                                            ; 6                             ;
-; 5                                            ; 2                             ;
-; 6                                            ; 2                             ;
-; 7                                            ; 0                             ;
-; 8                                            ; 2                             ;
-; 9                                            ; 1                             ;
-; 10                                           ; 3                             ;
-; 11                                           ; 1                             ;
-; 12                                           ; 0                             ;
-; 13                                           ; 0                             ;
-; 14                                           ; 1                             ;
+; 1                                            ; 10                            ;
+; 2                                            ; 10                            ;
+; 3                                            ; 4                             ;
+; 4                                            ; 4                             ;
+; 5                                            ; 1                             ;
+; 6                                            ; 1                             ;
+; 7                                            ; 2                             ;
+; 8                                            ; 3                             ;
+; 9                                            ; 0                             ;
+; 10                                           ; 0                             ;
+; 11                                           ; 4                             ;
+; 12                                           ; 1                             ;
+; 13                                           ; 4                             ;
+; 14                                           ; 0                             ;
 ; 15                                           ; 2                             ;
-; 16                                           ; 7                             ;
-; 17                                           ; 3                             ;
-; 18                                           ; 3                             ;
-; 19                                           ; 4                             ;
-; 20                                           ; 4                             ;
-; 21                                           ; 3                             ;
+; 16                                           ; 5                             ;
+; 17                                           ; 2                             ;
+; 18                                           ; 5                             ;
+; 19                                           ; 0                             ;
+; 20                                           ; 3                             ;
+; 21                                           ; 5                             ;
 ; 22                                           ; 4                             ;
-; 23                                           ; 2                             ;
-; 24                                           ; 6                             ;
-; 25                                           ; 11                            ;
+; 23                                           ; 3                             ;
+; 24                                           ; 5                             ;
+; 25                                           ; 9                             ;
 ; 26                                           ; 4                             ;
 ; 27                                           ; 5                             ;
-; 28                                           ; 4                             ;
-; 29                                           ; 0                             ;
-; 30                                           ; 1                             ;
-; 31                                           ; 0                             ;
-; 32                                           ; 14                            ;
-=======
-; Number of Signals Sourced  (Average = 17.46) ; Number of LABs  (Total = 114) ;
-+----------------------------------------------+-------------------------------+
-; 0                                            ; 0                             ;
-; 1                                            ; 6                             ;
-; 2                                            ; 10                            ;
-; 3                                            ; 3                             ;
-; 4                                            ; 4                             ;
-; 5                                            ; 2                             ;
-; 6                                            ; 4                             ;
-; 7                                            ; 1                             ;
-; 8                                            ; 0                             ;
-; 9                                            ; 3                             ;
-; 10                                           ; 1                             ;
-; 11                                           ; 0                             ;
-; 12                                           ; 3                             ;
-; 13                                           ; 4                             ;
-; 14                                           ; 2                             ;
-; 15                                           ; 1                             ;
-; 16                                           ; 5                             ;
-; 17                                           ; 1                             ;
-; 18                                           ; 5                             ;
-; 19                                           ; 4                             ;
-; 20                                           ; 1                             ;
-; 21                                           ; 2                             ;
-; 22                                           ; 4                             ;
-; 23                                           ; 5                             ;
-; 24                                           ; 4                             ;
-; 25                                           ; 9                             ;
-; 26                                           ; 6                             ;
-; 27                                           ; 5                             ;
-; 28                                           ; 2                             ;
-; 29                                           ; 2                             ;
-; 30                                           ; 1                             ;
-; 31                                           ; 2                             ;
-; 32                                           ; 12                            ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; 28                                           ; 6                             ;
+; 29                                           ; 1                             ;
+; 30                                           ; 0                             ;
+; 31                                           ; 1                             ;
+; 32                                           ; 13                            ;
 +----------------------------------------------+-------------------------------+
 
 
 +---------------------------------------------------------------------------------+
 ; LAB Signals Sourced Out                                                         ;
 +-------------------------------------------------+-------------------------------+
-<<<<<<< HEAD
-; Number of Signals Sourced Out  (Average = 9.47) ; Number of LABs  (Total = 106) ;
+; Number of Signals Sourced Out  (Average = 8.71) ; Number of LABs  (Total = 117) ;
 +-------------------------------------------------+-------------------------------+
 ; 0                                               ; 0                             ;
-; 1                                               ; 13                            ;
-; 2                                               ; 10                            ;
-; 3                                               ; 9                             ;
-; 4                                               ; 9                             ;
-; 5                                               ; 8                             ;
-; 6                                               ; 3                             ;
-; 7                                               ; 6                             ;
-; 8                                               ; 1                             ;
-; 9                                               ; 4                             ;
-; 10                                              ; 6                             ;
-; 11                                              ; 4                             ;
+; 1                                               ; 20                            ;
+; 2                                               ; 13                            ;
+; 3                                               ; 8                             ;
+; 4                                               ; 8                             ;
+; 5                                               ; 12                            ;
+; 6                                               ; 6                             ;
+; 7                                               ; 2                             ;
+; 8                                               ; 3                             ;
+; 9                                               ; 2                             ;
+; 10                                              ; 4                             ;
+; 11                                              ; 6                             ;
 ; 12                                              ; 5                             ;
 ; 13                                              ; 1                             ;
-; 14                                              ; 1                             ;
-; 15                                              ; 0                             ;
-=======
-; Number of Signals Sourced Out  (Average = 8.91) ; Number of LABs  (Total = 114) ;
-+-------------------------------------------------+-------------------------------+
-; 0                                               ; 0                             ;
-; 1                                               ; 18                            ;
-; 2                                               ; 10                            ;
-; 3                                               ; 7                             ;
-; 4                                               ; 13                            ;
-; 5                                               ; 8                             ;
-; 6                                               ; 4                             ;
-; 7                                               ; 5                             ;
-; 8                                               ; 5                             ;
-; 9                                               ; 1                             ;
-; 10                                              ; 6                             ;
-; 11                                              ; 5                             ;
-; 12                                              ; 3                             ;
-; 13                                              ; 0                             ;
-; 14                                              ; 2                             ;
+; 14                                              ; 0                             ;
 ; 15                                              ; 1                             ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
-; 16                                              ; 10                            ;
-; 17                                              ; 4                             ;
+; 16                                              ; 11                            ;
+; 17                                              ; 3                             ;
 ; 18                                              ; 0                             ;
 ; 19                                              ; 0                             ;
 ; 20                                              ; 0                             ;
 ; 21                                              ; 0                             ;
 ; 22                                              ; 0                             ;
 ; 23                                              ; 0                             ;
-; 24                                              ; 1                             ;
-<<<<<<< HEAD
-; 25                                              ; 0                             ;
-; 26                                              ; 0                             ;
-; 27                                              ; 3                             ;
-; 28                                              ; 4                             ;
-; 29                                              ; 0                             ;
-; 30                                              ; 0                             ;
-; 31                                              ; 0                             ;
-; 32                                              ; 4                             ;
-=======
+; 24                                              ; 0                             ;
 ; 25                                              ; 1                             ;
 ; 26                                              ; 1                             ;
 ; 27                                              ; 2                             ;
-; 28                                              ; 3                             ;
-; 29                                              ; 2                             ;
+; 28                                              ; 4                             ;
+; 29                                              ; 0                             ;
 ; 30                                              ; 0                             ;
-; 31                                              ; 0                             ;
-; 32                                              ; 2                             ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; 31                                              ; 1                             ;
+; 32                                              ; 3                             ;
 +-------------------------------------------------+-------------------------------+
 
 
 +------------------------------------------------------------------------------+
 ; LAB Distinct Inputs                                                          ;
 +----------------------------------------------+-------------------------------+
-<<<<<<< HEAD
-; Number of Distinct Inputs  (Average = 13.53) ; Number of LABs  (Total = 106) ;
+; Number of Distinct Inputs  (Average = 12.49) ; Number of LABs  (Total = 117) ;
 +----------------------------------------------+-------------------------------+
 ; 0                                            ; 0                             ;
 ; 1                                            ; 0                             ;
-; 2                                            ; 4                             ;
-; 3                                            ; 6                             ;
-; 4                                            ; 11                            ;
-; 5                                            ; 17                            ;
+; 2                                            ; 12                            ;
+; 3                                            ; 3                             ;
+; 4                                            ; 14                            ;
+; 5                                            ; 13                            ;
 ; 6                                            ; 5                             ;
-; 7                                            ; 0                             ;
-; 8                                            ; 1                             ;
-; 9                                            ; 7                             ;
-; 10                                           ; 4                             ;
-; 11                                           ; 3                             ;
+; 7                                            ; 3                             ;
+; 8                                            ; 8                             ;
+; 9                                            ; 6                             ;
+; 10                                           ; 2                             ;
+; 11                                           ; 1                             ;
 ; 12                                           ; 3                             ;
-; 13                                           ; 2                             ;
-; 14                                           ; 2                             ;
-; 15                                           ; 3                             ;
+; 13                                           ; 1                             ;
+; 14                                           ; 5                             ;
+; 15                                           ; 1                             ;
 ; 16                                           ; 3                             ;
 ; 17                                           ; 2                             ;
-; 18                                           ; 5                             ;
+; 18                                           ; 4                             ;
 ; 19                                           ; 4                             ;
-; 20                                           ; 1                             ;
-; 21                                           ; 1                             ;
-; 22                                           ; 0                             ;
-; 23                                           ; 0                             ;
-; 24                                           ; 1                             ;
-; 25                                           ; 1                             ;
-; 26                                           ; 1                             ;
-; 27                                           ; 0                             ;
-; 28                                           ; 0                             ;
-; 29                                           ; 0                             ;
-; 30                                           ; 5                             ;
-; 31                                           ; 6                             ;
-; 32                                           ; 1                             ;
-; 33                                           ; 2                             ;
-; 34                                           ; 3                             ;
-; 35                                           ; 2                             ;
-=======
-; Number of Distinct Inputs  (Average = 12.90) ; Number of LABs  (Total = 114) ;
-+----------------------------------------------+-------------------------------+
-; 0                                            ; 0                             ;
-; 1                                            ; 0                             ;
-; 2                                            ; 7                             ;
-; 3                                            ; 4                             ;
-; 4                                            ; 16                            ;
-; 5                                            ; 17                            ;
-; 6                                            ; 7                             ;
-; 7                                            ; 7                             ;
-; 8                                            ; 1                             ;
-; 9                                            ; 7                             ;
-; 10                                           ; 2                             ;
-; 11                                           ; 2                             ;
-; 12                                           ; 2                             ;
-; 13                                           ; 0                             ;
-; 14                                           ; 0                             ;
-; 15                                           ; 0                             ;
-; 16                                           ; 1                             ;
-; 17                                           ; 2                             ;
-; 18                                           ; 2                             ;
-; 19                                           ; 5                             ;
-; 20                                           ; 1                             ;
+; 20                                           ; 2                             ;
 ; 21                                           ; 2                             ;
-; 22                                           ; 1                             ;
+; 22                                           ; 0                             ;
 ; 23                                           ; 2                             ;
 ; 24                                           ; 1                             ;
-; 25                                           ; 4                             ;
-; 26                                           ; 0                             ;
-; 27                                           ; 4                             ;
-; 28                                           ; 3                             ;
-; 29                                           ; 0                             ;
-; 30                                           ; 4                             ;
-; 31                                           ; 4                             ;
-; 32                                           ; 3                             ;
-; 33                                           ; 1                             ;
-; 34                                           ; 2                             ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; 25                                           ; 2                             ;
+; 26                                           ; 2                             ;
+; 27                                           ; 1                             ;
+; 28                                           ; 2                             ;
+; 29                                           ; 4                             ;
+; 30                                           ; 2                             ;
+; 31                                           ; 3                             ;
+; 32                                           ; 1                             ;
+; 33                                           ; 0                             ;
+; 34                                           ; 1                             ;
+; 35                                           ; 1                             ;
+; 36                                           ; 1                             ;
 +----------------------------------------------+-------------------------------+
 
 
@@ -2321,27 +1816,19 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------+----------------------+-------------------+
 ; Source Clock(s) ; Destination Clock(s) ; Delay Added in ns ;
 +-----------------+----------------------+-------------------+
-<<<<<<< HEAD
-; I/O             ; CLOCK_50             ; 9.0               ;
-=======
-; I/O             ; CLOCK_50             ; 7.3               ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+; I/O             ; CLOCK_50             ; 4.2               ;
 +-----------------+----------------------+-------------------+
 Note: For more information on problematic transfers, consider running the Fitter again with the Optimize hold timing option (Settings Menu) turned off.
 This will disable optimization of problematic paths and expose them for further analysis using the Timing Analyzer.
 
 
-+----------------------------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Details                                    ;
-+-----------------+--------------------------------------------+-------------------+
-; Source Register ; Destination Register                       ; Delay Added in ns ;
-+-----------------+--------------------------------------------+-------------------+
-<<<<<<< HEAD
-; CLOCK_50        ; sonar_FSM:sonar_FSM_01|counterRegister[19] ; 0.765             ;
-=======
-; CLOCK_50        ; sonar_FSM:sonar_FSM_05|counterRegister[19] ; 0.686             ;
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
-+-----------------+--------------------------------------------+-------------------+
++-----------------------------------------------------------------------------+
+; Estimated Delay Added for Hold Timing Details                               ;
++-----------------+---------------------------------------+-------------------+
+; Source Register ; Destination Register                  ; Delay Added in ns ;
++-----------------+---------------------------------------+-------------------+
+; CLOCK_50        ; sonar_FSM:sonar_FSM_03|state.COUNTING ; 0.582             ;
++-----------------+---------------------------------------+-------------------+
 Note: This table only shows the top 1 path(s) that have the largest delay added for hold.
 
 
@@ -2367,11 +1854,6 @@ Info (169124): Fitter converted 4 user pins into dedicated programming pins
 Warning (15714): Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
 Info (332104): Reading SDC File: 'DE0_NANO_ENC.SDC'
 Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
-<<<<<<< HEAD
-=======
-Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Register speed_tick_computer:stcOdo1|count2[0] is being clocked by clock_divider:clock_divider1|clock_out
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 Warning (332060): Node: GPIO_0[11] was determined to be a clock but was found without an associated clock assignment.
     Info (13166): Register spi_slave:spi_slave_instance|cnt[1] is being clocked by GPIO_0[11]
 Warning (332060): Node: clock_divider:clock_divider1|clock_out was determined to be a clock but was found without an associated clock assignment.
@@ -2392,48 +1874,35 @@ Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
     Info (332111): ======== ============
     Info (332111):   20.000     CLOCK_50
-Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 31
+Info (176353): Automatically promoted node CLOCK_50~input (placed in PIN R8 (CLK15, DIFFCLK_6p)) File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 31
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G18
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-<<<<<<< HEAD
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[0] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[1] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[2] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[3] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[4] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[5] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[6] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[7] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[8] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|counterRegister[9] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-=======
-        Info (176357): Destination node clock_divider:clock_divider1|clock_out File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 4
-        Info (176357): Destination node sonar_FSM:sonar_FSM_01|state.COUNTING File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 85
-        Info (176357): Destination node sonar_FSM:sonar_FSM_02|state.COUNTING File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 85
-        Info (176357): Destination node sonar_FSM:sonar_FSM_05|state.COUNTING File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 85
-        Info (176357): Destination node sonar_FSM:sonar_FSM_04|state.COUNTING File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 85
-        Info (176357): Destination node sonar_FSM:sonar_FSM_03|state.COUNTING File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 85
-        Info (176357): Destination node sonar_FSM:sonar_FSM_01|counterRegister[4] File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_01|counterRegister[5] File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_01|counterRegister[0] File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
-        Info (176357): Destination node sonar_FSM:sonar_FSM_01|counterRegister[8] File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[0] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[1] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[2] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[3] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[4] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[5] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[6] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[7] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[8] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
+        Info (176357): Destination node sonar_FSM:sonar_FSM_02|counterRegister[9] File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 64
         Info (176358): Non-global destination nodes limited to 10 nodes
-Info (176353): Automatically promoted node GPIO_0[11]~input (placed in PIN A6 (DIFFIO_T7n, DATA14, DQS3T/CQ3T#,DPCLK11)) File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
+Info (176353): Automatically promoted node GPIO_0[11]~input (placed in PIN A6 (DIFFIO_T7n, DATA14, DQS3T/CQ3T#,DPCLK11)) File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G11
-Info (176353): Automatically promoted node clock_divider:clock_divider1|clock_out  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 4
+Info (176353): Automatically promoted node clock_divider:clock_divider1|clock_out  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 4
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node clock_divider:clock_divider1|clock_out~0 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 4
-Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_01|updateDistance  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
+        Info (176357): Destination node clock_divider:clock_divider1|clock_out~0 File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/clock_divider.sv Line: 4
+Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_01|updateDistance  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_02|updateDistance  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
+Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_02|updateDistance  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_03|updateDistance  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
+Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_03|updateDistance  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_04|updateDistance  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
+Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_04|updateDistance  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_05|updateDistance  File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
+Info (176353): Automatically promoted node sonar_FSM:sonar_FSM_05|updateDistance  File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/sonar_FSM.sv Line: 43
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
 Info (176233): Starting register packing
 Info (176235): Finished register packing
@@ -2455,38 +1924,25 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "GPIO_2_IN[0]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "GPIO_2_IN[1]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "GPIO_2_IN[2]" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:02
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info (170191): Fitter placement operations beginning
 Info (170137): Fitter placement was successful
-<<<<<<< HEAD
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:00
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 1% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 9% of the available device resources in the region that extends from location X21_Y0 to location X31_Y10
+    Info (170196): Router estimated peak interconnect usage is 15% of the available device resources in the region that extends from location X21_Y11 to location X31_Y22
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.38 seconds.
-=======
-Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
-Info (170193): Fitter routing operations beginning
-Info (170195): Router estimated average interconnect usage is 1% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 13% of the available device resources in the region that extends from location X21_Y11 to location X31_Y22
-Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
-    Info (170201): Optimizations that may affect the design's routability were skipped
-    Info (170200): Optimizations that may affect the design's timing were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
-Info (11888): Total time spent on timing analysis during the Fitter is 0.68 seconds.
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
+Info (11888): Total time spent on timing analysis during the Fitter is 0.29 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-<<<<<<< HEAD
 Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 75 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
@@ -2635,169 +2091,15 @@ Warning (169064): Following 67 pins have no output enable or a GND or VCC output
     Info (169065): Pin GPIO_1[33] has a permanently disabled output enable File: C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
 Info (144001): Generated suppressed messages file C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 30 warnings
-    Info: Peak virtual memory: 5526 megabytes
-    Info: Processing ended: Sat Apr 16 10:36:35 2022
+    Info: Peak virtual memory: 5525 megabytes
+    Info: Processing ended: Sat Apr 16 14:27:30 2022
     Info: Elapsed time: 00:00:08
     Info: Total CPU time (on all processors): 00:00:10
-=======
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
-Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
-Warning (169177): 75 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin GPIO_0_IN[0] uses I/O standard 3.3-V LVTTL at A8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
-    Info (169178): Pin GPIO_0_IN[1] uses I/O standard 3.3-V LVTTL at B8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 41
-    Info (169178): Pin GPIO_1_IN[0] uses I/O standard 3.3-V LVTTL at T9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
-    Info (169178): Pin GPIO_1_IN[1] uses I/O standard 3.3-V LVTTL at R9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 44
-    Info (169178): Pin GPIO_0[0] uses I/O standard 3.3-V LVTTL at D3 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[1] uses I/O standard 3.3-V LVTTL at C3 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[2] uses I/O standard 3.3-V LVTTL at A2 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[3] uses I/O standard 3.3-V LVTTL at A3 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[4] uses I/O standard 3.3-V LVTTL at B3 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[5] uses I/O standard 3.3-V LVTTL at B4 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[6] uses I/O standard 3.3-V LVTTL at A4 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[7] uses I/O standard 3.3-V LVTTL at B5 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[8] uses I/O standard 3.3-V LVTTL at A5 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[10] uses I/O standard 3.3-V LVTTL at B6 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[12] uses I/O standard 3.3-V LVTTL at B7 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[14] uses I/O standard 3.3-V LVTTL at A7 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[16] uses I/O standard 3.3-V LVTTL at C8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[17] uses I/O standard 3.3-V LVTTL at E6 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[18] uses I/O standard 3.3-V LVTTL at E7 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[19] uses I/O standard 3.3-V LVTTL at D8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[20] uses I/O standard 3.3-V LVTTL at E8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[21] uses I/O standard 3.3-V LVTTL at F8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[22] uses I/O standard 3.3-V LVTTL at F9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[23] uses I/O standard 3.3-V LVTTL at E9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[24] uses I/O standard 3.3-V LVTTL at C9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[25] uses I/O standard 3.3-V LVTTL at D9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[26] uses I/O standard 3.3-V LVTTL at E11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[27] uses I/O standard 3.3-V LVTTL at E10 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[28] uses I/O standard 3.3-V LVTTL at C11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[29] uses I/O standard 3.3-V LVTTL at B11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[30] uses I/O standard 3.3-V LVTTL at A12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[31] uses I/O standard 3.3-V LVTTL at D11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[32] uses I/O standard 3.3-V LVTTL at D12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[33] uses I/O standard 3.3-V LVTTL at B12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_1[2] uses I/O standard 3.3-V LVTTL at T14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[4] uses I/O standard 3.3-V LVTTL at R13 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[6] uses I/O standard 3.3-V LVTTL at R12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[8] uses I/O standard 3.3-V LVTTL at T10 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[18] uses I/O standard 3.3-V LVTTL at R16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[19] uses I/O standard 3.3-V LVTTL at L15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[20] uses I/O standard 3.3-V LVTTL at P15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[21] uses I/O standard 3.3-V LVTTL at P16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[22] uses I/O standard 3.3-V LVTTL at R14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[23] uses I/O standard 3.3-V LVTTL at N16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[24] uses I/O standard 3.3-V LVTTL at N15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[25] uses I/O standard 3.3-V LVTTL at P14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[26] uses I/O standard 3.3-V LVTTL at L14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[28] uses I/O standard 3.3-V LVTTL at M10 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[30] uses I/O standard 3.3-V LVTTL at J16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[32] uses I/O standard 3.3-V LVTTL at J13 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_0[9] uses I/O standard 3.3-V LVTTL at D5 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[11] uses I/O standard 3.3-V LVTTL at A6 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[13] uses I/O standard 3.3-V LVTTL at D6 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_0[15] uses I/O standard 3.3-V LVTTL at C6 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169178): Pin GPIO_1[0] uses I/O standard 3.3-V LVTTL at F13 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[1] uses I/O standard 3.3-V LVTTL at T15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[3] uses I/O standard 3.3-V LVTTL at T13 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[5] uses I/O standard 3.3-V LVTTL at T12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[7] uses I/O standard 3.3-V LVTTL at T11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[9] uses I/O standard 3.3-V LVTTL at R11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[10] uses I/O standard 3.3-V LVTTL at P11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[11] uses I/O standard 3.3-V LVTTL at R10 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[12] uses I/O standard 3.3-V LVTTL at N12 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[13] uses I/O standard 3.3-V LVTTL at P9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[14] uses I/O standard 3.3-V LVTTL at N9 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[15] uses I/O standard 3.3-V LVTTL at N11 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[16] uses I/O standard 3.3-V LVTTL at L16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[17] uses I/O standard 3.3-V LVTTL at K16 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[27] uses I/O standard 3.3-V LVTTL at N14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[29] uses I/O standard 3.3-V LVTTL at L13 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[31] uses I/O standard 3.3-V LVTTL at K15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin GPIO_1[33] uses I/O standard 3.3-V LVTTL at J14 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVTTL at R8 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 31
-    Info (169178): Pin KEY[0] uses I/O standard 3.3-V LVTTL at J15 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 37
-    Info (169178): Pin KEY[1] uses I/O standard 3.3-V LVTTL at E1 File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 37
-Warning (169064): Following 67 pins have no output enable or a GND or VCC output enable - later changes to this connectivity may change fitting results
-    Info (169065): Pin GPIO_0[0] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[1] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[2] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[3] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[4] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[5] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[6] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[7] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[8] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[10] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[12] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[14] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[16] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[17] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[18] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[19] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[20] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[21] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[22] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[23] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[24] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[25] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[26] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[27] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[28] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[29] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[30] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[31] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[32] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[33] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_1[2] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[4] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[6] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[8] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[18] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[19] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[20] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[21] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[22] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[23] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[24] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[25] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[26] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[28] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[30] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[32] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_0[9] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[11] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_0[15] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 40
-    Info (169065): Pin GPIO_1[0] has a permanently enabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[1] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[3] has a permanently enabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[5] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[7] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[9] has a permanently enabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[10] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[11] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[12] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[13] has a permanently enabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[14] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[15] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[16] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[17] has a permanently enabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[27] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[29] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[31] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-    Info (169065): Pin GPIO_1[33] has a permanently disabled output enable File: C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.sv Line: 43
-Info (144001): Generated suppressed messages file C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.fit.smsg
-Info: Quartus Prime Fitter was successful. 0 errors, 30 warnings
-    Info: Peak virtual memory: 5528 megabytes
-    Info: Processing ended: Sat Apr 16 09:58:56 2022
-    Info: Elapsed time: 00:00:20
-    Info: Total CPU time (on all processors): 00:00:22
->>>>>>> 9ec9239fc542539bbbc855dddfd03fab15873308
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/franc/LELME2002_Robot_code/git/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.fit.smsg.
+The suppressed messages can be found in C:/Master 1/Q8/LELME2002 - Project in Mechatronics/Code/Tutankabot/Botfinal_Quartus/DE0_NANO_ENC.fit.smsg.
 
 
