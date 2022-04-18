@@ -237,8 +237,11 @@ void update_opponent_location(Controller* ctrl){
 	for (int i = 0 ; i < nb_lidar_data ; i++){
 		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
-			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->x - 0.00294*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
-			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->y - 0.00294*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ;
+			// Delta_lat = 111.96-104.96 = 7mm 
+			// Delta_long = 161.53-196.53 = -35mm
+			// We have to make sure that it is 5.5Hz 
+			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
+			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
@@ -257,6 +260,46 @@ void update_opponent_location(Controller* ctrl){
 	ctrl->y_opp = loc_opponent_final[1] ; 
 }
 
+void triangulation(Controller* ctrl){
+	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+	double v = ctrl->v_ref ; 
+	double w = ctrl->w_ref ; 
+	double b1_radius[nb_lidar_data], b2_radius[nb_lidar_data], b3_radius[nb_lidar_data] ;
+	double b1_angle[nb_lidar_data], b2_angle[nb_lidar_data], b3_angle[nb_lidar_data] ; 
+	int ib1=0, ib2=0, ib3=0 ; 
+	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ;
+	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
+	double x_curr, y_curr ; 
+	for (int i = 0 ; i < nb_lidar_data ; i++){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
+			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
+			// Delta_lat = 111.96-104.96 = 7mm 
+			// Delta_long = 161.53-196.53 = -35mm
+			// We have to make sure that it is 5.5Hz 
+			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
+			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
+			// Beacon1 est en face à gauche de la position de départ
+			// Beacon2 est en face à droite de la position de départ 
+			// Beacon3 est derrière au milieu de la position de départ 
+			if(check_beacon1(x_curr, y_curr, ctrl->team)){ 
+				b1_radius[ib1] = ctrl->lidar_distance[i] ; 
+				b1_angle[ib1] = ctrl->lidar_angles[i] ;
+				ib1++ ; 
+			} else if(check_beacon2(x_curr, y_curr, ctrl->team)){ 
+				b2_radius[ib2] = ctrl->lidar_distance[i] ; 
+				b2_angle[ib2] = ctrl->lidar_angles[i] ;
+				ib2++ ; 
+			} else if(check_beacon3(x_curr, y_curr, ctrl->team)){ 
+				b3_radius[ib3] = ctrl->lidar_distance[i] ; 
+				b3_angle[ib3] = ctrl->lidar_angles[i] ;
+				ib3++ ; 
+			}
+		}
+	}
+}
+
+
+
 void updateTime (Controller* cvs){
 	cvs->t1 = std::chrono::high_resolution_clock::now();
 	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
@@ -265,7 +308,7 @@ void updateTime (Controller* cvs){
 
 void make_angle(Controller* ctrl, double angle){
 	double kp_angle = 0.3 ; 	
-	double w_ref = kp_angle*(ctrl->theta-angle) ;
+	double wref = kp_angle*(ctrl->theta-angle) ;
 	if (wref > 1.0){
 		wref = 1.0 ; 
 	} else if (wref < -1.0){
