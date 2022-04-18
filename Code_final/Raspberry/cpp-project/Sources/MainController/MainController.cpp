@@ -229,27 +229,17 @@ void update_opponent_location(Controller* ctrl){
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
 	double loc_opponent[nb_lidar_data][2] ;  
-	double beacon1[nb_lidar_data][2], beacon2[nb_lidar_data][2], beacon3[nb_lidar_data][2] ;
-	int ib1=0, ib2=0, ib3=0, io1=0, io2=0 ; 
+	int io1=0, io2=0 ; 
 	double loc_opponent_final[2] ; 
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ;
 	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
 	double x_curr, y_curr ; 
 	for (int i = 0 ; i < nb_lidar_data ; i++){
-		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 7.5){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->x - 0.00294*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.0 ) + ctrl->y - 0.00294*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ;
-			if (check_beacon1(x_curr,y_curr)){
-				beacon1[ib1][0] = x_curr ; beacon1[ib1][1] = y_curr ; 
-				ib1++ ; 
-			} else if (check_beacon2(x_curr,y_curr)){
-				beacon2[ib2][0] = x_curr ; beacon2[ib2][1] = y_curr ; 
-				ib2++ ;
-			} else if (check_beacon3(x_curr,y_curr)){
-				beacon3[ib3][0] = x_curr ; beacon3[ib3][1] = y_curr ; 
-				ib3++ ; 
-			} else if (x_curr > 0.0 && x_curr < 2.0 && y_curr > 0.0 && y_curr < 3.0){
+			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -295,7 +285,7 @@ void make_x(Controller* ctrl, double x){
 	ctrl->v_ref = vref ; 
 }
 
-void make_x(Controller* ctrl, double y){
+void make_y(Controller* ctrl, double y){
 	double kp_dist = 0.5 ; 
 	double vref = kp_dist*(ctrl->y-y) ; 
 	if (vref > 0.2){
