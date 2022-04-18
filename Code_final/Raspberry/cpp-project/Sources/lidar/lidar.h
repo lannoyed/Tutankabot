@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "rplidar.h"
 #include <chrono>
+#include <math.h>
 
 void connectLidar();
 
