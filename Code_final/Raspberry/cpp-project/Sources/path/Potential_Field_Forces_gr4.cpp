@@ -1088,7 +1088,15 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    myPotentialField->addGoal(std::make_tuple(1, 1), 10.0, true);      // 1 point.   
+    //myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 10.0, true);      // Goal de test.
+
+
+    // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
+    myPotentialField->addGoal(std::make_tuple(1.7, 0.6675), 10.0, true);    // On arrive proche des premières probes. 
+    myPotentialField->addGoal(std::make_tuple(1.7, 1.5), 10.0, true);       // Goal de modélisation, à supprimer après.
+    myPotentialField->addGoal(std::make_tuple(0.6, 0.3), 10.0, true);       // Retour à la base en passant par les samples.
+    myPotentialField->addGoal(std::make_tuple(0.3, 0.255), 10.0, true);     // Statuette 1.
+    myPotentialField->addGoal(std::make_tuple(1.49, 0.51), 10.0, true);     // Statuette 2.
 }
 
 

@@ -75,12 +75,12 @@
 #define rho0_tige 0.05
 #define krep_tige 8e-7
 //SAMPLES
-#define rho0_sample 0.1
-#define krep_sample 8e-4
+#define rho0_sample 0.05
+#define krep_sample 8e-7
 //OPPONENT
 // Tradeoff possible : lorsque le krep sera beaucoup plus petit, on devra peut-être augmenter le rho0. 
-#define rho0_opponent   0.45
-#define krep_opponent   1e-7 
+#define rho0_opponent   0.5
+#define krep_opponent   1e-6 
 #define hitbox_opponent 0.15    
 //HITBOX GÉNÉRALE DES OBSTACLES : modifiable. TAG.
 #define hitbox_obstacle 0.0 
@@ -90,8 +90,8 @@
 
 
 // speed max define 
-#define global_vMax 0.1     
-#define global_wMax 0.2
+#define global_vMax 0.2 
+#define global_wMax 1.4
 
 
 

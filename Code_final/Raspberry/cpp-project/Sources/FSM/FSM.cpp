@@ -127,7 +127,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     std::cout<< "update lidar : " << deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
-    update_opponent_location(cvs) ; 
+    //update_opponent_location(cvs) ; 
 	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
     std::cout<< "update oponent" << deltaT_process <<"\n";
@@ -136,7 +136,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     t10 = std::chrono::high_resolution_clock::now() ; 
     if (time_last_update_lidar + lidar_periode < cvs->time ){ // tuple de doubles.
         //positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
-        positionOpponent1Averaged = Filter(std::make_tuple(10.0, 10.0), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
+        positionOpponent1Averaged = Filter(std::make_tuple(10.0,10.0), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
         
         time_last_update_lidar = cvs->time;
     }
@@ -148,9 +148,9 @@ void FSM_loop(Controller *cvs, double deltaT){
     fprintf(lidar_smoothing, "%d %d %f %f \n",  std::get<0>(positionOpponent1Averaged),std::get<1>(positionOpponent1Averaged), cvs->x_opp, cvs->y_opp) ;
     //std::cout << "first print \n";
     
-    if(cvs->state != STATE_CALIBRATION){
+    /*if(cvs->state != STATE_CALIBRATION){
         myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
-    }
+    }*/
 
     if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
         cvs->state = STOP;
@@ -426,9 +426,9 @@ void FSM_loop_update_before (Controller* cvs){
 
     fprintf(lidar_smoothing, "%d %d %d %d \n",  std::get<0>(positionOpponent1Averaged),std::get<1>(positionOpponent1Averaged), cvs->x_opp, cvs->y_opp) ;
     
-    if(cvs->state != STATE_CALIBRATION){
+    /*if(cvs->state != STATE_CALIBRATION){
         myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
-    }
+    }*/
 
     if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
         cvs->state = STOP;
