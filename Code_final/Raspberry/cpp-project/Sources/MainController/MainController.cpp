@@ -87,13 +87,13 @@ void odometryCalibration(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now(); 
 	switch (ctrl->team) {
 		case PURPLE :
-			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.8 ; 
+			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.7 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 1.5 ; time2 = 5.0 ; 
 			w1 = 1.0 ; w2 = -1.0 ;
 			break ; 
 		case YELLOW :
-			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.2 ; 
+			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.3 ; 
 			calib1 = 0.145 ; calib2 = M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 2.0 ; time2 = 5.0 ; 
 			w1 = -1.0 ; w2 = 1.0 ;
@@ -260,7 +260,7 @@ void update_opponent_location(Controller* ctrl){
 void updateTime (Controller* cvs){
 	cvs->t1 = std::chrono::high_resolution_clock::now();
 	cvs->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (cvs->t1-cvs->t0);
-	cvs->time = cvs->Dt.count() -18.0;
+	cvs->time = cvs->Dt.count() -22.0;
 }
 
 void make_angle(Controller* ctrl, double angle){
