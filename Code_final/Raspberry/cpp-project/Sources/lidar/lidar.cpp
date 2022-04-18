@@ -1,6 +1,7 @@
 #include "lidar.h"
 
 rp::standalone::rplidar::RPlidarDriver* lidar;
+enum {PURPLE, YELLOW} ; 
 
 void connectLidar(){ //connects lidar and starts scanning in background
 
@@ -72,29 +73,59 @@ void update_lidar_data(std::chrono::high_resolution_clock::time_point last_lidar
 	last_lidar_update = std::chrono::high_resolution_clock::now() ;
 }
 
-int check_beacon1(double x, double y){
-	if (y < 3.2 && y > 2.95){
-		if (x > -0.2 && x < 0.4){
-			return 1 ; 
-		}
+int check_beacon1(double x, double y, int team){
+	if (team == YELLOW){
+		if (y < 3.3 && y > 2.9){
+			if (x > -0.1 && x < 0.4){
+				return 1 ; 
+			}
+		} return 0 ; 
+	} else if (team == PURPLE){
+		if (y > -0.3 && y < 0.1){
+			if (x >1.7 && x < 2.1){
+				return 1 ; 
+			}
+		} return 0 ; 
+	} else{
+		return 0 ; 
 	}
 	return 0 ; 
 }
 
-int check_beacon2(double x, double y){
-	if (y < 3.2 && y > 2.95){
-		if (x > 1.85 && x < 2.05){
-			return 1 ; 
-		}
+int check_beacon2(double x, double y, int team){
+	if (team == YELLOW){
+		if (y < 3.3 && y > 2.9){
+			if (x > 1.9 && x < 2.1){
+				return 1 ;
+			}				
+		} return 0 ; 
+	} else if (team == 	PURPLE){
+		if (y > -0.3 && y < 0.1){
+			if(x > 1.7 && x < 2.1){
+				return 1 ; 
+			}
+		} return 0 ; 
+	} else {
+		return 0 ; 
 	}
 	return 0 ; 
 }
 
-int check_beacon3(double x, double y){
-	if (y > -0.2 && y < 0.05){
-		if (x > 0.9 && x < 1.1){
-			return 1 ; 
-		}
+int check_beacon3(double x, double y, int team){
+	if (team == YELLOW){
+		if (y > -0.2 && y < 0.05){
+			if (x > 0.8 && x < 1.2){
+				return 1 ; 
+			}
+		} return 0 ;
+	} else if (team == PURPLE){
+		if (y < 3.3 && y > 2.9){
+			if (x > 0.8 && x < 1.2){
+				return 1 ; 
+			}
+		} return 0 ; 
+	} else {
+		return 0 ; 
 	}
-	return 0 ;
+	return 0 ; 
 }
