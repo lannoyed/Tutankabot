@@ -180,11 +180,11 @@ void FSM_loop(Controller *cvs, double deltaT){
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
                 returnBaseTime = false;
-                #ifdef  SIMU_PROJECT
+                //#ifdef  SIMU_PROJECT
                     initGoals(&myPotentialField, cvs->inputs->robot_id);
-                #else
+                /*#else
                     initGoalsTest(&myPotentialField, team_number);
-                #endif // 6 
+                #endif */ // 6 
                 cvs->state = STATE_GO2GOAL;
             }
             break;
