@@ -267,7 +267,7 @@ public:
     void goalStolenByOpponent(std::tuple<double, double> positionOpponent1Averaged, std::tuple<double, double> positionOpponent2Averaged);
 
     //global 
-    void updatePotentialField(Controller *cvs);
+
     
 };
 
@@ -281,14 +281,16 @@ std::string tupleToString(std::tuple <double, double> entry);
 
 Potential_Field initPotentialField();
 void initGoals(Potential_Field * myPotential_Field, int teamNumber);
+void initGoalsTest(Potential_Field * myPotential_Field, int teamNumber);
 
 // permet d'itérer le potential field à chaque pas de temps :
 //  *   update the repulsive force
 //  *   update the attaction force
 //  *   update vRef and wRef
 
-std::tuple<double,double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, std::ofstream & myFile);
+std::tuple<double,double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, FILE * myFile);
 std::tuple<double,double> iterPotentialField(Potential_Field myPotential_Field, double dt);
 
 std::tuple<double, double> Filter(std::tuple<double, double> speedVector,  std::deque<double>*  stack, double * ouput1_filtered, double *output2_filtered);
 
+void updatePotentialField(Potential_Field* myPotential_Field, Controller *cvs);

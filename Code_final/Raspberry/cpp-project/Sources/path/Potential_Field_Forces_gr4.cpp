@@ -31,7 +31,7 @@ void Potential_Field::setPosition(const std::tuple<double, double> &position) {
     }else{
         didntMove = 0;
     }
-
+    std::cout<< std::get<0>(position) << " " << std::get<1>(position) <<"\n"; 
     current_position = position;
 }
 
@@ -203,7 +203,7 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
     }
 
     if (std::isnan(totalRepForceX ) || std::isnan(totalRepForceY) ) {
-        std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "\n"; 
+        std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "and weight of : " << currentGoal.weight  << "\n"; 
         return std::make_tuple(0.0,0.0);
     }
 
@@ -267,7 +267,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     } else {
         omega = S * acos(cosTheta) / dt;
     }
-
+    
     // Limiteur de vitesse : on ne peut pas aller à max vitesse tout droit et angulaire.
     if (omega >= omegaMax) {
         double dTheta = (omegaMax - omega) * dt;
@@ -279,7 +279,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
         // nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * cos(dTheta) - std::get<1>(nextSpeedVector) * sin(dTheta),std::get<0>(nextSpeedVector) * sin(dTheta) + std::get<1>(nextSpeedVector) * cos(dTheta));
     }
 
-    double vMaxReal = vMax*  ( 1 - std::fabs(omega) / omegaMax) ;
+    double vMaxReal = vMax; //*  ( 1 - std::fabs(omega) / omegaMax) ;
     if (vRefNext > vMaxReal) {
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
                                           std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
@@ -495,7 +495,7 @@ std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, d
     std::tuple<double, double> value ; 
     value = currentGoal.attForce(std::move(position));
     if (std::isnan(std::get<0>(value) )  || std::isnan(std::get<1>(value) )){
-        std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "\n"; 
+        std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "and weight of : " << currentGoal.weight << "\n"; 
         return std::make_tuple(0.0,0.0);
     }
     return value;
@@ -561,9 +561,11 @@ void Potential_Field::goalStolenByOpponent(std::tuple<double, double> positionOp
     //}
 }
 
-void Potential_Field::updatePotentialField(Controller *cvs){
-    setPosition(std::make_tuple(cvs->x, cvs->y)); // récuperation de x et y
-    setSpeedVector( (double) cvs->theta);                  // récuperation de theta
+void updatePotentialField(Potential_Field* myPotentialField, Controller *cvs){
+    std::cout<<cvs->x << " " << cvs->y << "\n";
+    std::cout<<(double) cvs->x << " " << (double) cvs->y << "\n";
+    myPotentialField->setPosition(std::make_tuple((double) cvs->x, (double) cvs->y)); // récuperation de x et y
+    myPotentialField->setSpeedVector( (double) cvs->theta);                  // récuperation de theta
     //std::tuple<double, double> positionOpponent1Averaged = myPotentialField.speedFilter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1] ));
     /* TO DO ATTENTION LIDAR
     opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]));
@@ -1063,16 +1065,25 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 }
 
 
-std::tuple<double, double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, std::ofstream &myFile) {
-        myPotential_Field->current_position = myPotential_Field->getPosition();
+void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
+    myPotentialField->addGoal(std::make_tuple(1, 1), 20,     true);      // 1 point.   
+}
+
+
+std::tuple<double, double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, FILE  * myFile) {
+        //myPotential_Field->current_position = myPotential_Field->getPosition();
         std::tuple<double, double> myRepulsiveForce = myPotential_Field->totalRepulsiveForce();
         std::tuple<double, double> attractionForce = myPotential_Field->attractiveForce(myPotential_Field->current_position);
-        std::tuple<double, double> mySpeed = myPotential_Field->getSpeedVector(dt, 0.4446, 4.9, myPotential_Field->current_position);
-        myFile << tupleToString(myPotential_Field->current_position) << " ";
-        myFile << tupleToString(myRepulsiveForce) << " ";
-        myFile << tupleToString(attractionForce) << " ";
-        myFile << tupleToString(mySpeed) << " ";
-        myFile << tupleToString(myPotential_Field->currentSpeedVector) << "\n";
+        std::tuple<double, double> mySpeed = myPotential_Field->getSpeedVector(dt, global_vMax, global_wMax, myPotential_Field->current_position);
+        
+        std::cout<< "in \n";
+        std::cout << std::get<0>(myPotential_Field->current_position) << " " <<   std::get<1>(myPotential_Field->current_position) << "\n"; 
+        fprintf( myFile, "%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",  
+                                                              (float)std::get<0>(myPotential_Field->current_position),   (float)std::get<1>(myPotential_Field->current_position), 
+                                                              (float)std::get<0>(myRepulsiveForce),                      (float)std::get<1>(myRepulsiveForce), 
+                                                              (float)std::get<0>(attractionForce),                       (float)std::get<1>(attractionForce), 
+                                                              (float)std::get<0>(mySpeed),                               (float)std::get<1>(mySpeed), 
+                                                              (float)std::get<0>(myPotential_Field->currentSpeedVector), (float)std::get<1>(myPotential_Field->currentSpeedVector) ) ;
         if (std::get<0>(mySpeed) == 0 && std::get<1>(mySpeed) == 0){
             myPotential_Field->willNotMove = true;
         }else{
