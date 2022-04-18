@@ -6,8 +6,8 @@ enum {PURPLE, YELLOW} ;
 Controller* ControllerInit(){
 	Controller* ctrl = (Controller*)malloc(sizeof(Controller)) ; 
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
-	ctrl->sc1 = speedControllerInit(3, 0.2, 40, -40, 0.0, 5, 1) ; 
-	ctrl->sc2 = speedControllerInit(3, 0.2, 40, -40, 0.0, 4, 2) ; 
+	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
+	ctrl->sc2 = speedControllerInit(3, 0.2, 30, -30, 0.0, 4, 2) ; 
 	ctrl->x = 0 ; 
 	ctrl->y = 0 ; 
 	ctrl->theta = 0 ; 

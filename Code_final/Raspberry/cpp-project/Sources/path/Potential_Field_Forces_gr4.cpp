@@ -210,6 +210,14 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
 
     std::tuple<double, double> totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
 
+    if (sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2)) > LIMIT_REPULSIVE_FORCE)
+    {
+        // On normalise puis on retourne la valeur.
+        double newValueX = (totalRepForceX / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        double newValueY = (totalRepForceY / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        totalRepForce = std::make_tuple(newValueX, newValueY);
+    }
+
     return totalRepForce;
 }
 
@@ -498,6 +506,16 @@ std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, d
         std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "and weight of : " << currentGoal.weight << "\n"; 
         return std::make_tuple(0.0,0.0);
     }
+
+    // Limiteur de force. Si la norme du vecteur est plus grande que la limite, on limite.
+    if (sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2)) > LIMIT_ATTRACTIVE_FORCE)
+    {
+        // On normalise puis on retourne la valeur.
+        double newValueX = (std::get<0>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
+        double newValueY = (std::get<1>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
+        value = std::make_tuple(newValueX, newValueY);
+    }
+
     return value;
 }
 
@@ -1039,7 +1057,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
         myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 5000.0,   true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
 
         // More accessory goals on the other side of the map.
     }
@@ -1052,7 +1070,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
         myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 5000.0,   true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
 
         myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
 
@@ -1066,7 +1084,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    myPotentialField->addGoal(std::make_tuple(1, 1), 20,     true);      // 1 point.   
+    myPotentialField->addGoal(std::make_tuple(1, 1), 10.0, true);      // 1 point.   
 }
 
 
