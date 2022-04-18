@@ -210,6 +210,14 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
 
     std::tuple<double, double> totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
 
+    if (sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2)) > LIMIT_REPULSIVE_FORCE)
+    {
+        // On normalise puis on retourne la valeur.
+        double newValueX = (totalRepForceX / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        double newValueY = (totalRepForceY / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        totalRepForce = std::make_tuple(newValueX, newValueY);
+    }
+
     return totalRepForce;
 }
 
@@ -498,6 +506,16 @@ std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, d
         std::cout << "nan value for position :" << tupleToString(current_position) << "\n for goal :" << tupleToString(currentGoal.position) << "and weight of : " << currentGoal.weight << "\n"; 
         return std::make_tuple(0.0,0.0);
     }
+
+    // Limiteur de force. Si la norme du vecteur est plus grande que la limite, on limite.
+    if (sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2)) > LIMIT_ATTRACTIVE_FORCE)
+    {
+        // On normalise puis on retourne la valeur.
+        double newValueX = (std::get<0>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
+        double newValueY = (std::get<1>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
+        value = std::make_tuple(newValueX, newValueY);
+    }
+
     return value;
 }
 
@@ -663,10 +681,10 @@ std::tuple< double,std::tuple<double,double> > Rectangle::computeDistance(std::t
     std::tuple<double,double> currentCoord = std::make_tuple(0.0,0.0);
 
     for(auto &coord : coordonnees)
-    {   // /!\ Risque d'oscillations vu que le potential field est en mode "bulles" ?
+    {   // Compute distance : validé.
         currentCoord = coord;
         double distanceToTest = sqrt(pow(std::get<0>(robotPosition) - std::get<0>(coord), 2) +
-                                     pow(std::get<1>(robotPosition) - std::get<1>(coord), 2)) - hitBox - radius_robot - toCenterOfWheels;
+                                     pow(std::get<1>(robotPosition) - std::get<1>(coord), 2)) - hitBox - radius_robot;
 
         if(distanceToTest <= 0.0)
         {
@@ -710,13 +728,13 @@ double SimpleBorder::computeDistance(std::tuple<double, double> robotPosition) c
     // La distance = la distance entre le centre du robot et la droite, à laquelle on soustrait le rayon du robot (le modélisant) et la hitBox (qui définit la largeur réelle de l'obstacle).
     if (borderType == 0) {
         // If we hit the obstacle, return 0 ! No negative distances !
-        double distanceFinale = fabs(std::get<0>(robotPosition) - position) - hitBox - radius_robot - toCenterOfWheels;
+        double distanceFinale = fabs(std::get<0>(robotPosition) - position) - hitBox - radius_robot;
         if (distanceFinale <= 0.0) {
             return 0.0;
         }
         return distanceFinale;
     } else if (borderType == 1) {
-        double distanceFinale = fabs(std::get<1>(robotPosition) - position) - hitBox - radius_robot - toCenterOfWheels; // Attention : hitBox et radius_robot hors de la valeur fabsolue.
+        double distanceFinale = fabs(std::get<1>(robotPosition) - position) - hitBox - radius_robot; // Attention : hitBox et radius_robot hors de la valeur fabsolue.
         if (distanceFinale <= 0.0) {
             return 0.0;
         }
@@ -747,8 +765,7 @@ OblicBorder::OblicBorder(double k_rep, double distanceOfInfluence, double pente,
     type = "OblicBorder";
 }
 
-// Give an approximation of the euclidean distance (squared) between the line and the center of the robot.
-// The idea is that the euclidean distance will always be longer than the smallest distance to the x or the y.
+// Computes the distance to the closest point of the oblic border. 
 double OblicBorder::computeDistance(std::tuple<double, double> robotPosition) const {
     double y2;
     double x2;
@@ -760,7 +777,7 @@ double OblicBorder::computeDistance(std::tuple<double, double> robotPosition) co
     x2 = (b - p) / (m + pente_inverse);
     y2 = b - pente_inverse * x2;
     double distanceFinale =
-            sqrt(pow(std::get<0>(robotPosition) - x2, 2) + pow(std::get<1>(robotPosition) - y2, 2)) - hitBox - radius_robot - toCenterOfWheels;
+            sqrt(pow(std::get<0>(robotPosition) - x2, 2) + pow(std::get<1>(robotPosition) - y2, 2)) - hitBox - radius_robot;
 
     // If we hit the obstacle, return 0 ! No negative distances !
     if (distanceFinale <= 0.0) {
@@ -818,11 +835,12 @@ Opponent::Opponent(const std::tuple<double, double> &center, double k_rep, doubl
     hitBox = hitBoxRadius;
 }
 
-// gérer si le résultat est négatif -> shouldn't be, though.
+// On ne tient pas en compte d'un potentiel rayon modélisé de l'opponent. On a juste notre propre rayon et une hitbox.
+// Calcul a priori validé. Potentiellement un point d'amélioration. TAG
 double Opponent::computeDistance(std::tuple<double, double> robotPosition) {
     double distanceToCenter = sqrt(pow(std::get<0>(robotPosition) - std::get<0>(position), 2) +
                                    pow(std::get<1>(robotPosition) - std::get<1>(position), 2));
-    double distanceObstacle = distanceToCenter - hitBox - radius_robot - toCenterOfWheels; // ça suppose qu'on ne cherche à l'éviter que si on lui fonce dessus et pas l'inverse.
+    double distanceObstacle = distanceToCenter - hitBox - radius_robot; // ça suppose qu'on ne cherche à l'éviter que si on lui fonce dessus et pas l'inverse.
     if (distanceObstacle <= 0.0) {
         return 0.0;
     }
@@ -897,49 +915,53 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
         myPotentialField.list_for_speed_filtering.push(0.0);
     }
 
-    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 1, 0.0, 0.00)); // Bord horizontal bas.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 0, 0.0, 0.00)); // Bord vertical gauche.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 1, 3.0, 0.00)); // Bord horizontal haut.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 0, 2.0, 0.00)); // Bord vertical droit.
+    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 1, 0.0, hitbox_obstacle)); // Bord horizontal bas.
+    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 0, 0.0, hitbox_obstacle)); // Bord vertical gauche.
+    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 1, 3.0, hitbox_obstacle)); // Bord horizontal haut.
+    myPotentialField.addSimpleBorder(SimpleBorder(krep_border, rho0_border, 0, 2.0, hitbox_obstacle)); // Bord vertical droit.
 
     // Oblic borders.
-    myPotentialField.addOblicBorder(OblicBorder(krep_border, rho0_border, 1.0, -1.49, 0.00)); // Bord oblique en bas à droite.
-    myPotentialField.addOblicBorder(OblicBorder(krep_border, rho0_border, -1.0, 4.49, 0.00)); // Bord oblique en haut à droite.
+    myPotentialField.addOblicBorder(OblicBorder(krep_border, rho0_border, 1.0, -1.49, hitbox_obstacle)); // Bord oblique en bas à droite.
+    myPotentialField.addOblicBorder(OblicBorder(krep_border, rho0_border, -1.0, 4.49, hitbox_obstacle)); // Bord oblique en haut à droite.
 
     // Rectangles.
     std::vector< std::tuple<double, double> > rectangleBasDroite { std::make_tuple(1.175, 0.0),
         std::make_tuple(1.175, 0.102), std::make_tuple(1.325, 0.102), std::make_tuple(1.325, 0.0) };
-    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, rectangleBasDroite));
+    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, hitbox_obstacle, rectangleBasDroite));
 
     std::vector< std::tuple<double, double> > galerieExpoBas { std::make_tuple(0.0, 0.45),
         std::make_tuple(0.1, 0.45), std::make_tuple(0.1, 0.6675), std::make_tuple(0.1, 0.8525),
         std::make_tuple(0.1, 1.0375), std::make_tuple(0.1, 1.17), std::make_tuple(0.0, 1.17) };
-    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, galerieExpoBas));
+    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, hitbox_obstacle, galerieExpoBas));
 
     std::vector< std::tuple<double, double> > galerieExpoHaut { std::make_tuple(0.0, 1.83),
         std::make_tuple(0.1, 1.83), std::make_tuple(0.1, 2.055), std::make_tuple(0.1, 2.24),
         std::make_tuple(0.1, 2.245), std::make_tuple(0.1, 2.55), std::make_tuple(0.0, 2.55) };
-    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, galerieExpoHaut));
+    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, hitbox_obstacle, galerieExpoHaut));
 
     std::vector< std::tuple<double, double> > sproutchAuDessusGalerieExpoBas { std::make_tuple(0.0, 1.275),
         std::make_tuple(0.102, 1.275), std::make_tuple(0.102, 1.425), std::make_tuple(0.0, 1.425) };
-    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, sproutchAuDessusGalerieExpoBas));
+    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, hitbox_obstacle, sproutchAuDessusGalerieExpoBas));
 
     std::vector< std::tuple<double, double> > sproutchEnDessousGalerieExpoHaut { std::make_tuple(0.0, 1.575),
         std::make_tuple(0.102, 1.575), std::make_tuple(0.102, 1.725), std::make_tuple(0.0, 1.725) };
-    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, sproutchEnDessousGalerieExpoHaut));
+    myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, hitbox_obstacle, sproutchEnDessousGalerieExpoHaut));
 
     std::vector< std::tuple<double, double> > laTigeAGauche { std::make_tuple(0.0, 1.4975),
         std::make_tuple(0.102, 1.4975), std::make_tuple(0.3, 1.4975), std::make_tuple(0.3, 1.525),
         std::make_tuple(0.102, 1.525), std::make_tuple(0.0, 1.525) };
-   
     myPotentialField.addRectangle(Rectangle(krep_rectangle, rho0_rectangle, 0.00, laTigeAGauche));
+
     std::vector< std::tuple<double, double> > rectangleHautDroite { std::make_tuple(1.175, 3.0),
         std::make_tuple(1.175, 2.898), std::make_tuple(1.325, 2.898), std::make_tuple(1.325, 3.0) };
-    myPotentialField.addRectangle(Rectangle(krep_tige, rho0_tige, 0.00, rectangleHautDroite));
+    myPotentialField.addRectangle(Rectangle(krep_tige, rho0_tige, hitbox_obstacle, rectangleHautDroite));
 
-    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), 0.2, 0.15, 0.2));
-    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), 0.2, 0.15, 0.2));
+
+    // À l'initialisation, les opponents sont mis hors de la map. 
+    // Arguments : position, k_rep, distanceOfInfluence, hitbox radius.
+    // Son radius de base est de 15 [cm]. Il ne sert cependant à rien pour l'instant. Pour avoir de l'importance, mettre radiusOpponent en dernier argument. 
+    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
+    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
     
     /*
     std::vector< std::tuple<double, double> > carreDeFouille { std::make_tuple(2.0, 0.575),
@@ -1039,7 +1061,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
         myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 5000.0,   true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
 
         // More accessory goals on the other side of the map.
     }
@@ -1052,7 +1074,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
         myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 5000.0,   true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
 
         myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
 
@@ -1066,7 +1088,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    myPotentialField->addGoal(std::make_tuple(1, 1), 20,     true);      // 1 point.   
+    myPotentialField->addGoal(std::make_tuple(1, 1), 10.0, true);      // 1 point.   
 }
 
 
