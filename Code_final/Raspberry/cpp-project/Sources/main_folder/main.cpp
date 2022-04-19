@@ -44,23 +44,10 @@ int main(int argc, char* argv){
 	set_speed(ctrl, 0.0, 0.0);
  
 	double deltaT = 0.0;
- 
 	while(Dt.count() < 27.0){
-		if(Dt.count() < 20.0){
-			odometryCalibration(ctrl) ; 
-			ControllerLoop(ctrl) ; 	
-		} else if (Dt.count() < 22.0){
-			set_speed(ctrl, 0.0, 0.0) ;
-			update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
-			printf("Interation immobile \n\n") ; 
-			update_opponent_location(ctrl) ;
-			ControllerLoop(ctrl) ; 
-		} else {
-			set_speed(ctrl, 0.15, 0.0) ;
-			update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
-			printf("Interation en mouvement\n\n") ; 
-			update_opponent_location(ctrl) ;
-			ControllerLoop(ctrl) ; 
+		if(Dt.count() < 27.0){
+			ControllerLoop(ctrl) ;
+			printf("%f     %f\n", ctrl->x, ctrl->y) ;	
 		}
 		//FSM_loop(ctrl, 0.17);
 		//std::cout<<" here\n";
