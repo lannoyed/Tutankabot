@@ -240,9 +240,7 @@ void update_opponent_location(Controller* ctrl){
 			// Delta_lat = 111.96-104.96 = 7mm 
 			// Delta_long = 161.53-196.53 = -35mm
 			// We have to make sure that it is 5.5Hz 
-			printf("%f\t%f\n", ctrl->lidar_distance[i], ctrl->lidar_angles[i]) ; 
-			v = 0 ; 
-			w = 0 ; 
+			//printf("%f\t%f\n", ctrl->lidar_distance[i], ctrl->lidar_angles[i]) ; 
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
@@ -260,6 +258,7 @@ void update_opponent_location(Controller* ctrl){
 		loc_opponent_final[0] /= io1 ; 
 		loc_opponent_final[1] /= io1 ; 
 	}
+	printf("x_opp = %f\t y_opp = %f\n", loc_opponent_final[0], loc_opponent_final[1]) ; 
 	ctrl->x_opp = loc_opponent_final[0] ; 
 	ctrl->y_opp = loc_opponent_final[1] ; 
 }
