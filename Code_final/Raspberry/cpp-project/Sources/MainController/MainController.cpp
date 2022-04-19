@@ -243,6 +243,7 @@ void update_opponent_location(Controller* ctrl){
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
+				printf("Opp point detected in : %f\t%f", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -270,6 +271,8 @@ void triangulation(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ;
 	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
 	double x_curr, y_curr ; 
+	double ya, yb ; 
+	double l_12 = 2.0, l_13 = 3.16, l_23 = 3.16 ; 
 	for (int i = 0 ; i < nb_lidar_data ; i++){
 		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
