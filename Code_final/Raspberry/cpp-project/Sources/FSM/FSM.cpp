@@ -112,25 +112,25 @@ void FSM_loop(Controller *cvs, double deltaT){
     odometryLoop(cvs); // localization fait à chaques appels
  	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
-    std::cout<< "update odo : " <<deltaT_process <<"\n";
+    //std::cout<< "update odo : " <<deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     updatePotentialField(&myPotentialField, cvs);
  	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
-    std::cout<< "update potential : " << deltaT_process <<"\n";
+    //std::cout<< "update potential : " << deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     //update_lidar_data(cvs->last_lidar_update, cvs->lidar_angles, cvs->lidar_distance, cvs->lidar_quality) ; 
  	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-    std::cout<< "update lidar : " << deltaT_process <<"\n";
+    //std::cout<< "update lidar : " << deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     //update_opponent_location(cvs) ; 
 	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-    std::cout<< "update oponent" << deltaT_process <<"\n";
+   //std::cout<< "update oponent" << deltaT_process <<"\n";
     
 
     t10 = std::chrono::high_resolution_clock::now() ; 
@@ -142,7 +142,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     }
  	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-    std::cout<< "update average position oponent" << deltaT_process <<"\n";
+    //std::cout<< "update average position oponent" << deltaT_process <<"\n";
     
       
     fprintf(lidar_smoothing, "%d %d %f %f \n",  std::get<0>(positionOpponent1Averaged),std::get<1>(positionOpponent1Averaged), cvs->x_opp, cvs->y_opp) ;
@@ -164,7 +164,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     switch (cvs->state) // cvs->state is a state stored in the controller main structure
     {
         case STATE_CALIBRATION:
-            std::cout<<"CALIBRATION"<<"\n";
+            //std::cout<<"CALIBRATION"<<"\n";
             
             odometryCalibration(cvs);
             number_sample = 0;
@@ -181,16 +181,17 @@ void FSM_loop(Controller *cvs, double deltaT){
                 myPotentialField.didntRotate = 0;
                 returnBaseTime = false;
                 #ifdef  SIMU_PROJECT
-                    initGoals(&myPotentialField, cvs->inputs->robot_id);
+                    initGoals(&myPotentialField, EQUIPE);
                 #else
-                    initGoalsTest(&myPotentialField, team_number);
-                #endif // 6 
+                    initGoalsTest(&myPotentialField, cvs->team);
+                #endif
                 cvs->state = STATE_GO2GOAL;
             }
             break;
 
         case STATE_GO2GOAL:
             std::cout<<"TO GOAL"<<"\n";
+            std::cout << "Current goal at : (" << std::get<0>(myPotentialField.currentGoal.position) << "," << std::get<1>(myPotentialField.currentGoal.position) << ").\n";
 
             // iterate potential field
             
@@ -198,7 +199,7 @@ void FSM_loop(Controller *cvs, double deltaT){
             speedConsigne = iterPotentialFieldWithLogFile(&myPotentialField, deltaT, myFile); 
         	  t11 = std::chrono::high_resolution_clock::now() ; 
          		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-            std::cout<< "potential field" << deltaT_process <<"\n";
+            //std::cout<< "potential field" << deltaT_process <<"\n";
             
 
             cvs->v_ref = (float) std::get<0>(speedConsigne);
@@ -211,19 +212,20 @@ void FSM_loop(Controller *cvs, double deltaT){
 
 
             
-            if (myPotentialField.GoalTest() && returnBaseFull && (0.4 <= xx && xx <= 1.0) && (yy <= 0.4 || yy >= 2.6 ) ){
+            /*if (myPotentialField.GoalTest() && returnBaseFull && (0.4 <= xx && xx <= 1.0) && (yy <= 0.4 || yy >= 2.6 ) ){
                 myPotentialField.removeGoal();
                 returnBaseFull = false;
                 cvs->state = AT_BASE;
-            }else if (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
+            }else */ 
+            if (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
             {
-                number_sample += 1;
+                //number_sample += 1;
                 myPotentialField.removeGoal();
                 time_wait_init = cvs->time;
                 cvs->state = DO_ACTION;
             }else if (myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == false ){
                 myPotentialField.removeGoal();
-                myPotentialField.nextGoal(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+                myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
                 cvs->state = STATE_GO2GOAL;
@@ -231,16 +233,16 @@ void FSM_loop(Controller *cvs, double deltaT){
 
             else if (myPotentialField.isStuck) {
                 cvs->state = STATE_STUCK;
-            }else if (myPotentialField.GoalTest()){
+            }/*else if (myPotentialField.GoalTest()){
                 time_wait_init_waiting_for_target += 0.001;
                 if (time_wait_init_waiting_for_target > 1.5){
                     myPotentialField.removeGoal();
-                    myPotentialField.nextGoal(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+                    myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
                     myPotentialField.didntMove = 0;
                     myPotentialField.didntRotate = 0;
                     cvs->state = STATE_GO2GOAL;
                 }
-            }
+            }*/
             
             
             //cvs->v_ref = (float) 0.0;
@@ -248,10 +250,10 @@ void FSM_loop(Controller *cvs, double deltaT){
             break;
 
         case STATE_STUCK:
-            std::cout<<"STUCK \n";
+            //std::cout<<"STUCK \n";
             
             // change goal correctly
-            myPotentialField.nextGoalStuck(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+            myPotentialField.nextGoalStuck(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
             myPotentialField.didntMove = 0;
             myPotentialField.didntRotate = 0;
             cvs->state = STATE_GO2GOAL;
@@ -262,12 +264,12 @@ void FSM_loop(Controller *cvs, double deltaT){
 
         case DO_ACTION:
             std::cout<<"ACTION"<<"\n";
+
             time_wait_init_waiting_for_target = 0.0;
             
             isFull = (number_sample == 2);
-            action_finished = (cvs->time - time_wait_init) > 45;
+            action_finished = (cvs->time - time_wait_init) > 3;
             
-
             cvs->v_ref = 0.0;
             cvs->w_ref = 0.0;
 
@@ -276,47 +278,47 @@ void FSM_loop(Controller *cvs, double deltaT){
             // timer pour s'arreter 3s
 
             // actions related to state do action
-            if (action_finished && isFull) {
+            /*if (action_finished && isFull) {
                 cvs->state = RETURN_BASE;
                 returnBaseFull =true;
-            } else if (action_finished && myPotentialField.numberOfGoals == 0){
+            } else */
+            if (action_finished && myPotentialField.numberOfGoals == 0){
                 cvs->state = RETURN_BASE;
                 returnBaseTime = true;
             } else if (action_finished && myPotentialField.numberOfGoals != 0) {
-                myPotentialField.nextGoal(10.0);
+                myPotentialField.nextGoal(WEIGHT_GOAL);
                 cvs->state = STATE_GO2GOAL;
             
             } else if (action_finished){
-                myPotentialField.nextGoal(10.0);
+                myPotentialField.nextGoal(WEIGHT_GOAL);
                 cvs->state = STATE_GO2GOAL;
             }
-            #ifdef SIMU_PROJECT
-            cvs->outputs->flag_release = 0;
-            #endif
+            
+
             break;
 
         case RETURN_BASE :
-            std::cout<<"Retuen base"<<"\n";
+            std::cout<<"Return base"<<"\n";
             time_wait_init_waiting_for_target = 0.0;
-            myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, 10.0);
+            myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, WEIGHT_GOAL);
             cvs->state = STATE_GO2GOAL;
             break;
         
         case AT_BASE :
-            std::cout<<"at base"<<"\n";
+            //std::cout<<"at base"<<"\n";
             time_wait_init_waiting_for_target = 0.0;
             #ifdef SIMU_PROJECT
             cvs->outputs->flag_release = 1;
             #endif
             number_sample = 0;
-            myPotentialField.nextGoal(10.0);
+            myPotentialField.nextGoal(WEIGHT_GOAL);
             time_begin_calibration = cvs->time;
             //cvs->state = STATE_CALIBRATION;
             cvs->state = STATE_GO2GOAL;
             break;
 
         case STOP:
-            std::cout<<"stop"<<"\n";
+            //std::cout<<"stop"<<"\n";
             cvs->v_ref = (float) 0.0;
             cvs->w_ref = (float) 0.0;
             #ifdef SIMU_PROJECT
@@ -341,13 +343,13 @@ void FSM_loop(Controller *cvs, double deltaT){
     speedConversion(cvs); 
 	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-    std::cout<< "speed convertion" << deltaT_process <<"\n";
+    //std::cout<< "speed convertion" << deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
    	speedControllerLoop(cvs->sc1) ; 
 	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count() * 2;
-    std::cout<< "update " << deltaT_process <<"\n";
+    //std::cout<< "update " << deltaT_process <<"\n";
     
     // Actualize the command of the motors to maintain a certain speed
 
@@ -456,10 +458,10 @@ void FsmCalibrationLoop(Controller* cvs){
         myPotentialField.didntRotate = 0;
         returnBaseTime = false;
         #ifdef  SIMU_PROJECT
-            initGoals(&myPotentialField, cvs->inputs->robot_id);
+            initGoals(&myPotentialField, EQUIPE); // HARDCODÉ, à changer.
         #else
-            initGoals(&myPotentialField, team_number);
-        #endif // 6 
+            initGoalsTest(&myPotentialField, cvs->team);
+        #endif
         cvs->state = STATE_GO2GOAL;
     }
 }
@@ -477,19 +479,19 @@ void FsmToGoalLoop(Controller* cvs){
 
 
     
-    if (myPotentialField.GoalTest() && returnBaseFull && (0.4 <= xx && xx <= 1.0) && (yy <= 0.4 || yy >= 2.6 ) ){
+    /*if (myPotentialField.GoalTest() && returnBaseFull && (0.4 <= xx && xx <= 1.0) && (yy <= 0.4 || yy >= 2.6 ) ){
         myPotentialField.removeGoal();
         returnBaseFull = false;
         cvs->state = AT_BASE;
-    }else if (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
+    }else */ if  (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
     {
-        number_sample += 1;
+        //number_sample += 1;
         myPotentialField.removeGoal();
         time_wait_init = cvs->time;
         cvs->state = DO_ACTION;
     }else if (myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == false ){
         myPotentialField.removeGoal();
-        myPotentialField.nextGoal(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+        myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
         myPotentialField.didntMove = 0;
         myPotentialField.didntRotate = 0;
         cvs->state = STATE_GO2GOAL;
@@ -497,22 +499,22 @@ void FsmToGoalLoop(Controller* cvs){
 
     else if (myPotentialField.isStuck) {
         cvs->state = STATE_STUCK;
-    }else if (myPotentialField.GoalTest()){
+    } /*else if (myPotentialField.GoalTest()){
         time_wait_init_waiting_for_target += 0.001;
         if (time_wait_init_waiting_for_target > 1.5){
             myPotentialField.removeGoal();
-            myPotentialField.nextGoal(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+            myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
             myPotentialField.didntMove = 0;
             myPotentialField.didntRotate = 0;
             cvs->state = STATE_GO2GOAL;
         }
-    }
+    }*/
 }
 
 void FsmStuckLoop(Controller* cvs){
 
     // change goal correctly
-    myPotentialField.nextGoalStuck(10.0);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
+    myPotentialField.nextGoalStuck(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
     myPotentialField.didntMove = 0;
     myPotentialField.didntRotate = 0;
     cvs->state = STATE_GO2GOAL;
@@ -525,7 +527,7 @@ void FsmDoActionLoop(Controller* cvs){
     time_wait_init_waiting_for_target = 0.0;
     
     isFull = (number_sample == 2);
-    action_finished = (cvs->time - time_wait_init) > 1.5;
+    action_finished = (cvs->time - time_wait_init) > 3.0;
     
     cvs->v_ref = 0.0;
     cvs->w_ref = 0.0;
@@ -537,16 +539,16 @@ void FsmDoActionLoop(Controller* cvs){
     // actions related to state do action
     if (action_finished && isFull) {
         cvs->state = RETURN_BASE;
-        returnBaseFull =true;
+        returnBaseFull = true;
     } else if (action_finished && myPotentialField.numberOfGoals == 0){
         cvs->state = RETURN_BASE;
         returnBaseTime = true;
     } else if (action_finished && myPotentialField.numberOfGoals != 0) {
-        myPotentialField.nextGoal(10.0);
+        myPotentialField.nextGoal(WEIGHT_GOAL);
         cvs->state = STATE_GO2GOAL;
     
     } else if (action_finished){
-        myPotentialField.nextGoal(10.0);
+        myPotentialField.nextGoal(WEIGHT_GOAL);
         cvs->state = STATE_GO2GOAL;
     }
     #ifdef SIMU_PROJECT
@@ -558,7 +560,7 @@ void FsmDoActionLoop(Controller* cvs){
 void FsmReturnBaseLoop (Controller* cvs){
 
     time_wait_init_waiting_for_target = 0.0;
-    myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, 10.0);
+    myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, WEIGHT_GOAL);
     cvs->state = STATE_GO2GOAL;
 }
 

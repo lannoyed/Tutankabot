@@ -325,6 +325,7 @@ void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition,
         listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight, type));
         currentGoal = listOfGoal.back();
     }
+    std::cout << "Added a goal to return to base at : (" << std::get<0>(newGoalPosition) << "," << std::get<1>(newGoalPosition) << ").\n";
 
 }
 
@@ -458,6 +459,7 @@ void Potential_Field::nextGoalBase(const std::tuple<double, double>& newPosition
 {
     currentGoal.setWeight(0.0);
     listOfGoal.push_back(Goal(newPosition, goalWeight, true));
+    std::cout << "Added a goal to return to base at : (" << std::get<0>(newPosition) << "," << std::get<1>(newPosition) << ").\n";
     currentGoal = listOfGoal.back();
     numberOfGoals += 1;
     /*int i = 0;
@@ -559,7 +561,7 @@ void Potential_Field::goalStolenByOpponent(std::tuple<double, double> positionOp
                      // Si on a un nombre de goal = 1 (il n'en reste qu'un), on supprime le dernier goal et on va à la base. 
                     else if (numberOfGoals == 1) 
                     {
-                        nextGoalBase(coordonneesBase, 10.0);
+                        nextGoalBase(coordonneesBase, WEIGHT_GOAL);
                         listOfGoal.erase(listOfGoal.begin() + 0);
                          // On supprime l'ancien goal qui vient d'être pris.
                         currentGoal = listOfGoal.back(); // On va vers la base.
@@ -1023,60 +1025,42 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
 
 void initGoals(Potential_Field * myPotentialField, int teamNumber)
 {
-    /*std::vector<double> weightSimpleBorder;
-    int i = 0;
-    for(i; i < 4; i++)
-    {
-        weightSimpleBorder.push_back(2.0);
-    }
-
-    std::vector<double> weightOblicBorder;
-    i = 0;
-    for(i; i < 2; i++)
-    {
-        weightOblicBorder.push_back(2.0);
-    }
-
-    std::vector<double> weightRectangles;
-    i = 0;
-    for(i; i < 7; i++)
-    {
-        weightRectangles.push_back(2.0);
-    }
-
-    std::vector<double> weightSample;
-    i = 0;
-    for(i; i < 1; i++)
-    {
-        weightSample.push_back(0.0);
-    }*/
-
-    if(teamNumber < 2) // ON EST L'ÉQUIPE BLEUE ICI, TEAM A !
+    // WEIGHT_GOAL est dans 'data.h'.
+    if(teamNumber == 0) // ÉQUIPE BLEUE (démarre côté (0,3) )
     {   
         myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.825);
 
-        myPotentialField->addGoal(std::make_tuple(0.15, 0.15), 0.0,     true);      // 1 point.
+        /*myPotentialField->addGoal(std::make_tuple(0.15, 0.15), 0.0,     true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.17, 2.80), 0.0,     true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), WEIGHT_GOAL,    true);      // 3 points. First one so we give it a weight. */
 
         // More accessory goals on the other side of the map.
     }
-    else if (teamNumber >= 2 && teamNumber < 4)
+    else if (teamNumber == 1) // ÉQUIPE JAUNE (démarre côté (0,0) )
     { 
 
-        myPotentialField->addGoal(std::make_tuple(0.15, 2.85), 0.0,     true);      // 1 point.
+       /* myPotentialField->addGoal(std::make_tuple(0.15, 2.85), 0.0,     true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.15, 0.15), 0.0,     true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
         myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), 10.0,    true);      // 3 points. First one so we give it a weight.
+        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), WEIGHT_GOAL,    true);      // 3 points. First one so we give it a weight. */
 
         myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
+
+        
+        // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
+        // RAPPEL : l'ordre semble inversé mais non, tout va bien, c'est une FIFO.
+        myPotentialField->addGoal(std::make_tuple(1.49, 0.51),  0.0,    true);     // Statuette 2.
+        myPotentialField->addGoal(std::make_tuple(0.3, 0.255),  0.0,    true);     // Statuette 1.
+        myPotentialField->addGoal(std::make_tuple(0.6, 0.3),    0.0,    true);     // Retour à la base en passant par les samples.
+        myPotentialField->addGoal(std::make_tuple(1.7, 1.5),    0.0,    true);     // Goal de modélisation, à supprimer après.
+        myPotentialField->addGoal(std::make_tuple(1.7, 0.6675), WEIGHT_GOAL,   true);    // On arrive proche des premières probes. 
 
     }
     else
@@ -1088,15 +1072,17 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    //myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 10.0, true);      // Goal de test.
+    myPotentialField->addGoal(std::make_tuple(0.5, 0.75), 0.0, true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 0.75), WEIGHT_GOAL, true);      // Goal de test.
+    myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
 
-
+    /*
     // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
-    myPotentialField->addGoal(std::make_tuple(1.7, 0.6675), 10.0, true);    // On arrive proche des premières probes. 
-    myPotentialField->addGoal(std::make_tuple(1.7, 1.5), 10.0, true);       // Goal de modélisation, à supprimer après.
-    myPotentialField->addGoal(std::make_tuple(0.6, 0.3), 10.0, true);       // Retour à la base en passant par les samples.
-    myPotentialField->addGoal(std::make_tuple(0.3, 0.255), 10.0, true);     // Statuette 1.
-    myPotentialField->addGoal(std::make_tuple(1.49, 0.51), 10.0, true);     // Statuette 2.
+    myPotentialField->addGoal(std::make_tuple(1.7, 0.6675), 0.0, true);    // On arrive proche des premières probes. 
+    myPotentialField->addGoal(std::make_tuple(1.7, 1.5), 0.0, true);       // Goal de modélisation, à supprimer après.
+    myPotentialField->addGoal(std::make_tuple(0.6, 0.3), 0.0, true);       // Retour à la base en passant par les samples.
+    myPotentialField->addGoal(std::make_tuple(0.3, 0.255), 0.0, true);     // Statuette 1.
+    myPotentialField->addGoal(std::make_tuple(1.49, 0.51), 10.0, true);     // Statuette 2.*/
 }
 
 
