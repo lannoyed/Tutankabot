@@ -65,8 +65,8 @@ int main(int argc, char* argv){
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
-		std::cout  << "negative sleep : " << time_to_wait << "\n";
-		time_to_wait = 0.0;
+			std::cout  << "negative sleep : " << time_to_wait << "\n";
+			time_to_wait = 0.0;
 		}
        
 		sleep(time_to_wait); 
