@@ -48,8 +48,8 @@ void ControllerLoop(Controller*  ctrl){
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
 	odometryLoop(ctrl) ; 
-	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
-	update_opponent_location(ctrl) ; 
+	//update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
+	//update_opponent_location(ctrl) ; 
 }
 
 void ControllerFree(Controller* ctrl){
@@ -235,15 +235,18 @@ void update_opponent_location(Controller* ctrl){
 	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
 	double x_curr, y_curr ; 
 	for (int i = 0 ; i < nb_lidar_data ; i++){
-		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.15){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
 			// Delta_lat = 111.96-104.96 = 7mm 
 			// Delta_long = 161.53-196.53 = -35mm
 			// We have to make sure that it is 5.5Hz 
+			printf("%f\t%f\n", ctrl->lidar_distance[i], ctrl->lidar_angles[i]) ; 
+			v = 0 ; 
+			w = 0 ; 
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
-				printf("Opp point detected in : %f\t%f", x_curr, y_curr) ; 
+				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -317,7 +320,7 @@ void make_angle(Controller* ctrl, double angle){
 	} else if (wref < -1.0){
 		wref = -1.0 ; 
 	} 
-	ctrl->w_ref = w_ref ; 
+	ctrl->w_ref = wref ; 
 }
 
 void make_x(Controller* ctrl, double x){

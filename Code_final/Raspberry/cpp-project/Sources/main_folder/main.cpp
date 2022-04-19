@@ -45,25 +45,29 @@ int main(int argc, char* argv){
  
 	double deltaT = 0.0;
  
-	while(Dt.count() < 45.0){
- 
-		FSM_loop(ctrl, 0.17);
-		std::cout<<" here\n";
+	while(Dt.count() < 22.0){
+		if (Dt.count() < 2.0){
+			update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
+			printf("Interation \n\n") ; 
+			update_opponent_location(ctrl) ; 
+		}
+		//FSM_loop(ctrl, 0.17);
+		//std::cout<<" here\n";
    
 
 		//
 		//
-		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
+		//fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
 		deltaT = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t2).count();
-		std::cout<<"local time:   \t" << deltaT << "\n"; 
-		std::cout<<"globale time: \t" << Dt.count() << "\n";
+		//std::cout<<"local time:   \t" << deltaT << "\n"; 
+		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
-		std::cout<<"sleep \n";
+		//std::cout<<"sleep \n";
     
     
-		double time_to_wait = 0.028 - deltaT;
+		/*double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
 			std::cout  << "negative sleep : " << time_to_wait << "\n";
 			time_to_wait = 0.0;
@@ -71,7 +75,7 @@ int main(int argc, char* argv){
        
 		sleep(time_to_wait); 
     
-		//
+		//*/
 	}  
 	t1 = std::chrono::high_resolution_clock::now() ; 
 	Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
