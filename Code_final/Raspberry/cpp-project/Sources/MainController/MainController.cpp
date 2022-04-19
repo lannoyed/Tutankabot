@@ -314,7 +314,7 @@ void make_angle(Controller* ctrl, double angle){
 	} else if (wref < -1.0){
 		wref = -1.0 ; 
 	} 
-	ctrl->w_ref = w_ref ; 
+	ctrl->w_ref = wref ; 
 }
 
 void make_x(Controller* ctrl, double x){

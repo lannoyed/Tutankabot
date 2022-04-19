@@ -45,7 +45,7 @@ int main(int argc, char* argv){
  
   double deltaT = 0.0;
  
-	while(Dt.count() < 45.0){
+	while(Dt.count() < 100.0){
  
 		FSM_loop(ctrl, 0.17);
     std::cout<<" here\n";
