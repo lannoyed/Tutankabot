@@ -58,7 +58,7 @@
 #define radiusOpponent      0.15            // L'opponent est modélisé par un cercle de rayon 15 [cm], tout comme nous. Ce paramètre peut être ajustable à l'estimation lorsqu'on verra les robots opponents
                                             // sur place, ou alors on la joue safe et on met la même dimension "max" pour tous les robots.
 #define sampleRadius        0.075           // Rayon d'un sample.
-#define precision           0.15
+#define precision           0.075           // Permet de savoir si on a atteint un goal.
 
 // To know if we are stucks
 #define minimumPositionStep 0.00001
@@ -80,8 +80,8 @@
 //OPPONENT
 // Tradeoff possible : lorsque le krep sera beaucoup plus petit, on devra peut-être augmenter le rho0. 
 #define rho0_opponent   0.5
-#define krep_opponent   1e-6 
-#define hitbox_opponent 0.15    
+#define krep_opponent   1e-7 
+#define hitbox_opponent 0.25    
 //HITBOX GÉNÉRALE DES OBSTACLES : modifiable. TAG.
 #define hitbox_obstacle 0.0 
 // LIMITEUR DE FORCE
@@ -91,8 +91,11 @@
 
 // speed max define 
 #define global_vMax 0.2 
-#define global_wMax 1.4
+#define global_wMax 1.2
 
+
+#define EQUIPE 1 // à modifier. 0 : bleu et 1 : jaune
+#define WEIGHT_GOAL 5000.0
 
 
 #endif

@@ -45,22 +45,20 @@ int main(int argc, char* argv){
  
 	double deltaT = 0.0;
  
-	while(Dt.count() < 100.0){
+	while(Dt.count() < 60.0){
  
 		FSM_loop(ctrl, 0.17);
-		std::cout<<" here\n";
-   
+		//std::cout<<" here\n";
 
-		//
 		//
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
 		deltaT = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t2).count();
-		std::cout<<"local time:   \t" << deltaT << "\n"; 
-		std::cout<<"globale time: \t" << Dt.count() << "\n";
+		//std::cout<<"local time:   \t" << deltaT << "\n"; 
+		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
-		std::cout<<"sleep \n";
+		//std::cout<<"sleep \n";
     
     
 		double time_to_wait = 0.028 - deltaT;
