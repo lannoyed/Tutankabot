@@ -10,7 +10,13 @@ typedef struct{
 	speedController* sc2 ;  // speedController of the wheel 2 
 	float x,y,theta ; 		// Position of the robot  
 	float v_ref, w_ref ;	// Translation and rotation speed of the robot 
-	
+
+	std::mutex LockLidarOpponentPosition;
+	std::mutex LockLidarOurPosition;
+	std::mutex LockLidarVWRef;
+	double x_lidar;
+	double y_lidar;
+	double theta_lidar;
 	double r ; 
 	double l ;
 	
@@ -29,6 +35,7 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point t1;
 	std::chrono::duration<double> Dt;
 	double time; 
+	ctrlOut* outputs;
 	
 } Controller ;
 
@@ -41,3 +48,9 @@ void odometryLoop(Controller* ctrl) ;
 void odometryCalibration(Controller* ctrl) ;
 void update_opponent_location(Controller* ctrl) ; 
 void updateTime (Controller* cvs);
+
+
+// fonction générale transforment un couple de vitesses de direct(v) angulaire(w) en vitesses aux Roues
+// les envoient dans un controleur -> duty cycle dans le moteur des roues
+// envoie le duty cycle en can à la carte moteur 
+void speedToWheels(Controller* ctrl, double v, double w);
