@@ -21,7 +21,6 @@ void speedControllerLoop(speedController *sc){
 		sc->pi->I += (dt.count()) * e; 
 	}
 	sc->command = output ; 
-	sendTheta(output, sc->motor_number) ; 
 }
 PI* PIInit(float kp, float ti){
 	PI* pi = (PI*)malloc(sizeof(PI)) ; 

@@ -3,7 +3,7 @@
 # include <unistd.h>
 # include <chrono>
 # include "SPICom.h"
-# include "canCom.h"
+# include "ctrlOut.h"
 # include <math.h>
 
 typedef struct{
@@ -31,4 +31,6 @@ float computePIOutput(PI* pi) ;
 void speedControllerLoop(speedController* sc) ; 
 PI* PIInit(float kp, float ti) ; 
 speedController* speedControllerInit(float kp, float ti, float lim_up, float lim_down, float kphi, int spi_number, int motor_number) ;  
-void speedControllerFree(speedController* sc) ; 
+void speedControllerFree(speedController* sc) ;
+
+ 
