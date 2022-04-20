@@ -5,6 +5,10 @@
 # include "SPICom.h"
 # include "ctrlOut.h"
 # include <math.h>
+# include <thread>
+# include <atomic>
+# include <mutex>
+
 
 typedef struct{
 	float e ; 		// input of the compensator

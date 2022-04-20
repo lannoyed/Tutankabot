@@ -14,43 +14,43 @@ char data_file[] = "prout.csv";
 
 void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  
- std::chrono::high_resolution_clock::time_point last_lidar_update = std::chrono::high_resolution_clock::now();
+	std::chrono::high_resolution_clock::time_point last_lidar_update = std::chrono::high_resolution_clock::now();
 
- FILE * myThread;
- myThread = fopen("myThread.txt", "w"); 
- fprintf(myThread, "iteration init \n" );
+	FILE * myThread;
+	myThread = fopen("myThread.txt", "w"); 
+	fprintf(myThread, "iteration init \n" );
  
- int i = 0;
- while (running )
- {
-	update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
+	int i = 0;
+	while (running ){
+		update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
  
-  fprintf(myThread, "iteration %d \n", i);
-  i++;
+		fprintf(myThread, "iteration %d \n", i);
+		i++;
   
-  //std::cout<< "lock opo \n";
+		//std::cout<< "lock opo \n";
 	
-  update_opponent_location(ctrl);
+		update_opponent_location(ctrl);
 	
 
 
-  //std::cout<< "lock our \n";
-	ctrl->LockLidarOurPosition.lock();
-	//triangulation(ctrl);
-  double x_lidar;
-  double y_lidar;
-  double theta_lidar;
-	ctrl->LockLidarOurPosition.unlock();
+		//std::cout<< "lock our \n";
+		ctrl->LockLidarOurPosition.lock();
+		//triangulation(ctrl);
+		double x_lidar;
+		double y_lidar;	
+		double theta_lidar;
+		ctrl->LockLidarOurPosition.unlock();
  
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 
- }
+	}
  
- fprintf(myThread, "end threads \n");
+	fprintf(myThread, "end threads \n");
 
- //fclose(myThread);
+	//fclose(myThread);
  
 }
+
 int main(int argc, char* argv){ 
 	//
 	FILE* mainLog;
@@ -92,7 +92,15 @@ int main(int argc, char* argv){
 
 	while(Dt.count() < 40.0){
  
-		FSM_loop(ctrl, 0.17);
+		ControllerLoop(ctrl) ; 
+		printf("x = %f\t y = %f\t theta = %f \t je suis une licrone\n", ctrl->x, ctrl->y, ctrl->theta) ;
+		t2 = t1;
+		t1 = std::chrono::high_resolution_clock::now() ; 
+		deltaT = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t2).count();
+		//std::cout<<"local time:   \t" << deltaT << "\n"; 
+		//std::cout<<"globale time: \t" << Dt.count() << "\n";
+		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
+		/*FSM_loop(ctrl, 0.17);
 		std::cout<<" here\n";
    
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
@@ -113,7 +121,7 @@ int main(int argc, char* argv){
        
 		sleep(time_to_wait); 
     
-		//
+		//*/
 	}  
  
 	std::cout <<" before running \n";

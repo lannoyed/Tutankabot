@@ -92,12 +92,12 @@ void send_commands(ctrlOut *outputs)
     int M1 = thetaToCan(-outputs->M1) ;
     int M2 = thetaToCan(outputs->M2);
 
-    std::cout << "Motor conversion \n";
+    //std::cout << "Motor conversion \n";
     
     unsigned char M1_hex = (unsigned char) M1;
     unsigned char M2_hex = (unsigned char) M2;
     
-    std::cout << "To hex \n";
+    //std::cout << "To hex \n";
 
     outputs->frame.data[0] = 0x25;
     outputs->frame.data[1] = 0xFF;
@@ -107,10 +107,10 @@ void send_commands(ctrlOut *outputs)
         perror("Write M1");
     }
     
-    std::cout << "M1 \n";
+    //std::cout << "M1 \n";
     
-    std::cout<< M1 <<" hex " << "\n";
-    std::cout<< M2 <<" hex " << "\n";
+    //std::cout<< M1 <<" hex " << "\n";
+    //std::cout<< M2 <<" hex " << "\n";
 
     outputs->frame.data[0] = 0x26;
     outputs->frame.data[1] = 0xFF;
@@ -119,7 +119,7 @@ void send_commands(ctrlOut *outputs)
     if (write(outputs->s, &(outputs->frame), sizeof(struct can_frame)) != sizeof(struct can_frame)) {
         perror("Write M2");
     }
-    std::cout << "M2 \n";
+    //std::cout << "M2 \n";
 }
 
 

@@ -76,9 +76,11 @@ void speedToWheels(Controller* ctrl, double v, double w){
 }
 
 void ControllerLoop(Controller*  ctrl){
-	speedConversion(ctrl) ; 
-	speedControllerLoop(ctrl->sc1) ; 
-	speedControllerLoop(ctrl->sc2) ; 
+	ctrl->LockLidarVWRef.lock();
+	double v_ref = ctrl->v_ref ; 
+	double w_ref = ctrl->w_ref ; 
+	ctrl->LockLidarVWRef.unlock();
+	speedToWheels(ctrl, v_ref, w_ref) ; 
 	odometryLoop(ctrl) ; 
 	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
 	update_opponent_location(ctrl) ; 
