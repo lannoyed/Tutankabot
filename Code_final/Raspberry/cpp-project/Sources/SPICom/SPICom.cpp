@@ -77,7 +77,7 @@ double get_speed(int spi_number){
 			tick_diff *= -1 ; 
 		}
 	}
-	return -tick_diff*2*M_PI*2.0/2.029 ; 
+	return -tick_diff*2*M_PI*(1.189/1.2174) ; 
 }
 
 
