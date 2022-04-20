@@ -588,8 +588,10 @@ void updatePotentialField(Potential_Field* myPotentialField, Controller *cvs){
     myPotentialField->setSpeedVector( (double) cvs->theta);                  // récuperation de theta
     //std::tuple<double, double> positionOpponent1Averaged = myPotentialField.speedFilter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1] ));
     /* TO DO ATTENTION LIDAR
+	cvs->LockLidarOpponentPosition.lock();
     opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]));
     opponentList.at(1).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent2[0], (double) cvs-> loc_opponent2[1]));
+	cvs->LockLidarOpponentPosition.unlock();
     */ 
 }
 

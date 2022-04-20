@@ -50,29 +50,29 @@ void speedConversion(Controller* ctrl){
 
 void speedToWheels(Controller* ctrl, double v, double w){
 	// set de la vitesse
-  std::cout << "in to wheel \n";
+	//std::cout << "in to wheel \n";
 	set_speed(ctrl, v, w);
-  std::cout << "set speed finish \n";
+	//std::cout << "set speed finish \n";
   
 	// conversion de la vitesse angulaire et directe en vitesse aux roues 
 	speedConversion(ctrl);
-  std::cout << "speed conversion finidh \n";
+	//std::cout << "speed conversion finidh \n";
   
 	// contrôle de la vitesse
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
-  std::cout << "controller finish \n";
+	//std::cout << "controller finish \n";
   
 	// envoie des données aux moteurs
-  float M1_com = ctrl->sc1->command;
-  float M2_com = ctrl->sc2->command;
-  std::cout << "values retrieved \n";
+	float M1_com = ctrl->sc1->command;
+	float M2_com = ctrl->sc2->command;
+	//std::cout << "values retrieved \n";
 	ctrl->outputs->M1 = M1_com;
 	ctrl->outputs->M2 = M2_com;
-  std::cout << "mise à jour Motor  M1 "<<ctrl->outputs->M1 << " M2 " << ctrl->outputs->M2 <<"\n";
+	//std::cout << "mise à jour Motor  M1 "<<ctrl->outputs->M1 << " M2 " << ctrl->outputs->M2 <<"\n";
 
 	send_commands(ctrl->outputs);
-  std::cout << "command send finish \n";
+	//std::cout << "command send finish \n";
 }
 
 void ControllerLoop(Controller*  ctrl){

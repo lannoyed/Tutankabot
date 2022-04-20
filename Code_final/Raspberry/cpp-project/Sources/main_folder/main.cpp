@@ -23,7 +23,7 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  int i = 0;
  while (running )
  {
-	//update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
+	update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
  
   fprintf(myThread, "iteration %d \n", i);
   i++;

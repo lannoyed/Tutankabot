@@ -136,10 +136,8 @@ void FSM_loop(Controller *cvs, double deltaT){
     t10 = std::chrono::high_resolution_clock::now() ; 
     if (time_last_update_lidar + lidar_periode < cvs->time ){ // tuple de doubles.
 		cvs->LockLidarOpponentPosition.lock();
-        //positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
-        positionOpponent1Averaged = Filter(std::make_tuple(10.0,10.0), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
+        positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
         cvs->LockLidarOpponentPosition.unlock();
-        time_last_update_lidar = cvs->time;
     }
  	  t11 = std::chrono::high_resolution_clock::now() ; 
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
@@ -347,21 +345,14 @@ void FSM_loop(Controller *cvs, double deltaT){
     float w_ref = cvs->w_ref;
     cvs->LockLidarVWRef.unlock();
     t10 = std::chrono::high_resolution_clock::now() ; 
-    speedConversion(cvs); 
 	speedToWheels(cvs, v_ref, w_ref);
 	t11 = std::chrono::high_resolution_clock::now() ; 
  	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
     //std::cout<< "speed convertion" << deltaT_process <<"\n";
-    speedToWheels(cvs, v_ref, w_ref);
-    t10 = std::chrono::high_resolution_clock::now() ; 
-   	speedControllerLoop(cvs->sc1) ; 
-	t11 = std::chrono::high_resolution_clock::now() ; 
- 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count() * 2;
     //std::cout<< "update " << deltaT_process <<"\n";
     
     // Actualize the command of the motors to maintain a certain speed
 
-	speedControllerLoop(cvs->sc2) ; // TU COMMANDES UNE SEULE ROUE ???  
      
     fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y );
     
