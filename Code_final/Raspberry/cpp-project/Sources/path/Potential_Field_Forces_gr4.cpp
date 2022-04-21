@@ -288,7 +288,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     double vMaxReal = vMax; //*  ( 1 - std::fabs(omega) / omegaMax) ;
-    //vRefNext = vRefNext / 7.5 * 0.33;   
+    vRefNext = vRefNext / 1.41 ;   
     if (vRefNext > vMaxReal) {
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
                                           std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
@@ -502,7 +502,7 @@ void Potential_Field::nextGoalStuck(double newWeight)
         currentGoal = listOfGoal.back();
     }
     currentGoal.setWeight(0.0);
-    addGoal(std::make_tuple(1.1, 1.5),newWeight,  false); 
+    addGoal(coordStuck,newWeight,  false); 
     
     /*if (listOfGoal.size() > 2 ){
         std::swap(listOfGoal.at(listOfGoal.size() -2 ),listOfGoal.at(listOfGoal.size() - 3  ));
@@ -984,61 +984,6 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
     myPotentialField.addOpponent(Opponent(std::make_tuple(0.795,0.9), krep_opponent, rho0_opponent, hitbox_opponent));
     //myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
 
-    
-    /*
-    std::vector< std::tuple<double, double> > carreDeFouille { std::make_tuple(2.0, 0.575),
-
-        std::make_tuple(1.98, 0.575), std::make_tuple(1.98, 0.6675), std::make_tuple(1.98, 0.8525),
-        std::make_tuple(1.98, 1.0375), std::make_tuple(1.98, 1.2225), std::make_tuple(1.98, 1.4075),
-        std::make_tuple(1.98, 1.5925), std::make_tuple(1.98, 1.775), std::make_tuple(1.98, 1.9625),
-        std::make_tuple(1.98, 2.1475), std::make_tuple(1.98, 2.3325), std::make_tuple(1.98, 2.425),
-        std::make_tuple(2.0, 2.425) };
-    myPotentialField.addRectangle(Rectangle(2.0, 0.15, 0.05, carreDeFouille));
-
-    /*
-    // Simple borders. Use of push_back : first in = the last one of the list.
-    double krep = 0.02;
-    myPotentialField.addSimpleBorder(SimpleBorder(krep, 0.15, 1, -1.5, 0.001)); // Bord horizontal bas.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep, 0.15, 0, -1.0, 0.001)); // Bord vertical gauche.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep, 0.15, 1, 1.5, 0.001));  // Bord horizontal haut.
-    myPotentialField.addSimpleBorder(SimpleBorder(krep, 0.15, 0, 1.0, 0.001));  // Bord vertical droit.
-
-
-    // Oblic borders.
-    myPotentialField.addOblicBorder(OblicBorder(krep, 0.15, 1.0, -2.07484, 0.001)); // Bord oblique en bas à droite.
-    myPotentialField.addOblicBorder(OblicBorder(krep, 0.15, -1.0, 2.07484, 0.001)); // Bord oblique en haut à droite.
-
-    // Rectangles.
-    std::vector< std::tuple<double, double> > rectangleBasDroite { std::make_tuple(0.175,-1.5),
-                                                                   std::make_tuple(0.325,-1.5), std::make_tuple(0.325,-1.398), std::make_tuple(0.175, -1.398) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, rectangleBasDroite));
-
-    std::vector< std::tuple<double, double> > rectangleHautDroite { std::make_tuple(0.175, 1.398),
-                                                                    std::make_tuple(0.325, 1.398), std::make_tuple(0.325, 1.5), std::make_tuple(0.175, 1.5) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, rectangleHautDroite));
-
-    std::vector< std::tuple<double, double> > galerieExpoHaut { std::make_tuple(-1.0, 0.33),
-                                                                std::make_tuple(-0.915, 0.33), std::make_tuple(-0.915, 0.57), std::make_tuple(-0.915, 0.81),
-                                                                std::make_tuple(-0.915, 1.05), std::make_tuple(-1.0, 1.05) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, galerieExpoHaut));
-
-    std::vector< std::tuple<double, double> > galerieExpoBas { std::make_tuple(-1.0, -0.33),
-                                                               std::make_tuple(-0.915, -0.33), std::make_tuple(-0.915, -0.57), std::make_tuple(-0.915, -0.81),
-                                                               std::make_tuple(-0.915, -1.05), std::make_tuple(-1.0, -1.05) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, galerieExpoBas));
-
-    std::vector< std::tuple<double, double> > sproutchAuDessusGalerieExpoBas { std::make_tuple(-1.0, -0.225),
-                                                                               std::make_tuple(-0.898, -0.225), std::make_tuple(-0.898, -0.075), std::make_tuple(-1.0, -0.075) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, sproutchAuDessusGalerieExpoBas));
-
-    std::vector< std::tuple<double, double> > sproutchEnDessousGalerieExpoHaut { std::make_tuple(-1.0, 0.075),
-                                                                                 std::make_tuple(-0.898, 0.075), std::make_tuple(-0.898, 0.225), std::make_tuple(-1.0, 0.225) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.01, sproutchEnDessousGalerieExpoHaut));
-
-    std::vector< std::tuple<double, double> > laTigeAGauche { std::make_tuple(-0.8, 0),
-                                                              std::make_tuple(-0.6, 0.0), std::make_tuple(-0.5, 0.0), std::make_tuple(-0.4, 0.0) };
-    myPotentialField.addRectangle(Rectangle(krep, 0.15, 0.001, laTigeAGauche));
-    */
 
     return myPotentialField;
 }
@@ -1048,44 +993,35 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
     // WEIGHT_GOAL est dans 'data.h'.
     if(teamNumber == 0) // ÉQUIPE BLEUE (démarre côté (0,3) )
     {   
-        myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.825);
+        myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.75);
+        myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
+        // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
+        // RAPPEL : l'ordre semble inversé mais non, tout va bien, c'est une FIFO.
 
-        /*myPotentialField->addGoal(std::make_tuple(0.15, 0.15), 0.0,     true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(0.17, 2.80), 0.0,     true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), WEIGHT_GOAL,    true);      // 3 points. First one so we give it a weight. */
+        myPotentialField->addGoal(std::make_tuple(0.3, 2.745),  0.0,    true);     // Statuette 2. On met la statuette dans la vitrine.
+        myPotentialField->addGoal(std::make_tuple(1.49, 2.49),  0.0,    true);     // Statuette 1. On va chercher la statuette et chier un cube.
+        myPotentialField->addGoal(std::make_tuple(0.7, 2.75),   0.0,    true);     // Retour à la base en passant par les samples.
 
-        // More accessory goals on the other side of the map.
+        myPotentialField->addGoal(std::make_tuple(1.7, 2.3325), WEIGHT_GOAL,   true);    // On arrive proche des premières probes. 
+
     }
     else if (teamNumber == 1) // ÉQUIPE JAUNE (démarre côté (0,0) )
     { 
-
-       /* myPotentialField->addGoal(std::make_tuple(0.15, 2.85), 0.0,     true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(1.45, 0.2), 0.0,      true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(0.15, 0.15), 0.0,     true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(1.45, 2.8), 0.0,      true);      // 1 point.
-        myPotentialField->addGoal(std::make_tuple(0.25, 1.3), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(0.25, 1.7), 0.0,      true);      // 2 points.
-        myPotentialField->addGoal(std::make_tuple(1.85, 1.5), WEIGHT_GOAL,    true);      // 3 points. First one so we give it a weight. */
-
-        myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
-
-        
+        myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
+        myPotentialField->coordStuck = std::make_tuple(1.0, 0.75);
         // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
         // RAPPEL : l'ordre semble inversé mais non, tout va bien, c'est une FIFO.
-        myPotentialField->addGoal(std::make_tuple(1.49, 0.51),  0.0,    true);     // Statuette 2.
-        myPotentialField->addGoal(std::make_tuple(0.3, 0.255),  0.0,    true);     // Statuette 1.
-        myPotentialField->addGoal(std::make_tuple(0.6, 0.3),    0.0,    true);     // Retour à la base en passant par les samples.
-        myPotentialField->addGoal(std::make_tuple(1.7, 1.5),    0.0,    true);     // Goal de modélisation, à supprimer après.
+        
+        myPotentialField->addGoal(std::make_tuple(0.3, 0.255),  0.0,    true);     // Statuette 2. On met la statuette dans la vitrine.
+        myPotentialField->addGoal(std::make_tuple(1.49, 0.51),  0.0,    true);     // Statuette 1. On va chercher la statuette et chier un cube.
+        myPotentialField->addGoal(std::make_tuple(0.7, 0.25),    0.0,    true);     // Retour à la base en passant par les samples. À CUSTOM.
+        
         myPotentialField->addGoal(std::make_tuple(1.7, 0.6675), WEIGHT_GOAL,   true);    // On arrive proche des premières probes. 
 
     }
     else
     {
-        throw("Invalid team number (must be between 0 and 3).");
+        throw("Invalid team number (must be either 0 or 1).");
     }
     myPotentialField->addIntermediateGoal();
 }

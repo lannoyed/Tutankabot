@@ -6,6 +6,8 @@
  * https://github.com/craigpeacock/CAN-Examples/blob/master/cantransmit.c
  */
  
+ 
+/*
 #include "ctrlOut.h"
 
 ctrlOut * ctrlOut_init()
@@ -153,7 +155,7 @@ void can_free(ctrlOut *outputs)
 
 
 // venant de l ancien module
-int toHexadecimal(double dutyCycle, char* speed){
+int toHexadecimal(double dutyCycle, char* speed){ */
   /* Pré : 
      dutyCycle : un double variant de 0 à 100 
      speed : pointeur de type char [2]
@@ -161,7 +163,7 @@ int toHexadecimal(double dutyCycle, char* speed){
 	
     commentaire : long mais éfficace attention des modules suplémentaires sont nécéssaire pour enable les nombres à virgules 
     ou convertir des valeurs suplémentaires à 127
-  */
+  */ /*
   double temp;
 	speed[0] = 'F';
 	speed[1] = 'F';
@@ -341,4 +343,7 @@ void sendTheta(float theta, int motor){
 	command[22] = theta_string[1] ; 
 	system(command) ; 
 }
+*/
+
+
 

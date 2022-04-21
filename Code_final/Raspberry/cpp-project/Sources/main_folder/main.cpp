@@ -25,26 +25,26 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  int i = 0;
  while (running )
  {
-	//update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
+	 update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
  
-  fprintf(myThread, "iteration %d \n", i);
-  i++;
-  
-  //std::cout<< "lock opo \n";
+	fprintf(myThread, "iteration %d \n", i);
+	i++;
 	
-  update_opponent_location(ctrl);
-	
+	//std::cout<< "lock opo \n";
+		
+	update_opponent_location(ctrl);
+		
 
 
-  //std::cout<< "lock our \n";
+	//std::cout<< "lock our \n";
 	ctrl->LockLidarOurPosition.lock();
 	//triangulation(ctrl);
-  double x_lidar;
-  double y_lidar;
-  double theta_lidar;
+	double x_lidar;
+	double y_lidar;
+	double theta_lidar;
 	ctrl->LockLidarOurPosition.unlock();
- 
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+	
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
  }
  

@@ -66,36 +66,38 @@
 
 
 //RECTANGLES
-#define rho0_rectangle 0.05
-#define krep_rectangle 8e-7 
+#define rho0_rectangle 0.15
+#define krep_rectangle 8e-4 
 //BORDERS
-#define rho0_border 0.05
-#define krep_border 8e-7
-//LA TIGE
+#define rho0_border 0.15
+#define krep_border 8e-4
+//LA TIGE: on la met la plus faible possible.
 #define rho0_tige 0.05
 #define krep_tige 8e-7
 //SAMPLES
-#define rho0_sample 0.05
-#define krep_sample 8e-7
+#define rho0_sample 0.15
+#define krep_sample 8e-4
+
+
 //OPPONENT
 // Tradeoff possible : lorsque le krep sera beaucoup plus petit, on devra peut-être augmenter le rho0. 
 #define rho0_opponent   0.5
 #define krep_opponent   1e-7 
-#define hitbox_opponent 0.25    
+#define hitbox_opponent 0.20    
 //HITBOX GÉNÉRALE DES OBSTACLES : modifiable. TAG.
 #define hitbox_obstacle 0.0 
 // LIMITEUR DE FORCE
-#define LIMIT_ATTRACTIVE_FORCE 1.999999999999999999999999999999999999999999999999999999999999999999999998
-#define LIMIT_REPULSIVE_FORCE  1.999999999999999999999999999999999999999999999999999999999999999999999999
+#define LIMIT_ATTRACTIVE_FORCE 0.999999999999999999999999999999999999999999999999999999999999999999999998
+#define LIMIT_REPULSIVE_FORCE  0.999999999999999999999999999999999999999999999999999999999999999999999999
 
 
 // speed max define 
-#define global_vMax 0.2 
-#define global_wMax 1.2
+#define global_vMax 0.12
+#define global_wMax 1.5
 
 
 #define EQUIPE 1 // à modifier. 0 : bleu et 1 : jaune
-#define WEIGHT_GOAL 1.0
+#define WEIGHT_GOAL 1.5
 
 
 #endif

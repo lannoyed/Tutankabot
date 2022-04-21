@@ -198,6 +198,7 @@ public:
     //obstacle_list listOfObstacles;                        // List of all obstacles known at start.
     std::tuple <double, double> current_position;           // Current position of the robot.
     std::tuple <double, double> coordonneesBase;            // Co de la base (si on est team bleue ou jaune)
+    std::tuple <double, double> coordStuck;                 // Co du milieu du terrain de notre moitié.
 
     std::vector<SimpleBorder>   simpleBorderList;           // List of simple border obstacle type.
     std::vector<OblicBorder>    oblicBorderList;            // List of oblic border obstacle type.

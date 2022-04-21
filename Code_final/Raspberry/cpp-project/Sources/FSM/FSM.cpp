@@ -414,7 +414,19 @@ void FSM_finish(Controller *cvs){
 
 
 
-void FSM_loop_update_before (Controller* cvs){
+
+
+
+
+
+
+
+
+
+
+
+
+/*void FSM_loop_update_before (Controller* cvs){
     updateTime(cvs);
     odometryLoop(cvs); // localization fait à chaques appels
     
@@ -433,7 +445,7 @@ void FSM_loop_update_before (Controller* cvs){
     
     /*if(cvs->state != STATE_CALIBRATION){
         myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
-    }*/
+    }
 
     if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
         cvs->state = STOP;
@@ -486,7 +498,7 @@ void FsmToGoalLoop(Controller* cvs){
         myPotentialField.removeGoal();
         returnBaseFull = false;
         cvs->state = AT_BASE;
-    }else */ if  (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
+    }else  if  (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
     {
         //number_sample += 1;
         myPotentialField.removeGoal();
@@ -511,7 +523,7 @@ void FsmToGoalLoop(Controller* cvs){
             myPotentialField.didntRotate = 0;
             cvs->state = STATE_GO2GOAL;
         }
-    }*/
+    }
 }
 
 void FsmStuckLoop(Controller* cvs){
@@ -591,5 +603,5 @@ void Fsm_loop_send_after(Controller* cvs){
     speedConversion(cvs);           // Actualize the command of the motors to maintain a certain speed
    	speedControllerLoop(cvs->sc1) ; 
 	speedControllerLoop(cvs->sc2) ;
-}   
+}   */
 

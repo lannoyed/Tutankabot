@@ -4,7 +4,7 @@
  */
 
 
-
+/*
 
 #include <errno.h>
 #include <unistd.h>
@@ -46,3 +46,4 @@ double thetaToCan(float theta) ;
 void sendTheta(float theta, int motor) ; 
 void CAN_init(ctrlOut *outputs) ; 
 
+*/
