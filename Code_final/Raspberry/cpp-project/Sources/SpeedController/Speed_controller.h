@@ -3,12 +3,8 @@
 # include <unistd.h>
 # include <chrono>
 # include "SPICom.h"
-# include "ctrlOut.h"
+# include "canCom.h"
 # include <math.h>
-# include <thread>
-# include <atomic>
-# include <mutex>
-
 
 typedef struct{
 	float e ; 		// input of the compensator
@@ -35,6 +31,4 @@ float computePIOutput(PI* pi) ;
 void speedControllerLoop(speedController* sc) ; 
 PI* PIInit(float kp, float ti) ; 
 speedController* speedControllerInit(float kp, float ti, float lim_up, float lim_down, float kphi, int spi_number, int motor_number) ;  
-void speedControllerFree(speedController* sc) ;
-
- 
+void speedControllerFree(speedController* sc) ; 

@@ -288,11 +288,23 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     double vMaxReal = vMax; //*  ( 1 - std::fabs(omega) / omegaMax) ;
+    //vRefNext = vRefNext / 7.5 * 0.33;   
     if (vRefNext > vMaxReal) {
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
                                           std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
         vRefNext = vMaxReal;
     }
+
+    /*double norm = currentGoal.computeDistance(position);
+    if(norm >= 0.15 && norm < 0.25)
+    {
+        currentGoal.setWeight(10.0);
+    }
+    if(norm > 0.08 && norm < 0.15)
+    {
+        currentGoal.setWeight(5.0);
+    }*/
+
     //cout << "cosTheta" << cosTheta << "\n";
     //setSpeedVector(nextSpeedVector); // update de speedVector
     return std::make_tuple(vRefNext, omega);
@@ -588,10 +600,8 @@ void updatePotentialField(Potential_Field* myPotentialField, Controller *cvs){
     myPotentialField->setSpeedVector( (double) cvs->theta);                  // récuperation de theta
     //std::tuple<double, double> positionOpponent1Averaged = myPotentialField.speedFilter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1] ));
     /* TO DO ATTENTION LIDAR
-	cvs->LockLidarOpponentPosition.lock();
     opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]));
     opponentList.at(1).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent2[0], (double) cvs-> loc_opponent2[1]));
-	cvs->LockLidarOpponentPosition.unlock();
     */ 
 }
 
@@ -621,10 +631,16 @@ std::tuple<double, double> Goal::attForce(std::tuple<double, double> position_ro
 
 // Goal calcule la distance entre le centre du goal et le centre de la ligne joignant les deux roues du robot.
 double Goal::computeDistance(std::tuple<double, double> robotPosition) {
-    return sqrt(pow(std::get<0>(robotPosition) - std::get<0>(position), 2) +
-                pow(std::get<1>(robotPosition) - std::get<1>(position), 2));
-}
 
+    double distanceToReturn = sqrt(pow(std::get<0>(robotPosition) - std::get<0>(position), 2) +
+                pow(std::get<1>(robotPosition) - std::get<1>(position), 2)); //- precision;
+    
+    if (distanceToReturn < 0.0)
+    {
+        return 0.0;
+    }
+    return distanceToReturn;
+}
 
 bool Goal::goalReached(std::tuple<double, double> position_robot) {
     double distanceToGoal = computeDistance(std::move(position_robot));
@@ -964,8 +980,8 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
     // À l'initialisation, les opponents sont mis hors de la map. 
     // Arguments : position, k_rep, distanceOfInfluence, hitbox radius.
     // Son radius de base est de 15 [cm]. Il ne sert cependant à rien pour l'instant. Pour avoir de l'importance, mettre radiusOpponent en dernier argument. 
-    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
-    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
+    //myPotentialField.addOpponent(Opponent(std::make_tuple(0.795,0.9), krep_opponent, rho0_opponent, hitbox_opponent));
+    //myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
     
     /*
     std::vector< std::tuple<double, double> > carreDeFouille { std::make_tuple(2.0, 0.575),
@@ -1074,9 +1090,9 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    myPotentialField->addGoal(std::make_tuple(0.5, 0.75), 0.0, true);
-    myPotentialField->addGoal(std::make_tuple(0.7, 0.75), WEIGHT_GOAL, true);      // Goal de test.
-    myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.175);
+    myPotentialField->addGoal(std::make_tuple(1.7, 1.2), 0.0, true);
+    myPotentialField->addGoal(std::make_tuple(0.6, 1.2), WEIGHT_GOAL, true);      // Goal de test.
+    myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
 
     /*
     // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?

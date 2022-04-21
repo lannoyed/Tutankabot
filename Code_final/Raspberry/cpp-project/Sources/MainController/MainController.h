@@ -14,9 +14,11 @@ typedef struct{
 	std::mutex LockLidarOpponentPosition;
 	std::mutex LockLidarOurPosition;
 	std::mutex LockLidarVWRef;
-	double x_lidar;
-	double y_lidar;
-	double theta_lidar;
+ 
+  double x_lidar;
+  double y_lidar;
+  double theta_lidar;
+
 	double r ; 
 	double l ;
 	
@@ -27,7 +29,7 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point tL[2] ; 			// Time reference for the localization system 
 	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
 	int calib_flag ; 
-	int team ; 
+	int team ; // Notre numéro d'équipe. 0 pour bleu, 2 pour jaune.
 	double lidar_angles[8192], lidar_distance[8192], lidar_quality[8192] ; 
 	std::chrono::high_resolution_clock::time_point last_lidar_update ;
 
@@ -35,7 +37,6 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point t1;
 	std::chrono::duration<double> Dt;
 	double time; 
-	ctrlOut* outputs;
 	
 } Controller ;
 
@@ -48,9 +49,3 @@ void odometryLoop(Controller* ctrl) ;
 void odometryCalibration(Controller* ctrl) ;
 void update_opponent_location(Controller* ctrl) ; 
 void updateTime (Controller* cvs);
-
-
-// fonction gÃ©nÃ©rale transforment un couple de vitesses de direct(v) angulaire(w) en vitesses aux Roues
-// les envoient dans un controleur -> duty cycle dans le moteur des roues
-// envoie le duty cycle en can Ã  la carte moteur 
-void speedToWheels(Controller* ctrl, double v, double w);

@@ -8,7 +8,6 @@ Controller* ControllerInit(){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
 	ctrl->sc2 = speedControllerInit(3, 0.2, 30, -30, 0.0, 4, 2) ; 
-	ctrl->outputs = ctrlOut_init() ;
 	ctrl->x = 0 ; 
 	ctrl->y = 0 ; 
 	ctrl->theta = 0 ; 
@@ -48,39 +47,10 @@ void speedConversion(Controller* ctrl){
 	ctrl->LockLidarVWRef.unlock();
 }
 
-void speedToWheels(Controller* ctrl, double v, double w){
-	// set de la vitesse
-	//std::cout << "in to wheel \n";
-	set_speed(ctrl, v, w);
-	//std::cout << "set speed finish \n";
-  
-	// conversion de la vitesse angulaire et directe en vitesse aux roues 
-	speedConversion(ctrl);
-	//std::cout << "speed conversion finidh \n";
-  
-	// contrôle de la vitesse
+void ControllerLoop(Controller*  ctrl){
+	speedConversion(ctrl) ; 
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
-	//std::cout << "controller finish \n";
-  
-	// envoie des données aux moteurs
-	float M1_com = ctrl->sc1->command;
-	float M2_com = ctrl->sc2->command;
-	//std::cout << "values retrieved \n";
-	ctrl->outputs->M1 = M1_com;
-	ctrl->outputs->M2 = M2_com;
-	//std::cout << "mise à jour Motor  M1 "<<ctrl->outputs->M1 << " M2 " << ctrl->outputs->M2 <<"\n";
-
-	send_commands(ctrl->outputs);
-	//std::cout << "command send finish \n";
-}
-
-void ControllerLoop(Controller*  ctrl){
-	ctrl->LockLidarVWRef.lock();
-	double v_ref = ctrl->v_ref ; 
-	double w_ref = ctrl->w_ref ; 
-	ctrl->LockLidarVWRef.unlock();
-	speedToWheels(ctrl, v_ref, w_ref) ; 
 	odometryLoop(ctrl) ; 
 	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
 	update_opponent_location(ctrl) ; 
@@ -260,10 +230,12 @@ void odometryCalibration(Controller* ctrl){
 
 void update_opponent_location(Controller* ctrl){
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+	
 	ctrl->LockLidarVWRef.lock();
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
 	ctrl->LockLidarVWRef.unlock();
+
 	double loc_opponent[nb_lidar_data][2] ;  
 	int io1=0, io2=0 ; 
 	double loc_opponent_final[2] ; 
@@ -271,16 +243,15 @@ void update_opponent_location(Controller* ctrl){
 	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
 	double x_curr, y_curr ; 
 	for (int i = 0 ; i < nb_lidar_data ; i++){
-		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.15){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
 			// Delta_lat = 111.96-104.96 = 7mm 
 			// Delta_long = 161.53-196.53 = -35mm
 			// We have to make sure that it is 5.5Hz 
-			//printf("%f\t%f\n", ctrl->lidar_distance[i], ctrl->lidar_angles[i]) ; 
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
-				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
+				printf("Opp point detected in : %f\t%f", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -294,7 +265,7 @@ void update_opponent_location(Controller* ctrl){
 		loc_opponent_final[0] /= io1 ; 
 		loc_opponent_final[1] /= io1 ; 
 	}
-	//printf("x_opp = %f\t y_opp = %f\n", loc_opponent_final[0], loc_opponent_final[1]) ; 
+
 	ctrl->LockLidarOpponentPosition.lock();
 	ctrl->x_opp = loc_opponent_final[0] ; 
 	ctrl->y_opp = loc_opponent_final[1] ; 
@@ -303,10 +274,12 @@ void update_opponent_location(Controller* ctrl){
 
 void triangulation(Controller* ctrl){
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+
 	ctrl->LockLidarVWRef.lock();
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
 	ctrl->LockLidarVWRef.unlock();
+
 	double b1_radius[nb_lidar_data], b2_radius[nb_lidar_data], b3_radius[nb_lidar_data] ;
 	double b1_angle[nb_lidar_data], b2_angle[nb_lidar_data], b3_angle[nb_lidar_data] ; 
 	int ib1=0, ib2=0, ib3=0 ; 
