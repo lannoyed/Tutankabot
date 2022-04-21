@@ -91,3 +91,18 @@ double get_distance(int spi_number)
 
 	return number_of_ticks * FACTOR + OFFSET;
 }
+
+double getStartingButton(){
+
+
+	int spi_number = 8;
+
+	unsigned char buffer[5];
+
+	SPI_receive(spi_number, buffer);
+
+	double value =  buffer[1];
+  std::cout << "in SPI value = "  << value << " return : " << (value == 128) << "\n"; 
+
+	return value == 128;
+}

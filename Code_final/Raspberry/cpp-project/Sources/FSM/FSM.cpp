@@ -142,8 +142,9 @@ void FSM_loop(Controller *cvs, double deltaT){
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
     //std::cout<< "update average position oponent" << deltaT_process <<"\n";
     
-      
+    cvs->LockLidarOpponentPosition.lock();
     fprintf(lidar_smoothing, "%d %d %f %f \n",  std::get<0>(positionOpponent1Averaged),std::get<1>(positionOpponent1Averaged), cvs->x_opp, cvs->y_opp) ;
+    cvs->LockLidarOpponentPosition.unlock();
     //std::cout << "first print \n";
     
     /*if(cvs->state != STATE_CALIBRATION){
@@ -167,14 +168,7 @@ void FSM_loop(Controller *cvs, double deltaT){
             odometryCalibration(cvs);
             number_sample = 0;
 
-            if (cvs->time - time_begin_calibration >= 10 && cvs->time >=15){
-                myPotentialField.didntMove = 0;
-                myPotentialField.didntRotate = 0;
-                returnBaseTime = false;
-                cvs->state = STATE_GO2GOAL;
-            }
-
-            else if (cvs->time >= 0 && cvs->time < 10 ) {
+            if (cvs->time >= 0 && !getStartingButton() ) {
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
                 returnBaseTime = false;
@@ -401,6 +395,7 @@ void FSM_loop(Controller *cvs, double deltaT){
  * \param[in] cvs controller main structure
  */
 
+
 void FSM_finish(Controller *cvs){
 	  // TO DO ATTENTION FINITSH
     //fclose(cvs->data) ; 
@@ -604,4 +599,3 @@ void Fsm_loop_send_after(Controller* cvs){
    	speedControllerLoop(cvs->sc1) ; 
 	speedControllerLoop(cvs->sc2) ;
 }   */
-

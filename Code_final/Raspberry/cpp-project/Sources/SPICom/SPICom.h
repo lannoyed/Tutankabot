@@ -20,3 +20,5 @@ double buffer_to_double_distance(unsigned char* buffer);
 double get_speed(int spi_number); 
 
 double get_distance(int spi_number);
+
+double getStartingButton();
