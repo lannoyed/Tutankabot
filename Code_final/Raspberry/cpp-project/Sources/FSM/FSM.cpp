@@ -167,14 +167,7 @@ void FSM_loop(Controller *cvs, double deltaT){
             odometryCalibration(cvs);
             number_sample = 0;
 
-            if (cvs->time - time_begin_calibration >= 10 && cvs->time >=15){
-                myPotentialField.didntMove = 0;
-                myPotentialField.didntRotate = 0;
-                returnBaseTime = false;
-                cvs->state = STATE_GO2GOAL;
-            }
-
-            else if (cvs->time >= 0 && cvs->time < 10 ) {
+            if (cvs->time >= 0 && !getStartingButton() ) {
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
                 returnBaseTime = false;
