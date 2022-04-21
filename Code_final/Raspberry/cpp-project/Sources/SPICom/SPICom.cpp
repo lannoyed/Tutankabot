@@ -37,7 +37,7 @@ double buffer_to_double(unsigned char* buffer){
 	}
 	double count = 0 ; 
 	for (int i = 0 ; i < 3 ; i++){
-		count += pow(16,i)*(double)buffer[4-i] ; 
+		count += pow(16*16,i)*(double)buffer[4-i] ; 
 	} 
 	return count*sign ; 
 }
