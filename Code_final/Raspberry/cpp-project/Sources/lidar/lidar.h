@@ -4,6 +4,10 @@
 #include <chrono>
 #include <math.h>
 
+#include <thread>
+#include <mutex>
+#include <atomic>
+
 void connectLidar();
 
 void disconnectLidar();

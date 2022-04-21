@@ -10,7 +10,15 @@ typedef struct{
 	speedController* sc2 ;  // speedController of the wheel 2 
 	float x,y,theta ; 		// Position of the robot  
 	float v_ref, w_ref ;	// Translation and rotation speed of the robot 
-	
+
+	std::mutex LockLidarOpponentPosition;
+	std::mutex LockLidarOurPosition;
+	std::mutex LockLidarVWRef;
+ 
+  double x_lidar;
+  double y_lidar;
+  double theta_lidar;
+
 	double r ; 
 	double l ;
 	
@@ -21,7 +29,9 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point tL[2] ; 			// Time reference for the localization system 
 	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
 	int calib_flag ; 
-	int team ; // Notre numéro d'équipe. 0 pour bleu, 2 pour jaune.
+
+	int team ; // Notre numero d'equipe. 0 pour bleu, 2 pour jaune.
+
 	double lidar_angles[8192], lidar_distance[8192], lidar_quality[8192] ; 
 	std::chrono::high_resolution_clock::time_point last_lidar_update ;
 

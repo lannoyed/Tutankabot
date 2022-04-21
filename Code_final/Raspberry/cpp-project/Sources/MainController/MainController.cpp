@@ -32,15 +32,19 @@ Controller* ControllerInit(){
 } 
 
 void set_speed(Controller* ctrl, double v, double w){
+	ctrl->LockLidarVWRef.lock();
 	ctrl->v_ref = v ; 
 	ctrl->w_ref = w ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 
 void speedConversion(Controller* ctrl){
 	double r = ctrl->r ; 
 	double l = ctrl->l ; 
+	ctrl->LockLidarVWRef.lock();
 	ctrl->sc1->speed_ref = 1/r * (ctrl->v_ref - l*ctrl->w_ref) ; 
 	ctrl->sc2->speed_ref = 1/r * (ctrl->v_ref + l*ctrl->w_ref) ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 
 void ControllerLoop(Controller*  ctrl){
@@ -226,8 +230,12 @@ void odometryCalibration(Controller* ctrl){
 
 void update_opponent_location(Controller* ctrl){
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+	
+	ctrl->LockLidarVWRef.lock();
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
+	ctrl->LockLidarVWRef.unlock();
+
 	double loc_opponent[nb_lidar_data][2] ;  
 	int io1=0, io2=0 ; 
 	double loc_opponent_final[2] ; 
@@ -257,14 +265,21 @@ void update_opponent_location(Controller* ctrl){
 		loc_opponent_final[0] /= io1 ; 
 		loc_opponent_final[1] /= io1 ; 
 	}
+
+	ctrl->LockLidarOpponentPosition.lock();
 	ctrl->x_opp = loc_opponent_final[0] ; 
 	ctrl->y_opp = loc_opponent_final[1] ; 
+	ctrl->LockLidarOpponentPosition.unlock();
 }
 
 void triangulation(Controller* ctrl){
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
+
+	ctrl->LockLidarVWRef.lock();
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
+	ctrl->LockLidarVWRef.unlock();
+
 	double b1_radius[nb_lidar_data], b2_radius[nb_lidar_data], b3_radius[nb_lidar_data] ;
 	double b1_angle[nb_lidar_data], b2_angle[nb_lidar_data], b3_angle[nb_lidar_data] ; 
 	int ib1=0, ib2=0, ib3=0 ; 
@@ -317,7 +332,9 @@ void make_angle(Controller* ctrl, double angle){
 	} else if (wref < -1.0){
 		wref = -1.0 ; 
 	} 
+	ctrl->LockLidarVWRef.lock();
 	ctrl->w_ref = wref ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 
 void make_x(Controller* ctrl, double x){
@@ -328,7 +345,9 @@ void make_x(Controller* ctrl, double x){
 	} else if (vref < -0.2){
 		vref = -0.2 ; 
 	}
+	ctrl->LockLidarVWRef.lock();
 	ctrl->v_ref = vref ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 
 void make_y(Controller* ctrl, double y){
@@ -339,6 +358,8 @@ void make_y(Controller* ctrl, double y){
 	} else if (vref < -0.2){
 		vref = -0.2 ; 
 	}
+	ctrl->LockLidarVWRef.lock();
 	ctrl->v_ref = vref ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 

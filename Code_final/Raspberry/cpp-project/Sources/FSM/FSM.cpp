@@ -120,11 +120,7 @@ void FSM_loop(Controller *cvs, double deltaT){
  		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
     //std::cout<< "update potential : " << deltaT_process <<"\n";
     
-    t10 = std::chrono::high_resolution_clock::now() ; 
-    //update_lidar_data(cvs->last_lidar_update, cvs->lidar_angles, cvs->lidar_distance, cvs->lidar_quality) ; 
- 	  t11 = std::chrono::high_resolution_clock::now() ; 
- 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-    //std::cout<< "update lidar : " << deltaT_process <<"\n";
+
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     //update_opponent_location(cvs) ; 
@@ -135,9 +131,11 @@ void FSM_loop(Controller *cvs, double deltaT){
 
     t10 = std::chrono::high_resolution_clock::now() ; 
     if (time_last_update_lidar + lidar_periode < cvs->time ){ // tuple de doubles.
-        //positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
-        positionOpponent1Averaged = Filter(std::make_tuple(10.0,10.0), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
-        
+
+        cvs->LockLidarOpponentPosition.lock();
+        positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
+        cvs->LockLidarOpponentPosition.unlock();
+
         time_last_update_lidar = cvs->time;
     }
  	  t11 = std::chrono::high_resolution_clock::now() ; 
@@ -191,7 +189,7 @@ void FSM_loop(Controller *cvs, double deltaT){
 
         case STATE_GO2GOAL:
             std::cout<<"TO GOAL"<<"\n";
-            std::cout << "Current goal at : (" << std::get<0>(myPotentialField.currentGoal.position) << "," << std::get<1>(myPotentialField.currentGoal.position) << ").\n";
+            //std::cout << "Current goal at : (" << std::get<0>(myPotentialField.currentGoal.position) << "," << std::get<1>(myPotentialField.currentGoal.position) << ").\n";
 
             // iterate potential field
             
@@ -201,9 +199,10 @@ void FSM_loop(Controller *cvs, double deltaT){
          		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
             //std::cout<< "potential field" << deltaT_process <<"\n";
             
-
+            cvs->LockLidarVWRef.lock();
             cvs->v_ref = (float) std::get<0>(speedConsigne);
             cvs->w_ref = (float) std::get<1>(speedConsigne);
+            cvs->LockLidarVWRef.unlock();
 
             double xx;
             double yy; 
@@ -245,8 +244,6 @@ void FSM_loop(Controller *cvs, double deltaT){
             }*/
             
             
-            //cvs->v_ref = (float) 0.0;
-            //cvs->w_ref = (float) 0.0;
             break;
 
         case STATE_STUCK:
@@ -264,14 +261,15 @@ void FSM_loop(Controller *cvs, double deltaT){
 
         case DO_ACTION:
             std::cout<<"ACTION"<<"\n";
-
             time_wait_init_waiting_for_target = 0.0;
             
             isFull = (number_sample == 2);
             action_finished = (cvs->time - time_wait_init) > 3;
             
+	        cvs->LockLidarVWRef.lock();
             cvs->v_ref = 0.0;
             cvs->w_ref = 0.0;
+            cvs->LockLidarVWRef.unlock();
 
             myPotentialField.didntMove = 0;
             myPotentialField.didntRotate = 0;
@@ -319,8 +317,10 @@ void FSM_loop(Controller *cvs, double deltaT){
 
         case STOP:
             //std::cout<<"stop"<<"\n";
+            cvs->LockLidarVWRef.lock();
             cvs->v_ref = (float) 0.0;
             cvs->w_ref = (float) 0.0;
+            cvs->LockLidarVWRef.unlock();
             #ifdef SIMU_PROJECT
             cvs->outputs->flag_release = 1;
             #endif
@@ -335,8 +335,11 @@ void FSM_loop(Controller *cvs, double deltaT){
     //std::cout<<"vitesse angulaire" << cvs-> w_ref << "\n";
     
     if (DONT_MOVE ) {
+      cvs->LockLidarVWRef.lock();
       cvs->v_ref = 0.0;
       cvs->w_ref = 0.0;
+      cvs->LockLidarVWRef.unlock();
+
       }
     
     t10 = std::chrono::high_resolution_clock::now() ; 

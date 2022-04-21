@@ -980,8 +980,10 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
     // À l'initialisation, les opponents sont mis hors de la map. 
     // Arguments : position, k_rep, distanceOfInfluence, hitbox radius.
     // Son radius de base est de 15 [cm]. Il ne sert cependant à rien pour l'instant. Pour avoir de l'importance, mettre radiusOpponent en dernier argument. 
+
     myPotentialField.addOpponent(Opponent(std::make_tuple(0.795,0.9), krep_opponent, rho0_opponent, hitbox_opponent));
-    myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
+    //myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
+
     
     /*
     std::vector< std::tuple<double, double> > carreDeFouille { std::make_tuple(2.0, 0.575),
