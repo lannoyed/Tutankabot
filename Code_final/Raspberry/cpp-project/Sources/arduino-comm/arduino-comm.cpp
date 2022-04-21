@@ -16,6 +16,7 @@ int arduinoSerialConnect(){
 int arduinoSerialDisconnect(){
 	fflush (stdout);
 	serialClose(fd);
+	return 0;
 }
 
 void sendSerialChar(unsigned char c){
@@ -207,14 +208,20 @@ int gripperOpen(){
 int readResistance(){
 	serialPutchar(fd, (unsigned char) 245);
 
-	float resistance = serialGetchar(fd);
+	int received = serialGetchar(fd);
 
-	if(resistance < 0){
-		printf("Wrong response from the arduino\n");
+	if(received < 0){
+		printf("No response from the arduino\n");
+		return -1;
 	}
 	else{
-		return ((int) (resistance/255)*10000);
+		float resistance = (float) received;
+
+	    float result = (resistance/255)*10000;
+
+	    return((int) result);
 	}
 }
+
 
 
