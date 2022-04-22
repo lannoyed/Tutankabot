@@ -84,14 +84,15 @@ void FSM_init(Controller *cvs){
     myPotentialField = initPotentialField();
 
     myFile = fopen("data_log.txt", "w");
-    fprintf(myFile, "[odo1] [odo2] [x] [y] \n");
+    fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
 
     myFileTracking= fopen("data_State_log.txt \n", "w");
     fprintf(myFileTracking, "[state] [x] [y]");
     
     lidar_smoothing = fopen("lidar_smoothing.txt \n", "w");
-    fprintf(lidar_smoothing, "[x opponent] [y opponent] \n");
+    fprintf(lidar_smoothing, "[x_opp] [y_opp] [x_lidar] [y_lidar]\n" );
     cvs->state = 0;
+    cvs->team = team_number;
     
 }
 

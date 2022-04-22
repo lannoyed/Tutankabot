@@ -43,3 +43,10 @@ void FsmStopLoop(Controller* cvs);
 
 // envoie les données au controlleur 
 void Fsm_loop_send_after(Controller* cvs);
+
+
+// FSM DES ACTIONS
+bool FSM_action(Controller* ctrl) ; 
+bool FSM_action_workshed(Controller* ctrl) ; 
+bool FSM_action_statuette(Controller* ctrl) ;
+bool FSM_action_vitrine(Controller* ctrl) ;

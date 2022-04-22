@@ -31,7 +31,6 @@ void Potential_Field::setPosition(const std::tuple<double, double> &position) {
     }else{
         didntMove = 0;
     }
-    std::cout<< std::get<0>(position) << " " << std::get<1>(position) <<"\n"; 
     current_position = position;
 }
 
@@ -144,10 +143,10 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
         std::tuple<double, double> position = obstacle.position;
         if (realDistance <= rho0_obstacle) {
             totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / realDistance) *
                     ((std::get<0>(current_position) - std::get<0>(position)) / realDistance);
             totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / realDistance) *
                     ((std::get<1>(current_position) - std::get<1>(position)) / realDistance);
         }
     }
@@ -207,17 +206,41 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
         return std::make_tuple(0.0,0.0);
     }
 
+    std::cout << totalRepForceX << " " << totalRepForceY << "\n" ;
 
     std::tuple<double, double> totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
 
-    if (sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2)) > LIMIT_REPULSIVE_FORCE)
+    if( fabs(totalRepForceX) > LIMIT_REPULSIVE_FORCE )
+    {
+        double coeff = 1.0;
+        if (totalRepForceX < 0)
+        {
+            coeff = -1.0;
+        }
+        totalRepForceX = coeff*LIMIT_REPULSIVE_FORCE;
+        
+    }
+
+    if(fabs(totalRepForceY) > LIMIT_REPULSIVE_FORCE)
+    {
+        double coeff = 1.0;
+        if (totalRepForceY < 0)
+        {
+            coeff = -1.0;
+        }
+        totalRepForceY = coeff*LIMIT_REPULSIVE_FORCE;
+        
+    }
+
+    /*if (sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2)) > LIMIT_REPULSIVE_FORCE)
     {
         // On normalise puis on retourne la valeur.
         double newValueX = (totalRepForceX / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
         double newValueY = (totalRepForceY / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
         totalRepForce = std::make_tuple(newValueX, newValueY);
-    }
+    }*/
 
+    totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
     return totalRepForce;
 }
 
@@ -275,6 +298,10 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     } else {
         omega = S * acos(cosTheta) / dt;
     }
+
+    double normRep = sqrt(pow(std::get<0>(myRepulsiveForce), 2) + pow(std::get<1>(myRepulsiveForce), 2));
+    omega *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE );
+    vRefNext *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE );
     
     // Limiteur de vitesse : on ne peut pas aller à max vitesse tout droit et angulaire.
     if (omega >= omegaMax) {
@@ -288,7 +315,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     double vMaxReal = vMax; //*  ( 1 - std::fabs(omega) / omegaMax) ;
-    vRefNext = vRefNext / 1.41 ;   
+ 
     if (vRefNext > vMaxReal) {
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
                                           std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
@@ -337,7 +364,7 @@ void Potential_Field::addGoal(const std::tuple<double, double>& newGoalPosition,
         listOfGoal.emplace_back(Goal(newGoalPosition, goalWeight, type));
         currentGoal = listOfGoal.back();
     }
-    std::cout << "Added a goal to return to base at : (" << std::get<0>(newGoalPosition) << "," << std::get<1>(newGoalPosition) << ").\n";
+    // std::cout << "Added a goal to return to base at : (" << std::get<0>(newGoalPosition) << "," << std::get<1>(newGoalPosition) << ").\n";
 
 }
 
@@ -471,7 +498,7 @@ void Potential_Field::nextGoalBase(const std::tuple<double, double>& newPosition
 {
     currentGoal.setWeight(0.0);
     listOfGoal.push_back(Goal(newPosition, goalWeight, true));
-    std::cout << "Added a goal to return to base at : (" << std::get<0>(newPosition) << "," << std::get<1>(newPosition) << ").\n";
+     // std::cout << "Added a goal to return to base at : (" << std::get<0>(newPosition) << "," << std::get<1>(newPosition) << ").\n";
     currentGoal = listOfGoal.back();
     numberOfGoals += 1;
     /*int i = 0;
@@ -521,14 +548,39 @@ std::tuple<double, double> Potential_Field::attractiveForce(std::tuple<double, d
         return std::make_tuple(0.0,0.0);
     }
 
+    double limitedX = std::get<0>(value);
+    double limitedY = std::get<1>(value);
+    
+    if(fabs(limitedX) > LIMIT_ATTRACTIVE_FORCE)
+    {
+        double coeff = 1.0;
+        if (limitedX < 0)
+        {
+            coeff = -1.0;
+        }
+        limitedX = coeff*LIMIT_ATTRACTIVE_FORCE;
+    }
+
+    if(fabs(limitedY) > LIMIT_ATTRACTIVE_FORCE)
+    {
+        double coeff = 1.0;
+        if (limitedY < 0)
+        {
+            coeff = -1.0;
+        }
+        limitedY = coeff*LIMIT_ATTRACTIVE_FORCE;
+    }
+
     // Limiteur de force. Si la norme du vecteur est plus grande que la limite, on limite.
-    if (sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2)) > LIMIT_ATTRACTIVE_FORCE)
+    /*if (sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2)) > LIMIT_ATTRACTIVE_FORCE)
     {
         // On normalise puis on retourne la valeur.
         double newValueX = (std::get<0>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
         double newValueY = (std::get<1>(value) / sqrt( pow(std::get<0>(value), 2) + pow(std::get<1>(value), 2))) * LIMIT_ATTRACTIVE_FORCE;
         value = std::make_tuple(newValueX, newValueY);
-    }
+    }*/
+
+    value = std::make_tuple(limitedX, limitedY);
 
     return value;
 }
@@ -594,15 +646,15 @@ void Potential_Field::goalStolenByOpponent(std::tuple<double, double> positionOp
 }
 
 void updatePotentialField(Potential_Field* myPotentialField, Controller *cvs){
-    std::cout<<cvs->x << " " << cvs->y << "\n";
-    std::cout<<(double) cvs->x << " " << (double) cvs->y << "\n";
     myPotentialField->setPosition(std::make_tuple((double) cvs->x, (double) cvs->y)); // récuperation de x et y
     myPotentialField->setSpeedVector( (double) cvs->theta);                  // récuperation de theta
-    //std::tuple<double, double> positionOpponent1Averaged = myPotentialField.speedFilter(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1] ));
-    /* TO DO ATTENTION LIDAR
-    opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent1[0], (double) cvs-> loc_opponent1[1]));
-    opponentList.at(1).setPositionOpponent(std::make_tuple((double) cvs-> loc_opponent2[0], (double) cvs-> loc_opponent2[1]));
-    */ 
+    
+    cvs->LockLidarOpponentPosition.lock();
+    std::tuple<double, double> positionOpponent1Averaged = myPotentialField->speedFilter(std::make_tuple((double) cvs->x_opp, (double) cvs->y_opp));
+    myPotentialField->opponentList.at(0).setPositionOpponent(std::make_tuple((double) cvs->x_opp, (double) cvs->y_opp));
+    cvs->LockLidarOpponentPosition.unlock();
+    
+    //opponentList.at(1).setPositionOpponent(std::make_tuple((double) cvs->x_opp, (double) cvs->y_opp));
 }
 
 
@@ -1028,9 +1080,26 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-    myPotentialField->addGoal(std::make_tuple(1.7, 1.2), 0.0, true);
-    myPotentialField->addGoal(std::make_tuple(0.6, 1.2), WEIGHT_GOAL, true);      // Goal de test.
-    myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
+    
+    // MAUVE
+    /*myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 2.75), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 2.75), 0.0 , true);*/
+
+    // JAUNE
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 0.25), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 0.25), 0.0 , true);
+
+
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), WEIGHT_GOAL , true);
+    
+    
+    
+    //myPotentialField->addGoal(std::make_tuple(0.6, 1.2), WEIGHT_GOAL, true);      // Goal de test.
+    myPotentialField->coordonneesBase = std::make_tuple(2.27, 0.555);
 
     /*
     // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?
@@ -1048,14 +1117,15 @@ std::tuple<double, double> iterPotentialFieldWithLogFile(Potential_Field * myPot
         std::tuple<double, double> attractionForce = myPotential_Field->attractiveForce(myPotential_Field->current_position);
         std::tuple<double, double> mySpeed = myPotential_Field->getSpeedVector(dt, global_vMax, global_wMax, myPotential_Field->current_position);
         
-        std::cout<< "in \n";
-        std::cout << std::get<0>(myPotential_Field->current_position) << " " <<   std::get<1>(myPotential_Field->current_position) << "\n"; 
-        fprintf( myFile, "%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",  
+        double distanceOpp = myPotential_Field->opponentList.at(0).computeDistance(myPotential_Field->current_position);
+        
+        fprintf( myFile, "%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",  
                                                               (float)std::get<0>(myPotential_Field->current_position),   (float)std::get<1>(myPotential_Field->current_position), 
                                                               (float)std::get<0>(myRepulsiveForce),                      (float)std::get<1>(myRepulsiveForce), 
                                                               (float)std::get<0>(attractionForce),                       (float)std::get<1>(attractionForce), 
                                                               (float)std::get<0>(mySpeed),                               (float)std::get<1>(mySpeed), 
-                                                              (float)std::get<0>(myPotential_Field->currentSpeedVector), (float)std::get<1>(myPotential_Field->currentSpeedVector) ) ;
+                                                              (float)std::get<0>(myPotential_Field->currentSpeedVector), (float)std::get<1>(myPotential_Field->currentSpeedVector), 
+                                                              (float)distanceOpp  ) ;
         if (std::get<0>(mySpeed) == 0 && std::get<1>(mySpeed) == 0){
             myPotential_Field->willNotMove = true;
         }else{

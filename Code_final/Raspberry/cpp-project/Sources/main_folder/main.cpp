@@ -6,6 +6,7 @@
 #include "SPICom.h"
 #include "canCom.h"
 #include "FSM.h"
+# include "arduino-comm.h"
 
 char data_file[] = "prout.csv";
 
@@ -25,10 +26,8 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  int i = 0;
  while (running )
  {
-	 update_lidar_data(last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
- 
-	fprintf(myThread, "iteration %d \n", i);
-	i++;
+	
+	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
 	
 	//std::cout<< "lock opo \n";
 		
@@ -39,12 +38,23 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
 	//std::cout<< "lock our \n";
 	ctrl->LockLidarOurPosition.lock();
 	//triangulation(ctrl);
-	double x_lidar;
-	double y_lidar;
-	double theta_lidar;
+	double x_lidar = i + 0.0;
+	double y_lidar = i + 0.0;
+	double theta_lidar =i + 0.0;
+
+	ctrl->x_lidar = x_lidar;
+	ctrl->y_lidar = y_lidar;
+	ctrl->theta_lidar = theta_lidar;
+
 	ctrl->LockLidarOurPosition.unlock();
-	
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+  ctrl->LockLidarOurPosition.lock();
+  ctrl->LockLidarOpponentPosition.lock();
+  fprintf(myThread, "%f %f %f %f \n", ctrl->x_opp, ctrl->y_opp, ctrl->x_lidar, ctrl->y_lidar);
+  ctrl->LockLidarOpponentPosition.unlock();
+  ctrl->LockLidarOurPosition.unlock();
+
+	i++;
 
  }
  
@@ -60,7 +70,9 @@ int main(int argc, char* argv){
 	mainLog = fopen("main_log2.txt", "w");
 	fprintf(mainLog, "[odo1] [odo2] [x] [y] \n");  
 	//
-  
+	
+	arduinoSerialConnect() ;
+	
 	connectLidar();
 	std::cout<< "Lidar initialized"<<"\n";
   
@@ -99,21 +111,19 @@ int main(int argc, char* argv){
 	while(Dt.count() < 60.0){
  
 		FSM_loop(ctrl, 0.17);
-		std::cout<<" here\n";
    
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
 		deltaT = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t2).count();
-		std::cout<<"local time:   \t" << deltaT << "\n"; 
-		std::cout<<"globale time: \t" << Dt.count() << "\n";
+		//std::cout<<"local time:   \t" << deltaT << "\n"; 
+		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
-		std::cout<<"sleep \n";
     
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
-			std::cout  << "negative sleep : " << time_to_wait << "\n";
+			//std::cout  << "negative sleep : " << time_to_wait << "\n";
 			time_to_wait = 0.0;
 		}
        
@@ -138,6 +148,7 @@ int main(int argc, char* argv){
 	ControllerFree(ctrl) ;
 	std::cout <<"before end lidar"<<"\n";
 	disconnectLidar();
+	arduinoSerialDisconnect() ; 
 	fclose(mainLog);
 }
 

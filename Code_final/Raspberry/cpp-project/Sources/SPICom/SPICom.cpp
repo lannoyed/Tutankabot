@@ -102,7 +102,8 @@ double getStartingButton(){
 	SPI_receive(spi_number, buffer);
 
 	double value =  buffer[1];
-  std::cout << "in SPI value = "  << value << " return : " << (value == 128) << "\n"; 
+    
+    //std::cout << "in SPI value = "  << value << " return : " << (value == 128) << "\n"; 
 
 	return value == 128;
 }

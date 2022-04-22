@@ -3,6 +3,10 @@
 enum {CALIB_START, CALIB_BACKWARD_1, CALIB_WALL_1, CALIB_FORWARD_1, CALIB_TURN_1, CALIB_BACKWARD_2, CALIB_WALL_2, CALIB_FORWARD_2, CALIB_TURN_2, CALIB_BACKWARD_3, CALIB_FINISH};
 enum {PURPLE, YELLOW} ; 
 
+enum {WORKSHED, EXCAVATION, STATUETTE, ACTION_FINISHED} ; // FSM action states 
+enum {WS_START, WS_SETPOS1} ; //FSM action workshed states
+
+
 Controller* ControllerInit(){
 	Controller* ctrl = (Controller*)malloc(sizeof(Controller)) ; 
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
@@ -17,7 +21,8 @@ Controller* ControllerInit(){
 	ctrl->tL[1] = ctrl->tL[0] ; 
 	ctrl->r = 0.023 ; 
 	ctrl->l = 0.18789/2 ; 
-	ctrl->t_flag = t0 ; 
+	ctrl->t_flag = t0 ;
+	ctrl->action_t_flag = t0 ; 
 	ctrl->calib_flag = CALIB_START ; 
 	ctrl->team = YELLOW ; 
 	ctrl->x_opp = 200.0 ; 
@@ -28,6 +33,11 @@ Controller* ControllerInit(){
 	ctrl->Dt = std::chrono::duration_cast<std::chrono::duration<double>> (ctrl->t1-ctrl->t0);
 	ctrl->time = ctrl->Dt.count() - 18;
 	ctrl->state = 0 ; 
+	ctrl->action_state = STATUETTE ; 
+	ctrl->action_state_workshed = 0 ;
+	ctrl->action_state_vitrine = 0 ;
+	ctrl->alpha0 = 0 ; 
+	ctrl->first_time = 1 ; 
 	return ctrl ; 
 } 
 
@@ -78,6 +88,11 @@ void odometryLoop(Controller* ctrl){
 	ctrl->x += ds*cos(ctrl->theta+dtheta/2) ; 
 	ctrl->y += ds*sin(ctrl->theta+dtheta/2) ; 
 	ctrl->theta += dtheta ; 
+	if (ctrl->theta > M_PI){
+		ctrl->theta -= 2*M_PI ; 
+	} else if (ctrl->theta < -M_PI){
+		ctrl->theta += 2*M_PI ; 
+	}
 }
 
 void odometryCalibration(Controller* ctrl){
@@ -91,6 +106,7 @@ void odometryCalibration(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now(); 
 	switch (ctrl->team) {
 		case PURPLE :
+			std::cout<< "I M PURPLE \n"; std::cout<<"I M PURPLE \n"; std::cout<<"I M PURPLE \n"; std::cout<<"I M PURPLE \n";
 			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.7 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 1.5 ; time2 = 5.0 ; 
@@ -235,7 +251,7 @@ void update_opponent_location(Controller* ctrl){
 	double v = ctrl->v_ref ; 
 	double w = ctrl->w_ref ; 
 	ctrl->LockLidarVWRef.unlock();
-
+	
 	double loc_opponent[nb_lidar_data][2] ;  
 	int io1=0, io2=0 ; 
 	double loc_opponent_final[2] ; 
@@ -243,15 +259,18 @@ void update_opponent_location(Controller* ctrl){
 	std::chrono::duration<double> dt_lidar = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->last_lidar_update-t0) ;
 	double x_curr, y_curr ; 
 	for (int i = 0 ; i < nb_lidar_data ; i++){
-		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 4.0 && ctrl->lidar_distance[i] > 0.2){
+		if(ctrl->lidar_quality[i] > 0.0 && ctrl->lidar_distance[i] < 1.0 && ctrl->lidar_distance[i] > 0.10){
 			double prop = ((double)(nb_lidar_data-i))/(double)(nb_lidar_data) ; 
 			// Delta_lat = 111.96-104.96 = 7mm 
 			// Delta_long = 161.53-196.53 = -35mm
 			// We have to make sure that it is 5.5Hz 
+			//printf("%f\t%f\n", ctrl->lidar_distance[i], ctrl->lidar_angles[i]) ; 
+			v = 0.0 ; 
+			w = 0.0 ; 
 			x_curr = ctrl->lidar_distance[i]*cos(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->x + 0.035*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) ; 
 			y_curr = ctrl->lidar_distance[i]*sin(ctrl->lidar_angles[i]+ctrl->theta-w*dt_lidar.count() - w*prop/5.5 ) + ctrl->y - 0.035*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0) - v*sin(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0) + 0.007*cos(ctrl->theta-w*dt_lidar.count() - w*prop/5.0)*(dt_lidar.count()+prop/5.0);
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
-				printf("Opp point detected in : %f\t%f", x_curr, y_curr) ; 
+				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -325,8 +344,17 @@ void updateTime (Controller* cvs){
 }
 
 void make_angle(Controller* ctrl, double angle){
-	double kp_angle = 0.3 ; 	
-	double wref = kp_angle*(ctrl->theta-angle) ;
+	double kp_angle = 4.0 ;
+
+	double diff = angle - ctrl->theta;
+
+	if (diff > M_PI){
+		diff -= 2*M_PI ; 
+	} else if (diff < -M_PI){
+		diff += 2*M_PI ; 
+	}
+
+	double wref = kp_angle*diff;
 	if (wref > 1.0){
 		wref = 1.0 ; 
 	} else if (wref < -1.0){
@@ -338,7 +366,7 @@ void make_angle(Controller* ctrl, double angle){
 }
 
 void make_x(Controller* ctrl, double x){
-	double kp_dist = 0.5 ; 
+	double kp_dist = 2.0 ; 
 	double vref = kp_dist*(ctrl->x-x) ; 
 	if (vref > 0.2){
 		vref = 0.2 ; 
@@ -351,8 +379,8 @@ void make_x(Controller* ctrl, double x){
 }
 
 void make_y(Controller* ctrl, double y){
-	double kp_dist = 0.5 ; 
-	double vref = kp_dist*(ctrl->y-y) ; 
+	double kp_dist = 2.0 ; 
+	double vref = kp_dist*(y-ctrl->y) ; 
 	if (vref > 0.2){
 		vref = 0.2 ; 
 	} else if (vref < -0.2){
@@ -363,3 +391,89 @@ void make_y(Controller* ctrl, double y){
 	ctrl->LockLidarVWRef.unlock();
 }
 
+void make_pos_forward(Controller* ctrl, double x, double y, double angle){
+	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
+	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
+	double beta = -(ctrl->theta + alpha - angle);
+
+	double k_rho = 0.5; 
+	double k_alpha = 4.0; 
+	double k_beta = -3.0;
+
+	double v_ref = k_rho*rho ;
+	if (v_ref > 0.2){
+		v_ref = 0.2 ; 
+	}
+
+	double w_ref = k_alpha*alpha + k_beta*beta;
+
+	if (w_ref > 1.0){
+		w_ref = 1.0 ; 
+	} else if (w_ref < -1.0){
+		w_ref = -1.0 ; 
+	}
+
+	ctrl->v_ref = v_ref ; 
+	ctrl->w_ref = w_ref;
+}
+
+void make_pos_backward(Controller* ctrl, double x, double y, double angle){
+	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
+	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
+	double beta = atan2(y-ctrl->y, x-ctrl->x) - angle;
+
+	double k_rho = 1.0; 
+	double k_alpha = 5.0; 
+	double k_beta = -4.0;
+
+	double v_ref = -k_rho*rho ;
+	if (v_ref < -0.2){
+		v_ref = -0.2 ; 
+	}
+
+	double w_ref = k_alpha*alpha + k_beta*beta;
+
+	if (w_ref > 1.0){
+		w_ref = 1.0 ; 
+	} else if (w_ref < -1.0){
+		w_ref = -1.0 ; 
+	}
+
+	printf("rho = %f, alpha = %f, beta = %f\n", rho, alpha, beta);
+
+	ctrl->v_ref = v_ref ; 
+	ctrl->w_ref = w_ref;
+}
+
+/**
+void make_pos_backward(Controller* ctrl, double x, double y, double angle){
+	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
+
+    double alpha = -ctrl->theta+ atan2(y-ctrl->y, x-ctrl->x); 
+    alpha += M_PI;
+    if (alpha > M_PI){alpha -= 2*M_PI ; }
+	double beta = -(ctrl->theta + alpha - angle);
+
+	double k_rho = 1.0; 
+	double k_alpha = 5.0; 
+	double k_beta = -4.0;
+
+	double v_ref = -k_rho*rho ;
+	if (v_ref < -0.2){
+		v_ref = -0.2 ; 
+	}
+
+	double w_ref = k_alpha*alpha + k_beta*beta;
+
+	if (w_ref > 1.0){
+		w_ref = 1.0 ; 
+	} else if (w_ref < -1.0){
+		w_ref = -1.0 ; 
+	}
+
+	printf("rho = %f, alpha = %f, beta = %f\n", rho, alpha, beta);
+
+	ctrl->v_ref = v_ref ; 
+	ctrl->w_ref = w_ref;
+}
+**/

@@ -28,6 +28,8 @@ typedef struct{
 	double x_opp, y_opp ; 
 	std::chrono::high_resolution_clock::time_point tL[2] ; 			// Time reference for the localization system 
 	std::chrono::high_resolution_clock::time_point t_flag ; 		// Time reference fot the calibration 
+	std::chrono::high_resolution_clock::time_point action_t_flag ; 		// Time reference fot the calibration 
+
 	int calib_flag ; 
 
 	int team ; // Notre numero d'equipe. 0 pour bleu, 2 pour jaune.
@@ -38,6 +40,12 @@ typedef struct{
 	std::chrono::high_resolution_clock::time_point t0;
 	std::chrono::high_resolution_clock::time_point t1;
 	std::chrono::duration<double> Dt;
+	int action_state ; 
+	int action_state_workshed ;
+	int action_state_statuette ;
+	int action_state_vitrine ;
+	double alpha0 ; 
+	int first_time ; 
 	double time; 
 	
 } Controller ;
@@ -51,3 +59,8 @@ void odometryLoop(Controller* ctrl) ;
 void odometryCalibration(Controller* ctrl) ;
 void update_opponent_location(Controller* ctrl) ; 
 void updateTime (Controller* cvs);
+void make_angle(Controller* ctrl, double angle) ; 
+void make_x(Controller* ctrl, double x) ; 
+void make_y(Controller* ctrl, double y) ; 
+void make_pos_forward(Controller* ctrl, double x, double y, double theta) ; 
+void make_pos_backward(Controller* ctrl, double x, double y, double theta) ; 

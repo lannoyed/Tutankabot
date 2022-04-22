@@ -4,9 +4,15 @@
 #include <chrono>
 #include <math.h>
 
+
 #include <thread>
 #include <mutex>
 #include <atomic>
+
+#ifndef M_PI
+    #define M_PI 3.1415926
+#endif
+
 
 void connectLidar();
 
