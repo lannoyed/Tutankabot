@@ -61,8 +61,6 @@ bool targetDetected = true;
 
 enum {STATE_CALIBRATION, STATE_GO2GOAL, STATE_STUCK, DO_ACTION, RETURN_BASE, AT_BASE, STOP};
 
-
-
 void FSM_init(Controller *cvs){
     
 
@@ -105,33 +103,33 @@ void FSM_init(Controller *cvs){
  * \param[in] cvs controller main structure
  */
 void FSM_loop(Controller *cvs, double deltaT){
-	update_cord(cvs) ; 
+
     std::chrono::high_resolution_clock::time_point t10 = std::chrono::high_resolution_clock::now() ; 
-	std::chrono::high_resolution_clock::time_point t11 = std::chrono::high_resolution_clock::now() ; 
- 	double deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
+	  std::chrono::high_resolution_clock::time_point t11 = std::chrono::high_resolution_clock::now() ; 
+ 		double deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
     
     updateTime(cvs);
     //std::cout<< "update time" <<"\n";
 
     t10 = std::chrono::high_resolution_clock::now() ;     
     odometryLoop(cvs); // localization fait à chaques appels
-	t11 = std::chrono::high_resolution_clock::now() ; 
-	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
+ 	  t11 = std::chrono::high_resolution_clock::now() ; 
+ 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
     //std::cout<< "update odo : " <<deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     updatePotentialField(&myPotentialField, cvs);
- 	t11 = std::chrono::high_resolution_clock::now() ; 
- 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
+ 	  t11 = std::chrono::high_resolution_clock::now() ; 
+ 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
     //std::cout<< "update potential : " << deltaT_process <<"\n";
     
 
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     //update_opponent_location(cvs) ; 
-	t11 = std::chrono::high_resolution_clock::now() ; 
- 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
-	//std::cout<< "update oponent" << deltaT_process <<"\n";
+	  t11 = std::chrono::high_resolution_clock::now() ; 
+ 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
+   //std::cout<< "update oponent" << deltaT_process <<"\n";
     
 
     t10 = std::chrono::high_resolution_clock::now() ; 
@@ -143,8 +141,8 @@ void FSM_loop(Controller *cvs, double deltaT){
 
         time_last_update_lidar = cvs->time;
     }
- 	t11 = std::chrono::high_resolution_clock::now() ; 
- 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
+ 	  t11 = std::chrono::high_resolution_clock::now() ; 
+ 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
     //std::cout<< "update average position oponent" << deltaT_process <<"\n";
     
     cvs->LockLidarOpponentPosition.lock();
@@ -169,23 +167,18 @@ void FSM_loop(Controller *cvs, double deltaT){
     {
         case STATE_CALIBRATION:
             //std::cout<<"CALIBRATION"<<"\n";
-            //cvs->time = 0.0;
             
             odometryCalibration(cvs);
             number_sample = 0;
-			printf("%f\n", cvs->time) ; 
-			if(cvs->cord_present==0){
-				printf("Cordon plus là\n") ;
-			}
-            if (cvs->time >= 0 && cvs->cord_present==0 ) {
+
+            if (cvs->time >= 0 && !getStartingButton() ) {
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
                 returnBaseTime = false;
-				#ifdef  SIMU_PROJECT
+                #ifdef  SIMU_PROJECT
                     initGoals(&myPotentialField, EQUIPE);
                 #else
                     initGoalsTest(&myPotentialField, cvs->team);
-					cvs->time = 0.0;
                 #endif
                 cvs->state = STATE_GO2GOAL;
             }
@@ -409,6 +402,7 @@ void FSM_loop(Controller *cvs, double deltaT){
  * \param[in] cvs controller main structure
  */
 
+
 void FSM_finish(Controller *cvs){
 	  // TO DO ATTENTION FINITSH
     //fclose(cvs->data) ; 
@@ -603,7 +597,7 @@ void Fsm_loop_send_after(Controller* cvs){
 
 // FSM DES ACTIONS 
 
-enum {WORKSHED, STATUETTE, VITRINE, ACTION_FINISHED, EXCAVATION_SQUARES} ; // FSM action states 
+enum {WORKSHED, STATUETTE, VITRINE, EXCAVATION_SQUARES, ACTION_FINISHED} ; // FSM action states 
 enum {WS_START, WS_SETPOS1, WS_SETPOS2, WS_YARMDOWN, WS_YARMDOWN2, WS_SETPOS3, WS_YARMUP, WS_YARMUP2, WS_SETPOS4, WS_SETPOS5, WS_SETPOS6, WS_SETPOS7, \
     WS_SETPOS8, WS_SETPOS9, WS_SETPOS10, WS_FINISH, GOALDOWN1, GOALDOWN2, GOALUP1, GOALUP2} ; //FSM action workshed states
 enum {STAT_START, STAT_SETPOS1, STAT_SETPOS2, STAT_SETPOS3, STAT_SETPOS4, STAT_OPENGRIPPER, STAT_CLOSEGRIPPER, STAT_FINISH, STAT_SETPOS5, STAT_PUSH_REPLICA, STAT_SETPOS6} ;
@@ -623,7 +617,7 @@ bool FSM_action(Controller* ctrl){
 		case STATUETTE : 
 			printf("Statuette") ;
 			if(FSM_action_statuette(ctrl)){
-				ctrl->action_state = ACTION_FINISHED ; 
+				ctrl->action_state = VITRINE ; 
 				return true ; //return true pour action finished
 			} else {
 				return false ; 
@@ -910,7 +904,6 @@ bool FSM_action_statuette(Controller* ctrl){
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta, val_SETPOS5_x, val_SETPOS5_y, val_SETPOS5_theta, val_SETPOS6_x, val_SETPOS6_y, val_SETPOS6_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
-	unsigned char quarante ; 
 	if (ctrl->team == 0){ //Team purple
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI/4 ;
 		val_SETPOS2_x = 2 - 0.24, 	val_SETPOS2_y = 3 - 0.33, 	val_SETPOS2_theta = M_PI/4 ;
@@ -919,10 +912,10 @@ bool FSM_action_statuette(Controller* ctrl){
 		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.5,		val_SETPOS4_theta = M_PI ;		
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
-		val_SETPOS2_x = 1.66, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI/4;
+		val_SETPOS2_x = 1.64, 		val_SETPOS2_y = 0.295, 		val_SETPOS2_theta = -M_PI/4;
 		val_SETPOS3_x = 1.8, 		val_SETPOS3_y = 0.8, 		val_SETPOS3_theta = -M_PI/2; //make_backward
-		val_SETPOS5_x = 1.63,	 	val_SETPOS5_y = 0.3,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
-		val_SETPOS4_x = 1.45, 		val_SETPOS4_y = 0.35,		val_SETPOS4_theta = M_PI ;	 //make forward
+		val_SETPOS5_x = 1.65,	 	val_SETPOS5_y = 0.38,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
+		val_SETPOS4_x = 1.45, 		val_SETPOS4_y = 0.2,		val_SETPOS4_theta = M_PI ;	 //make forward
 	}
 	switch (ctrl->action_state_statuette) {
 		case STAT_START :
@@ -966,6 +959,7 @@ bool FSM_action_statuette(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
+			/*
 			if (Dt.count() > 6.0){
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_statuette = STAT_CLOSEGRIPPER ;
@@ -973,6 +967,7 @@ bool FSM_action_statuette(Controller* ctrl){
 				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
 				return false ;
 			}
+			*/
 			if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.01)){
 				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
@@ -1059,7 +1054,7 @@ bool FSM_action_statuette(Controller* ctrl){
 
 			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 5.0)) {  //on attend 7 sec
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				make_angle(ctrl,theta_target) ;
+				make_angle(ctrl, theta_target) ;
 				return false  ; 
 			} 
 			set_speed(ctrl, 0.0, 0.0) ; 
@@ -1070,10 +1065,6 @@ bool FSM_action_statuette(Controller* ctrl){
 			return false ;
 
 		case STAT_FINISH :
-		
-			quarante = 40;
-		
-		    sendScore(quarante);
 			
 			return true ; 
 			

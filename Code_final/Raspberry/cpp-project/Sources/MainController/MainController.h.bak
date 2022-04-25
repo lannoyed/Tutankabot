@@ -44,16 +44,13 @@ typedef struct{
 	int action_state_workshed ;
 	int action_state_statuette ;
 	int action_state_vitrine ;
-	int action_state_exc_square ;
 	double alpha0 ; 
 	int first_time ; 
 	double time; 
-	int cord_present ; 
-	std::chrono::high_resolution_clock::time_point cord_t_flag;
+	
 } Controller ;
 
 Controller* ControllerInit() ; 
-void update_cord(Controller* ctrl) ; 
 void set_speed(Controller* ctrl, double v, double w) ; 
 void speedConversion(Controller* ctrl) ;  	
 void ControllerLoop(Controller* ctrl) ;
@@ -66,5 +63,4 @@ void make_angle(Controller* ctrl, double angle) ;
 void make_x(Controller* ctrl, double x) ; 
 void make_y(Controller* ctrl, double y) ; 
 void make_pos_forward(Controller* ctrl, double x, double y, double theta) ; 
-void make_pos_forward_exc(Controller* ctrl, double x, double y, double theta) ;
 void make_pos_backward(Controller* ctrl, double x, double y, double theta) ; 

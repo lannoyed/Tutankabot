@@ -3,7 +3,7 @@
 enum {CALIB_START, CALIB_BACKWARD_1, CALIB_WALL_1, CALIB_FORWARD_1, CALIB_TURN_1, CALIB_BACKWARD_2, CALIB_WALL_2, CALIB_FORWARD_2, CALIB_TURN_2, CALIB_BACKWARD_3, CALIB_FINISH};
 enum {PURPLE, YELLOW} ; 
 
-enum {WORKSHED, STATUETTE, VITRINE, EXCAVATION_SQUARES, ACTION_FINISHED} ; // FSM action states 
+enum {WORKSHED, EXCAVATION, STATUETTE, ACTION_FINISHED} ; // FSM action states 
 enum {WS_START, WS_SETPOS1} ; //FSM action workshed states
 
 
@@ -24,7 +24,7 @@ Controller* ControllerInit(){
 	ctrl->t_flag = t0 ;
 	ctrl->action_t_flag = t0 ; 
 	ctrl->calib_flag = CALIB_START ; 
-	ctrl->team = 1 ; 
+	ctrl->team = YELLOW ; 
 	ctrl->x_opp = 200.0 ; 
 	ctrl->y_opp = 200.0 ; 
 	ctrl->last_lidar_update = t0 ; 
@@ -34,30 +34,12 @@ Controller* ControllerInit(){
 	ctrl->time = ctrl->Dt.count() - 18;
 	ctrl->state = 0 ; 
 	ctrl->action_state = STATUETTE ; 
-	ctrl->action_state_exc_square = 0;
-	ctrl->action_state_statuette = 0 ;
+	ctrl->action_state_workshed = 0 ;
 	ctrl->action_state_vitrine = 0 ;
 	ctrl->alpha0 = 0 ; 
 	ctrl->first_time = 1 ; 
-	ctrl->cord_present = 1;
-	ctrl->cord_t_flag = std::chrono::high_resolution_clock::now();
 	return ctrl ; 
 } 
-
-void update_cord(Controller* ctrl){
-	std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now() ;
-	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (current_time - ctrl->cord_t_flag) ;
-	if (getStartingButton()){
-		ctrl->cord_present = 1 ; 
-		ctrl->cord_t_flag = std::chrono::high_resolution_clock::now() ;
-		return ; 
-	} else {
-		if (Dt.count() > 1.0){
-			ctrl->cord_present = 0 ; 
-			return ; 
-		}
-	}
-}
 
 void set_speed(Controller* ctrl, double v, double w){
 	ctrl->LockLidarVWRef.lock();
@@ -124,6 +106,7 @@ void odometryCalibration(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now(); 
 	switch (ctrl->team) {
 		case PURPLE :
+			std::cout<< "I M PURPLE \n"; std::cout<<"I M PURPLE \n"; std::cout<<"I M PURPLE \n"; std::cout<<"I M PURPLE \n";
 			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.7 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 1.5 ; time2 = 5.0 ; 
@@ -377,7 +360,9 @@ void make_angle(Controller* ctrl, double angle){
 	} else if (wref < -1.0){
 		wref = -1.0 ; 
 	} 
-	set_speed(ctrl, 0.0, wref) ;
+	ctrl->LockLidarVWRef.lock();
+	ctrl->w_ref = wref ; 
+	ctrl->LockLidarVWRef.unlock();
 }
 
 void make_x(Controller* ctrl, double x){
@@ -395,12 +380,7 @@ void make_x(Controller* ctrl, double x){
 
 void make_y(Controller* ctrl, double y){
 	double kp_dist = 2.0 ; 
-	double vref = kp_dist*fabs(y-ctrl->y) ; 
-	if (y > ctrl->y and ctrl->theta < 0 and ctrl->theta > -M_PI){
-			vref *= -1 ;
-	}else if (y < ctrl->y and ctrl->theta > 0 and ctrl->theta < M_PI){
-		vref *= -1 ;
-	}
+	double vref = kp_dist*(y-ctrl->y) ; 
 	if (vref > 0.2){
 		vref = 0.2 ; 
 	} else if (vref < -0.2){
@@ -416,39 +396,13 @@ void make_pos_forward(Controller* ctrl, double x, double y, double angle){
 	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
 	double beta = -(ctrl->theta + alpha - angle);
 
-	double k_rho = 0.7; 
-	double k_alpha = 3; 
-	double k_beta = -2;
-
-	double v_ref = k_rho*rho ;
-	if (v_ref > 0.3){
-		v_ref = 0.3 ; 
-	}
-
-	double w_ref = k_alpha*alpha + k_beta*beta;
-
-	if (w_ref > 1.0){
-		w_ref = 1.0 ; 
-	} else if (w_ref < -1.0){
-		w_ref = -1.0 ; 
-	}
-
-	ctrl->v_ref = v_ref ; 
-	ctrl->w_ref = w_ref;
-}
-
-void make_pos_forward_exc(Controller* ctrl, double x, double y, double angle){
-	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
-	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
-	double beta = -(ctrl->theta + alpha - angle);
-
 	double k_rho = 0.5; 
-	double k_alpha = 5; 
-	double k_beta = -4;
+	double k_alpha = 4.0; 
+	double k_beta = -3.0;
 
 	double v_ref = k_rho*rho ;
-	if (v_ref > 0.3){
-		v_ref = 0.3 ; 
+	if (v_ref > 0.2){
+		v_ref = 0.2 ; 
 	}
 
 	double w_ref = k_alpha*alpha + k_beta*beta;
@@ -464,22 +418,15 @@ void make_pos_forward_exc(Controller* ctrl, double x, double y, double angle){
 }
 
 void make_pos_backward(Controller* ctrl, double x, double y, double angle){
-
-	double backward_theta = ctrl->theta + M_PI;               //on essaie de faire comme si on allait en avant
-	if (backward_theta > M_PI){backward_theta -= 2*M_PI ; }
-
-	double backward_angle = angle + M_PI;               //on adapte l'angle objectif aussi
-	if (backward_angle > M_PI){backward_angle -= 2*M_PI ; }
-
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
-	double alpha = -backward_theta + atan2(y-ctrl->y, x-ctrl->x); 
-	double beta = -(backward_theta + alpha - backward_angle);
+	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
+	double beta = atan2(y-ctrl->y, x-ctrl->x) - angle;
 
-	double k_rho = 0.5; 
-	double k_alpha = 5; 
-	double k_beta = -4;
+	double k_rho = 1.0; 
+	double k_alpha = 5.0; 
+	double k_beta = -4.0;
 
-	double v_ref = -k_rho*rho ; //vitesses négatives
+	double v_ref = -k_rho*rho ;
 	if (v_ref < -0.2){
 		v_ref = -0.2 ; 
 	}
@@ -498,9 +445,6 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	ctrl->w_ref = w_ref;
 }
 
-void check_button(Controller* ctrl){
-	
-}
 /**
 void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));

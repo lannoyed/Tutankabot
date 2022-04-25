@@ -9,7 +9,7 @@
 // Mechatronics Project - LELME2002. 2021-2022.
 // For the reference in coordinate system : see the 'RepresentationCarte.png' file.
 
-enum {PURPLE, YELLOW} ; 
+
 
 
 // Default constructor.
@@ -232,6 +232,14 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
         
     }
 
+    /*if (sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2)) > LIMIT_REPULSIVE_FORCE)
+    {
+        // On normalise puis on retourne la valeur.
+        double newValueX = (totalRepForceX / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        double newValueY = (totalRepForceY / sqrt( pow(totalRepForceX, 2) + pow(totalRepForceY, 2))) * LIMIT_REPULSIVE_FORCE;
+        totalRepForce = std::make_tuple(newValueX, newValueY);
+    }*/
+
     totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
     return totalRepForce;
 }
@@ -292,8 +300,8 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     double normRep = sqrt(pow(std::get<0>(myRepulsiveForce), 2) + pow(std::get<1>(myRepulsiveForce), 2));
-    omega *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE/sqrt(2) );
-    vRefNext *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE/sqrt(2) );
+    omega *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE );
+    vRefNext *= (1.0 - 0.8 * normRep / LIMIT_REPULSIVE_FORCE );
     
     // Limiteur de vitesse : on ne peut pas aller à max vitesse tout droit et angulaire.
     if (omega >= omegaMax) {
@@ -307,9 +315,7 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     double vMaxReal = vMax; //*  ( 1 - std::fabs(omega) / omegaMax) ;
-	if (vRefNext < 0.0){
-		vRefNext = 0.0 ; 
-	}
+ 
     if (vRefNext > vMaxReal) {
         nextSpeedVector = std::make_tuple(std::get<0>(nextSpeedVector) * vMaxReal / vRefNext,
                                           std::get<1>(nextSpeedVector) * vMaxReal / vRefNext);
@@ -1074,18 +1080,26 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 
 
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
-	if (teamNumber == YELLOW){
-		//myPotentialField->addGoal(std::make_tuple(1.7, 1.7), WEIGHT_GOAL, true);      // Goal de test pour exca square
-        //myPotentialField->addGoal(std::make_tuple(0.7, 0.7), 0, true);      // Goal de test.
-        myPotentialField-> addGoal(std::make_tuple(1.5, 0.5), WEIGHT_GOAL, true);      // Goal de test.
-		myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
-		myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
-	}else{
-		//myPotentialField->addGoal(std::make_tuple(0.5, 2.5), 0, true);      // Goal de test.
-		myPotentialField->addGoal(std::make_tuple(1.5, 2.5), WEIGHT_GOAL, true);      // Goal de test.
-		myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.75);
-		myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
-	}
+    
+    // MAUVE
+    /*myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 2.75), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 2.75), 0.0 , true);*/
+
+    // JAUNE
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 0.25), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), 0.0 , true);
+    myPotentialField->addGoal(std::make_tuple(0.7, 0.25), 0.0 , true);
+
+
+    myPotentialField->addGoal(std::make_tuple(1.0, 1.5), WEIGHT_GOAL , true);
+    
+    
+    
+    //myPotentialField->addGoal(std::make_tuple(0.6, 1.2), WEIGHT_GOAL, true);      // Goal de test.
+    myPotentialField->coordonneesBase = std::make_tuple(2.27, 0.555);
 
     /*
     // ENCHAINEMENT DE GOALS : d'abord les probes, puis la statuette. Puis quid ?

@@ -2,8 +2,7 @@
 
 //# include "Odometry.h"
 # include "Potential_Field_Forces_gr4.h"
-# include <math.h>
-#include "arduino-comm.h"
+
 // init la fsm, le controlleur, les odomètres, le lidar, ...
 void FSM_init(Controller *cvs);
 
@@ -51,4 +50,3 @@ bool FSM_action(Controller* ctrl) ;
 bool FSM_action_workshed(Controller* ctrl) ; 
 bool FSM_action_statuette(Controller* ctrl) ;
 bool FSM_action_vitrine(Controller* ctrl) ;
-bool FSM_action_excavation_squares(Controller* ctrl) ;
