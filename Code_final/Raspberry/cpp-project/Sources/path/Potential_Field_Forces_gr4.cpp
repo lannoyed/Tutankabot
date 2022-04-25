@@ -1076,7 +1076,7 @@ void initGoals(Potential_Field * myPotentialField, int teamNumber)
 void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
 	if (teamNumber == YELLOW){
 		//myPotentialField->addGoal(std::make_tuple(1.7, 1.7), WEIGHT_GOAL, true);      // Goal de test pour exca square
-        //myPotentialField->addGoal(std::make_tuple(0.7, 0.7), 0, true);      // Goal de test.
+        myPotentialField->addGoal(std::make_tuple(0.7, 0.45), 0, true);      // Goal de test.
         myPotentialField-> addGoal(std::make_tuple(1.5, 0.5), WEIGHT_GOAL, true);      // Goal de test.
 		myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
 		myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);

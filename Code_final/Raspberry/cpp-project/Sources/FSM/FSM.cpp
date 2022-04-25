@@ -66,7 +66,10 @@ enum {STATE_CALIBRATION, STATE_GO2GOAL, STATE_STUCK, DO_ACTION, RETURN_BASE, AT_
 void FSM_init(Controller *cvs){
     
 
-
+	if (cvs->first_time == 1){
+		pushReplica() ; 
+		cvs->first_time = 0 ; 
+	}
     int max;
     max = len_stack + len_stack;
     for (int i =0; i < max ; i++){
@@ -343,63 +346,29 @@ void FSM_loop(Controller *cvs, double deltaT){
     //std::cout<<"vitesse angulaire" << cvs-> w_ref << "\n";
     
     if (DONT_MOVE ) {
-      cvs->LockLidarVWRef.lock();
-      cvs->v_ref = 0.0;
-      cvs->w_ref = 0.0;
-      cvs->LockLidarVWRef.unlock();
-
-      }
+		cvs->LockLidarVWRef.lock();
+		cvs->v_ref = 0.0;
+		cvs->w_ref = 0.0;
+		cvs->LockLidarVWRef.unlock();
+    }
     
     t10 = std::chrono::high_resolution_clock::now() ; 
     speedConversion(cvs); 
-	  t11 = std::chrono::high_resolution_clock::now() ; 
- 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
+	t11 = std::chrono::high_resolution_clock::now() ; 
+ 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count();
     //std::cout<< "speed convertion" << deltaT_process <<"\n";
     
     t10 = std::chrono::high_resolution_clock::now() ; 
    	speedControllerLoop(cvs->sc1) ; 
-	  t11 = std::chrono::high_resolution_clock::now() ; 
- 		deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count() * 2;
+	t11 = std::chrono::high_resolution_clock::now() ; 
+	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t10-t11).count() * 2;
     //std::cout<< "update " << deltaT_process <<"\n";
     
     // Actualize the command of the motors to maintain a certain speed
 
 	  speedControllerLoop(cvs->sc2) ;
      
-    fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y );
-    
-    /*
-    =======
-	if (cvs->inputs->t < 0){
-		odometry_calibration(cvs) ;
-		
-	} else if (cvs->inputs->t > 1.0 && cvs->inputs->t < 4.0){
-		speed_set(cvs, 0.3, 0.3) ;
-	} else if (cvs->inputs->t > 4.0 && cvs->inputs->t < 7.0){
-		speed_set(cvs, 0.3, -0.5) ;
-	} else {
-		speed_set(cvs, 0.0, 0.0) ; 
-	}
-	speed_regulation(cvs) ; 
-	localization_loop(cvs) ; 
-
-
-
-	/*
-	float dist1 = sqrt((x - beacon1[0]) * (x - beacon1[0]) + (y - beacon1[1]) * (y - beacon1[1]));
-	float angle1 = 90 - atan2(beacon1[1] - y, beacon1[0] - x) * 180 / M_PI;
-	//printf("dist1 = %f, angle1 = %f\t", dist1, angle1);
-
-	float dist2 = sqrt((x - beacon2[0]) * (x - beacon2[0]) + (y - beacon2[1]) * (y - beacon2[1]));
-	float angle2 = 90 - atan2(beacon2[1] - y, beacon2[0] - x) * 180 / M_PI;
-	//printf("x = %f, y = %f", x, y);
-	//printf("dist2 = %f, angle2 = %f\t", dist2, angle2);
-
-	float dist3 = sqrt((x - beacon3[0]) * (x - beacon3[0]) + (y - beacon3[1]) * (y - beacon3[1]));
-	float angle3 = 90 - atan2(beacon3[1] - y, beacon3[0] - x) * 180/M_PI;
-	//printf("dist3 = %f, angle3 = %f\t", dist3, angle3 + theta);
-     >>>>>>> main
-     */
+    fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y ) ; 
 
 
 }
@@ -409,197 +378,6 @@ void FSM_loop(Controller *cvs, double deltaT){
  * \param[in] cvs controller main structure
  */
 
-void FSM_finish(Controller *cvs){
-	  // TO DO ATTENTION FINITSH
-    //fclose(cvs->data) ; 
-	  //speed_regulation_finish(cvs) ;	// Sets all command at 0
-    fclose(lidar_smoothing);
-    fclose(myFile);
-    fclose(myFileTracking);
-}
-
-
-
-
-
-void FSM_loop_update_before (Controller* cvs){
-    updateTime(cvs);
-    odometryLoop(cvs); // localization fait à chaques appels
-    
-    updatePotentialField( &myPotentialField, cvs);
-    
-    
-    update_lidar_data(cvs->last_lidar_update, cvs->lidar_angles, cvs->lidar_distance, cvs->lidar_quality) ; 
-	  update_opponent_location(cvs) ; 
-
-    if (time_last_update_lidar + lidar_periode < cvs->time ){ // tuple de doubles.
-        positionOpponent1Averaged = Filter(std::make_tuple((double) cvs-> x_opp, (double) cvs-> y_opp), &stack_1, &opponent1_x_filtered, &opponent1_y_filtered);
-        time_last_update_lidar = cvs->time;
-    }
-
-    fprintf(lidar_smoothing, "%d %d %d %d \n",  std::get<0>(positionOpponent1Averaged),std::get<1>(positionOpponent1Averaged), cvs->x_opp, cvs->y_opp) ;
-    
-    /*if(cvs->state != STATE_CALIBRATION){
-        myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
-    }*/
-
-    if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
-        cvs->state = STOP;
-    }else if (cvs->time > time_return && !returnBaseTime) {             //\\mieux de faire un fonction calculant le temps de retour estimé
-        returnBaseTime = true;
-        cvs->state = RETURN_BASE;
-    }
-
-}
-
-void FsmCalibrationLoop(Controller* cvs){
-
-    odometryCalibration(cvs);
-    number_sample = 0;
-
-    if (cvs->time - time_begin_calibration >= 10 && cvs->time >=5){
-        myPotentialField.didntMove = 0;
-        myPotentialField.didntRotate = 0;
-        returnBaseTime = false;
-        cvs->state = STATE_GO2GOAL;
-    }
-
-    else if (cvs->time >= 0 && cvs->time < 5 ) {
-        myPotentialField.didntMove = 0;
-        myPotentialField.didntRotate = 0;
-        returnBaseTime = false;
-        #ifdef  SIMU_PROJECT
-            initGoals(&myPotentialField, EQUIPE); // HARDCODÉ, à changer.
-        #else
-            initGoalsTest(&myPotentialField, cvs->team);
-        #endif
-        cvs->state = STATE_GO2GOAL;
-    }
-}
-
-void FsmToGoalLoop(Controller* cvs){
-    // iterate potential field
-    speedConsigne = iterPotentialFieldWithLogFile(&myPotentialField, 0.1, myFile);
-    cvs->v_ref = (float) std::get<0>(speedConsigne);
-    cvs->w_ref = (float) std::get<1>(speedConsigne);
-
-    double xx;
-    double yy; 
-    xx = std::get<0>(myPotentialField.current_position);
-    yy = std::get<1>(myPotentialField.current_position);  
-
-
-    
-    /*if (myPotentialField.GoalTest() && returnBaseFull && (0.4 <= xx && xx <= 1.0) && (yy <= 0.4 || yy >= 2.6 ) ){
-        myPotentialField.removeGoal();
-        returnBaseFull = false;
-        cvs->state = AT_BASE;
-    }else */ if  (targetDetected && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true )
-    {
-        //number_sample += 1;
-        myPotentialField.removeGoal();
-        time_wait_init = cvs->time;
-        cvs->state = DO_ACTION;
-    }else if (myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == false ){
-        myPotentialField.removeGoal();
-        myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
-        myPotentialField.didntMove = 0;
-        myPotentialField.didntRotate = 0;
-        cvs->state = STATE_GO2GOAL;
-    }
-
-    else if (myPotentialField.isStuck) {
-        cvs->state = STATE_STUCK;
-    } /*else if (myPotentialField.GoalTest()){
-        time_wait_init_waiting_for_target += 0.001;
-        if (time_wait_init_waiting_for_target > 1.5){
-            myPotentialField.removeGoal();
-            myPotentialField.nextGoal(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
-            myPotentialField.didntMove = 0;
-            myPotentialField.didntRotate = 0;
-            cvs->state = STATE_GO2GOAL;
-        }
-    }*/
-}
-
-void FsmStuckLoop(Controller* cvs){
-
-    // change goal correctly
-    myPotentialField.nextGoalStuck(WEIGHT_GOAL);               //\\ creer gere le cas de next goals si stuck peut-être enlever le remove
-    myPotentialField.didntMove = 0;
-    myPotentialField.didntRotate = 0;
-    cvs->state = STATE_GO2GOAL;
-    time_wait_init_waiting_for_target = 0.0;
-
-}
-
-
-void FsmDoActionLoop(Controller* cvs){
-    time_wait_init_waiting_for_target = 0.0;
-    
-    isFull = (number_sample == 2);
-    action_finished = (cvs->time - time_wait_init) > 3.0;
-    
-    //cvs->v_ref = 0.0;
-    //cvs->w_ref = 0.0;
-
-    myPotentialField.didntMove = 0;
-    myPotentialField.didntRotate = 0;
-    // timer pour s'arreter 3s
-
-    // actions related to state do action
-    if (action_finished && isFull) {
-        cvs->state = RETURN_BASE;
-        returnBaseFull = true;
-    } else if (action_finished && myPotentialField.numberOfGoals == 0){
-        cvs->state = RETURN_BASE;
-        returnBaseTime = true;
-    } else if (action_finished && myPotentialField.numberOfGoals != 0) {
-        myPotentialField.nextGoal(WEIGHT_GOAL);
-        cvs->state = STATE_GO2GOAL;
-    
-    } else if (action_finished){
-        myPotentialField.nextGoal(WEIGHT_GOAL);
-        cvs->state = STATE_GO2GOAL;
-    }
-    #ifdef SIMU_PROJECT
-    cvs->outputs->flag_release = 0;
-    #endif
-    
-}
-
-void FsmReturnBaseLoop (Controller* cvs){
-
-    time_wait_init_waiting_for_target = 0.0;
-    myPotentialField.nextGoalBase(myPotentialField.coordonneesBase, WEIGHT_GOAL);
-    cvs->state = STATE_GO2GOAL;
-}
-
-void FsmAtBaseLoop(Controller* cvs){
-    time_wait_init_waiting_for_target = 0.0;
-    #ifdef SIMU_PROJECT
-    cvs->outputs->flag_release = 1;
-    #endif
-    number_sample = 0;
-    myPotentialField.nextGoal(10.0);
-    time_begin_calibration = cvs->time;
-    //cvs->state = STATE_CALIBRATION;
-    cvs->state = STATE_GO2GOAL;
-}
-
-void FsmStopLoop(Controller* cvs){
-    cvs->v_ref = (float) 0.0;
-    cvs->w_ref = (float) 0.0;
-    #ifdef SIMU_PROJECT
-    cvs->outputs->flag_release = 1;
-    #endif
-}
-
-void Fsm_loop_send_after(Controller* cvs){
-    speedConversion(cvs);           // Actualize the command of the motors to maintain a certain speed
-   	speedControllerLoop(cvs->sc1) ; 
-	speedControllerLoop(cvs->sc2) ;
-}   
 
 // FSM DES ACTIONS 
 
@@ -611,7 +389,6 @@ enum {VIT_START, VIT_CLOSEGRIPPER, VIT_FINISH, VIT_OPENGRIPPER, VIT_SETPOS1, VIT
 enum {ES_START, ES_BT1, ES_BT2, ES_ENDPOS, ES_FINISH, ES_FT2, ES_FT3, ES_FT4, ES_FT5, ES_FT6, ES_FT7, ES_SETPOS1, ES_PUSH} ;
 
 bool FSM_action(Controller* ctrl){
-	printf("Workshed\n") ; 
 	switch (ctrl->action_state) {
 		case WORKSHED : 
 			if(FSM_action_workshed(ctrl)){
@@ -621,9 +398,9 @@ bool FSM_action(Controller* ctrl){
 				return false ; 
 			}
 		case STATUETTE : 
-			printf("Statuette") ;
+			printf("Statuette\n") ;
 			if(FSM_action_statuette(ctrl)){
-				ctrl->action_state = ACTION_FINISHED ; 
+				ctrl->action_state = VITRINE ; 
 				return true ; //return true pour action finished
 			} else {
 				return false ; 
@@ -919,10 +696,10 @@ bool FSM_action_statuette(Controller* ctrl){
 		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.5,		val_SETPOS4_theta = M_PI ;		
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
-		val_SETPOS2_x = 1.66, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI/4;
+		val_SETPOS2_x = 1.68, 		val_SETPOS2_y = 0.275, 		val_SETPOS2_theta = -M_PI/4;
 		val_SETPOS3_x = 1.8, 		val_SETPOS3_y = 0.8, 		val_SETPOS3_theta = -M_PI/2; //make_backward
-		val_SETPOS5_x = 1.63,	 	val_SETPOS5_y = 0.3,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
-		val_SETPOS4_x = 1.45, 		val_SETPOS4_y = 0.35,		val_SETPOS4_theta = M_PI ;	 //make forward
+		val_SETPOS5_x = 1.60,	 	val_SETPOS5_y = 0.31,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
+		val_SETPOS4_x = 1.8, 		val_SETPOS4_y = 0.8, 		val_SETPOS4_theta = -M_PI/2;
 	}
 	switch (ctrl->action_state_statuette) {
 		case STAT_START :
@@ -985,7 +762,8 @@ bool FSM_action_statuette(Controller* ctrl){
 			return false ; 
 		
 		case STAT_CLOSEGRIPPER : 
-            if (ctrl->first_time == 1){
+            set_speed(ctrl, 0.0, 0.0) ; 
+			if (ctrl->first_time == 1){
                 gripperClose() ; 
                 ctrl->first_time = 0 ; 
             }
@@ -1003,6 +781,11 @@ bool FSM_action_statuette(Controller* ctrl){
 			x_target = val_SETPOS3_x ; 
 			y_target = val_SETPOS3_y ; 
 			theta_target = val_SETPOS3_theta ;
+			if (Dt.count() > 9.0){
+				ctrl->action_state_statuette = STAT_SETPOS5 ; 
+                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
+                ctrl->first_time = 1 ;  //pr le goal
+			}
 			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.01)){
                 make_pos_backward(ctrl, x_target, y_target, theta_target) ;
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
@@ -1019,13 +802,12 @@ bool FSM_action_statuette(Controller* ctrl){
             x_target = val_SETPOS5_x ; 
             y_target = val_SETPOS5_y ; 
             theta_target = val_SETPOS5_theta ;
-			/*
-			if (Dt.count() > 2.0){
+			
+			if (Dt.count() > 3.0){
 				ctrl->action_state_statuette = STAT_PUSH_REPLICA ; 
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
 			}
-			*/
 			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 7.0)) {  //on attend 7 sec
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 				make_pos_forward(ctrl, x_target, y_target, theta_target) ;
@@ -1034,10 +816,12 @@ bool FSM_action_statuette(Controller* ctrl){
 			set_speed(ctrl, 0.0, 0.0) ; 
 			ctrl->action_state_statuette = STAT_PUSH_REPLICA; 
             ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
+			ctrl->first_time = 1 ; 
 			
 			return false ;
 			
 		case STAT_PUSH_REPLICA :
+			set_speed(ctrl, 0.0, 0.0) ; 
 			if (ctrl->first_time == 1){
                 pushReplica() ; 
                 ctrl->first_time = 0 ; 
@@ -1059,7 +843,7 @@ bool FSM_action_statuette(Controller* ctrl){
 
 			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 5.0)) {  //on attend 7 sec
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				make_angle(ctrl,theta_target) ;
+				make_pos_backward(ctrl,x_target, y_target, theta_target) ;
 				return false  ; 
 			} 
 			set_speed(ctrl, 0.0, 0.0) ; 
@@ -1089,15 +873,15 @@ bool FSM_action_vitrine(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
 	if (ctrl->team == 0){
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI ;
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI+0.3 ;
 		val_SETPOS2_x = 0.04, 		val_SETPOS2_y = 2.68, 		val_SETPOS2_theta = M_PI ;
 		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
 		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;		
 	}else{
-		val_SETPOS1_x = 0.5, val_SETPOS1_y = 0.5, val_SETPOS1_theta = M_PI;
-		val_SETPOS2_x = 0.04, val_SETPOS2_y = 0.25, val_SETPOS2_theta = M_PI;
-		val_SETPOS3_x = 0.5, val_SETPOS3_y = 0.25, val_SETPOS3_theta = -M_PI/2;
-		val_SETPOS4_x = 0, val_SETPOS4_y = 0, val_SETPOS4_theta = M_PI/4;	
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI+0.1; // Make angle 
+		val_SETPOS2_x = 0.091, 		val_SETPOS2_y = 0.29, 		val_SETPOS2_theta = -M_PI; // Make pos 
+		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 0.25, 		val_SETPOS3_theta = -M_PI/2;
+		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = M_PI/4;	
 	}
 	switch (ctrl->action_state_vitrine) {
 		case VIT_START :
@@ -1112,7 +896,13 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS1_x ; 
 			y_target = val_SETPOS1_y ; 
 			theta_target = val_SETPOS1_theta ;
-
+			if (Dt.count() > 4.0){
+				set_speed(ctrl, 0.0, 0.0) ; 
+				ctrl->first_time = 1 ; 
+				ctrl->action_state_vitrine = VIT_SETPOS2 ;
+				ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
+				return false ; 
+			}
 			printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ;
 			if ( fabs(ctrl->theta - theta_target) > 0.05){ 
 				make_angle(ctrl, theta_target) ;
@@ -1129,8 +919,13 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
-
-
+			if (Dt.count() > 9.0){
+				set_speed(ctrl, 0.0, 0.0) ;
+				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
+				ctrl->first_time = 1 ;
+				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+				return false ; 
+			}
 			if ((fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.01)){
 				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 

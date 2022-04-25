@@ -106,7 +106,7 @@ int main(int argc, char* argv){
 	std::atomic<bool> running (true) ;
 	std::thread lidar_thread(lidar_loop, std::ref(running), ctrl);
  
-	while(Dt.count() < 4*60.0 && !(ctrl->state == 6) ){
+	while(Dt.count() < 15*60.0 && !(ctrl->state == 6) ){
  
 		FSM_loop(ctrl, 0.17);
    

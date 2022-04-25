@@ -12,9 +12,14 @@ Controller* ControllerInit(){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
 	ctrl->sc2 = speedControllerInit(3, 0.2, 30, -30, 0.0, 4, 2) ; 
+	ctrl->team = 1 ;
+	if (ctrl->team == 1){
+		ctrl->theta = M_PI/2 ; 
+	} else {
+		ctrl->theta = -M_PI/2 ; 
+	}
 	ctrl->x = 0 ; 
 	ctrl->y = 0 ; 
-	ctrl->theta = 0 ; 
 	ctrl->v_ref = 0 ; 
 	ctrl->w_ref = 0 ; 
 	ctrl->tL[0] = t0;
@@ -23,8 +28,7 @@ Controller* ControllerInit(){
 	ctrl->l = 0.18789/2 ; 
 	ctrl->t_flag = t0 ;
 	ctrl->action_t_flag = t0 ; 
-	ctrl->calib_flag = CALIB_START ; 
-	ctrl->team = 1 ; 
+	ctrl->calib_flag = CALIB_START ;  
 	ctrl->x_opp = 200.0 ; 
 	ctrl->y_opp = 200.0 ; 
 	ctrl->last_lidar_update = t0 ; 
@@ -122,15 +126,17 @@ void odometryCalibration(Controller* ctrl){
 	double time1, time2, time3, time4 ; 
 	std::chrono::duration<double> dt ;
 	std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now(); 
+	double w_ref ; 
+	double kpw = 1.0 ; 
 	switch (ctrl->team) {
 		case PURPLE :
-			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.7 ; 
+			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.75 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 1.5 ; time2 = 5.0 ; 
 			w1 = 1.0 ; w2 = -1.0 ;
 			break ; 
 		case YELLOW :
-			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.3 ; 
+			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.25 ; 
 			calib1 = 0.145 ; calib2 = M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
 			time1 = 2.0 ; time2 = 5.0 ; 
 			w1 = -1.0 ; w2 = 1.0 ;
@@ -144,7 +150,8 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 		case CALIB_BACKWARD_1 :
 			//printf("BACKWARD 1\n") ; 
-			set_speed(ctrl, -0.1, 0.0) ; 
+			w_ref = kpw*(calib2 - ctrl->theta) ;
+			set_speed(ctrl, -0.1, w_ref) ; 
 			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ; 
 			if (dt.count() > 2.0){
 				set_speed(ctrl, 0.0, 0.0) ;
@@ -162,9 +169,9 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 		case CALIB_FORWARD_1 :
 			//printf("FORWARD 1\n") ; 
-			set_speed(ctrl, 0.1, 0.0) ;
-			t = std::chrono::high_resolution_clock::now() ;
-			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ;  
+			w_ref = kpw*(calib2 - ctrl->theta) ; 
+			set_speed(ctrl, 0.1, w_ref) ;  
+			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ; 
 			if (dt.count() > time1){
 				set_speed(ctrl, 0.0, 0.0) ; 
 				ctrl->calib_flag = CALIB_TURN_1 ; 
@@ -173,26 +180,18 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 		case CALIB_TURN_1 : 
 			//printf("TURN 1\n") ; 
-			set_speed(ctrl, 0.0, w1) ; 
-			if (ctrl->team == PURPLE){
-				//printf("coucou\n") ; 
-				if (ctrl->theta > val1){
-					set_speed(ctrl, 0.0, 0.0) ; 
-					ctrl->calib_flag = CALIB_BACKWARD_2 ; 
-					ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
-				}
-			} else {
-				if (ctrl->theta < val1){
-					set_speed(ctrl, 0.0, 0.0) ; 
-					ctrl->calib_flag = CALIB_BACKWARD_2 ; 
-					ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
-				}
+			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ;
+			make_angle(ctrl, val1) ; 
+			if (dt.count() > 4.0) {
+				set_speed(ctrl, 0.0, 0.0) ; 
+				ctrl->calib_flag = CALIB_BACKWARD_2 ; 
+				ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
 			}
 			break ; 
 		case CALIB_BACKWARD_2 :
 			//printf("BACKWARD 2 \n") ; 
-			set_speed(ctrl, -0.1, 0.0) ; 
-			t = std::chrono::high_resolution_clock::now() ;
+			w_ref = kpw*(calib4-ctrl->theta) ;
+			set_speed(ctrl, -0.1, w_ref) ; 
 			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ;
 			if (dt.count() > time2) {
 				set_speed(ctrl, 0.0, 0.0) ; 
@@ -209,7 +208,8 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 		case CALIB_FORWARD_2 :
 			//printf("FORWARD 2 \n") ; 
-			set_speed(ctrl, 0.1, 0.0) ; 
+			w_ref = kpw*(calib4-ctrl->theta) ; 
+			set_speed(ctrl, 0.1, w_ref) ; 
 			if (ctrl->x > val2){
 				set_speed(ctrl, 0.0, 0.0) ; 
 				ctrl->calib_flag = CALIB_TURN_2 ; 
@@ -217,25 +217,18 @@ void odometryCalibration(Controller* ctrl){
 			}
 			break ; 
 		case CALIB_TURN_2 : 
-			set_speed(ctrl, 0.0, w2) ;
 			//printf("TURN 2\n") ; 
-			if (ctrl->team == PURPLE){
-				if (ctrl->theta < val3){
-					set_speed(ctrl, 0.0, 0.0) ; 
-					ctrl->calib_flag = CALIB_BACKWARD_3 ; 
-					ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
-				}
-			} else {
-				if (ctrl->theta > val3){
-					set_speed(ctrl, 0.0, 0.0) ; 
-					ctrl->calib_flag = CALIB_BACKWARD_3 ; 
-					ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
-				}
-				
+			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ;
+			make_angle(ctrl, calib2) ; 
+			if (dt.count() > 4.0){
+				set_speed(ctrl, 0.0, 0.0) ; 
+				ctrl->calib_flag = CALIB_BACKWARD_3 ; 
+				ctrl->t_flag = std::chrono::high_resolution_clock::now() ;
 			}
 			break ; 
 		case CALIB_BACKWARD_3 : 
 			//printf("BACKWARD 3\n") ; 
+			w_ref = kpw*(calib2-ctrl->theta) ; 
 			set_speed(ctrl, -0.1, 0.0) ; 
 			if (ctrl->team == PURPLE){
 				if (ctrl->y > val4){
@@ -361,7 +354,7 @@ void updateTime (Controller* cvs){
 }
 
 void make_angle(Controller* ctrl, double angle){
-	double kp_angle = 4.0 ;
+	double kp_angle = 7.0 ;
 
 	double diff = angle - ctrl->theta;
 
@@ -498,38 +491,3 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	ctrl->w_ref = w_ref;
 }
 
-void check_button(Controller* ctrl){
-	
-}
-/**
-void make_pos_backward(Controller* ctrl, double x, double y, double angle){
-	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
-
-    double alpha = -ctrl->theta+ atan2(y-ctrl->y, x-ctrl->x); 
-    alpha += M_PI;
-    if (alpha > M_PI){alpha -= 2*M_PI ; }
-	double beta = -(ctrl->theta + alpha - angle);
-
-	double k_rho = 1.0; 
-	double k_alpha = 5.0; 
-	double k_beta = -4.0;
-
-	double v_ref = -k_rho*rho ;
-	if (v_ref < -0.2){
-		v_ref = -0.2 ; 
-	}
-
-	double w_ref = k_alpha*alpha + k_beta*beta;
-
-	if (w_ref > 1.0){
-		w_ref = 1.0 ; 
-	} else if (w_ref < -1.0){
-		w_ref = -1.0 ; 
-	}
-
-	printf("rho = %f, alpha = %f, beta = %f\n", rho, alpha, beta);
-
-	ctrl->v_ref = v_ref ; 
-	ctrl->w_ref = w_ref;
-}
-**/
