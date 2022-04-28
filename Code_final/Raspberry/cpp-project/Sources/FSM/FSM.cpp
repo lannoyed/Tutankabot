@@ -66,10 +66,6 @@ enum {STATE_CALIBRATION, STATE_GO2GOAL, STATE_STUCK, DO_ACTION, RETURN_BASE, AT_
 void FSM_init(Controller *cvs){
     
 
-	if (cvs->first_time == 1){
-		pushReplica() ; 
-		cvs->first_time = 0 ; 
-	}
     int max;
     max = len_stack + len_stack;
     for (int i =0; i < max ; i++){
@@ -176,7 +172,6 @@ void FSM_loop(Controller *cvs, double deltaT){
             
             odometryCalibration(cvs);
             number_sample = 0;
-			printf("%f\n", cvs->time) ; 
 			if(cvs->cord_present==0){
 				printf("Cordon plus là\n") ;
 			}
@@ -696,9 +691,9 @@ bool FSM_action_statuette(Controller* ctrl){
 		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.5,		val_SETPOS4_theta = M_PI ;		
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
-		val_SETPOS2_x = 1.68, 		val_SETPOS2_y = 0.275, 		val_SETPOS2_theta = -M_PI/4;
+		val_SETPOS2_x = 1.63, 		val_SETPOS2_y = 0.245, 		val_SETPOS2_theta = -M_PI/4;
 		val_SETPOS3_x = 1.8, 		val_SETPOS3_y = 0.8, 		val_SETPOS3_theta = -M_PI/2; //make_backward
-		val_SETPOS5_x = 1.60,	 	val_SETPOS5_y = 0.31,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
+		val_SETPOS5_x = 1.6141,	 	val_SETPOS5_y = 0.3441,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
 		val_SETPOS4_x = 1.8, 		val_SETPOS4_y = 0.8, 		val_SETPOS4_theta = -M_PI/2;
 	}
 	switch (ctrl->action_state_statuette) {
@@ -781,7 +776,7 @@ bool FSM_action_statuette(Controller* ctrl){
 			x_target = val_SETPOS3_x ; 
 			y_target = val_SETPOS3_y ; 
 			theta_target = val_SETPOS3_theta ;
-			if (Dt.count() > 9.0){
+			if (Dt.count() > 7.0){
 				ctrl->action_state_statuette = STAT_SETPOS5 ; 
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
@@ -803,7 +798,7 @@ bool FSM_action_statuette(Controller* ctrl){
             y_target = val_SETPOS5_y ; 
             theta_target = val_SETPOS5_theta ;
 			
-			if (Dt.count() > 3.0){
+			if (Dt.count() > 5.0){
 				ctrl->action_state_statuette = STAT_PUSH_REPLICA ; 
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
@@ -878,10 +873,10 @@ bool FSM_action_vitrine(Controller* ctrl){
 		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
 		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;		
 	}else{
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI+0.1; // Make angle 
-		val_SETPOS2_x = 0.091, 		val_SETPOS2_y = 0.29, 		val_SETPOS2_theta = -M_PI; // Make pos 
-		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 0.25, 		val_SETPOS3_theta = -M_PI/2;
-		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = M_PI/4;	
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI+0.5; // Make angle 
+		val_SETPOS2_x = 0.115, 		val_SETPOS2_y = 0.28, 		val_SETPOS2_theta = -M_PI-0.01; // Make pos 
+		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI+0.1;
+		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -0.1;	
 	}
 	switch (ctrl->action_state_vitrine) {
 		case VIT_START :
@@ -904,7 +899,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 				return false ; 
 			}
 			printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ;
-			if ( fabs(ctrl->theta - theta_target) > 0.05){ 
+			if ( fabs(ctrl->theta - theta_target) > 0.01){ 
 				make_angle(ctrl, theta_target) ;
 				return false  ; 
 			}
@@ -939,6 +934,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 			
 		case VIT_OPENGRIPPER :
 			printf("Gripper open%f\n", Dt.count()) ; 
+			set_speed(ctrl, 0.0, 0.0) ; 
 			if (Dt.count() > 0.5){
 				ctrl->action_state_vitrine = VIT_SETPOS3 ;
                 ctrl->first_time = 1 ; 
@@ -955,7 +951,13 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS3_x ; 
 			y_target = val_SETPOS3_y ; 
 			theta_target = val_SETPOS3_theta ;
-
+			if (Dt.count() > 2.0){
+				set_speed(ctrl, 0.0, 0.0) ;
+				ctrl->action_state_vitrine = VIT_CLOSEGRIPPER ; 
+				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+				ctrl->first_time = 1 ; 
+				return false ; 
+			}
 			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.01)){
                 make_pos_backward(ctrl, x_target, y_target, theta_target);
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 

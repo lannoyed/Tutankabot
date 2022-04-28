@@ -25,7 +25,7 @@ Controller* ControllerInit(){
 	ctrl->tL[0] = t0;
 	ctrl->tL[1] = ctrl->tL[0] ; 
 	ctrl->r = 0.023 ; 
-	ctrl->l = 0.18789/2 ; 
+	ctrl->l = (0.18789/2) ; 
 	ctrl->t_flag = t0 ;
 	ctrl->action_t_flag = t0 ; 
 	ctrl->calib_flag = CALIB_START ;  
@@ -136,9 +136,9 @@ void odometryCalibration(Controller* ctrl){
 			w1 = 1.0 ; w2 = -1.0 ;
 			break ; 
 		case YELLOW :
-			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.25 ; 
+			val1 = 0+0.3 ; val2 = 0.65 ; val3 = M_PI/2-0.3 ; val4 = 0.20 ; 
 			calib1 = 0.145 ; calib2 = M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
-			time1 = 2.0 ; time2 = 5.0 ; 
+			time1 = 1.5 ; time2 = 5.0 ; 
 			w1 = -1.0 ; w2 = 1.0 ;
 			break ; 
 	}
@@ -181,7 +181,7 @@ void odometryCalibration(Controller* ctrl){
 		case CALIB_TURN_1 : 
 			//printf("TURN 1\n") ; 
 			dt = std::chrono::duration_cast<std::chrono::duration<double>>(t - ctrl->t_flag) ;
-			make_angle(ctrl, val1) ; 
+			make_angle(ctrl, calib4) ; 
 			if (dt.count() > 4.0) {
 				set_speed(ctrl, 0.0, 0.0) ; 
 				ctrl->calib_flag = CALIB_BACKWARD_2 ; 
@@ -246,6 +246,7 @@ void odometryCalibration(Controller* ctrl){
 			break ; 
 		case CALIB_FINISH :
 			//printf("FINISH \n") ; 
+			printf("Calibrated\n") ; 
 			set_speed(ctrl, 0.0, 0.0) ; 
 			break ; 
 		default : 

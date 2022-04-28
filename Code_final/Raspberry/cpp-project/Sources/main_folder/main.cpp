@@ -108,8 +108,8 @@ int main(int argc, char* argv){
  
 	while(Dt.count() < 15*60.0 && !(ctrl->state == 6) ){
  
-		FSM_loop(ctrl, 0.17);
-   
+		FSM_loop(ctrl, 0.17); 
+		printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
@@ -117,7 +117,7 @@ int main(int argc, char* argv){
 		//std::cout<<"local time:   \t" << deltaT << "\n"; 
 		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
-    
+		
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
