@@ -109,7 +109,7 @@ int main(int argc, char* argv){
 	while(Dt.count() < 15*60.0 && !(ctrl->state == 6) ){
  
 		FSM_loop(ctrl, 0.17); 
-		printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
+		//printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
