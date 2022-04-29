@@ -11,7 +11,7 @@
 
 # include "FSM.h"
 
-#define DONT_MOVE false 
+#define DONT_MOVE false // J'ai changé un peu le code pour qu'il se calibre quand meme mais qu'il ne bouge plus après (Le plus bg des codeurs) 
 
 //# include "data.h"
 
@@ -340,7 +340,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     //std::cout <<"vitesse tangentielle" << cvs-> v_ref <<"\n" ; 
     //std::cout<<"vitesse angulaire" << cvs-> w_ref << "\n";
     
-    if (DONT_MOVE ) {
+    if (DONT_MOVE && cvs->state != 0) {
 		cvs->LockLidarVWRef.lock();
 		cvs->v_ref = 0.0;
 		cvs->w_ref = 0.0;
