@@ -285,7 +285,7 @@ void update_opponent_location(Controller* ctrl){
 			x_curr = ctrl->x + delta_x*cos(ctrl->theta) - delta_y*sin(ctrl->theta) + rl*cos(thetal+ctrl->theta) ;
 			y_curr = ctrl->y + delta_x*sin(ctrl->theta) + delta_y*cos(ctrl->theta) + rl*sin(thetal+ctrl->theta) ; 
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
-				printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
+				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
 				io1++ ; 
 			}
@@ -298,8 +298,11 @@ void update_opponent_location(Controller* ctrl){
 		}
 		loc_opponent_final[0] /= io1 ; 
 		loc_opponent_final[1] /= io1 ; 
-	}
-
+	} else {
+		loc_opponent_final[0] = 20 ;
+		loc_opponent_final[1] = 20 ; 
+	}		
+	//printf("Opponent in x = %f\t y = %f\n", loc_opponent_final[0], loc_opponent_final[1]) ; 
 	ctrl->LockLidarOpponentPosition.lock();
 	ctrl->x_opp = loc_opponent_final[0] ; 
 	ctrl->y_opp = loc_opponent_final[1] ; 
