@@ -282,8 +282,10 @@ void update_opponent_location(Controller* ctrl){
 			w = 0.0 ; 
 			rl = ctrl->lidar_distance[i] ; 
 			thetal = ctrl->lidar_angles[i] ; 
-			x_curr = ctrl->x + delta_x*cos(ctrl->theta) - delta_y*sin(ctrl->theta) + rl*cos(thetal+ctrl->theta) ;
-			y_curr = ctrl->y + delta_x*sin(ctrl->theta) + delta_y*cos(ctrl->theta) + rl*sin(thetal+ctrl->theta) ; 
+			ctrl->LockLidarOurPosition.lock();
+			x_curr = ctrl->x_lidar + delta_x*cos(ctrl->theta_lidar) - delta_y*sin(ctrl->theta_lidar) + rl*cos(thetal+ctrl->theta_lidar) ;
+			y_curr = ctrl->y_lidar + delta_x*sin(ctrl->theta_lidar) + delta_y*cos(ctrl->theta_lidar) + rl*sin(thetal+ctrl->theta_lidar) ; 
+			ctrl->LockLidarOurPosition.unlock();
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
 				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
