@@ -873,9 +873,9 @@ bool FSM_action_vitrine(Controller* ctrl){
 		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
 		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;		
 	}else{
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI+0.5; // Make angle 
-		val_SETPOS2_x = 0.115, 		val_SETPOS2_y = 0.28, 		val_SETPOS2_theta = -M_PI-0.01; // Make pos 
-		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI+0.1;
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI; // Make angle 
+		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI; // Make pos 
+		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI;
 		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -0.1;	
 	}
 	switch (ctrl->action_state_vitrine) {
@@ -914,7 +914,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
-			if (Dt.count() > 9.0){
+			if (Dt.count() > 7.0){
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
 				ctrl->first_time = 1 ;

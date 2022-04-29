@@ -408,6 +408,12 @@ void make_y(Controller* ctrl, double y){
 void make_pos_forward(Controller* ctrl, double x, double y, double angle){
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
+	if (alpha > M_PI){
+		alpha -= 2*M_PI ;
+	}
+	if (alpha < -M_PI){
+		alpha += 2*M_PI ;
+	}
 	double beta = -(ctrl->theta + alpha - angle);
 
 	double k_rho = 0.7; 
