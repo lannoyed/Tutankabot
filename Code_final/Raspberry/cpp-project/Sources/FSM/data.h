@@ -61,4 +61,4 @@
 
 
 #define MINMUM_DISTANCE 0.01
-#define TEST_POTENTIAL 1
+#define TEST_POTENTIAL 0

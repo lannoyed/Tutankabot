@@ -12,12 +12,6 @@ Controller* ControllerInit(){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
 	ctrl->sc2 = speedControllerInit(3, 0.2, 30, -30, 0.0, 4, 2) ; 
-	ctrl->team = 1 ;
-	if (ctrl->team == 1){
-		ctrl->theta = M_PI/2 ; 
-	} else {
-		ctrl->theta = -M_PI/2 ; 
-	}
 	ctrl->x = 0 ; 
 	ctrl->y = 0 ; 
 	ctrl->v_ref = 0 ; 

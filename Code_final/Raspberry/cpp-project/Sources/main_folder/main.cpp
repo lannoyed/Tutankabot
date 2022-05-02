@@ -86,6 +86,7 @@ int main(int argc, char* argv){
 	std::cout<< "Controleur initialized"<<"\n"; 
   
 	FSM_init(ctrl);
+	printf("Theta_initial = %f", ctrl->theta) ; 
 	std::cout<< "FSM initialized"<<"\n"; 
   
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 

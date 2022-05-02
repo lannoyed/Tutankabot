@@ -74,6 +74,14 @@ void FSM_init(Controller *cvs){
         stack_1.push_front(0.0);
         stack_2.push_front(0.0);
     }    
+	cvs->team = team_number ; 
+	cvs->team = team_number;
+	if (cvs->team == 1){
+		cvs->theta = M_PI/2 ; 
+	} else {
+		cvs->theta = -M_PI/2 ;
+		printf("Angle initialized purple\n") ; 
+	}
     double opponent1_x_filtered = 0.0;
     double opponent1_y_filtered = 0.0;
     double opponent2_x_filtered = 0.0;
@@ -104,6 +112,7 @@ void FSM_init(Controller *cvs){
 	cvs->state = 0;
 	if (TEST_POTENTIAL){
 		cvs->state = 1;
+		printf("Test_potential_field\n\n\n\n\n\n\n\n\n") ;  
 		initGoalsTest(&myPotentialField, cvs->team);
 		if (cvs->team){
 			cvs->theta = M_PI/2;
