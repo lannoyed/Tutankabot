@@ -52,8 +52,8 @@
 
 
 // speed max define 
-#define global_vMax 0.12
-#define global_wMax 1.5
+#define global_vMax 0.2
+#define global_wMax 1.0
 
 // Team number
 #define team_number 0 // 0 PURPLE or 1 YELLOW

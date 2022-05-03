@@ -126,7 +126,7 @@ void odometryCalibration(Controller* ctrl){
 		case PURPLE :
 			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.75 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
-			time1 = 1.5 ; time2 = 5.0 ; 
+			time1 = 1.0 ; time2 = 5.0 ; 
 			w1 = 1.0 ; w2 = -1.0 ;
 			break ; 
 		case YELLOW :
@@ -412,7 +412,12 @@ void make_pos_forward(Controller* ctrl, double x, double y, double angle){
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
 	double beta = -(ctrl->theta + alpha - angle);
-
+	if (alpha > M_PI) {
+		alpha -= 2*M_PI ; 
+	}
+	if (alpha < -M_PI) {
+		alpha += 2*M_PI ; 
+	}
 	double k_rho = 0.7; 
 	double k_alpha = 3; 
 	double k_beta = -2;
@@ -471,7 +476,7 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -backward_theta + atan2(y-ctrl->y, x-ctrl->x); 
 	double beta = -(backward_theta + alpha - backward_angle);
-
+	
 	double k_rho = 0.5; 
 	double k_alpha = 5; 
 	double k_beta = -4;

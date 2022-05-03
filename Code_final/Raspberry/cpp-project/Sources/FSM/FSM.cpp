@@ -727,10 +727,10 @@ bool FSM_action_statuette(Controller* ctrl){
 	unsigned char quarante ; 
 	if (ctrl->team == 0){ //Team purple
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI/4 ;
-		val_SETPOS2_x = 2 - 0.24, 	val_SETPOS2_y = 3 - 0.33, 	val_SETPOS2_theta = M_PI/4 ;
-		val_SETPOS3_x = 2 - 0.24, 	val_SETPOS3_y = 3 - 0.405, 	val_SETPOS3_theta = M_PI/4 ; //make_y
-		val_SETPOS5_x = 2 - 0.35, 	val_SETPOS5_y = 3 - 0.4,	val_SETPOS5_theta = -M_PI/4 ;
-		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.5,		val_SETPOS4_theta = M_PI ;		
+		val_SETPOS2_x = 1.722,	 	val_SETPOS2_y = 2.663, 		val_SETPOS2_theta = M_PI/4 ;
+		val_SETPOS3_x = 1.3, 		val_SETPOS3_y = 2.6, 		val_SETPOS3_theta = M_PI/4 ; //make_backward
+		val_SETPOS5_x = 1.6141, 	val_SETPOS5_y = 2.6559,		val_SETPOS5_theta = -M_PI/4 ; //make forward
+		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.6,		val_SETPOS4_theta = 0 ;	//make backward	
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
 		val_SETPOS2_x = 1.63, 		val_SETPOS2_y = 0.245, 		val_SETPOS2_theta = -M_PI/4;
@@ -910,13 +910,13 @@ bool FSM_action_vitrine(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
 	if (ctrl->team == 0){
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI+0.3 ;
-		val_SETPOS2_x = 0.04, 		val_SETPOS2_y = 2.68, 		val_SETPOS2_theta = M_PI ;
-		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
-		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;		
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI ;
+		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 2.845, 		val_SETPOS2_theta = -M_PI ;
+		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 2.84, 		val_SETPOS3_theta = -M_PI ;
+		val_SETPOS4_x = 0.0, 		val_SETPOS4_y = 0.0,		val_SETPOS4_theta = 0.1 ;		
 	}else{
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI+0.5; // Make angle 
-		val_SETPOS2_x = 0.115, 		val_SETPOS2_y = 0.28, 		val_SETPOS2_theta = -M_PI-0.01; // Make pos 
+		val_SETPOS2_x = 0.07, 		val_SETPOS2_y = 0.28, 		val_SETPOS2_theta = -M_PI-0.01; // Make pos 
 		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI+0.1;
 		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -0.1;	
 	}
@@ -956,7 +956,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
-			if (Dt.count() > 9.0){
+			if (Dt.count() > 6.0){
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
 				ctrl->first_time = 1 ;
