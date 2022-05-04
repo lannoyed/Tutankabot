@@ -39,6 +39,7 @@ Controller* ControllerInit(){
 	ctrl->first_time = 1 ; 
 	ctrl->cord_present = 1;
 	ctrl->cord_t_flag = std::chrono::high_resolution_clock::now();
+	ctrl->opponent_on_my_way ;
 	return ctrl ; 
 } 
 
@@ -506,3 +507,38 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	ctrl->w_ref = w_ref;
 }
 
+void is_opponent_on_my_way(Controller* ctrl){
+	ctrl->LockLidarOpponentPosition.lock();
+	double x_opp = ctrl->x_opp ; 
+	double y_opp = ctrl->y_opp ; 
+	ctrl->LockLidarOpponentPosition.unlock();
+	ctrl->LockLidarVWRef.lock();
+	double v = ctrl->v_ref ; 
+	double w = ctrl->w_ref ; 
+	ctrl->LockLidarVWRef.unlock();
+	double alpha = atan2(y_opp - ctrl->y, x_opp - ctrl->x) -ctrl->theta;
+	double rho = sqrt((ctrl->x-x_opp)*(ctrl->x-x_opp) + (ctrl->y-y_opp)*(ctrl->y-y_opp)); 
+	if (alpha > M_PI){
+		alpha -= 2*M_PI ; 
+	} 
+	if (alpha < -M_PI){
+		alpha += 2*M_PI ; 
+	}
+	ctrl->opponent_on_my_way = 0 ; 
+	if (rho < 0.3) {
+		if (v > 0 ){
+			if (alpha < M_PI/3 && alpha > -M_PI/3){
+				ctrl->opponent_on_my_way = 1 ; 
+				printf("Je vais en avant et je vois un adversaire\n") ; 
+			} 
+		} else if (v < 0){
+			if (alpha < -2*M_PI/3 && alpha > 2*M_PI/3){
+				ctrl->opponent_on_my_way = 1 ; 
+				printf("Je vais en arrière et je vois un adversaire\n") ; 
+			}
+		} else if ((alpha < M_PI/3 && alpha > -M_PI/3) || (alpha < -2*M_PI/3 && alpha > 2*M_PI/3)){
+			ctrl->opponent_on_my_way = 1 ; 
+			printf("Je suis à l'arrêt et je vois un adversaire\n") ; 
+		}
+	} 
+}

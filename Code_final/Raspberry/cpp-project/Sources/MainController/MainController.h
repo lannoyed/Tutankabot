@@ -50,6 +50,7 @@ typedef struct{
 	double time; 
 	int cord_present ; 
 	std::chrono::high_resolution_clock::time_point cord_t_flag;
+	int opponent_on_my_way ; 
 } Controller ;
 
 Controller* ControllerInit() ; 
@@ -68,3 +69,4 @@ void make_y(Controller* ctrl, double y) ;
 void make_pos_forward(Controller* ctrl, double x, double y, double theta) ; 
 void make_pos_forward_exc(Controller* ctrl, double x, double y, double theta) ;
 void make_pos_backward(Controller* ctrl, double x, double y, double theta) ; 
+void is_opponent_on_my_way(Controller* ctrl) ; 

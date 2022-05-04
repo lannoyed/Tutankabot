@@ -52,7 +52,7 @@
 
 
 // speed max define 
-#define global_vMax 0.2
+#define global_vMax 0.15
 #define global_wMax 1.0
 
 // Team number

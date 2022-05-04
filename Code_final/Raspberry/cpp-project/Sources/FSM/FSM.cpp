@@ -136,7 +136,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     std::chrono::high_resolution_clock::time_point t10 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::high_resolution_clock::time_point t11 = std::chrono::high_resolution_clock::now() ; 
  	double deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
-    
+    is_opponent_on_my_way(cvs) ; 
     updateTime(cvs);
     //std::cout<< "update time" <<"\n";
 
@@ -305,7 +305,12 @@ void FSM_loop(Controller *cvs, double deltaT){
 				action_finished = true;
 			}
 			else {
-            	action_finished = FSM_action(cvs) ;
+				if (cvs->opponent_on_my_way == 1) {
+					set_speed(cvs, 0.0, 0.0) ; 
+					action_finished = 0 ; 
+				} else {
+					action_finished = FSM_action(cvs) ;
+				}
 			}
 			if (action_finished){
 				printf("Action finished\n") ; 
@@ -922,7 +927,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI; // Make angle 
 		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI; // Make pos 
 		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI;
-		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -0.1;	
+		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -M_PI/4;	
 	}
 	switch (ctrl->action_state_vitrine) {
 		case VIT_START :
