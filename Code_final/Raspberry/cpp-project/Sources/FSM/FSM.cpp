@@ -728,14 +728,14 @@ bool FSM_action_statuette(Controller* ctrl){
 	if (ctrl->team == 0){ //Team purple
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI/4 ;
 		val_SETPOS2_x = 1.722,	 	val_SETPOS2_y = 2.663, 		val_SETPOS2_theta = M_PI/4 ;
-		val_SETPOS3_x = 1.3, 		val_SETPOS3_y = 2.6, 		val_SETPOS3_theta = M_PI/4 ; //make_backward
+		val_SETPOS3_x = 1.1, 		val_SETPOS3_y = 2.5, 		val_SETPOS3_theta = 0.2 ; //make_backward
 		val_SETPOS5_x = 1.6141, 	val_SETPOS5_y = 2.6559,		val_SETPOS5_theta = -M_PI/4 ; //make forward
-		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.6,		val_SETPOS4_theta = 0 ;	//make backward	
+		val_SETPOS4_x = 1.6, 		val_SETPOS4_y = 2.3,		val_SETPOS4_theta = -3*M_PI/4 ;	//make backward	
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
 		val_SETPOS2_x = 1.63, 		val_SETPOS2_y = 0.245, 		val_SETPOS2_theta = -M_PI/4;
 		val_SETPOS3_x = 1.8, 		val_SETPOS3_y = 0.8, 		val_SETPOS3_theta = -M_PI/2; //make_backward
-		val_SETPOS5_x = 1.6141,	 	val_SETPOS5_y = 0.3441,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
+		val_SETPOS5_x = 1.6142,	 	val_SETPOS5_y = 0.344,		val_SETPOS5_theta = -3*M_PI/4 ; //make forward
 		val_SETPOS4_x = 1.8, 		val_SETPOS4_y = 0.8, 		val_SETPOS4_theta = -M_PI/2;
 	}
 	switch (ctrl->action_state_statuette) {
@@ -840,7 +840,7 @@ bool FSM_action_statuette(Controller* ctrl){
             y_target = val_SETPOS5_y ; 
             theta_target = val_SETPOS5_theta ;
 			
-			if (Dt.count() > 5.0){
+			if (Dt.count() > 10.0){
 				ctrl->action_state_statuette = STAT_PUSH_REPLICA ; 
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
@@ -879,8 +879,12 @@ bool FSM_action_statuette(Controller* ctrl){
             theta_target = val_SETPOS4_theta ;
 
 			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 5.0)) {  //on attend 7 sec
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				make_pos_backward(ctrl,x_target, y_target, theta_target) ;
+				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ;
+				if (ctrl->team == 1) {
+					make_pos_backward(ctrl,x_target, y_target, theta_target) ;
+				} else {
+					make_pos_forward(ctrl,x_target, y_target, theta_target) ;
+				}
 				return false  ; 
 			} 
 			set_speed(ctrl, 0.0, 0.0) ; 
@@ -911,7 +915,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
 	if (ctrl->team == 0){
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI ;
-		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 2.845, 		val_SETPOS2_theta = -M_PI ;
+		val_SETPOS2_x = 0.085, 		val_SETPOS2_y = 2.872, 		val_SETPOS2_theta = -M_PI ;
 		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 2.84, 		val_SETPOS3_theta = -M_PI ;
 		val_SETPOS4_x = 0.0, 		val_SETPOS4_y = 0.0,		val_SETPOS4_theta = 0.1 ;		
 	}else{
@@ -956,11 +960,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
-<<<<<<< HEAD
 			if (Dt.count() > 7.0){
-=======
-			if (Dt.count() > 6.0){
->>>>>>> bf41953947825a5365c103a60a4dc1be6a861562
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
 				ctrl->first_time = 1 ;
