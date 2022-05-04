@@ -12,12 +12,6 @@ Controller* ControllerInit(){
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
 	ctrl->sc2 = speedControllerInit(3, 0.2, 30, -30, 0.0, 4, 2) ; 
-	ctrl->team = 1 ;
-	if (ctrl->team == 1){
-		ctrl->theta = M_PI/2 ; 
-	} else {
-		ctrl->theta = -M_PI/2 ; 
-	}
 	ctrl->x = 0 ; 
 	ctrl->y = 0 ; 
 	ctrl->v_ref = 0 ; 
@@ -132,7 +126,7 @@ void odometryCalibration(Controller* ctrl){
 		case PURPLE :
 			val1 = 0-0.3 ; val2 = 0.65 ; val3 = -M_PI/2+0.3 ; val4 = 2.75 ; 
 			calib1 = 3.0-0.145 ; calib2 = -M_PI/2 ; calib3 = 0.145 ; calib4 = 0.0 ; 
-			time1 = 1.5 ; time2 = 5.0 ; 
+			time1 = 1.0 ; time2 = 5.0 ; 
 			w1 = 1.0 ; w2 = -1.0 ;
 			break ; 
 		case YELLOW :
@@ -282,8 +276,10 @@ void update_opponent_location(Controller* ctrl){
 			w = 0.0 ; 
 			rl = ctrl->lidar_distance[i] ; 
 			thetal = ctrl->lidar_angles[i] ; 
-			x_curr = ctrl->x + delta_x*cos(ctrl->theta) - delta_y*sin(ctrl->theta) + rl*cos(thetal+ctrl->theta) ;
-			y_curr = ctrl->y + delta_x*sin(ctrl->theta) + delta_y*cos(ctrl->theta) + rl*sin(thetal+ctrl->theta) ; 
+			ctrl->LockLidarOurPosition.lock();
+			x_curr = ctrl->x_lidar + delta_x*cos(ctrl->theta_lidar) - delta_y*sin(ctrl->theta_lidar) + rl*cos(thetal+ctrl->theta_lidar) ;
+			y_curr = ctrl->y_lidar + delta_x*sin(ctrl->theta_lidar) + delta_y*cos(ctrl->theta_lidar) + rl*sin(thetal+ctrl->theta_lidar) ; 
+			ctrl->LockLidarOurPosition.unlock();
 			if (x_curr > 0.1 && x_curr < 1.9 && y_curr > 0.1 && y_curr < 2.9){
 				//printf("Opp point detected in : %f\t%f\n", x_curr, y_curr) ; 
 				loc_opponent[io1][0] = x_curr ; loc_opponent[io1][1] = y_curr ; 
@@ -422,7 +418,12 @@ void make_pos_forward(Controller* ctrl, double x, double y, double angle){
 		alpha += 2*M_PI ;
 	}
 	double beta = -(ctrl->theta + alpha - angle);
-
+	if (alpha > M_PI) {
+		alpha -= 2*M_PI ; 
+	}
+	if (alpha < -M_PI) {
+		alpha += 2*M_PI ; 
+	}
 	double k_rho = 0.7; 
 	double k_alpha = 3; 
 	double k_beta = -2;
@@ -481,7 +482,7 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -backward_theta + atan2(y-ctrl->y, x-ctrl->x); 
 	double beta = -(backward_theta + alpha - backward_angle);
-
+	
 	double k_rho = 0.5; 
 	double k_alpha = 5; 
 	double k_beta = -4;

@@ -189,16 +189,29 @@ void sendTheta(float theta, int motor){
 	system(command) ; 
 }
 
+void Brake (){
+	char command[50] ;
+	strcpy(command, "cansend can0 708#1EFF30");
+	system(command);
+}
+
 void CAN_init(){
 	char command[50] ; 
-	strcpy(command, "cansend can0 708#1EFF40") ; // Allumage de la led 
+
+	strcpy(command, "cansend can0 708#1EFF30");
+	strcpy(command, "cansend can0 708#1CFF80"); // Initialisation moteur 1 
+	system(command); 
+	strcpy(command, "cansend can0 708#1DFF80"); // Initialisation moteur 2
+	system(command);
+	strcpy(command, "cansend can0 708#25FF23") ;
+	system(command);
+	strcpy(command, "cansend can0 708#26FF23") ;
+	system(command); 
+	strcpy(command, "cansend can0 708#1EFF40"); // Allumage de la led 
 	system(command) ; 
-	sleep(2) ;
-	strcpy(command, "cansend can0 708#1EFF00") ; // Extinction de la led 
-	system(command) ; 
-	strcpy(command, "cansend can0 708#1CFF80") ; // Initialisation moteur 1 
-	system(command) ; 
-	strcpy(command, "cansend can0 708#1DFF80") ; // Initialisation moteur 2
-	system(command) ; 
+	sleep(2);
+	strcpy(command, "cansend can0 708#1EFF00"); // Extinction de la led 
+	system(command) ;
+
 }
 

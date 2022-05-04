@@ -37,15 +37,9 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
 
 	//std::cout<< "lock our \n";
 	ctrl->LockLidarOurPosition.lock();
-	//triangulation(ctrl);
-	double x_lidar = i + 0.0;
-	double y_lidar = i + 0.0;
-	double theta_lidar =i + 0.0;
-
-	ctrl->x_lidar = x_lidar;
-	ctrl->y_lidar = y_lidar;
-	ctrl->theta_lidar = theta_lidar;
-
+	ctrl->LockLidarOpponentPosition.lock();
+	fprintf(myThread, "%f %f %f %f \n", ctrl->x_opp, ctrl->y_opp, ctrl->x_lidar, ctrl->y_lidar);
+	ctrl->LockLidarOpponentPosition.unlock();
 	ctrl->LockLidarOurPosition.unlock();
 
   ctrl->LockLidarOurPosition.lock();
@@ -83,7 +77,8 @@ int main(int argc, char* argv){
 	std::cout<< "CAN initialized"<<"\n";
   
 	sendTheta(0,1) ; 
-	sendTheta(0,2) ; 
+	sendTheta(0,2) ;
+
 	std::cout<< "0 0 send to motors"<<"\n";   
  
 	Controller* ctrl ; 
@@ -91,6 +86,7 @@ int main(int argc, char* argv){
 	std::cout<< "Controleur initialized"<<"\n"; 
   
 	FSM_init(ctrl);
+	printf("Theta_initial = %f", ctrl->theta) ; 
 	std::cout<< "FSM initialized"<<"\n"; 
   
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 

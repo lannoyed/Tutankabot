@@ -295,3 +295,5 @@ std::tuple<double,double> iterPotentialField(Potential_Field myPotential_Field, 
 std::tuple<double, double> Filter(std::tuple<double, double> speedVector,  std::deque<double>*  stack, double * ouput1_filtered, double *output2_filtered);
 
 void updatePotentialField(Potential_Field* myPotential_Field, Controller *cvs);
+
+void visualisation_potential(double x_min, double x_max, double y_min, double y_max, double N_points, Potential_Field * myPotentialField);

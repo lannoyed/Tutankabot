@@ -16,6 +16,7 @@
 //# include "data.h"
 
 unsigned char score = 69;
+unsigned char quarante = 40;
 
 
 
@@ -66,12 +67,21 @@ enum {STATE_CALIBRATION, STATE_GO2GOAL, STATE_STUCK, DO_ACTION, RETURN_BASE, AT_
 void FSM_init(Controller *cvs){
     
 
+
     int max;
     max = len_stack + len_stack;
     for (int i =0; i < max ; i++){
         stack_1.push_front(0.0);
         stack_2.push_front(0.0);
     }    
+	cvs->team = team_number ; 
+	cvs->team = team_number;
+	if (cvs->team == 1){
+		cvs->theta = M_PI/2 ; 
+	} else {
+		cvs->theta = -M_PI/2 ;
+		printf("Angle initialized purple\n") ; 
+	}
     double opponent1_x_filtered = 0.0;
     double opponent1_y_filtered = 0.0;
     double opponent2_x_filtered = 0.0;
@@ -86,6 +96,9 @@ void FSM_init(Controller *cvs){
 
     myPotentialField = initPotentialField();
 
+	//visualisation_potential(-0.5, 2.5, -0.5, 3.5, 1000, &myPotentialField);
+	std::cout<<"heya hahahah \n";
+
     myFile = fopen("data_log.txt", "w");
     fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
 
@@ -94,9 +107,24 @@ void FSM_init(Controller *cvs){
     
     lidar_smoothing = fopen("lidar_smoothing.txt \n", "w");
     fprintf(lidar_smoothing, "[x_opp] [y_opp] [x_lidar] [y_lidar]\n" );
-    cvs->state = 0;
-    cvs->team = team_number;
     
+	
+	cvs->state = 0;
+	if (TEST_POTENTIAL){
+		cvs->state = 1;
+		printf("Test_potential_field\n\n\n\n\n\n\n\n\n") ;  
+		initGoalsTest(&myPotentialField, cvs->team);
+		if (cvs->team){
+			cvs->theta = M_PI/2;
+			cvs->x = 0.7;
+			cvs->y = 0.25;
+		}else{
+			cvs->theta = -M_PI/2;
+			cvs->x = 0.7;
+			cvs->y = 2.75;
+		}
+	}
+    cvs->team = team_number;
 }
 
 /*! \brief controller loop (called every timestep)
@@ -121,7 +149,14 @@ void FSM_loop(Controller *cvs, double deltaT){
     t10 = std::chrono::high_resolution_clock::now() ; 
     updatePotentialField(&myPotentialField, cvs);
  	t11 = std::chrono::high_resolution_clock::now() ; 
- 	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
+	deltaT_process = std::chrono::duration_cast<std::chrono::duration<double>>(t11-t10).count();
+
+
+	cvs->LockLidarOurPosition.lock();
+	cvs->x_lidar = cvs->x;
+	cvs->y_lidar = cvs->y;
+	cvs->theta_lidar = cvs->theta;
+	cvs->LockLidarOurPosition.unlock();
     //std::cout<< "update potential : " << deltaT_process <<"\n";
     
 
@@ -155,7 +190,7 @@ void FSM_loop(Controller *cvs, double deltaT){
         myPotentialField.goalStolenByOpponent(positionOpponent1Averaged, positionOpponent2Averaged);
     }*/
 
-    if (cvs->time > time_stop || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
+    if (cvs->time > time_stop || (myPotentialField.listOfGoal.size() == 0 && cvs->state ==  STATE_GO2GOAL)  || (returnBaseTime && myPotentialField.GoalTest() && myPotentialField.currentGoal.goalType == true  && cvs->state != RETURN_BASE )) {
         cvs->state = STOP;
     }else if (cvs->time > time_return && !returnBaseTime) {             //\\mieux de faire un fonction calculant le temps de retour estimé
         returnBaseTime = true;
@@ -266,7 +301,12 @@ void FSM_loop(Controller *cvs, double deltaT){
             time_wait_init_waiting_for_target = 0.0;
             
             isFull = (number_sample == 2);
-            action_finished = FSM_action(cvs) ;
+			if (TEST_POTENTIAL) {
+				action_finished = true;
+			}
+			else {
+            	action_finished = FSM_action(cvs) ;
+			}
 			if (action_finished){
 				printf("Action finished\n") ; 
 			}
@@ -283,14 +323,16 @@ void FSM_loop(Controller *cvs, double deltaT){
                 cvs->state = RETURN_BASE;
                 returnBaseFull =true;
             } else */
-            if (action_finished && myPotentialField.numberOfGoals == 0){
+            if (action_finished && myPotentialField.listOfGoal.size() == 0){
                 cvs->state = RETURN_BASE;
 				set_speed(cvs, 0.0, 0.0) ; 
                 returnBaseTime = true;
-            } else if (action_finished && myPotentialField.numberOfGoals != 0) {
+				std::cout<<"Return Base \n";
+            } else if (action_finished && myPotentialField.listOfGoal.size() != 0) {
 				set_speed(cvs, 0.0, 0.0) ; 
                 myPotentialField.nextGoal(WEIGHT_GOAL);
                 cvs->state = STATE_GO2GOAL;
+				std::cout<<"NextGoal " << myPotentialField.listOfGoal.size() << "\n";
             
             } else if (action_finished){
 				set_speed(cvs, 0.0, 0.0) ; 
@@ -685,10 +727,10 @@ bool FSM_action_statuette(Controller* ctrl){
 	unsigned char quarante ; 
 	if (ctrl->team == 0){ //Team purple
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI/4 ;
-		val_SETPOS2_x = 2 - 0.24, 	val_SETPOS2_y = 3 - 0.33, 	val_SETPOS2_theta = M_PI/4 ;
-		val_SETPOS3_x = 2 - 0.24, 	val_SETPOS3_y = 3 - 0.405, 	val_SETPOS3_theta = M_PI/4 ; //make_y
-		val_SETPOS5_x = 2 - 0.35, 	val_SETPOS5_y = 3 - 0.4,	val_SETPOS5_theta = -M_PI/4 ;
-		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.5,		val_SETPOS4_theta = M_PI ;		
+		val_SETPOS2_x = 1.722,	 	val_SETPOS2_y = 2.663, 		val_SETPOS2_theta = M_PI/4 ;
+		val_SETPOS3_x = 1.3, 		val_SETPOS3_y = 2.6, 		val_SETPOS3_theta = M_PI/4 ; //make_backward
+		val_SETPOS5_x = 1.6141, 	val_SETPOS5_y = 2.6559,		val_SETPOS5_theta = -M_PI/4 ; //make forward
+		val_SETPOS4_x = 1.5, 		val_SETPOS4_y = 2.6,		val_SETPOS4_theta = 0 ;	//make backward	
 	}else{
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI/4 ;
 		val_SETPOS2_x = 1.63, 		val_SETPOS2_y = 0.245, 		val_SETPOS2_theta = -M_PI/4;
@@ -868,10 +910,10 @@ bool FSM_action_vitrine(Controller* ctrl){
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
 	if (ctrl->team == 0){
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI+0.3 ;
-		val_SETPOS2_x = 0.04, 		val_SETPOS2_y = 2.68, 		val_SETPOS2_theta = M_PI ;
-		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
-		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;		
+		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI ;
+		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 2.845, 		val_SETPOS2_theta = -M_PI ;
+		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 2.84, 		val_SETPOS3_theta = -M_PI ;
+		val_SETPOS4_x = 0.0, 		val_SETPOS4_y = 0.0,		val_SETPOS4_theta = 0.1 ;		
 	}else{
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI; // Make angle 
 		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI; // Make pos 
@@ -914,7 +956,11 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
+<<<<<<< HEAD
 			if (Dt.count() > 7.0){
+=======
+			if (Dt.count() > 6.0){
+>>>>>>> bf41953947825a5365c103a60a4dc1be6a861562
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
 				ctrl->first_time = 1 ;
