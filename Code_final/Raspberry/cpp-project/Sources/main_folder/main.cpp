@@ -114,6 +114,9 @@ int main(int argc, char* argv){
 		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
 		
+		// NICO NICO
+		//set_speed(ctrl, 0.0, 0.1);
+		//ControllerLoop(ctrl);
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {

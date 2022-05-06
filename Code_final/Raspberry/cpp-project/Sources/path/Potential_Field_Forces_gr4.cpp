@@ -81,34 +81,47 @@ void Potential_Field::addRectangle(const Rectangle &object) {
 }
 
 
+
+void Potential_Field::addMap(const Map &object) {
+    mapList.push_back(object);
+}
+
+
+
 std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
 
     double totalRepForceX = 0.0;
     double totalRepForceY = 0.0;
+    
+    double distanceFactor = 1.0;
+    double offset = 0.0;
 
     //int i = 0;
+    // FOR EASE OF USE : sqrt(realDistance)
+
 
     // Iterate over every single type of obstacle.
 
+    /*
     // SIMPLE BORDER.
     for (auto &obstacle : simpleBorderList) {
         // La realDistance = distance entre le centre du robot et la droite en elle-même.
-        double realDistance = obstacle.computeDistance(current_position);
+        double realDistance =  distanceFactor *  obstacle.computeDistance(current_position) + offset;
         double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
-        double rho0_obstacle = obstacle.rho0;
+        double rho0_obstacle = distanceFactor * obstacle.rho0;
         double position = obstacle.position;
         int type = obstacle.borderType;
 
         if ((type == 0) && (realDistance <= rho0_obstacle)) {
             totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<0>(current_position) - position) / realDistance);
 
         } else if ((type == 1) && (realDistance <= rho0_obstacle))
         {
             totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<1>(current_position) - position) / realDistance);
         }
 
@@ -118,53 +131,67 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
     // SAMPLES.
     for (auto &obstacle : sampleList) {
         // Square of the euclidean distance + real euclidean distance.
-        double realDistance = obstacle.computeDistance(current_position);
+        double realDistance = distanceFactor*  obstacle.computeDistance(current_position) + offset;
         double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
-        double rho0_obstacle = obstacle.rho0;
+        double rho0_obstacle = distanceFactor*  obstacle.rho0;
         std::tuple<double, double> position = obstacle.position;
         if (realDistance <= rho0_obstacle) {
             totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<0>(current_position) - std::get<0>(position)) / realDistance);
             totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<1>(current_position) - std::get<1>(position)) / realDistance);
         }
-    }
+    } */
 
     // OPPONENT.
-    for (auto &obstacle : opponentList) {
-        // Square of the euclidean distance + real euclidean distance.
-        double realDistance = obstacle.computeDistance(current_position);
-        double distanceSquared = pow(realDistance, 2);
-        double krepObstacle = obstacle.coeff;
-        double rho0_obstacle = obstacle.rho0;
-        std::tuple<double, double> position = obstacle.position;
-        if (realDistance <= rho0_obstacle) {
-            totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 /  distanceSquared) *
-                    ((std::get<0>(current_position) - std::get<0>(position)) / realDistance);
-            totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 /  distanceSquared) *
-                    ((std::get<1>(current_position) - std::get<1>(position)) / realDistance);
+
+    
+    for (auto &opponent : opponentList)
+    {
+        opponent.generatePoint();
+        for(auto &coord : opponent.modelisation)
+        {
+
+            double distanceToThePoint = sqrt(pow(std::get<0>(current_position) - std::get<0>(coord), 2) +
+                                        pow(std::get<1>(current_position) - std::get<1>(coord), 2));
+            
+            double realDistance     = (distanceFactor * distanceToThePoint) + offset;
+            double distanceSquared  = pow(realDistance, 2);
+            double krepObstacle     = krep_opponent; 
+            double my_rho0_opponent = distanceFactor * opponent.rho0;
+
+
+            if (realDistance <= my_rho0_opponent) 
+            {
+                totalRepForceX +=
+                        krepObstacle * ((1.0 / my_rho0_opponent) - (1.0 / realDistance)) * (1.0 / distanceSquared) *
+                        ((std::get<0>(current_position) - std::get<0>(coord)) / 2);
+                totalRepForceY +=
+                        krepObstacle * ((1.0 / my_rho0_opponent) - (1.0 / realDistance)) * (1.0 / distanceSquared) *
+                        ((std::get<1>(current_position) - std::get<1>(coord)) / 2);
+            }
         }
     }
 
+
+  /*
     // OBLIC BORDERS.
     for (auto &obstacle : oblicBorderList) {
-        double realDistance = obstacle.computeDistance(current_position);
+        double realDistance = distanceFactor* obstacle.computeDistance(current_position) + offset;
         double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
-        double rho0_obstacle = obstacle.rho0;
+        double rho0_obstacle =distanceFactor*  obstacle.rho0;
         std::tuple<double, double> closestPoint = obstacle.closestPoint(current_position);
 
         if (realDistance <= rho0_obstacle) {
             totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<0>(current_position) - std::get<0>(closestPoint)) / realDistance);
             totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<1>(current_position) - std::get<1>(closestPoint)) / realDistance);
         }
     }
@@ -172,19 +199,45 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
     // RECTANGLES.
     for (auto &obstacle : rectangleList) {
         // La realDistance = distance entre le centre du robot et le point le plus proche sur le rectangle.
-        double realDistance = std::get<0>(obstacle.computeDistance(current_position));
+        double realDistance = distanceFactor* std::get<0>(obstacle.computeDistance(current_position)) + offset;
         std::tuple<double,double> closestPoint = std::get<1>(obstacle.computeDistance(current_position));
         double distanceSquared = pow(realDistance, 2);
         double krepObstacle = obstacle.coeff;
-        double rho0_obstacle = obstacle.rho0;
+        double rho0_obstacle =distanceFactor*  obstacle.rho0;
 
         if (realDistance <= rho0_obstacle) {
             totalRepForceX +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<0>(current_position) - std::get<0>(closestPoint)) / realDistance);
             totalRepForceY +=
-                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / distanceSquared) *
+                    krepObstacle * ((1.0 / realDistance) - (1.0 / rho0_obstacle)) * (1.0 / sqrt(realDistance)) *
                     ((std::get<1>(current_position) - std::get<1>(closestPoint)) / realDistance);
+        }
+    }*/
+
+
+
+    for (auto &mapObject : mapList)
+    {
+        for(auto &coord : mapObject.modelisation)
+        {
+            double distanceToThePoint = sqrt(pow(std::get<0>(current_position) - std::get<0>(coord), 2) +
+                                        pow(std::get<1>(current_position) - std::get<1>(coord), 2));
+            
+            double realDistance     = (distanceFactor * distanceToThePoint) + offset;
+            double distanceSquared  = pow(realDistance, 2);
+            double krepObstacle     = mapObject.krep;
+            double rho0_mapObject   = distanceFactor * mapObject.rho0;
+
+            if (realDistance <= rho0_mapObject) 
+            {
+                totalRepForceX +=
+                        krepObstacle * ((1.0 / rho0_mapObject) - (1.0 / realDistance)) * (1.0 / distanceSquared) *
+                        ((std::get<0>(current_position) - std::get<0>(coord)) / 2);
+                totalRepForceY +=
+                        krepObstacle * ((1.0 / rho0_mapObject) - (1.0 / realDistance)) * (1.0 / distanceSquared) *
+                        ((std::get<1>(current_position) - std::get<1>(coord)) / 2);
+            }
         }
     }
 
@@ -195,7 +248,7 @@ std::tuple<double, double> Potential_Field::totalRepulsiveForce() {
     }
 
 
-    std::tuple<double, double> totalRepForce = std::make_tuple(totalRepForceX, totalRepForceY);
+    std::tuple<double, double> totalRepForce = std::make_tuple(-totalRepForceX, -totalRepForceY);
 
     /*if( fabs(totalRepForceX) > LIMIT_REPULSIVE_FORCE )
     {
@@ -311,10 +364,11 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
 
     // speed limiter when close of the obstacles
 
-    if ( normRepulsiveForce / LIMIT_REPULSIVE_FORCE  > 1.0 ){
-        std::cout << "ALLERT NEGATIVE FACTOR \n \n \n \n \n";
-        std::cout << "ALLERT NEGATIVE FACTOR \n \n \n \n \n";
-        std::cout << "ALLERT NEGATIVE FACTOR \n \n \n \n \n";
+    if ( normRepulsiveForce / LIMIT_REPULSIVE_FORCE  >= 1.0 ){
+        std::cout << "Norm : " << normRepulsiveForce << "\n";
+        std::cout << "ALERT NEGATIVE FACTOR \n \n \n \n \n";
+        std::cout << "ALERT NEGATIVE FACTOR \n \n \n \n \n";
+        std::cout << "ALERT NEGATIVE FACTOR \n \n \n \n \n";
         }
     
     omega   *= (1.0 - 0.4 * normRepulsiveForce / LIMIT_REPULSIVE_FORCE );
@@ -348,10 +402,10 @@ Potential_Field::getSpeedVector(double dt, double vMax, double omegaMax, std::tu
     }
 
     //limitation if we are on the obstacle 
-    if (opponentList.at(0).computeDistance(current_position) <= MINMUM_DISTANCE ){
+    /*if (opponentList.at(0).computeDistance(current_position) <= MINMUM_DISTANCE ){
         vRefNext = 0.0;
         omega = 0.0;
-    }
+    }*/
     
     return std::make_tuple(vRefNext, omega);
 }
@@ -709,6 +763,34 @@ void Goal::setWeight(double value) {
 
 
 
+
+// ====================================================================================================================================================================================================================
+// Map Class
+// ====================================================================================================================================================================================================================
+
+// Default constructor. 
+Map::Map(){}
+
+// Class constructor. Parameterized constructor : the position of the center is not specified, as a border is represented as a line. Use "setPosition" for other obstacles.
+Map::Map(double k_rep, double distanceOfInfluence, std::vector< std::tuple<double, double> > listOfCoords) {
+    krep = k_rep;
+    rho0 = distanceOfInfluence;
+    modelisation = listOfCoords;
+}
+
+void Map::setWeight(double newWeight) {
+    krep = newWeight;
+}
+
+void Map::setInfluence(double newInfluence) {
+    rho0 = newInfluence;
+}
+
+
+
+
+
+
 // ====================================================================================================================================================================================================================
 // Obstacle Class
 // ====================================================================================================================================================================================================================
@@ -930,6 +1012,13 @@ void Opponent::setPositionOpponent(const std::tuple<double, double> &obstaclePos
     position = obstaclePosition;
 }
 
+void Opponent::generatePoint(){
+    modelisation.clear();
+    for (int i = 0; i <numborOfPoints; i++) {
+        double coeficient = (double) i; 
+        modelisation.push_back(std::make_tuple(std::get<0>(position) + radiusModelisationOpponent*cos( coeficient * 2 * M_PI / numborOfPoints ), std::get<1>(position)+ radiusModelisationOpponent * sin( coeficient * 2 * M_PI / numborOfPoints ))) ;
+    }
+}
 
 
 // ====================================================================================================================================================================================================================
@@ -1035,8 +1124,92 @@ Potential_Field initPotentialField() // Rajouter la position initiale pour savoi
     // Arguments : position, k_rep, distanceOfInfluence, hitbox radius.
     // Son radius de base est de 15 [cm]. Il ne sert cependant à rien pour l'instant. Pour avoir de l'importance, mettre radiusOpponent en dernier argument. 
 
-    myPotentialField.addOpponent(Opponent(std::make_tuple(0.795,2.1), krep_opponent, rho0_opponent, hitbox_opponent));
+    myPotentialField.addOpponent(Opponent(std::make_tuple(HardOppX,HardOppY), krep_opponent, rho0_opponent, hitbox_opponent));
     //myPotentialField.addOpponent(Opponent(std::make_tuple(8.0,8.0), krep_opponent, rho0_opponent, hitbox_opponent));
+
+
+
+
+
+    std::vector< std::tuple<double, double> > mapModelisation { 
+        // Bord du haut. On tient la carte comme sur les images ( (0,0) en haut à gauche ).
+
+        // Bord de (0,0) à la première galerie (montée en y).
+        std::make_tuple(0.00, 0.00), std::make_tuple(0.00, 0.05), std::make_tuple(0.00, 0.10), std::make_tuple(0.00, 0.15), std::make_tuple(0.00, 0.20), std::make_tuple(0.00, 0.25), 
+        std::make_tuple(0.00, 0.30), std::make_tuple(0.00, 0.35), std::make_tuple(0.00, 0.40), std::make_tuple(0.00, 0.45),
+        // Première galerie côté jaune.
+        std::make_tuple(0.042, 0.45), std::make_tuple(0.085, 0.45), std::make_tuple(0.085, 0.50), std::make_tuple(0.085, 0.55), std::make_tuple(0.085, 0.60), std::make_tuple(0.085, 0.65),
+        std::make_tuple(0.085, 0.70), std::make_tuple(0.085, 0.75), std::make_tuple(0.085, 0.80), std::make_tuple(0.085, 0.85), std::make_tuple(0.085, 0.90), std::make_tuple(0.085, 0.95),
+        std::make_tuple(0.085, 1.00), std::make_tuple(0.085, 1.05), std::make_tuple(0.085, 1.10), std::make_tuple(0.085, 1.15), std::make_tuple(0.085, 1.17), std::make_tuple(0.042, 1.17),
+        // À nouveau un bord.
+        std::make_tuple(0.00, 1.17), std::make_tuple(0.00, 1.22), std::make_tuple(0.00, 1.275), 
+        // Rectangle gauche entre la galerie gauche et la tige.
+        std::make_tuple(0.05, 1.275), std::make_tuple(0.102, 1.275), std::make_tuple(0.102, 1.325), std::make_tuple(0.102, 1.375), std::make_tuple(0.102, 1.425), std::make_tuple(0.05, 1.425),
+        std::make_tuple(0.00, 1.425),
+        // Petit bord + directement la tige.
+        std::make_tuple(0.00, 1.50), std::make_tuple(0.05, 1.50), std::make_tuple(0.00, 1.50), std::make_tuple(0.10, 1.50), std::make_tuple(0.15, 1.50), std::make_tuple(0.20, 1.50),
+        std::make_tuple(0.25, 1.50), std::make_tuple(0.30, 1.50),
+        // Petit bord + rectangle droit entre la tige et la galerie droite.
+        std::make_tuple(0.00, 1.575), std::make_tuple(0.05, 1.575), std::make_tuple(0.102, 1.575), std::make_tuple(0.102, 1.625), std::make_tuple(0.102, 1.675), std::make_tuple(0.102, 1.725),
+        std::make_tuple(0.05, 1.725),  
+        // Petit bord.
+        std::make_tuple(0.00, 1.725), std::make_tuple(0.00, 1.775), std::make_tuple(0.00, 1.83),
+        // Deuxième galerie côté violet.
+        std::make_tuple(0.042, 1.83), std::make_tuple(0.085, 1.83), std::make_tuple(0.085, 1.88), std::make_tuple(0.085, 1.93), std::make_tuple(0.085, 1.98), std::make_tuple(0.085, 2.03),
+        std::make_tuple(0.085, 2.08), std::make_tuple(0.085, 2.13), std::make_tuple(0.085, 2.18), std::make_tuple(0.085, 2.23), std::make_tuple(0.085, 2.28), std::make_tuple(0.085, 2.33),
+        std::make_tuple(0.085, 2.38), std::make_tuple(0.085, 2.43), std::make_tuple(0.085, 2.48), std::make_tuple(0.085, 2.53), std::make_tuple(0.085, 2.55), std::make_tuple(0.042, 2.55),
+        // Fin de ce bord.
+        std::make_tuple(0.00, 2.55), std::make_tuple(0.00, 2.60), std::make_tuple(0.00, 2.65), std::make_tuple(0.00, 2.70), std::make_tuple(0.00, 2.75), std::make_tuple(0.00, 2.80),
+        std::make_tuple(0.00, 2.85), std::make_tuple(0.00, 2.95), std::make_tuple(0.00, 3.00),
+
+        // On passe au bord de droit.
+
+        std::make_tuple(0.00, 3.00), std::make_tuple(0.05, 3.00), std::make_tuple(0.10, 3.00), std::make_tuple(0.15, 3.00), std::make_tuple(0.20, 3.00), std::make_tuple(0.25, 3.00),
+        std::make_tuple(0.30, 3.00), std::make_tuple(0.35, 3.00), std::make_tuple(0.40, 3.00), std::make_tuple(0.45, 3.00), std::make_tuple(0.50, 3.00), std::make_tuple(0.55, 3.00),
+        std::make_tuple(0.60, 3.00), std::make_tuple(0.65, 3.00), std::make_tuple(0.70, 3.00), std::make_tuple(0.75, 3.00), std::make_tuple(0.80, 3.00), std::make_tuple(0.85, 3.00),
+        std::make_tuple(0.90, 3.00), std::make_tuple(0.95, 3.00), std::make_tuple(1.00, 3.00), std::make_tuple(1.05, 3.00), std::make_tuple(1.10, 3.00), std::make_tuple(1.15, 3.00),
+        // Le rectangle de ce bord.
+        std::make_tuple(1.175, 3.00), std::make_tuple(1.175, 2.95), std::make_tuple(1.175, 2.898), std::make_tuple(1.175, 2.898), std::make_tuple(1.225, 2.898), std::make_tuple(1.275, 2.898),
+        std::make_tuple(1.325, 2.898), std::make_tuple(1.325, 2.95), std::make_tuple(1.325, 3.00), 
+        // Encore un peu de bords.
+        std::make_tuple(1.325, 3.00), std::make_tuple(1.375, 3.00), std::make_tuple(1.425, 3.00), std::make_tuple(1.475, 3.00), std::make_tuple(1.49, 3.00),
+
+        // Oblic border en bas à droite.
+
+        std::make_tuple(1.54, 2.95), std::make_tuple(1.59, 2.90), std::make_tuple(1.64, 2.85), std::make_tuple(1.69, 2.80), std::make_tuple(1.74, 2.75), std::make_tuple(1.79, 2.70),
+        std::make_tuple(1.84, 2.65), std::make_tuple(1.89, 2.60), std::make_tuple(1.94, 2.55), std::make_tuple(2.00, 2.49),
+
+        // Bord du bas : simple ligne droite.
+
+        std::make_tuple(2.00, 2.44), std::make_tuple(2.00, 2.39), std::make_tuple(2.00, 2.34), std::make_tuple(2.00, 2.29), std::make_tuple(2.00, 2.24), std::make_tuple(2.00, 2.19), 
+        std::make_tuple(2.00, 2.14), std::make_tuple(2.00, 2.09), std::make_tuple(2.00, 2.04), std::make_tuple(2.00, 1.99), std::make_tuple(2.00, 1.94), std::make_tuple(2.00, 1.89), 
+        std::make_tuple(2.00, 1.84), std::make_tuple(2.00, 1.79), std::make_tuple(2.00, 1.74), std::make_tuple(2.00, 1.69), std::make_tuple(2.00, 1.64), std::make_tuple(2.00, 1.59), 
+        std::make_tuple(2.00, 1.54), std::make_tuple(2.00, 1.49), std::make_tuple(2.00, 1.44), std::make_tuple(2.00, 1.39), std::make_tuple(2.00, 1.34), std::make_tuple(2.00, 1.29), 
+        std::make_tuple(2.00, 1.24), std::make_tuple(2.00, 1.19), std::make_tuple(2.00, 1.14), std::make_tuple(2.00, 1.09), std::make_tuple(2.00, 1.04), std::make_tuple(2.00, 0.99),
+        std::make_tuple(2.00, 0.94), std::make_tuple(2.00, 0.89), std::make_tuple(2.00, 0.84), std::make_tuple(2.00, 0.79), std::make_tuple(2.00, 0.74), std::make_tuple(2.00, 0.69), //nice
+        std::make_tuple(2.00, 0.64), std::make_tuple(2.00, 0.59), std::make_tuple(2.00, 0.54), std::make_tuple(2.00, 0.51),
+
+        // Oblic border en bas à gauche.
+
+        std::make_tuple(1.95, 0.46), std::make_tuple(1.90, 0.41), std::make_tuple(1.85, 0.36), std::make_tuple(1.80, 0.31), std::make_tuple(1.75, 0.26), std::make_tuple(1.70, 0.21),
+        std::make_tuple(1.65, 0.16), std::make_tuple(1.60, 0.11), std::make_tuple(1.55, 0.06), std::make_tuple(1.49, 0.00),
+
+        // Bord gauche. 
+
+        // Petit montée vers le rectangle.
+        std::make_tuple(1.44, 0.00), std::make_tuple(1.39, 0.00), std::make_tuple(1.34, 0.00), std::make_tuple(1.325, 0.00), 
+        // Le rectangle
+        std::make_tuple(1.325, 0.05), std::make_tuple(1.325, 0.102), std::make_tuple(1.275, 0.102), std::make_tuple(1.225, 0.102), std::make_tuple(1.175, 0.102), std::make_tuple(1.175, 0.05), 
+        std::make_tuple(1.175, 0.00), 
+        // Retour à du plat
+        std::make_tuple(1.125, 0.00), std::make_tuple(1.075, 0.00), std::make_tuple(1.025, 0.00), std::make_tuple(0.975, 0.00), std::make_tuple(0.925, 0.00), std::make_tuple(0.875, 0.00), 
+        std::make_tuple(0.825, 0.00), std::make_tuple(0.775, 0.00), std::make_tuple(0.725, 0.00), std::make_tuple(0.675, 0.00), std::make_tuple(0.625, 0.00), std::make_tuple(0.575, 0.00), 
+        std::make_tuple(0.525, 0.00), std::make_tuple(0.475, 0.00), std::make_tuple(0.425, 0.00), std::make_tuple(0.375, 0.00), std::make_tuple(0.325, 0.00), std::make_tuple(0.275, 0.00),
+        std::make_tuple(0.225, 0.00), std::make_tuple(0.175, 0.00), std::make_tuple(0.125, 0.00), std::make_tuple(0.075, 0.00), std::make_tuple(0.025, 0.00)
+
+        };
+
+    myPotentialField.addMap(Map(krep_map, rho0_map, mapModelisation));
 
 
     return myPotentialField;
@@ -1124,8 +1297,8 @@ void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
 
 std::tuple<double, double> iterPotentialFieldWithLogFile(Potential_Field * myPotential_Field, double dt, FILE  * myFile) {
         //myPotential_Field->current_position = myPotential_Field->getPosition();
-		if (TEST_POTENTIAL){
-			myPotential_Field->opponentList.at(0).setPositionOpponent(std::make_tuple(10.0,10.0));
+		if (NON_LIDAR_DETECTION){
+			myPotential_Field->opponentList.at(0).setPositionOpponent(std::make_tuple(HardOppX,HardOppY));
 		}
 		
         std::tuple<double, double> myRepulsiveForce = myPotential_Field->totalRepulsiveForce();
@@ -1204,6 +1377,7 @@ std::tuple<double, double> Filter(std::tuple<double, double> opponentPosition, s
 
 
 void visualisation_potential(double x_min, double x_max, double y_min, double y_max, double N_points, Potential_Field * myPotentialField){
+    printf("Visualisation in progress \n");
     double x_iter = (x_max - x_min) / N_points; 
     double y_iter = (y_max - y_min) / N_points; 
     FILE * myPotentialFieldFile;

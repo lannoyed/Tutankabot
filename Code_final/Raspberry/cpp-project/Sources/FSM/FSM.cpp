@@ -11,8 +11,6 @@
 
 # include "FSM.h"
 
-#define DONT_MOVE false // J'ai changé un peu le code pour qu'il se calibre quand meme mais qu'il ne bouge plus après (Le plus bg des codeurs) 
-
 //# include "data.h"
 
 unsigned char score = 69;
@@ -95,9 +93,11 @@ void FSM_init(Controller *cvs){
     cvs->data = fopen("data.txt", "w");        
 
     myPotentialField = initPotentialField();
-
-	//visualisation_potential(-0.5, 2.5, -0.5, 3.5, 1000, &myPotentialField);
-	std::cout<<"heya hahahah \n";
+	
+	if (VISUALISATION_TEST) {
+		visualisation_potential(-0.1, 2.1, -0.1, 3.1, 1000, &myPotentialField);
+		std::cout<<"heya hahahah \n";
+	}
 
     myFile = fopen("data_log.txt", "w");
     fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
@@ -110,21 +110,21 @@ void FSM_init(Controller *cvs){
     
 	
 	cvs->state = 0;
+	
+	cvs->team = team_number;
 	if (TEST_POTENTIAL){
 		cvs->state = 1;
-		printf("Test_potential_field\n\n\n\n\n\n\n\n\n") ;  
 		initGoalsTest(&myPotentialField, cvs->team);
 		if (cvs->team){
 			cvs->theta = M_PI/2;
-			cvs->x = 0.7;
-			cvs->y = 0.25;
+			cvs->x = 0.53;
+			cvs->y = 0.3;
 		}else{
 			cvs->theta = -M_PI/2;
-			cvs->x = 0.7;
-			cvs->y = 2.75;
+			cvs->x = 0.53;
+			cvs->y = 2.7;
 		}
 	}
-    cvs->team = team_number;
 }
 
 /*! \brief controller loop (called every timestep)

@@ -25,6 +25,22 @@
 
 
 
+class Map
+{
+    public:
+
+    double rho0{};
+    double krep{};
+    std::vector<std::tuple<double, double>> modelisation;
+
+    Map();
+    Map(double k_rep, double distanceOfInfluence, std::vector< std::tuple<double, double> > listOfCoords);
+
+    void setWeight (double newWeight);
+    void setInfluence (double newInfluence);
+};
+
+
 // ====================================================================================================================================================================================================================
 // Obstacle Declaration
 // ====================================================================================================================================================================================================================
@@ -125,7 +141,11 @@ public:
     std::tuple<double, double> position;
     double hitBox{};
 
+    std::vector<std::tuple<double, double>> modelisation;
+
     Opponent(const std::tuple<double, double>& center, double k_rep, double distanceOfInfluence,  double hitBoxRadius);
+
+    void generatePoint();
 
     double computeDistance(std::tuple<double, double> robotPosition);
 
@@ -208,6 +228,9 @@ public:
     std::tuple <double, double> currentSpeedVector;         // Vref , omega_ref
     std::queue<double>          list_for_speed_filtering;
 
+
+    std::vector<Map>            mapList;
+
     double                      filter_output_Vref{};
     double                      filter_output_Wref{};
 
@@ -236,6 +259,11 @@ public:
     void addOpponent(const Opponent &object);
     void addSample(const Sample &object);
     void addRectangle(const Rectangle &object);
+
+
+    void addMap(const Map &object);
+
+
     void removeSimpleBorder(int borderNumber);
     void removeOblicBorder(int borderNumber);
     void removeSample();
