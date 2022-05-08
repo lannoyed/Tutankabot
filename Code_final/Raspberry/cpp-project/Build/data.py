@@ -1,5 +1,9 @@
+from cProfile import label
+from turtle import color
 import matplotlib.pyplot as plt
 import numpy as np
+
+PLOT_LIDAR_OPP = False
 
 data = np.genfromtxt('data_log.txt',skip_footer=1, skip_header=1)
 tracking = np.genfromtxt('data_State_log.txt',skip_footer=1, skip_header=1)
@@ -77,6 +81,12 @@ def plotSample(center):
     cercle = generateCercle((center[0], center[1]), 20, 20) #Ici, hitbox.
     plt.scatter(cercle[:,0], cercle[:,1], c='pink', marker='+')
     
+def plotOpponent(center, radius):
+    plt.scatter(center[0], center[1], c='red', label='center of the opponent') # sample
+    cercle = generateCercle((center[0], center[1]), radius, 30) #Zone d'influence.
+    plt.scatter(cercle[:,0], cercle[:,1], c='pink', marker='+',label= 'hitbox of the opponent')
+
+    
 k = 0 
 for i in range (n):
     x[i] = 100 * data[i,0]
@@ -100,8 +110,9 @@ for i in range (len_file):
         print(i)
         opponent_x.append(opponent[i,0] * 100)
         opponent_y.append(opponent[i,1] * 100)
-        
-plt.scatter(opponent_x, opponent_y, color='green', label='Opponent', marker='*')
+
+if PLOT_LIDAR_OPP :         
+    plt.scatter(opponent_x, opponent_y, color='green', label='Opponent', marker='*')
     
 opponent_x_final = []
 opponent_y_final = []
@@ -117,15 +128,14 @@ for i in range(longueur):
     opponent_x_final.append(donnee_x / param)
     opponent_y_final.append(donnee_y / param)
         
-        
-plt.scatter(opponent_x_final, opponent_y_final, color='red', label='Opponent', marker='*')
+if PLOT_LIDAR_OPP :  
+    plt.scatter(opponent_x_final, opponent_y_final, color='red', label='Opponent', marker='*')
 
     
 # AJOUTER LA CARTE DANS CE PÂTÉ
-plt.plot(x,y)
+plt.plot(x,y, label = "Displacement of the robot in the map", color = 'purple')
 #plt.scatter(150,225)
 #plt.scatter(25,210)
-plt.title('Displacement of the robot in the map')
 plt.xlabel('x-axis [cm]')
 plt.ylabel('y-axis [cm]')
 
@@ -196,6 +206,9 @@ x = [0, 35, 35, 0]
 y = [155, 155, 145, 145]
 plt.plot(x, y, linestyle='--', linewidth=1, color='red')
 
+if not PLOT_LIDAR_OPP : 
+    plotOpponent((79.5, 210), 22)
+
 # Tracking
 plt.scatter(stuck_point_x, stuck_point_y, marker = '*', c = 'black')
 #plt.scatter(79.5, 90.0, marker = '*', c= 'red')
@@ -208,6 +221,7 @@ plt.scatter(return_point_x, return_point_y, marker = '.', c ='red')
 #plt.plot([180.1786,25.0000],[154.9165, 170.0000], c = 'green')
 #plt.plot([180.1786,135.3083 ],[154.9165,19.30], c = 'red')
 
+plt.axis('equal')
 plt.legend()
 plt.show()
 
