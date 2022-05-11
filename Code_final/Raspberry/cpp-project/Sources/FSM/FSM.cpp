@@ -94,10 +94,10 @@ void FSM_init(Controller *cvs){
 
     myPotentialField = initPotentialField();
 	
-	if (VISUALISATION_TEST) {
+	#if VISUALISATION_TEST
 		visualisation_potential(-0.1, 2.1, -0.1, 3.1, 1000, &myPotentialField);
 		std::cout<<"heya hahahah \n";
-	}
+	#endif
 
     myFile = fopen("data_log.txt", "w");
     fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
@@ -112,7 +112,8 @@ void FSM_init(Controller *cvs){
 	cvs->state = 0;
 	
 	cvs->team = team_number;
-	if (TEST_POTENTIAL){
+
+	#if TEST_POTENTIAL
 		cvs->state = 1;
 		initGoalsTest(&myPotentialField, cvs->team);
 		if (cvs->team){
@@ -121,10 +122,10 @@ void FSM_init(Controller *cvs){
 			cvs->y = 0.3;
 		}else{
 			cvs->theta = -M_PI/2;
-			cvs->x = 0.53;
-			cvs->y = 2.7;
+			cvs->x = 0.67;
+			cvs->y = 2.79;
 		}
-	}
+	#endif
 }
 
 /*! \brief controller loop (called every timestep)
@@ -394,6 +395,8 @@ void FSM_loop(Controller *cvs, double deltaT){
 		cvs->LockLidarVWRef.unlock();
     }
     
+	#if !MoveByHand
+
     t10 = std::chrono::high_resolution_clock::now() ; 
     speedConversion(cvs); 
 	t11 = std::chrono::high_resolution_clock::now() ; 
@@ -408,7 +411,9 @@ void FSM_loop(Controller *cvs, double deltaT){
     
     // Actualize the command of the motors to maintain a certain speed
 
-	  speedControllerLoop(cvs->sc2) ;
+	speedControllerLoop(cvs->sc2) ;
+
+	#endif
      
     fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y ) ; 
 

@@ -4,8 +4,8 @@
 # include "MainController.h"
 
 // Time of game
-#define time_return 80.0
-#define time_stop 90.0
+#define time_return 100.0
+#define time_stop 200.0
 #define periode_lidar 0.2
 
 
@@ -41,7 +41,7 @@
 
 //MAP
 #define rho0_map    0.6
-#define krep_map    1e-1*coef*0.19
+#define krep_map    1e-1*coef*0.19 /2.0
 
 
 //OPPONENT
@@ -50,7 +50,7 @@
 #define krep_opponent   0.02*coef
 #define hitbox_opponent 0.05
 #define numborOfPoints  20  
-#define radiusModelisationOpponent 0.10 
+#define radiusModelisationOpponent 0.2 
 //HITBOX GÉNÉRALE DES OBSTACLES : modifiable. TAG.
 #define hitbox_obstacle 0.0
 
@@ -65,19 +65,40 @@
 #define global_vMax 0.12
 #define global_wMax 1.5
 
+#define MINMUM_DISTANCE 0.01
 
 // controle du type de partie 
 #define team_number 0 // 0 PURPLE or 1 YELLOW
 
-#define MINMUM_DISTANCE 0.01
-#define TEST_POTENTIAL 1
-
 // hardcoded ennemy 
-#define NON_LIDAR_DETECTION 0
+#define NON_LIDAR_DETECTION false
 #define HardOppX 0.79 
 #define HardOppY 2.1
 
+// write the repulsive potential field in myPotentialField.txt  (Safer if neither Don't move = true or )
+#define VISUALISATION_TEST false
 
-#define VISUALISATION_TEST 0
+// write Sonars data in SonarLog.txt
+#define Sonar false
 
+// Enable the Motion FSM control
+#define FSM true
+
+// Set speed to 0 (need FSM = true)
 #define DONT_MOVE false // J'ai changé un peu le code pour qu'il se calibre quand meme mais qu'il ne bouge plus après (Le plus bg des codeurs) 
+
+// erase the calibration, erase the actions and set specifics goals (need FSM = true and don't move = false)
+#define TEST_POTENTIAL false
+
+// remove the wheels resistance to movement 
+#define MoveByHand false
+
+/* NORMAL RUN : 
+NON_LIDAR_DETECTION false 
+VISUALISATION_TEST  false
+Sonar false
+FSM true
+DONT_MOVE true
+TEST_POTENTIAL false 
+MoveByHand false
+*/

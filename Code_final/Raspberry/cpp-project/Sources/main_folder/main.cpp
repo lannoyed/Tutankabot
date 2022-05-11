@@ -13,8 +13,6 @@ char data_file[] = "prout.csv";
 // attention réactiver lidar ^^^^^^
 
 
-
-
 void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  
  std::chrono::high_resolution_clock::time_point last_lidar_update = std::chrono::high_resolution_clock::now();
@@ -24,7 +22,7 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
  fprintf(myThread, "iteration init \n" );
  
  int i = 0;
- while (running )
+ while (running)
  {
 	
 	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality);
@@ -64,7 +62,11 @@ int main(int argc, char* argv){
 	mainLog = fopen("main_log2.txt", "w");
 	fprintf(mainLog, "[odo1] [odo2] [x] [y] \n");  
 	//
+	FILE* SonarLog;
+	SonarLog = fopen("SonarLog.txt", "w");
+	fprintf(SonarLog, "[Sonar1] [Sonar2] [Sonar3] [Sonar4] [Sonar5]");
 	
+
 	arduinoSerialConnect() ;
 	
 	connectLidar();
@@ -94,19 +96,67 @@ int main(int argc, char* argv){
 	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now() ;
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
 
-	set_speed(ctrl, 0.0, 0.0);
-	std::cout<<"set speed"<<"\n";  
- 
+
+	printf("The program is launch in the following configuration \n");
+	#if NON_LIDAR_DETECTION  
+	printf("non lidar detection \n");
+	#endif
+
+	#if VISUALISATION_TEST
+	printf("visualisation test \n");
+	#endif
+
+	#if !MoveByHand
+		set_speed(ctrl, 0.0, 0.0);
+	#else 
+		Brake();
+		printf("move by hand \n");
+	#endif
+
+	#if DONT_MOVE
+		printf("Don't move \n");
+	#endif
+
+	#if TEST_POTENTIAL
+		printf("Test potential \n");
+	#endif
+
+  #if SONAR
+    printf("Sonars \n");
+  #endif
+  
+	if (! (NON_LIDAR_DETECTION || VISUALISATION_TEST || DONT_MOVE || TEST_POTENTIAL || !MoveByHand)){
+		printf("Normal mode \n");
+	}
+
+
 	double deltaT = 0.0;
 
 	std::atomic<bool> running (true) ;
 	std::thread lidar_thread(lidar_loop, std::ref(running), ctrl);
+  
+  int state_motor = 0;
+	while(Dt.count() < 20*1.0 && !(ctrl->state == 6) ){
+		
+		t1 = std::chrono::high_resolution_clock::now() ; 
+
+		#if Sonar
+			double sonar1 = get_distance(8);
+			double sonar2 = get_distance(9);
+			double sonar3 = get_distance(10);
+			double sonar4 = get_distance(11);
+			double sonar5 = get_distance(12);
+			fprintf(SonarLog, "%f %f %f %f %f \n", sonar1, sonar2, sonar3, sonar4, sonar5); 
+			if (Dt.count() > 2*60.0) {ctrl->state = 6;}
+		#endif
  
-	while(Dt.count() < 15*60.0 && !(ctrl->state == 6) ){
- 
+		#if FSM
 		FSM_loop(ctrl, 0.17); 
 		//printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
+		#endif 
+
+
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
 		deltaT = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t2).count();
@@ -115,8 +165,21 @@ int main(int argc, char* argv){
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
 		
 		// NICO NICO
-		//set_speed(ctrl, 0.0, 0.1);
+		//sendTheta(Dt.count()/15.0 *50, 0);
+		//sendTheta(Dt.count()/15.0 *50, 1);
+   
 		//ControllerLoop(ctrl);
+   
+    /*
+    if (  (int) Dt.count() / 5 % 2 == 0  && state_motor ==0) {
+        probesUp();
+        state_motor = 1;
+    } 
+    else if (  (int) Dt.count() / 5 % 2 == 1  && state_motor ==1) {
+       state_motor =0;
+       probesDown();
+    }*/
+
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
