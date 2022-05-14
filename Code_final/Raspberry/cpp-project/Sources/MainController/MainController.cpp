@@ -22,7 +22,7 @@ Controller* ControllerInit(){
 	ctrl->l = (0.18789/2) ; 
 	ctrl->t_flag = t0 ;
 	ctrl->action_t_flag = t0 ; 
-	ctrl->calib_flag = CALIB_START ;  
+	ctrl->calib_flag = 0;  
 	ctrl->x_opp = 200.0 ; 
 	ctrl->y_opp = 200.0 ; 
 	ctrl->last_lidar_update = t0 ; 
@@ -35,10 +35,12 @@ Controller* ControllerInit(){
 	ctrl->action_state_exc_square = 0;
 	ctrl->action_state_statuette = 0 ;
 	ctrl->action_state_vitrine = 0 ;
+	ctrl->action_state_one_exc_square = 0 ; 
 	ctrl->alpha0 = 0 ; 
 	ctrl->first_time = 1 ; 
 	ctrl->cord_present = 1;
 	ctrl->cord_t_flag = std::chrono::high_resolution_clock::now();
+	ctrl->score = 5 ; 
 	ctrl->opponent_on_my_way ;
 	return ctrl ; 
 } 
@@ -79,8 +81,8 @@ void ControllerLoop(Controller*  ctrl){
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
 	odometryLoop(ctrl) ; 
-	update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
-	update_opponent_location(ctrl) ; 
+	//update_lidar_data(ctrl->last_lidar_update, ctrl->lidar_angles, ctrl->lidar_distance, ctrl->lidar_quality) ; 
+	//update_opponent_location(ctrl) ; 
 }
 
 void ControllerFree(Controller* ctrl){

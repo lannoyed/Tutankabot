@@ -1272,15 +1272,17 @@ void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
 	else {
 		if (teamNumber == YELLOW){
 			//myPotentialField->addGoal(std::make_tuple(1.7, 1.7), WEIGHT_GOAL, true);      // Goal de test pour exca square
-		    myPotentialField->addGoal(std::make_tuple(0.7, 0.45), 0, true);      			// Vitrine 
+		    myPotentialField->addGoal(std::make_tuple(1.3, 0.57), 0, true); 
+			myPotentialField->addGoal(std::make_tuple(0.7, 0.45), 0, true);      			// Vitrine 
 		    myPotentialField-> addGoal(std::make_tuple(1.3, 0.7), WEIGHT_GOAL, true);      	// Statuette 
-			myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
+			myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.2);
 			myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
 		}else{
 			//myPotentialField->addGoal(std::make_tuple(0.5, 2.5), 0, true);      // Goal de test.
-		    myPotentialField->addGoal(std::make_tuple(0.7, 2.55), 0, true);      			// Vitrine 
+		    myPotentialField->addGoal(std::make_tuple(1.25, 2.35), 0, true); 
+			myPotentialField->addGoal(std::make_tuple(0.6, 2.70), 0, true);      			// Vitrine 
 			myPotentialField->addGoal(std::make_tuple(1.3, 2.3), WEIGHT_GOAL, true);      // Goal de test.
-			myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.75);
+			myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.85);
 			myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
 		}
 	}
