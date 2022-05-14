@@ -8,6 +8,7 @@ enum {WS_START, WS_SETPOS1} ; //FSM action workshed states
 
 
 Controller* ControllerInit(){
+	// Initialises the main controller object
 	Controller* ctrl = (Controller*)malloc(sizeof(Controller)) ; 
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
 	ctrl->sc1 = speedControllerInit(3, 0.2, 30, -30, 0.0, 5, 1) ; 
@@ -46,6 +47,8 @@ Controller* ControllerInit(){
 } 
 
 void update_cord(Controller* ctrl){
+	// This function checks whether the starting button is still in place 
+	// To avoid the statrting of the robot due to vibration and misdetection of the starting button, a timer of 1 sec has been added.
 	std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now() ;
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (current_time - ctrl->cord_t_flag) ;
 	if (getStartingButton()){
@@ -61,6 +64,7 @@ void update_cord(Controller* ctrl){
 }
 
 void set_speed(Controller* ctrl, double v, double w){
+	// This function changes the speed of the robot 
 	ctrl->LockLidarVWRef.lock();
 	ctrl->v_ref = v ; 
 	ctrl->w_ref = w ; 
@@ -68,6 +72,7 @@ void set_speed(Controller* ctrl, double v, double w){
 }
 
 void speedConversion(Controller* ctrl){
+	// Mid level controller
 	double r = ctrl->r ; 
 	double l = ctrl->l ; 
 	ctrl->LockLidarVWRef.lock();
@@ -77,6 +82,7 @@ void speedConversion(Controller* ctrl){
 }
 
 void ControllerLoop(Controller*  ctrl){
+	// This function is used for debugging but has been replaced by the FSM loop function 
 	speedConversion(ctrl) ; 
 	speedControllerLoop(ctrl->sc1) ; 
 	speedControllerLoop(ctrl->sc2) ; 
@@ -93,6 +99,7 @@ void ControllerFree(Controller* ctrl){
 
 
 void odometryLoop(Controller* ctrl){
+	// This function actualises the position of the robot using odometry
 	ctrl->tL[0] = ctrl->tL[1] ; 
 	ctrl->tL[1] = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::duration<double> dtL = std::chrono::duration_cast<std::chrono::duration<double>>(ctrl->tL[1]-ctrl->tL[0]) ;  
@@ -115,6 +122,7 @@ void odometryLoop(Controller* ctrl){
 }
 
 void odometryCalibration(Controller* ctrl){
+	// FSM used for the calibration
 	// Distance between back of the robot and center of the wheels : 145mm
 	float val1, val2, val3, val4 ; 
 	float v1, v2, v3 ; 
@@ -253,6 +261,7 @@ void odometryCalibration(Controller* ctrl){
 }
 
 void update_opponent_location(Controller* ctrl){
+	// This function computes the location of the opponent using the LiDAR datas. 
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
 	
 	ctrl->LockLidarVWRef.lock();
@@ -309,6 +318,7 @@ void update_opponent_location(Controller* ctrl){
 }
 
 void triangulation(Controller* ctrl){
+	// Not used finally
 	size_t nb_lidar_data = sizeof(ctrl->lidar_angles)/sizeof(double) ;
 
 	ctrl->LockLidarVWRef.lock();
@@ -361,6 +371,8 @@ void updateTime (Controller* cvs){
 }
 
 void make_angle(Controller* ctrl, double angle){
+	// This function uses a proportional compensator acting on the rotation speed of the robot to align 
+	// the robot with a desired angle. 
 	double kp_angle = 7.0 ;
 
 	double diff = angle - ctrl->theta;
@@ -381,6 +393,8 @@ void make_angle(Controller* ctrl, double angle){
 }
 
 void make_x(Controller* ctrl, double x){
+	// This function uses a proportional compensator acting on the speed of the robot to align 
+	// the robot with a desired x position. 
 	double kp_dist = 2.0 ; 
 	double vref = kp_dist*(ctrl->x-x) ; 
 	if (vref > 0.2){
@@ -394,6 +408,8 @@ void make_x(Controller* ctrl, double x){
 }
 
 void make_y(Controller* ctrl, double y){
+	// This function uses a proportional compensator acting on the speed of the robot to align 
+	// the robot with a desired y position. 
 	double kp_dist = 2.0 ; 
 	double vref = kp_dist*fabs(y-ctrl->y) ; 
 	if (y > ctrl->y and ctrl->theta < 0 and ctrl->theta > -M_PI){
@@ -412,6 +428,8 @@ void make_y(Controller* ctrl, double y){
 }
 
 void make_pos_forward(Controller* ctrl, double x, double y, double angle){
+	// This function implements the parking mode of motion os the robot used when the robot needs to perform 
+	// accurate actions
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
 	if (alpha > M_PI){
@@ -449,6 +467,7 @@ void make_pos_forward(Controller* ctrl, double x, double y, double angle){
 }
 
 void make_pos_forward_exc(Controller* ctrl, double x, double y, double angle){
+	// Not used 
 	double rho = sqrt((ctrl->x-x)*(ctrl->x-x) + (ctrl->y-y)*(ctrl->y-y));
 	double alpha = -ctrl->theta + atan2(y-ctrl->y, x-ctrl->x); 
 	double beta = -(ctrl->theta + alpha - angle);
@@ -475,7 +494,7 @@ void make_pos_forward_exc(Controller* ctrl, double x, double y, double angle){
 }
 
 void make_pos_backward(Controller* ctrl, double x, double y, double angle){
-
+	// Same as his forward homologue but in this case the robot goes backward
 	double backward_theta = ctrl->theta + M_PI;               //on essaie de faire comme si on allait en avant
 	if (backward_theta > M_PI){backward_theta -= 2*M_PI ; }
 
@@ -510,6 +529,7 @@ void make_pos_backward(Controller* ctrl, double x, double y, double angle){
 }
 
 void is_opponent_on_my_way(Controller* ctrl){
+	// Detects whether the location of the opponent is on the robot's way 
 	ctrl->LockLidarOpponentPosition.lock();
 	double x_opp = ctrl->x_opp ; 
 	double y_opp = ctrl->y_opp ; 

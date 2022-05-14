@@ -1,5 +1,5 @@
 /*! 
- * \file ctrl_main_gr2.cc
+ * \file ctrl_main_gr4.cc
  * \brief Initialization, loop and finilization of the controller written in C (but compiled as C++)
  */
 
@@ -11,7 +11,7 @@
 
 # include "FSM.h"
 
-#define DONT_MOVE false // J'ai changé un peu le code pour qu'il se calibre quand meme mais qu'il ne bouge plus après (Le plus bg des codeurs) 
+#define DONT_MOVE false // If true, the robot will calibrate but not move afterward
 
 //# include "data.h"
 
@@ -83,8 +83,7 @@ void FSM_init(Controller *cvs){
     double opponent1_y_filtered = 0.0;
     double opponent2_x_filtered = 0.0;
     double opponent2_y_filtered = 0.0;
-
-    //TO DO ATTENTION INIT 
+ 
     
     //speed_regulation_init(cvs) ; 	// Initialize the speed controller
     //localization_init(cvs) ;
@@ -94,7 +93,6 @@ void FSM_init(Controller *cvs){
     myPotentialField = initPotentialField();
 
 	//visualisation_potential(-0.5, 2.5, -0.5, 3.5, 1000, &myPotentialField);
-	std::cout<<"heya hahahah \n";
 
     myFile = fopen("data_log.txt", "w");
     fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
@@ -129,6 +127,7 @@ void FSM_init(Controller *cvs){
  * \param[in] cvs controller main structure
  */
 void FSM_loop(Controller *cvs, double deltaT){
+	// This function is the main FSM that will govern whether the robot must calibrate, travel to a goal, perform an action, ... 
 	update_cord(cvs) ; 
     std::chrono::high_resolution_clock::time_point t10 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::high_resolution_clock::time_point t11 = std::chrono::high_resolution_clock::now() ; 
@@ -197,16 +196,17 @@ void FSM_loop(Controller *cvs, double deltaT){
     //std::cout<< "at case \n";
 
     switch (cvs->state) // cvs->state is a state stored in the controller main structure
+	// FSM
     {
-        case STATE_CALIBRATION:
+        case STATE_CALIBRATION: // Calibration state (before the match)
             //std::cout<<"CALIBRATION"<<"\n";
             //cvs->time = 0.0;
             
             odometryCalibration(cvs);
             number_sample = 0;
-			if(cvs->cord_present==0){
+			/*if(cvs->cord_present==0){
 				printf("Cordon plus là\n") ;
-			}
+			}*/
             if (cvs->time >= 0 && cvs->cord_present==0 ) {
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
@@ -221,7 +221,7 @@ void FSM_loop(Controller *cvs, double deltaT){
             }
             break;
 
-        case STATE_GO2GOAL:
+        case STATE_GO2GOAL: // State during which the robot uses the potential field to travel to a goal 
             std::cout<<"TO GOAL"<<"\n";
             //std::cout << "Current goal at : (" << std::get<0>(myPotentialField.currentGoal.position) << "," << std::get<1>(myPotentialField.currentGoal.position) << ").\n";
 
@@ -294,6 +294,7 @@ void FSM_loop(Controller *cvs, double deltaT){
 
 
         case DO_ACTION:
+			// State when the robot has reached a goal and must perform an action 
             std::cout<<"ACTION"<<"\n";
             time_wait_init_waiting_for_target = 0.0;
             
@@ -303,6 +304,7 @@ void FSM_loop(Controller *cvs, double deltaT){
 			}
 			else {
 				if (cvs->opponent_on_my_way == 1) {
+					// The robot stops if the opponent is on its way
 					set_speed(cvs, 0.0, 0.0) ; 
 					action_finished = 0 ; 
 				} else {
@@ -405,7 +407,7 @@ void FSM_loop(Controller *cvs, double deltaT){
     
     // Actualize the command of the motors to maintain a certain speed
 
-	  speedControllerLoop(cvs->sc2) ;
+	speedControllerLoop(cvs->sc2) ;
      
     fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y ) ; 
 
@@ -429,6 +431,8 @@ enum {ES_START, ES_BT1, ES_BT2, ES_ENDPOS, ES_FINISH, ES_FT2, ES_FT3, ES_FT4, ES
 enum {ONE_ES_START, ONE_ES_SETPOS1, ONE_ES_SETPOS2, ONE_ES_SETPOS3, ONE_ES_FINISH} ;
 
 bool FSM_action(Controller* ctrl){
+	// Function called when the robot must perform an action. 
+	// The order of the action that will be performed is defined here
 	sendScore(ctrl->score);
 	switch (ctrl->action_state) {
 		case WORKSHED : 
@@ -469,6 +473,7 @@ bool FSM_action(Controller* ctrl){
 }
 
 bool FSM_action_statuette(Controller* ctrl){
+	// FSM For the action during which the robot takes the statuette and puts the replica on the pedestal
 	double x_target, y_target, theta_target ; 
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta, val_SETPOS5_x, val_SETPOS5_y, val_SETPOS5_theta, val_SETPOS6_x, val_SETPOS6_y, val_SETPOS6_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
@@ -657,6 +662,7 @@ bool FSM_action_statuette(Controller* ctrl){
 }
 
 bool FSM_action_vitrine(Controller* ctrl){
+	// FSM used when the robot puts the statuette in the display cabinet 
 	double x_target, y_target, theta_target ; 
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
@@ -804,6 +810,7 @@ bool FSM_action_vitrine(Controller* ctrl){
 	}
 }
 bool FSM_action_One_excavation_square(Controller* ctrl){
+	// FSM used when the robot pushes the kown excavation square with its gripper
 	double x_target, y_target, theta_target ; 
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
