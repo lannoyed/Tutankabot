@@ -4,3 +4,5 @@ Les conventions utilisées pour la cartes sont illustrée dans RepresentationCar
 
 Le fichier data.txt est généré par l'exécutable potential et peut être analysé par le fichier data.py 
 (Dans la version actuelle du code, la main a été désactivée) 
+
+Attention la version finale du potential field se trouve dans Code_final/
