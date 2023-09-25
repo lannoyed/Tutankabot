@@ -9,6 +9,7 @@
 // Mechatronics Project - LELME2002. 2021-2022.
 // For the reference in coordinate system : see the 'RepresentationCarte.png' file.
 
+// Used to attribue the team number of the robot
 enum {PURPLE, YELLOW} ; 
 
 
@@ -25,6 +26,7 @@ Potential_Field::Potential_Field(const std::tuple<double, double> &position) {
 }
 
 // Update function to get a new position.
+// Check if the robot have moved
 void Potential_Field::setPosition(const std::tuple<double, double> &position) {
     if ( fabs(std::get<0>(current_position) - std::get<0>(position)) <minimumPositionStep && fabs(std::get<1>(current_position) - std::get<1>(position)) <minimumPositionStep ){
         didntMove += 1;
@@ -34,7 +36,7 @@ void Potential_Field::setPosition(const std::tuple<double, double> &position) {
     current_position = position;
 }
 
-
+// Verify if the robot is on top of the goal
 bool Potential_Field::GoalTest() {
     double distanceToGoal = currentGoal.computeDistance(current_position);
     if (distanceToGoal <= precision) {
@@ -444,7 +446,7 @@ void Potential_Field::removeGoal() {
     listOfGoal.pop_back();
 }
 
-
+// Add itermediaire goal to avoid local minima, to smooth the robot trajectory, to avoid the robot beeing stuck
 void Potential_Field::addIntermediateGoal()
 {
     // Quandrant 1
@@ -1272,15 +1274,17 @@ void initGoalsTest(Potential_Field * myPotentialField, int teamNumber){
 	else {
 		if (teamNumber == YELLOW){
 			//myPotentialField->addGoal(std::make_tuple(1.7, 1.7), WEIGHT_GOAL, true);      // Goal de test pour exca square
-		    myPotentialField->addGoal(std::make_tuple(0.7, 0.45), 0, true);      			// Vitrine 
+		    myPotentialField->addGoal(std::make_tuple(1.3, 0.57), 0, true); 
+			myPotentialField->addGoal(std::make_tuple(0.7, 0.45), 0, true);      			// Vitrine 
 		    myPotentialField-> addGoal(std::make_tuple(1.3, 0.7), WEIGHT_GOAL, true);      	// Statuette 
-			myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.25);
+			myPotentialField->coordonneesBase = std::make_tuple(0.7, 0.2);
 			myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
 		}else{
 			//myPotentialField->addGoal(std::make_tuple(0.5, 2.5), 0, true);      // Goal de test.
-		    myPotentialField->addGoal(std::make_tuple(0.7, 2.55), 0, true);      			// Vitrine 
+		    myPotentialField->addGoal(std::make_tuple(1.25, 2.35), 0, true); 
+			myPotentialField->addGoal(std::make_tuple(0.6, 2.70), 0, true);      			// Vitrine 
 			myPotentialField->addGoal(std::make_tuple(1.3, 2.3), WEIGHT_GOAL, true);      // Goal de test.
-			myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.75);
+			myPotentialField->coordonneesBase = std::make_tuple(0.7, 2.85);
 			myPotentialField->coordStuck = std::make_tuple(1.0, 2.25);
 		}
 	}
@@ -1375,7 +1379,7 @@ std::tuple<double, double> Filter(std::tuple<double, double> opponentPosition, s
     return std::make_tuple(*ouput1_filtered, *output2_filtered);
 }
 
-
+// Used to create a txt file used to generate a 3D visalisation of the potential field with the Build/plot_visualisation.py file
 void visualisation_potential(double x_min, double x_max, double y_min, double y_max, double N_points, Potential_Field * myPotentialField){
     printf("Visualisation in progress \n");
     double x_iter = (x_max - x_min) / N_points; 

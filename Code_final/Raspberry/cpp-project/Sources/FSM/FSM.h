@@ -52,3 +52,4 @@ bool FSM_action_workshed(Controller* ctrl) ;
 bool FSM_action_statuette(Controller* ctrl) ;
 bool FSM_action_vitrine(Controller* ctrl) ;
 bool FSM_action_excavation_squares(Controller* ctrl) ;
+bool FSM_action_One_excavation_square(Controller* ctrl) ; 

@@ -1,5 +1,5 @@
 /*! 
- * \file ctrl_main_gr2.cc
+ * \file ctrl_main_gr4.cc
  * \brief Initialization, loop and finilization of the controller written in C (but compiled as C++)
  */
 
@@ -11,10 +11,9 @@
 
 # include "FSM.h"
 
-//# include "data.h"
+#define DONT_MOVE false // If true, the robot will calibrate but not move afterward
 
-unsigned char score = 69;
-unsigned char quarante = 40;
+//# include "data.h"
 
 
 
@@ -84,8 +83,7 @@ void FSM_init(Controller *cvs){
     double opponent1_y_filtered = 0.0;
     double opponent2_x_filtered = 0.0;
     double opponent2_y_filtered = 0.0;
-
-    //TO DO ATTENTION INIT 
+ 
     
     //speed_regulation_init(cvs) ; 	// Initialize the speed controller
     //localization_init(cvs) ;
@@ -93,11 +91,8 @@ void FSM_init(Controller *cvs){
     cvs->data = fopen("data.txt", "w");        
 
     myPotentialField = initPotentialField();
-	
-	#if VISUALISATION_TEST
-		visualisation_potential(-0.1, 2.1, -0.1, 3.1, 1000, &myPotentialField);
-		std::cout<<"heya hahahah \n";
-	#endif
+
+	//visualisation_potential(-0.5, 2.5, -0.5, 3.5, 1000, &myPotentialField);
 
     myFile = fopen("data_log.txt", "w");
     fprintf(myFile, "[x] [y] [Fr_x] [Fr_y] [Fa_x] [Fa_y] [v] [w] [Speed_x] [Speed_y] [distanceOpp] \n");
@@ -110,22 +105,21 @@ void FSM_init(Controller *cvs){
     
 	
 	cvs->state = 0;
-	
-	cvs->team = team_number;
-
-	#if TEST_POTENTIAL
+	if (TEST_POTENTIAL){
 		cvs->state = 1;
+		printf("Test_potential_field\n\n\n\n\n\n\n\n\n") ;  
 		initGoalsTest(&myPotentialField, cvs->team);
 		if (cvs->team){
 			cvs->theta = M_PI/2;
-			cvs->x = 0.53;
-			cvs->y = 0.3;
+			cvs->x = 0.7;
+			cvs->y = 0.25;
 		}else{
 			cvs->theta = -M_PI/2;
-			cvs->x = 0.67;
-			cvs->y = 2.79;
+			cvs->x = 0.7;
+			cvs->y = 2.75;
 		}
-	#endif
+	}
+    cvs->team = team_number;
 }
 
 /*! \brief controller loop (called every timestep)
@@ -133,6 +127,7 @@ void FSM_init(Controller *cvs){
  * \param[in] cvs controller main structure
  */
 void FSM_loop(Controller *cvs, double deltaT){
+	// This function is the main FSM that will govern whether the robot must calibrate, travel to a goal, perform an action, ... 
 	update_cord(cvs) ; 
     std::chrono::high_resolution_clock::time_point t10 = std::chrono::high_resolution_clock::now() ; 
 	std::chrono::high_resolution_clock::time_point t11 = std::chrono::high_resolution_clock::now() ; 
@@ -201,16 +196,17 @@ void FSM_loop(Controller *cvs, double deltaT){
     //std::cout<< "at case \n";
 
     switch (cvs->state) // cvs->state is a state stored in the controller main structure
+	// FSM
     {
-        case STATE_CALIBRATION:
+        case STATE_CALIBRATION: // Calibration state (before the match)
             //std::cout<<"CALIBRATION"<<"\n";
             //cvs->time = 0.0;
             
             odometryCalibration(cvs);
             number_sample = 0;
-			if(cvs->cord_present==0){
+			/*if(cvs->cord_present==0){
 				printf("Cordon plus là\n") ;
-			}
+			}*/
             if (cvs->time >= 0 && cvs->cord_present==0 ) {
                 myPotentialField.didntMove = 0;
                 myPotentialField.didntRotate = 0;
@@ -225,7 +221,7 @@ void FSM_loop(Controller *cvs, double deltaT){
             }
             break;
 
-        case STATE_GO2GOAL:
+        case STATE_GO2GOAL: // State during which the robot uses the potential field to travel to a goal 
             std::cout<<"TO GOAL"<<"\n";
             //std::cout << "Current goal at : (" << std::get<0>(myPotentialField.currentGoal.position) << "," << std::get<1>(myPotentialField.currentGoal.position) << ").\n";
 
@@ -298,6 +294,7 @@ void FSM_loop(Controller *cvs, double deltaT){
 
 
         case DO_ACTION:
+			// State when the robot has reached a goal and must perform an action 
             std::cout<<"ACTION"<<"\n";
             time_wait_init_waiting_for_target = 0.0;
             
@@ -307,6 +304,7 @@ void FSM_loop(Controller *cvs, double deltaT){
 			}
 			else {
 				if (cvs->opponent_on_my_way == 1) {
+					// The robot stops if the opponent is on its way
 					set_speed(cvs, 0.0, 0.0) ; 
 					action_finished = 0 ; 
 				} else {
@@ -395,8 +393,6 @@ void FSM_loop(Controller *cvs, double deltaT){
 		cvs->LockLidarVWRef.unlock();
     }
     
-	#if !MoveByHand
-
     t10 = std::chrono::high_resolution_clock::now() ; 
     speedConversion(cvs); 
 	t11 = std::chrono::high_resolution_clock::now() ; 
@@ -412,8 +408,6 @@ void FSM_loop(Controller *cvs, double deltaT){
     // Actualize the command of the motors to maintain a certain speed
 
 	speedControllerLoop(cvs->sc2) ;
-
-	#endif
      
     fprintf(myFileTracking, "%i %f %f \n",cvs->state, cvs->x, cvs->y ) ; 
 
@@ -428,14 +422,18 @@ void FSM_loop(Controller *cvs, double deltaT){
 
 // FSM DES ACTIONS 
 
-enum {WORKSHED, STATUETTE, VITRINE, ACTION_FINISHED, EXCAVATION_SQUARES} ; // FSM action states 
+enum {WORKSHED, STATUETTE, VITRINE, ACTION_FINISHED, ONE_EXCAVATION_SQUARE} ; // FSM action states 
 enum {WS_START, WS_SETPOS1, WS_SETPOS2, WS_YARMDOWN, WS_YARMDOWN2, WS_SETPOS3, WS_YARMUP, WS_YARMUP2, WS_SETPOS4, WS_SETPOS5, WS_SETPOS6, WS_SETPOS7, \
     WS_SETPOS8, WS_SETPOS9, WS_SETPOS10, WS_FINISH, GOALDOWN1, GOALDOWN2, GOALUP1, GOALUP2} ; //FSM action workshed states
 enum {STAT_START, STAT_SETPOS1, STAT_SETPOS2, STAT_SETPOS3, STAT_SETPOS4, STAT_OPENGRIPPER, STAT_CLOSEGRIPPER, STAT_FINISH, STAT_SETPOS5, STAT_PUSH_REPLICA, STAT_SETPOS6} ;
 enum {VIT_START, VIT_CLOSEGRIPPER, VIT_FINISH, VIT_OPENGRIPPER, VIT_SETPOS1, VIT_SETPOS2, VIT_SETPOS3, VIT_SETPOS4} ;
 enum {ES_START, ES_BT1, ES_BT2, ES_ENDPOS, ES_FINISH, ES_FT2, ES_FT3, ES_FT4, ES_FT5, ES_FT6, ES_FT7, ES_SETPOS1, ES_PUSH} ;
+enum {ONE_ES_START, ONE_ES_SETPOS1, ONE_ES_SETPOS2, ONE_ES_SETPOS3, ONE_ES_FINISH} ;
 
 bool FSM_action(Controller* ctrl){
+	// Function called when the robot must perform an action. 
+	// The order of the action that will be performed is defined here
+	sendScore(ctrl->score);
 	switch (ctrl->action_state) {
 		case WORKSHED : 
 			if(FSM_action_workshed(ctrl)){
@@ -454,15 +452,15 @@ bool FSM_action(Controller* ctrl){
 			}
 		case VITRINE :
 			if(FSM_action_vitrine(ctrl)){
-				ctrl->action_state = ACTION_FINISHED ; 
+				ctrl->action_state = ONE_EXCAVATION_SQUARE ; 
 				return true ; //return true pour action finished
 			} else {
 				return false ; 
 			}
-		case EXCAVATION_SQUARES :
-			printf("Excavation squares") ;
-			if(FSM_action_excavation_squares(ctrl)){
-				ctrl->action_state = ACTION_FINISHED ; 
+		case ONE_EXCAVATION_SQUARE :
+			printf("One excavation square") ;
+			if(FSM_action_One_excavation_square(ctrl)){
+				ctrl->action_state_one_exc_square = ACTION_FINISHED ; 
 				return true ; //return true pour action finished
 			} else {
 				return false ; 
@@ -474,267 +472,12 @@ bool FSM_action(Controller* ctrl){
 	}
 }
 
-bool FSM_action_workshed(Controller* ctrl){
-	double x_target, y_target, theta_target ; 
-	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
-	switch (ctrl->action_state_workshed) {
-		case WS_START :
-            sendScore(score);
-			printf("Workshed start\n") ; 
-			ctrl->action_state_workshed = WS_SETPOS1 ;			
-			return false  ; 
-		
-		case WS_SETPOS1 :
-			printf("Workshed set theta\n") ;
-			x_target = 1.55 ; 
-			y_target = 0.30 ; 
-			theta_target = -M_PI/4 ;
-			if ( fabs(ctrl->theta - theta_target) > 0.05){
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				make_angle(ctrl, theta_target) ;
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ; 
-			ctrl->first_time = 1 ; 
-			ctrl->action_state_workshed = WS_SETPOS2 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ;
-		
-		case WS_SETPOS2 : 
-			printf("Pos2\n") ;  
-			x_target = 1.623 ; //1.62 marche
-			y_target = 0.28 ; 
-			theta_target = -M_PI/4 ;
-
-            /**
-			if (Dt.count() > 6.0){
-				printf("Coucou\n") ; 
-				set_speed(ctrl, 0.0, 0.0) ;
-				ctrl->action_state_workshed = WS_YARMDOWN ;
-				ctrl->first_time = 1 ;
-				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-				return false ;
-			}
-            **/
-			if ((fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_workshed = WS_YARMDOWN ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-		
-		case WS_YARMDOWN :
-			printf("Gripper going down%f\n", Dt.count()) ; 
-			if (Dt.count() > 2.0){
-				ctrl->action_state_workshed = WS_SETPOS3 ;
-                ctrl->first_time = 1 ; 
-			}
-			if (ctrl->first_time == 1){
-				yarmDown() ; 
-				ctrl->first_time = 0 ; 
-			}
-			return false ; 
-			
-			
-		case WS_SETPOS3 : 
-			printf("Pos3\n") ;  
-			x_target = 1.417 ; 
-			y_target = 0.55 ; 
-			theta_target = -M_PI/4 ;
-			if (fabs(ctrl->y-y_target) > 0.001){
-                make_y(ctrl, y_target);
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ;  
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_workshed = WS_YARMUP ; 
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			ctrl->first_time = 1 ; 
-			return false ; 
-			
-		case WS_YARMUP : 
-
-            if (ctrl->first_time == 1){
-                yarmUp() ; 
-                ctrl->first_time = 0 ; 
-            }
-
-			if (Dt.count() > 1.0){
-				ctrl->action_state_workshed = GOALDOWN1 ; 
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-                ctrl->first_time = 1 ;  //pr le goal
-			}
-			printf("Gripper going up%f\n", Dt.count()) ; 
-			return false ;
-
-        case GOALDOWN1 : 
-
-            if (ctrl->first_time == 1){
-                goalDown() ; 
-                ctrl->first_time = 0 ; 
-            }
-            if (Dt.count() > 0.5){   //on le met après sinon on active la fonction une 2eme fois
-                ctrl->action_state_workshed = WS_SETPOS4 ; 
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-                ctrl->first_time = 1 ;
-            }
-            printf("Goal goes down%f\n", Dt.count() < 7.0) ; 
-            return false ; 
-			
-		case WS_SETPOS4 : 
-			printf("Pos4 \n") ; 
-            x_target = 1.58 ; 
-            y_target = 0.25 ; 
-            theta_target = -M_PI/4 ;
-			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 7.0)) {  //on attend 7 sec
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				return false  ; 
-			} 
-			set_speed(ctrl, 0.0, 0.0) ; 
-			ctrl->action_state_workshed = WS_SETPOS5 ; 
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-            ctrl->first_time = 1 ;
-			return false ;
-
-        case WS_SETPOS5 : 
-            printf("Pos5\n") ;   
-            y_target = 0.75 ; 
-            if (fabs(ctrl->y-y_target) > 0.001){
-                //make_y(ctrl,y_target) ;
-                make_y(ctrl, y_target);
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                return false  ;  
-            }
-            set_speed(ctrl, 0.0, 0.0) ;
-            ctrl->action_state_workshed = GOALUP1 ; 
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-            ctrl->first_time = 1 ; 
-            return false ;
-
-        case GOALUP1 : 
-
-            if (ctrl->first_time == 1){
-                goalUp() ; 
-                ctrl->first_time = 0 ; 
-            }
-            if (Dt.count() > 2.0){   //on le met après sinon on active la fonction une 2eme fois
-                ctrl->action_state_workshed = WS_SETPOS6 ; 
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-                ctrl->first_time = 1 ;
-            }
-            printf("Goal goes up%f\n", Dt.count()) ; 
-            return false ; 
-
-        case WS_SETPOS6 : 
-            printf("Pos6 \n") ; 
-            x_target = 1.835 ;
-            y_target = 0.515 ;
-            theta_target = -M_PI/4 ;
-            if (( (fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.01)) ){
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-                return false  ; 
-            } 
-            set_speed(ctrl, 0.0, 0.0) ; 
-            ctrl->action_state_workshed = WS_YARMDOWN2 ; 
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-            ctrl->first_time = 1 ; 
-            return false ;
-
-        case WS_YARMDOWN2 :
-            printf("Gripper going down%f\n", Dt.count()) ; 
-
-            if (ctrl->first_time == 1){
-                yarmDown() ; 
-                ctrl->first_time = 0 ; 
-            }
-
-            if (Dt.count() > 2.0){
-                ctrl->action_state_workshed = WS_SETPOS7 ;
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-                ctrl->first_time = 1 ;
-            }
-            return false ;
-
-        case WS_SETPOS7 : 
-            printf("Pos7 \n") ; 
-            y_target = 0.65 ;
-            if ( fabs(ctrl->y-y_target) > 0.001){
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                make_y(ctrl, y_target) ;
-                return false  ; 
-            } 
-            set_speed(ctrl, 0.0, 0.0) ; 
-            ctrl->action_state_workshed = WS_YARMUP2 ; 
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-            ctrl->first_time = 1 ; 
-            return false ;
-
-        case WS_YARMUP2 : 
-
-            if (ctrl->first_time == 1){
-                yarmUp() ; 
-                ctrl->first_time = 0 ; 
-            }
-
-            if (Dt.count() > 1.0){
-                ctrl->action_state_workshed = WS_SETPOS8 ; 
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-                ctrl->first_time = 1 ;
-            }
-            printf("Gripper going up%f\n", Dt.count()) ; 
-            return false ; 
-
-        case WS_SETPOS8 : 
-            printf("Pos8 \n") ; 
-            theta_target = M_PI/2 ;
-            if ( fabs(ctrl->theta - theta_target) > 0.05){
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                make_angle(ctrl, theta_target) ;
-                return false  ; 
-            } 
-            set_speed(ctrl, 0.0, 0.0) ; 
-            ctrl->action_state_workshed = WS_SETPOS9 ;
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
-            return false ;
-
-        case WS_SETPOS9 : 
-            printf("Pos9 \n") ; 
-            x_target = 1 ; 
-            y_target = 1.5 ; 
-            theta_target = M_PI/2 ;
-            if ((fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.05)){
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-                return false  ; 
-            } 
-            set_speed(ctrl, 0.0, 0.0) ; 
-            ctrl->action_state_workshed = WS_FINISH ;
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-            return false ;
-
-		case WS_FINISH :
-			
-			return true ; 
-			
-		default : 
-			printf("Aie aie aie \n") ; 
-			return true ; 
-	}
-}
-
 bool FSM_action_statuette(Controller* ctrl){
+	// FSM For the action during which the robot takes the statuette and puts the replica on the pedestal
 	double x_target, y_target, theta_target ; 
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta, val_SETPOS5_x, val_SETPOS5_y, val_SETPOS5_theta, val_SETPOS6_x, val_SETPOS6_y, val_SETPOS6_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
-	unsigned char quarante ; 
 	if (ctrl->team == 0){ //Team purple
 		val_SETPOS1_x = 1.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI/4 ;
 		val_SETPOS2_x = 1.722,	 	val_SETPOS2_y = 2.663, 		val_SETPOS2_theta = M_PI/4 ;
@@ -750,7 +493,7 @@ bool FSM_action_statuette(Controller* ctrl){
 	}
 	switch (ctrl->action_state_statuette) {
 		case STAT_START :
-            //sendScore(score);
+            //sendScore(ctrl->score);
 			printf("Statuette start\n") ; 
 			ctrl->action_state_statuette = STAT_SETPOS1 ;			
 			return false  ; 
@@ -812,6 +555,8 @@ bool FSM_action_statuette(Controller* ctrl){
             set_speed(ctrl, 0.0, 0.0) ; 
 			if (ctrl->first_time == 1){
                 gripperClose() ; 
+				ctrl->score += 5 ;
+				sendScore(ctrl->score) ;
                 ctrl->first_time = 0 ; 
             }
 
@@ -833,7 +578,7 @@ bool FSM_action_statuette(Controller* ctrl){
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
 			}
-			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.01)){
+			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1)){
                 make_pos_backward(ctrl, x_target, y_target, theta_target) ;
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 				return false  ;  
@@ -850,12 +595,12 @@ bool FSM_action_statuette(Controller* ctrl){
             y_target = val_SETPOS5_y ; 
             theta_target = val_SETPOS5_theta ;
 			
-			if (Dt.count() > 10.0){
+			if (Dt.count() > 11.0){
 				ctrl->action_state_statuette = STAT_PUSH_REPLICA ; 
                 ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
                 ctrl->first_time = 1 ;  //pr le goal
 			}
-			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 7.0)) {  //on attend 7 sec
+			if ( (fabs(ctrl->y-y_target) > 0.003 || fabs(ctrl->x - x_target) > 0.003 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 7.0)) {  //on attend 7 sec
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 				make_pos_forward(ctrl, x_target, y_target, theta_target) ;
 				return false  ; 
@@ -871,6 +616,8 @@ bool FSM_action_statuette(Controller* ctrl){
 			set_speed(ctrl, 0.0, 0.0) ; 
 			if (ctrl->first_time == 1){
                 pushReplica() ; 
+				ctrl->score += 10 ;
+				sendScore(ctrl->score) ;
                 ctrl->first_time = 0 ; 
             }
 
@@ -888,7 +635,7 @@ bool FSM_action_statuette(Controller* ctrl){
             y_target = val_SETPOS4_y ; 
             theta_target = val_SETPOS4_theta ;
 
-			if ( (fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 5.0)) {  //on attend 7 sec
+			if ( (fabs(ctrl->y-y_target) > 0.05 || fabs(ctrl->x - x_target) > 0.05 || fabs(ctrl->theta - theta_target) > 0.1) && (Dt.count() < 5.0)) {  //on attend 7 sec
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ;
 				if (ctrl->team == 1) {
 					make_pos_backward(ctrl,x_target, y_target, theta_target) ;
@@ -905,11 +652,7 @@ bool FSM_action_statuette(Controller* ctrl){
 			return false ;
 
 		case STAT_FINISH :
-		
-			quarante = 40;
-		
-		    sendScore(quarante);
-			
+		    printf("Statuette finished\n") ; 
 			return true ; 
 			
 		default : 
@@ -919,24 +662,24 @@ bool FSM_action_statuette(Controller* ctrl){
 }
 
 bool FSM_action_vitrine(Controller* ctrl){
+	// FSM used when the robot puts the statuette in the display cabinet 
 	double x_target, y_target, theta_target ; 
 	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
 	if (ctrl->team == 0){
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = -M_PI ;
-		val_SETPOS2_x = 0.085, 		val_SETPOS2_y = 2.872, 		val_SETPOS2_theta = -M_PI ;
+		val_SETPOS2_x = 0.085, 		val_SETPOS2_y = 2.871, 		val_SETPOS2_theta = -M_PI ;
 		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 2.84, 		val_SETPOS3_theta = -M_PI ;
 		val_SETPOS4_x = 0.0, 		val_SETPOS4_y = 0.0,		val_SETPOS4_theta = 0.1 ;		
 	}else{
 		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 0.5, 		val_SETPOS1_theta = -M_PI; // Make angle 
-		val_SETPOS2_x = 0.11, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI; // Make pos 
+		val_SETPOS2_x = 0.10, 		val_SETPOS2_y = 0.285, 		val_SETPOS2_theta = -M_PI; // Make pos 
 		val_SETPOS3_x = 0.3, 		val_SETPOS3_y = 0.29, 		val_SETPOS3_theta = -M_PI;
 		val_SETPOS4_x = 0, 			val_SETPOS4_y = 0, 			val_SETPOS4_theta = -M_PI/4;	
 	}
 	switch (ctrl->action_state_vitrine) {
 		case VIT_START :
-            sendScore(score);
 			printf("Vitrine start\n") ; 
 			ctrl->action_state_vitrine = VIT_SETPOS1 ;	
 			ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
@@ -970,14 +713,14 @@ bool FSM_action_vitrine(Controller* ctrl){
 			x_target = val_SETPOS2_x ; //1.62 marche
 			y_target = val_SETPOS2_y ; 
 			theta_target = val_SETPOS2_theta ;
-			if (Dt.count() > 7.0){
+			if (Dt.count() > 8.0){
 				set_speed(ctrl, 0.0, 0.0) ;
 				ctrl->action_state_vitrine = VIT_OPENGRIPPER ;
 				ctrl->first_time = 1 ;
 				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
 				return false ; 
 			}
-			if ((fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.01)){
+			if ((fabs(ctrl->y-y_target) > 0.003 || fabs(ctrl->x - x_target) > 0.003 || fabs(ctrl->theta - theta_target) > 0.01)){
 				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 				return false  ; 
@@ -998,6 +741,8 @@ bool FSM_action_vitrine(Controller* ctrl){
 			}
 			if (ctrl->first_time == 1){
 				gripperOpen() ; 
+				ctrl->score += 20 ;
+				sendScore(ctrl->score) ;
 				ctrl->first_time = 0 ; 
 			}
 			return false ; 
@@ -1064,41 +809,31 @@ bool FSM_action_vitrine(Controller* ctrl){
 			return true ; 
 	}
 }
-bool FSM_action_excavation_squares(Controller* ctrl){
+bool FSM_action_One_excavation_square(Controller* ctrl){
+	// FSM used when the robot pushes the kown excavation square with its gripper
 	double x_target, y_target, theta_target ; 
-	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta, val_SETPOS4_x, val_SETPOS4_y, val_SETPOS4_theta ;
-	double val_SETPOS5_x, val_SETPOS5_y, val_SETPOS5_theta, val_SETPOS6_x, val_SETPOS6_y, val_SETPOS6_theta, val_SETPOS7_x, val_SETPOS7_y, val_SETPOS7_theta, val_SETPOS8_x, val_SETPOS8_y, val_SETPOS8_theta ;
+	double val_SETPOS1_x, val_SETPOS1_y, val_SETPOS1_theta, val_SETPOS2_x, val_SETPOS2_y, val_SETPOS2_theta, val_SETPOS3_x, val_SETPOS3_y, val_SETPOS3_theta ;
 	std::chrono::high_resolution_clock::time_point t_action = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> Dt = std::chrono::duration_cast<std::chrono::duration<double>> (t_action-ctrl->action_t_flag);
-	if (ctrl->team == 0){
-		val_SETPOS1_x = 0.5, 		val_SETPOS1_y = 2.5, 		val_SETPOS1_theta = M_PI ;
-		val_SETPOS2_x = 0.04, 		val_SETPOS2_y = 2.68, 		val_SETPOS2_theta = M_PI ;
-		val_SETPOS3_x = 0.5, 		val_SETPOS3_y = 2.68, 		val_SETPOS3_theta = -M_PI/2 ;
-		val_SETPOS4_x = 0.5, 		val_SETPOS4_y = 2.68,		val_SETPOS4_theta = 0.0 ;	
-		val_SETPOS5_x = 0.5, 		val_SETPOS5_y = 2.5, 		val_SETPOS5_theta = M_PI ;
-		val_SETPOS6_x = 0.04, 		val_SETPOS6_y = 2.68, 		val_SETPOS6_theta = M_PI ;
-		val_SETPOS7_x = 0.5, 		val_SETPOS7_y = 2.68, 		val_SETPOS7_theta = -M_PI/2 ;
-		val_SETPOS8_x = 0.5, 		val_SETPOS8_y = 2.68,		val_SETPOS8_theta = 0.0 ;	
+	if (ctrl->team == 0){ //purple
+		val_SETPOS1_x = 1.2, 		val_SETPOS1_y = 2.15, 		val_SETPOS1_theta = 0.0 ;
+		val_SETPOS2_x = 1.95, 		val_SETPOS2_y = 2.138, 		val_SETPOS2_theta = 0.0 ;
+		val_SETPOS3_x = 1.2, 		val_SETPOS3_y = 2.15, 		val_SETPOS3_theta = M_PI/2 ;
 	}else{
-		val_SETPOS1_x = 0, 		val_SETPOS1_y = 0, 		val_SETPOS1_theta = M_PI/2 ;
-		val_SETPOS2_x = 1.806, 		val_SETPOS2_y = 0.750, 		val_SETPOS2_theta = M_PI/2 ;
-        val_SETPOS3_x = 1.806,       val_SETPOS3_y = 0.950,      val_SETPOS3_theta = M_PI/2 ;
-		val_SETPOS4_x = 1.785, 		val_SETPOS4_y = 1.136,		val_SETPOS4_theta = M_PI/2 ;	
-		val_SETPOS5_x = 1.778, 		val_SETPOS5_y = 1.337, 		val_SETPOS5_theta = M_PI/2 ;
-		val_SETPOS6_x = 1.773, 		val_SETPOS6_y = 1.528, 		val_SETPOS6_theta = M_PI/2 ;
-		val_SETPOS7_x = 1.769, 		val_SETPOS7_y = 1.706, 		val_SETPOS7_theta = M_PI/2 ;
-		val_SETPOS8_x = 1.763, 		val_SETPOS8_y = 1.901,		val_SETPOS8_theta = M_PI/2 ;	
+		val_SETPOS1_x = 1.2, 		val_SETPOS1_y = 0.85, 		val_SETPOS1_theta = 0.0 ;
+		val_SETPOS2_x = 1.95, 		val_SETPOS2_y = 0.80, 	val_SETPOS2_theta = 0.0 ;
+        val_SETPOS3_x = 1.2,      	val_SETPOS3_y = 0.85,      val_SETPOS3_theta = -M_PI/2 ;
 	}
-	switch (ctrl->action_state_exc_square) {
-		case ES_START :
-            sendScore(score);
-			printf("Excavation start\n") ; 
-			ctrl->action_state_exc_square = ES_SETPOS1 ;	
+	switch (ctrl->action_state_one_exc_square) {
+		case ONE_ES_START :
+            sendScore(ctrl->score);
+			printf("One excavation start\n") ; 
+			ctrl->action_state_one_exc_square = ONE_ES_SETPOS1 ;	
 			ctrl->action_t_flag = std::chrono::high_resolution_clock::now();
 			return false  ; 
 		
-		case ES_SETPOS1 :
-			printf("Excavation set theta, %f\n", Dt.count()) ;
+		case ONE_ES_SETPOS1 :
+			printf("One excavation set theta, %f\n", Dt.count()) ;
 			x_target = val_SETPOS1_x ; 
 			y_target = val_SETPOS1_y ; 
 			theta_target = val_SETPOS1_theta ;
@@ -1110,166 +845,61 @@ bool FSM_action_excavation_squares(Controller* ctrl){
 			}
 			set_speed(ctrl, 0.0, 0.0) ; 
 			ctrl->first_time = 1 ; 
-			ctrl->action_state_exc_square = ES_BT2;
+			ctrl->action_state_one_exc_square = ONE_ES_SETPOS2;
 			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
 			return false ;
 		
-		case ES_BT2 : 
-			printf("BT2\n") ;  
-			x_target = val_SETPOS3_x ; //1.62 marche
+		case ONE_ES_SETPOS2 : 
+			printf("One excavation pos2\n") ;  
+			x_target = val_SETPOS2_x ;
+			y_target = val_SETPOS2_y ; 
+			theta_target = val_SETPOS2_theta ;
+			if (Dt.count() > 7.0){
+				set_speed(ctrl, 0.0, 0.0) ;
+				ctrl->action_state_one_exc_square = ONE_ES_SETPOS3 ;
+				ctrl->first_time = 1 ;
+				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+				return false ; 
+			}
+			if ((fabs(ctrl->y-y_target) > 0.001 || fabs(ctrl->x - x_target) > 0.001 || fabs(ctrl->theta - theta_target) > 0.01)){
+				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
+				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
+				return false  ; 
+			}
+			set_speed(ctrl, 0.0, 0.0) ;
+			ctrl->action_state_one_exc_square = ONE_ES_SETPOS3 ;
+			ctrl->first_time = 1 ;
+			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+			
+			return false ; 
+		
+		case ONE_ES_SETPOS3 : 
+			printf("One excavation pos3\n") ;  
+			x_target = val_SETPOS3_x ; 
 			y_target = val_SETPOS3_y ; 
 			theta_target = val_SETPOS3_theta ;
-
-			if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_backward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
+			if (Dt.count() > 2.0){
+				set_speed(ctrl, 0.0, 0.0) ;
+				ctrl->action_state_one_exc_square = ONE_ES_FINISH ; 
+				ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+				ctrl->first_time = 1 ; 
+				return false ; 
 			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_PUSH ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-
-        case ES_PUSH : 
-            printf("PUSH\n") ; 
-
-            if(ctrl->first_time == 1){
-                pushExcavationSquare();
-                ctrl->first_time = 0;
-            } 
-
-            if (Dt.count() > 7.0){
-                ctrl->action_state_exc_square = ES_ENDPOS ;
-                ctrl->first_time = 1 ;
-                ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-                return false ;  
-            } 
-            return false;
-
-        case ES_ENDPOS : 
-            printf("FT2\n") ;  
-            x_target = 1.7;
-            y_target = 1.9 ; 
-            theta_target = M_PI/2 ;
-
-            if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.1)){
-                make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                return false  ; 
-            }
-            set_speed(ctrl, 0.0, 0.0) ;
-            ctrl->action_state_exc_square = ES_FINISH ;
-            ctrl->first_time = 1 ;
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-            return false ;
-
-        case ES_FT2 : 
-            printf("FT2\n") ;  
-            x_target = val_SETPOS3_x ;
-            y_target = val_SETPOS3_y ; 
-            theta_target = val_SETPOS3_theta ;
-
-            if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.1)){
-                make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-                printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-                return false  ; 
-            }
-            set_speed(ctrl, 0.0, 0.0) ;
-            ctrl->action_state_exc_square = ES_FT3 ;
-            ctrl->first_time = 1 ;
-            ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-            return false ; 
-		
-		case ES_FT3 : 
-			printf("FT3\n") ;  
-			x_target = val_SETPOS4_x ; //1.62 marche
-			y_target = val_SETPOS4_y ; 
-			theta_target = val_SETPOS4_theta ;
-
 			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
+                make_pos_backward(ctrl, x_target, y_target, theta_target);
 				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
+				return false  ;  
 			}
 			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_FT4 ;
-			ctrl->first_time = 1 ;
+			ctrl->action_state_one_exc_square = ONE_ES_FINISH ; 
 			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
+			ctrl->first_time = 1 ; 
 			return false ; 
-		
-		case ES_FT4 : 
-			printf("FT4\n") ;  
-			x_target = val_SETPOS5_x ; //1.62 marche
-			y_target = val_SETPOS5_y ; 
-			theta_target = val_SETPOS5_theta ;
-
-
-			if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_FT5 ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-		
-		case ES_FT5 : 
-			printf("FT5\n") ;  
-			x_target = val_SETPOS6_x ; //1.62 marche
-			y_target = val_SETPOS6_y ; 
-			theta_target = val_SETPOS6_theta ;
-
-
-			if ((fabs(ctrl->y-y_target) > 0.01 || fabs(ctrl->x - x_target) > 0.01 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_FT6 ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-		
-		case ES_FT6 : 
-			printf("FT6\n") ;  
-			x_target = val_SETPOS7_x ; //1.62 marche
-			y_target = val_SETPOS7_y ; 
-			theta_target = val_SETPOS7_theta ;
-
-			if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_FT7 ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-		
-		case ES_FT7 : 
-			printf("FT7\n") ;  
-			x_target = val_SETPOS8_x ; //1.62 marche
-			y_target = val_SETPOS8_y ; 
-			theta_target = val_SETPOS8_theta ;
-
-			if ((fabs(ctrl->y-y_target) > 0.005 || fabs(ctrl->x - x_target) > 0.005 || fabs(ctrl->theta - theta_target) > 0.01)){
-				make_pos_forward(ctrl,x_target, y_target, theta_target) ;
-				printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
-				return false  ; 
-			}
-			set_speed(ctrl, 0.0, 0.0) ;
-			ctrl->action_state_exc_square = ES_FINISH ;
-			ctrl->first_time = 1 ;
-			ctrl->action_t_flag = std::chrono::high_resolution_clock::now(); 
-			return false ; 
-		
-		case ES_FINISH :
-			printf("Vitrine finished\n") ; 
+			
+		case ONE_ES_FINISH :
+			printf("One excavation finished\n") ; 
+			ctrl->score += 11 ;
+			sendScore(ctrl->score) ;
 			return true ; 
 			
 		default : 

@@ -45,6 +45,8 @@ typedef struct{
 	int action_state_statuette ;
 	int action_state_vitrine ;
 	int action_state_exc_square ;
+	int action_state_one_exc_square ; 
+	unsigned char score ;
 	double alpha0 ; 
 	int first_time ; 
 	double time; 

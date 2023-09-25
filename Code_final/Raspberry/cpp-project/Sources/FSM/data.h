@@ -4,8 +4,8 @@
 # include "MainController.h"
 
 // Time of game
-#define time_return 100.0
-#define time_stop 200.0
+#define time_return 1000.0
+#define time_stop 1000.0
 #define periode_lidar 0.2
 
 
@@ -18,7 +18,7 @@
 
                                             // sur place, ou alors on la joue safe et on met la même dimension "max" pour tous les robots.
 #define sampleRadius        0.075           // Rayon d'un sample.
-#define precision           0.075           // Permet de savoir si on a atteint un goal.
+#define precision           0.2           // Permet de savoir si on a atteint un goal.
 
 // To know if we are stucks
 #define minimumPositionStep 0.00001
@@ -41,7 +41,7 @@
 
 //MAP
 #define rho0_map    0.6
-#define krep_map    1e-1*coef*0.19 /2.0
+#define krep_map    1e-1*coef*0.19
 
 
 //OPPONENT
@@ -50,7 +50,7 @@
 #define krep_opponent   0.02*coef
 #define hitbox_opponent 0.05
 #define numborOfPoints  20  
-#define radiusModelisationOpponent 0.2 
+#define radiusModelisationOpponent 0.10 
 //HITBOX GÉNÉRALE DES OBSTACLES : modifiable. TAG.
 #define hitbox_obstacle 0.0
 
@@ -65,18 +65,18 @@
 #define global_vMax 0.12
 #define global_wMax 1.5
 
-#define MINMUM_DISTANCE 0.01
 
 // controle du type de partie 
 #define team_number 0 // 0 PURPLE or 1 YELLOW
 
+#define MINMUM_DISTANCE 0.01
+#define TEST_POTENTIAL 0
+
 // hardcoded ennemy 
-#define NON_LIDAR_DETECTION false
+#define NON_LIDAR_DETECTION 0
 #define HardOppX 0.79 
 #define HardOppY 2.1
 
-// write the repulsive potential field in myPotentialField.txt  (Safer if neither Don't move = true or )
-#define VISUALISATION_TEST false
 
 // write Sonars data in SonarLog.txt
 #define Sonar true
@@ -102,3 +102,6 @@ DONT_MOVE true
 TEST_POTENTIAL false 
 MoveByHand false
 */
+#define VISUALISATION_TEST 0
+
+#define DONT_MOVE false 
