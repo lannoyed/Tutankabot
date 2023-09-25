@@ -19,7 +19,10 @@ In this section, we list the important files related to the CAN protocol impleme
 ## Explanation of CAN Messages
 CAN messages are structured as follows:
 
+
+~~~~
 cansend <device> <recipient ID>#<message>
+~~~~
 
 For this project, communication is established with a motor driver equipped with the MCP2515 chip. 
 The address used is 708, and the device is can0. 
