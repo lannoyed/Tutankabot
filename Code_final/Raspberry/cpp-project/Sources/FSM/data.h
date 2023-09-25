@@ -79,10 +79,10 @@
 #define VISUALISATION_TEST false
 
 // write Sonars data in SonarLog.txt
-#define Sonar false
+#define Sonar true
 
 // Enable the Motion FSM control
-#define FSM true
+#define FSM false
 
 // Set speed to 0 (need FSM = true)
 #define DONT_MOVE false // J'ai changé un peu le code pour qu'il se calibre quand meme mais qu'il ne bouge plus après (Le plus bg des codeurs) 
@@ -91,7 +91,7 @@
 #define TEST_POTENTIAL false
 
 // remove the wheels resistance to movement 
-#define MoveByHand false
+#define MoveByHand true
 
 /* NORMAL RUN : 
 NON_LIDAR_DETECTION false 

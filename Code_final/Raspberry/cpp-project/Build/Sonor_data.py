@@ -86,4 +86,31 @@ plt.legend()
 plt.show()
 
 
+##############################################################
+#              Impact de l'angle d'observation               #
+##############################################################
+
+list_angle =[0, 30, 45, 60]
+list_distance = []
+
+for angle in list_angle:
+    data_sonar = np.genfromtxt('Sonar_'+str(angle)+'deg_40cm.txt',skip_footer=1, skip_header=1)
+    sonar2 = data_sonar[:,1]
+    val = sonar2.mean()
+    list_distance.append(val)
+
+plt.plot(list_angle, list_distance, color='blue')
+plt.scatter(list_angle, list_distance, color='blue', label='measured distance for a given angle')
+
+plt.plot([0,60], [0.4,0.4], label='real distance', color='orange')
+
+
+plt.xlabel('angle de mesure [°]')
+plt.ylabel('distance mesurée [m]')
+
+plt.legend()
+plt.show()
+
+
+
 

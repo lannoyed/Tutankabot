@@ -136,7 +136,7 @@ int main(int argc, char* argv){
 	std::thread lidar_thread(lidar_loop, std::ref(running), ctrl);
   
   int state_motor = 0;
-	while(Dt.count() < 20*1.0 && !(ctrl->state == 6) ){
+	while(Dt.count() < 200*1.0 && !(ctrl->state == 6) ){
 		
 		t1 = std::chrono::high_resolution_clock::now() ; 
 

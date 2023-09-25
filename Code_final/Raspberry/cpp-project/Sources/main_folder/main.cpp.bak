@@ -37,15 +37,9 @@ void lidar_loop (std::atomic_bool& running,  Controller* ctrl){
 
 	//std::cout<< "lock our \n";
 	ctrl->LockLidarOurPosition.lock();
-	//triangulation(ctrl);
-	double x_lidar = i + 0.0;
-	double y_lidar = i + 0.0;
-	double theta_lidar =i + 0.0;
-
-	ctrl->x_lidar = x_lidar;
-	ctrl->y_lidar = y_lidar;
-	ctrl->theta_lidar = theta_lidar;
-
+	ctrl->LockLidarOpponentPosition.lock();
+	fprintf(myThread, "%f %f %f %f \n", ctrl->x_opp, ctrl->y_opp, ctrl->x_lidar, ctrl->y_lidar);
+	ctrl->LockLidarOpponentPosition.unlock();
 	ctrl->LockLidarOurPosition.unlock();
 
   ctrl->LockLidarOurPosition.lock();
@@ -83,7 +77,8 @@ int main(int argc, char* argv){
 	std::cout<< "CAN initialized"<<"\n";
   
 	sendTheta(0,1) ; 
-	sendTheta(0,2) ; 
+	sendTheta(0,2) ;
+
 	std::cout<< "0 0 send to motors"<<"\n";   
  
 	Controller* ctrl ; 
@@ -91,6 +86,7 @@ int main(int argc, char* argv){
 	std::cout<< "Controleur initialized"<<"\n"; 
   
 	FSM_init(ctrl);
+	printf("Theta_initial = %f", ctrl->theta) ; 
 	std::cout<< "FSM initialized"<<"\n"; 
   
 	std::chrono::high_resolution_clock::time_point t0 = std::chrono::high_resolution_clock::now() ; 
@@ -106,12 +102,10 @@ int main(int argc, char* argv){
 	std::atomic<bool> running (true) ;
 	std::thread lidar_thread(lidar_loop, std::ref(running), ctrl);
  
-  std::cout<<"Threads created"<<"\n"; 
-
-	while(Dt.count() < 60.0){
+	while(Dt.count() < 15*60.0 && !(ctrl->state == 6) ){
  
-		FSM_loop(ctrl, 0.17);
-   
+		FSM_loop(ctrl, 0.17); 
+		//printf("x = %f\t y = %f\t theta = %f\n", ctrl->x, ctrl->y, ctrl->theta) ; 
 		fprintf(mainLog,"%f %f %f %f\n",ctrl->sc1->speed_mes, ctrl->sc2->speed_mes, ctrl->x, ctrl->y);
 		t2 = t1;
 		t1 = std::chrono::high_resolution_clock::now() ; 
@@ -119,7 +113,10 @@ int main(int argc, char* argv){
 		//std::cout<<"local time:   \t" << deltaT << "\n"; 
 		//std::cout<<"globale time: \t" << Dt.count() << "\n";
 		Dt = std::chrono::duration_cast<std::chrono::duration<double>>(t1-t0) ;
-    
+		
+		// NICO NICO
+		//set_speed(ctrl, 0.0, 0.1);
+		//ControllerLoop(ctrl);
     
 		double time_to_wait = 0.028 - deltaT;
 		if ( time_to_wait < 0) {
