@@ -26,7 +26,9 @@ Welcome to the Tutankabot Mechatronics Project repository! This project focuses 
 
 - **/Path_Planning/:** This directory includes a README file explaining the functionality and usage of the path planning system employed in the project.
 
-- **/Other folder/:** These directories hold code snippets developed during the project's development stages before integration into the final codebase. These snippets may offer simpler insights into specific functionalities but might have undergone changes in the final version.
+- **/Other folder/:** These directories hold code snippets developed during the project's development stages before integration into the final codebase. These snippets may offer simpler insights into specific functionalities but might have undergone changes in the final version. 
+
+REAME.md files should be preferred over README.txt files as the second ones were intended for internal communications.
 
 ## Getting Started
 
